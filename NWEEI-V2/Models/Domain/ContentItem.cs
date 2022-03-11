@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace NWEEI_V2.Models.Domain
+﻿namespace NWEEI_V2.Models
 {
-    public class ContentItem
+    public abstract class ContentItem
     {
+        public Category Category { get; set; }
+        public AppUser Author { get; set; }
+        public bool Published { get; set; }
+        public bool Featured { get; set; }
     }
 }
