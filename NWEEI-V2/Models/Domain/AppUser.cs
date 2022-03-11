@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TheDigitalToolbox.Models
+namespace NWEEI_V2.Models
 {
-    public class User : IdentityUser
+    public class AppUser : IdentityUser
     {
         public string Firstname { get; set; }
         public string Lastname { get; set; }
