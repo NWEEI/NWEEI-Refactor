@@ -28,7 +28,7 @@ namespace NWEEI_V2
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<NWEEIContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ToolBoxContext")));
+            services.AddDbContext<NWEEIContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MSSQLConnection")));
 
             services.AddMvc().AddSessionStateTempDataProvider();
 
