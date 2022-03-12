@@ -20,8 +20,7 @@ namespace NWEEI_V2.Models
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Please enter your date of birth.")]
-        [RegularExpression(@"^(0[1-9]|1[012])/(0[1-9]|[12][0-9]|3[01])/(20\d\d)$")]
+        [Required(ErrorMessage = "Please enter your date of birth.")] 
         public DateTime DateOfBirth { get; set; }
 
         public string Title { get; set; }
@@ -42,15 +41,16 @@ namespace NWEEI_V2.Models
         public string State { get; set; }
 
         [Required(ErrorMessage = "Please enter your zip code.")]
-        [StringLength(9)]
+        [RegularExpression(@"^[0-9]{5}$", ErrorMessage = "Invalid Zip")]
         public int ZipCode { get; set; }
 
         public string Country { get; set; }
 
+        [Phone]
         [Required(ErrorMessage = "Please enter your phone number.")]
-        public int Phone { get; set; }
+        public string Phone { get; set; }
 
-        public int Fax { get; set; }
+        public int? Fax { get; set; }
 
         public string Referral { get; set; }
 
