@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NWEEI_V2.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +27,17 @@ namespace NWEEI_V2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddDbContext<NWEEIContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ToolBoxContext")));
+
+            services.AddMvc().AddSessionStateTempDataProvider();
+
+            services.AddSession();
+
+            services.AddIdentity<AppUser, IdentityRole>(options => {
+                options.Password.RequiredLength = 9;
+            }).AddEntityFrameworkStores<NWEEIContext>()
+                .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,7 +58,10 @@ namespace NWEEI_V2
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

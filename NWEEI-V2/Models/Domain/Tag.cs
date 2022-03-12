@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NWEEI_V2.Models.Domain
+namespace NWEEI_V2.Models
 {
     public class Tag
     {
