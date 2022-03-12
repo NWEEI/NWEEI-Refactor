@@ -5,6 +5,7 @@ namespace NWEEI_V2.Models
 {
     public class Registration
     {
+        public int RegistrationID { get; set; }
         public string TrainingProgram { get; set; }
 
         [Required(ErrorMessage = "Please enter your first name.")]
