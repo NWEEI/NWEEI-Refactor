@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NWEEI_V2.Models;
 
 namespace NWEEI_V2.Migrations
 {
     [DbContext(typeof(NWEEIContext))]
-    partial class NWEEIContextModelSnapshot : ModelSnapshot
+    [Migration("20220312022734_FaxNOTrequired")]
+    partial class FaxNOTrequired
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -265,7 +267,7 @@ namespace NWEEI_V2.Migrations
                         {
                             ArticleID = 1,
                             Body = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. ",
-                            DateCreated = new DateTime(2022, 3, 11, 18, 37, 38, 82, DateTimeKind.Local).AddTicks(5815),
+                            DateCreated = new DateTime(2022, 3, 11, 18, 27, 33, 498, DateTimeKind.Local).AddTicks(2664),
                             Featured = true,
                             Published = true,
                             Title = "What is Lorem Ipsum?",
@@ -411,9 +413,8 @@ namespace NWEEI_V2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Phone")
+                        .HasColumnType("int");
 
                     b.Property<string>("Referral")
                         .HasColumnType("nvarchar(max)");
@@ -432,6 +433,7 @@ namespace NWEEI_V2.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ZipCode")
+                        .HasMaxLength(9)
                         .HasColumnType("int");
 
                     b.HasKey("RegistrationID");
