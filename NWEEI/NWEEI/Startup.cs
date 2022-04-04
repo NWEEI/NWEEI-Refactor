@@ -29,7 +29,7 @@ namespace NWEEI
         {
             services.AddDbContext<NWEEIContext>(options =>
                 options.UseSqlite(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("SQLiteConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -37,7 +37,7 @@ namespace NWEEI
             services.AddControllersWithViews();
 
             // database connection
-            services.AddDbContext<NWEEIContext>(options => options.UseSqlite(Configuration["ConnectionStrings:SQLiteConnection"]));
+            //services.AddDbContext<NWEEIContext>(options => options.UseSqlite(Configuration["ConnectionStrings:SQLiteConnection"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
