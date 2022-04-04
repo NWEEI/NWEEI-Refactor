@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NWEEI.Models
 {
-    public class AppUser
+    public class AppUser : IdentityUser
     {
         public string Firstname { get; set; }
         public string Lastname { get; set; }
