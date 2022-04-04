@@ -50,7 +50,7 @@ namespace NWEEI.Models
         [Required(ErrorMessage = "Please enter your phone number.")]
         public string Phone { get; set; }
 
-        public string? Fax { get; set; }
+        public string Fax { get; set; }
 
         public string Referral { get; set; }
 
