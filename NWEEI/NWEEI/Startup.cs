@@ -35,6 +35,9 @@ namespace NWEEI
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+
+            // database connection
+            services.AddDbContext<NWEEIContext>(options => options.UseSqlite(Configuration["ConnectionStrings:SQLiteConnection"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
