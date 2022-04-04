@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.810.20
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NWEEI", "NWEEI\NWEEI.csproj", "{42632F42-C434-430F-BDCB-38334CB98CB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NWEEI-Tests", "NWEEI-Tests\NWEEI-Tests.csproj", "{507B7761-67AE-48DC-865A-896EF5D7B6E9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{42632F42-C434-430F-BDCB-38334CB98CB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42632F42-C434-430F-BDCB-38334CB98CB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42632F42-C434-430F-BDCB-38334CB98CB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42632F42-C434-430F-BDCB-38334CB98CB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{507B7761-67AE-48DC-865A-896EF5D7B6E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{507B7761-67AE-48DC-865A-896EF5D7B6E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{507B7761-67AE-48DC-865A-896EF5D7B6E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{507B7761-67AE-48DC-865A-896EF5D7B6E9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9107734E-9B77-49FC-9693-9BD37A837BC1}
+	EndGlobalSection
+EndGlobal
