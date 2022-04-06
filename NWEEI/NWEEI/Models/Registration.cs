@@ -6,6 +6,9 @@ namespace NWEEI.Models
     public class Registration
     {
         public int RegistrationID { get; set; }
+
+        public DateTime DateSubmitted { get; set; }
+
         public string TrainingProgram { get; set; }
 
         [Required(ErrorMessage = "Please enter your first name.")]
