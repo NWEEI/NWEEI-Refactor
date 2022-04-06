@@ -10,7 +10,8 @@ namespace NWEEI.Models
         public DateTime DateCreated { get; set; }
         public AppUser Author { get; set; }
         public Category Category { get; set; }
-        public bool Published { get; set; }
+        public DateTime PublishDate { get; set; }
+        public bool IsPublished { get; set; }
         public bool Featured { get; set; }
         public int Views { get; set; }
     }

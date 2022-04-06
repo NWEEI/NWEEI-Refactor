@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NWEEI.Data;
 
-namespace NWEEI.Data.Migrations
+namespace NWEEI.Migrations
 {
     [DbContext(typeof(NWEEIContext))]
-    [Migration("20220404222204_InitialWithModels")]
-    partial class InitialWithModels
+    [Migration("20220406222222_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -241,8 +241,11 @@ namespace NWEEI.Data.Migrations
                     b.Property<bool>("Featured")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("Published")
+                    b.Property<bool>("IsPublished")
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("PublishDate")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
                         .HasColumnType("TEXT");
@@ -263,9 +266,10 @@ namespace NWEEI.Data.Migrations
                         {
                             ArticleID = 1,
                             Body = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. ",
-                            DateCreated = new DateTime(2022, 4, 4, 15, 22, 4, 387, DateTimeKind.Local).AddTicks(9650),
+                            DateCreated = new DateTime(2022, 4, 6, 15, 22, 22, 407, DateTimeKind.Local).AddTicks(4130),
                             Featured = true,
-                            Published = true,
+                            IsPublished = true,
+                            PublishDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "What is Lorem Ipsum?",
                             Views = 9001
                         });
@@ -371,6 +375,9 @@ namespace NWEEI.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateSubmitted")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")

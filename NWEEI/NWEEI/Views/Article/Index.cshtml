@@ -22,7 +22,10 @@
                 @Html.DisplayNameFor(model => model.DateCreated)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Published)
+                @Html.DisplayNameFor(model => model.PublishDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsPublished)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Featured)
@@ -46,7 +49,10 @@
                 @Html.DisplayFor(modelItem => item.DateCreated)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Published)
+                @Html.DisplayFor(modelItem => item.PublishDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsPublished)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Featured)
