@@ -22,7 +22,7 @@ namespace NWEEI.Controllers
         // GET: Registration
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Registrations.ToListAsync());
+            return View(await _context.Registrations.OrderByDescending(r => r.DateSubmitted).ToListAsync());
         }
 
         // GET: Registration/Details/5
