@@ -26,8 +26,9 @@ namespace NWEEI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
-                    Firstname = table.Column<string>(type: "TEXT", nullable: true),
-                    Lastname = table.Column<string>(type: "TEXT", nullable: true),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: true),
+                    LastName = table.Column<string>(type: "TEXT", nullable: true),
+                    DateRegistered = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
@@ -88,7 +89,7 @@ namespace NWEEI.Migrations
                     FirstName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
-                    DateOfBirth = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DateOfBirth = table.Column<string>(type: "TEXT", nullable: false),
                     Title = table.Column<string>(type: "TEXT", nullable: true),
                     Organization = table.Column<string>(type: "TEXT", nullable: true),
                     Address1 = table.Column<string>(type: "TEXT", maxLength: 30, nullable: false),
@@ -256,7 +257,8 @@ namespace NWEEI.Migrations
                     Question = table.Column<string>(type: "TEXT", nullable: true),
                     Answer = table.Column<string>(type: "TEXT", nullable: true),
                     CategoryID = table.Column<int>(type: "INTEGER", nullable: true),
-                    Published = table.Column<bool>(type: "INTEGER", nullable: false),
+                    PublishDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    IsPublished = table.Column<bool>(type: "INTEGER", nullable: false),
                     Featured = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -293,7 +295,7 @@ namespace NWEEI.Migrations
             migrationBuilder.InsertData(
                 table: "Articles",
                 columns: new[] { "ArticleID", "AuthorId", "Body", "CategoryID", "DateCreated", "Featured", "IsPublished", "PublishDate", "Title", "Views" },
-                values: new object[] { 1, null, "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. ", null, new DateTime(2022, 4, 6, 15, 22, 22, 407, DateTimeKind.Local).AddTicks(4130), true, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "What is Lorem Ipsum?", 9001 });
+                values: new object[] { 1, null, "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. ", null, new DateTime(2022, 4, 12, 14, 53, 30, 667, DateTimeKind.Local).AddTicks(170), true, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "What is Lorem Ipsum?", 9001 });
 
             migrationBuilder.InsertData(
                 table: "Categories",

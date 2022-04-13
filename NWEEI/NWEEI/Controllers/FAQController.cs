@@ -54,7 +54,7 @@ namespace NWEEI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FAQID,Question,Answer,Published,Featured")] FAQ fAQ)
+        public async Task<IActionResult> Create([Bind("FAQID,Question,Answer,IsPublished,Featured")] FAQ fAQ)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace NWEEI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FAQID,Question,Answer,Published,Featured")] FAQ fAQ)
+        public async Task<IActionResult> Edit(int id, [Bind("FAQID,Question,Answer,IsPublished,Featured")] FAQ fAQ)
         {
             if (id != fAQ.FAQID)
             {

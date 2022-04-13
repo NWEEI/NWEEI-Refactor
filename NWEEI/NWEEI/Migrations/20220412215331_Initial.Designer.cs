@@ -9,7 +9,7 @@ using NWEEI.Data;
 namespace NWEEI.Migrations
 {
     [DbContext(typeof(NWEEIContext))]
-    [Migration("20220406222222_Initial")]
+    [Migration("20220412215331_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -162,6 +162,9 @@ namespace NWEEI.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("DateRegistered")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
@@ -169,10 +172,10 @@ namespace NWEEI.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Firstname")
+                    b.Property<string>("FirstName")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Lastname")
+                    b.Property<string>("LastName")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("LockoutEnabled")
@@ -266,7 +269,7 @@ namespace NWEEI.Migrations
                         {
                             ArticleID = 1,
                             Body = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. ",
-                            DateCreated = new DateTime(2022, 4, 6, 15, 22, 22, 407, DateTimeKind.Local).AddTicks(4130),
+                            DateCreated = new DateTime(2022, 4, 12, 14, 53, 30, 667, DateTimeKind.Local).AddTicks(170),
                             Featured = true,
                             IsPublished = true,
                             PublishDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -313,8 +316,11 @@ namespace NWEEI.Migrations
                     b.Property<bool>("Featured")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("Published")
+                    b.Property<bool>("IsPublished")
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("PublishDate")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Question")
                         .HasColumnType("TEXT");
@@ -374,7 +380,8 @@ namespace NWEEI.Migrations
                     b.Property<string>("Country")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DateOfBirth")
+                    b.Property<string>("DateOfBirth")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DateSubmitted")
