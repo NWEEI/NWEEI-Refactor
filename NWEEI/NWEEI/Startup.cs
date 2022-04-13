@@ -34,7 +34,7 @@ namespace NWEEI
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<NWEEIContext>();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             // database connection
             //services.AddDbContext<NWEEIContext>(options => options.UseSqlite(Configuration["ConnectionStrings:SQLiteConnection"]));
