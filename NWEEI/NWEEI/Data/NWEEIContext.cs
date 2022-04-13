@@ -8,7 +8,7 @@ using NWEEI.Models;
 
 namespace NWEEI.Data
 {
-    public class NWEEIContext : IdentityDbContext<AppUser>
+    public class NWEEIContext : IdentityDbContext<IdentityUser>
     {
         public NWEEIContext(DbContextOptions<NWEEIContext> options) : base(options) { }
         public DbSet<AppUser> AppUsers { get; set; }

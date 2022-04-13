@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -29,6 +31,11 @@
                 <span><a class="text-dark" asp-controller="Programs" asp-action="Certificates">Certificates</a></span>
                 <span><a class="text-dark" asp-controller="Resources" asp-action="Index">Resources</a></span>
                 <span><a class="text-dark" asp-controller="Registration" asp-action="Index">Register</a></span>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <span><a class="text-dark" asp-controller="AppUser" asp-action="Index">Admin</a></span>
+                }
+
 
                 <!-- admin menu option only displayed to users who are logged in and have the appropriate access -->
                 @if (User.IsInRole("Admin"))
@@ -87,9 +94,9 @@
     </div>
     <!-- END PAGE CONTENT CONTAINER -->
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted bg-dark">
         <div class="container">
-            &copy; 2022 - NWEEI - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <partial name="_LoginPartial" />
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
