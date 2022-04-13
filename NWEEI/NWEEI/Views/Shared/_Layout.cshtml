@@ -9,36 +9,83 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light mb-3 p-0" style="height: 15vh;">
-            <img src="~/images/NWEEI-Wave.png" style="pointer-events: none; position: absolute; max-width: 100%; z-index: -1; align-self: flex-start;" />
-            <div class="container" style="align-self: flex-start;">
-                <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">NWEEI</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Registration" asp-action="Index">Registrations</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
-                </div>
+
+        <!-- swoop and hero image -->
+        <div class="header-content">
+            <img class="swoop" src="~/images/NWEEI-Wave.png" />
+
+            <!-- placeholder hero image -->
+            <img class="hero" src="https://www.sciencealert.com/images/2019-04/processed/lightning_bolts_needles_1024.jpg" />
+        </div>
+
+
+        <!-- BEGIN NAVIGATION -->
+        <nav>
+            <!-- top-level navigation menu -->
+            <div class="navigation">
+                <span><a class="text-dark" asp-controller="Home" asp-action="Index">Home</a></span>
+                <span><a class="text-dark" asp-controller="About" asp-action="Index">About</a></span>
+                <span><a class="text-dark" asp-controller="Programs" asp-action="Degrees">Degrees</a></span>
+                <span><a class="text-dark" asp-controller="Programs" asp-action="Certificates">Certificates</a></span>
+                <span><a class="text-dark" asp-controller="Resources" asp-action="Index">Resources</a></span>
+                <span><a class="text-dark" asp-controller="Registration" asp-action="Index">Register</a></span>
+
+                <!-- admin menu option only displayed to users who are logged in and have the appropriate access -->
+                @if (User.IsInRole("Admin"))
+                {
+                    <span><a class="text-dark" asp-controller="AppUser" asp-action="Index">Admin</a></span>
+                }
+            </div>
+
+            <!-- sub navigation menu (dynamic) -->
+            <div class="sub-navigation">
+                @if (@ViewBag.Current == "Home")
+                {
+                    <span><a class="text-dark" asp-controller="Home" asp-action="Index">Contact Us</a></span>
+                    <span><a class="text-dark" asp-controller="Registration" asp-action="Index">Register</a></span>
+                }
+                else if (ViewBag.Current == "About")
+                {
+                    <span><a class="text-dark" asp-controller="About" asp-action="Index">Mission & History</a></span>
+                    <span><a class="text-dark" asp-controller="About" asp-action="Index">Instructors</a></span>
+                    <span><a class="text-dark" asp-controller="About" asp-action="Index">Staff</a></span>
+                }
+                else if (ViewBag.Current == "Degrees")
+                {
+                    <span><a class="text-dark" asp-controller="Programs" asp-action="Index">Energy Management</a></span>
+                    <span><a class="text-dark" asp-controller="Programs" asp-action="Index">Building Controls</a></span>
+                    <span><a class="text-dark" asp-controller="Programs" asp-action="Index">Water Conservation</a></span>
+                }
+                else if (ViewBag.Current == "Certificates")
+                {
+                    <span><a class="text-dark" asp-controller="Programs" asp-action="Index">Energy Management</a></span>
+                    <span><a class="text-dark" asp-controller="Programs" asp-action="Index">Building Operator</a></span>
+                }
+                else if (ViewBag.Current == "Resources")
+                {
+                    <span><a class="text-dark" asp-controller="Resources" asp-action="Index">NWEEI News</a></span>
+                    <span><a class="text-dark" asp-controller="Resources" asp-action="Index">Industry News</a></span>
+                    <span><a class="text-dark" asp-controller="Resources" asp-action="Index">Jobs</a></span>
+                    <span><a class="text-dark" asp-controller="Resources" asp-action="Index">Industry Assocations</a></span>
+                    <span><a class="text-dark" asp-controller="Resources" asp-action="Index">Articles</a></span>
+                    <span><a class="text-dark" asp-controller="Resources" asp-action="Index">FAQs</a></span>
+                }
             </div>
         </nav>
+        <!-- END NAVIGATION -->
+
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+
+
+    <!-- PAGE CONTENT CONTAINER -->
+    <div class="main-content-container">
+        <div class="main-content-inner container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
     </div>
+    <!-- END PAGE CONTENT CONTAINER -->
 
     <footer class="border-top footer text-muted">
         <div class="container">
