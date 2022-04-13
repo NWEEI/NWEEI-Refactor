@@ -29,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\images\" />
     <Folder Include="Migrations\" />
     <Folder Include="Controllers\Navigation\" />
     <Folder Include="Views\About\" />
