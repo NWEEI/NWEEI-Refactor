@@ -12,13 +12,13 @@ a {
   color: #0366d6;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+.btn-primary {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
@@ -62,18 +62,78 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
-/*
-.nav {
-    background: url('images/NWEEISwoopVector.svg') no-repeat 0 0;
-}
-.header {
-    background: url('images/NWEEISwoopVector.svg') no-repeat 0 0;
-}
-*/
+
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
+}
+
+
+
+/* HEADER */
+
+.header-content {
+    height: 450px;
+}
+
+.swoop {
+    position: relative;
+    margin: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    pointer-events: none;
+    width: 100%;
+    z-index: -1;
+}
+
+.hero {
+    position: relative;
+    width: 100%;
+    top: -200px;
+    z-index: -2;
+}
+
+
+
+
+/* NAVIGATION */
+
+.navigation {
+    background-color: lightskyblue;
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 1em;
+}
+
+.sub-navigation {
+     background-color: gold;
+     color: blue;
+     text-align: center;
+     display: flex;
+     justify-content: space-evenly;
+     font-size: .9em;
+}
+
+.navigation > span,
+.sub-navigation > span {
+    padding: 12px;
+}
+
+
+
+
+
+/* PAGE CONTENT */
+.main-content-container {
+    z-index: 5;
+    background-color: white;
+}
+
+.main-content-inner {
+    
 }
