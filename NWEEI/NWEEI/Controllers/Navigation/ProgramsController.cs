@@ -15,5 +15,17 @@ namespace NWEEI.Controllers.Navigation
         {
             return View();
         }
+
+        public IActionResult Certificates()
+        {
+            ViewBag.Current = "Certificates";
+            return View();
+        }
+
+        public IActionResult Degrees()
+        {
+            ViewBag.Current = "Degrees";
+            return View();
+        }
     }
 }

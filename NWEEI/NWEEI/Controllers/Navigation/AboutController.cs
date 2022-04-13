@@ -13,6 +13,7 @@ namespace NWEEI.Controllers.Navigation
         // GET: /<controller>/
         public IActionResult Index()
         {
+            ViewBag.Current = "About";
             return View();
         }
     }

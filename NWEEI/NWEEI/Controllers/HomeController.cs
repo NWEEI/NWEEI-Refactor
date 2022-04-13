@@ -20,6 +20,7 @@ namespace NWEEI.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Current = "Home";
             return View();
         }
 
