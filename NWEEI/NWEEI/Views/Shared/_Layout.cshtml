@@ -77,6 +77,12 @@
                     <span><a class="text-dark" asp-controller="Resources" asp-action="Index">Articles</a></span>
                     <span><a class="text-dark" asp-controller="Resources" asp-action="Index">FAQs</a></span>
                 }
+                else if (ViewBag.Current == "Admin")
+                {
+                    <span><a class="text-dark" asp-controller="Registration" asp-action="Index">View Registrations</a></span>
+                    <span><a class="text-dark" asp-controller="AppUser" asp-action="Index">Edit Users</a></span>
+                    <span><a class="text-dark" asp-controller="AppUser" asp-action="Create">Add User</a></span>
+                }
             </div>
         </nav>
         <!-- END NAVIGATION -->

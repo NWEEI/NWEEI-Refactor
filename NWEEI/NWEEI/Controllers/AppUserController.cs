@@ -22,6 +22,7 @@ namespace NWEEI.Controllers
         // GET: AppUser
         public async Task<IActionResult> Index()
         {
+            ViewBag.Current = "Admin";
             return View(await _context.AppUsers.ToListAsync());
         }
 
