@@ -12,6 +12,7 @@ using NWEEI.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NWEEI.Models;
 
 namespace NWEEI
 {
@@ -32,8 +33,16 @@ namespace NWEEI
                     Configuration.GetConnectionString("SQLiteConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<NWEEIContext>();
+            services.AddRazorPages();
+
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //    .AddEntityFrameworkStores<NWEEIContext>();
+
+
+            services.AddIdentity<AppUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddUserManager<UserManager<AppUser>>()
+                .AddEntityFrameworkStores<NWEEIContext>();    
+
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             // database connection
@@ -63,12 +72,16 @@ namespace NWEEI
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
-            });
+                {
+                    endpoints.MapControllerRoute(
+                        name: "default",
+                        pattern: "{controller=Home}/{action=Index}/{id?}"
+                    );
+                    endpoints.MapRazorPages();
+                }
+            );
+
+            //NWEEIContext.CreateAdminUser(app.ApplicationServices).Wait();
         }
     }
 }

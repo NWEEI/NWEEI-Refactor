@@ -9,8 +9,8 @@ using NWEEI.Data;
 namespace NWEEI.Migrations
 {
     [DbContext(typeof(NWEEIContext))]
-    [Migration("20220413223443_AdminUpdate")]
-    partial class AdminUpdate
+    [Migration("20220415013701_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -163,11 +163,9 @@ namespace NWEEI.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderDisplayName")
@@ -205,11 +203,9 @@ namespace NWEEI.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Value")
@@ -266,7 +262,7 @@ namespace NWEEI.Migrations
                         {
                             ArticleID = 1,
                             Body = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. ",
-                            DateCreated = new DateTime(2022, 4, 13, 15, 34, 42, 392, DateTimeKind.Local).AddTicks(9658),
+                            DateCreated = new DateTime(2022, 4, 14, 18, 37, 0, 166, DateTimeKind.Local).AddTicks(4438),
                             Featured = true,
                             IsPublished = true,
                             PublishDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
