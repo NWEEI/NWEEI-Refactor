@@ -9,8 +9,8 @@ using NWEEI.Data;
 namespace NWEEI.Migrations
 {
     [DbContext(typeof(NWEEIContext))]
-    [Migration("20220412215331_Initial")]
-    partial class Initial
+    [Migration("20220415031941_SeededAdmin")]
+    partial class SeededAdmin
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -269,7 +269,7 @@ namespace NWEEI.Migrations
                         {
                             ArticleID = 1,
                             Body = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. ",
-                            DateCreated = new DateTime(2022, 4, 12, 14, 53, 30, 667, DateTimeKind.Local).AddTicks(170),
+                            DateCreated = new DateTime(2022, 4, 14, 20, 19, 41, 409, DateTimeKind.Local).AddTicks(4860),
                             Featured = true,
                             IsPublished = true,
                             PublishDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
