@@ -42,20 +42,33 @@ namespace NWEEI.Data
                 }
             );
         }
-        public static async Task CreateAdminUser(IServiceProvider serviceProvider) // add admin account
+
+        public static async Task CreateAdminUser(RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager) // add admin account
         {
-            UserManager<AppUser> userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();    // create a user-manager object
-            RoleManager<IdentityRole> roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>(); // create a role-manager object
             string username = "admin";
-            string password = "Sesame";
+            string password = "Sesame1!";
             string roleName = "Admin";
+            string firstName = "Admin";
+            string lastName = "User";
+            string email = "admin@nweei.org";
+
             if (await roleManager.FindByNameAsync(roleName) == null)        // if role doesn't exist, 
             {
                 await roleManager.CreateAsync(new IdentityRole(roleName));  // create it
             }
+
             if (await userManager.FindByNameAsync(username) == null) // if username doesn't exist, 
             {
-                AppUser user = new AppUser { UserName = username };   // create a user with the specified username
+                // create a user with the specified username
+                AppUser user = new AppUser
+                {
+                    UserName = username,
+                    FirstName = firstName,
+                    LastName = lastName,
+                    DateRegistered = DateTime.Now,
+                    Email = email
+                };
+
                 var result = await userManager.CreateAsync(user, password); // attach the specified password
                 if (result.Succeeded)
                 {
