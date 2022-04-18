@@ -87,11 +87,14 @@
     </div>
     <!-- END PAGE CONTENT CONTAINER -->
 
-    <footer class="border-top footer text-muted">
+    <!-- FOOTER -->
+    <footer class="border-top footer text-muted bg-dark">
         <div class="container">
-            &copy; 2022 - NWEEI - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <partial name="_LoginPartial" />
         </div>
     </footer>
+    <!-- END FOOTER -->
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
