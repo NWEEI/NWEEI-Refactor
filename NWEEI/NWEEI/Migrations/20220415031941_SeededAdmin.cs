@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NWEEI.Migrations
 {
-    public partial class Initial : Migration
+    public partial class SeededAdmin : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -295,7 +295,7 @@ namespace NWEEI.Migrations
             migrationBuilder.InsertData(
                 table: "Articles",
                 columns: new[] { "ArticleID", "AuthorId", "Body", "CategoryID", "DateCreated", "Featured", "IsPublished", "PublishDate", "Title", "Views" },
-                values: new object[] { 1, null, "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. ", null, new DateTime(2022, 4, 12, 14, 53, 30, 667, DateTimeKind.Local).AddTicks(170), true, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "What is Lorem Ipsum?", 9001 });
+                values: new object[] { 1, null, "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. ", null, new DateTime(2022, 4, 14, 20, 19, 41, 409, DateTimeKind.Local).AddTicks(4860), true, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "What is Lorem Ipsum?", 9001 });
 
             migrationBuilder.InsertData(
                 table: "Categories",

@@ -12,6 +12,7 @@ using NWEEI.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NWEEI.Models;
 
 namespace NWEEI
 {
@@ -32,12 +33,12 @@ namespace NWEEI
                     Configuration.GetConnectionString("SQLiteConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<NWEEIContext>();
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<NWEEIContext>();
 
-            // database connection
-            //services.AddDbContext<NWEEIContext>(options => options.UseSqlite(Configuration["ConnectionStrings:SQLiteConnection"]));
+            services.AddRazorPages();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,6 +70,12 @@ namespace NWEEI
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            var serviceProvider = app.ApplicationServices;
+            UserManager<AppUser> userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();    // create a user-manager object
+            RoleManager<IdentityRole> roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>(); // create a role-manager object
+
+            NWEEIContext.CreateAdminUser(roleManager, userManager).Wait();
         }
     }
 }
