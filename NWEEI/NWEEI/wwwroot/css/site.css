@@ -18,10 +18,18 @@ a {
     border-color: #1861ac;
 }
 
+.btn {
+    border-radius: 1rem;
+}
+
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
+}
+
+.btn-light {
+    color: #666666;
 }
 
 /* Sticky footer styles
@@ -82,7 +90,7 @@ body {
 }
 
 .swoop {
-    position: relative;
+    position: absolute;
     margin: auto;
     background-repeat: no-repeat;
     background-size: cover;
@@ -90,7 +98,38 @@ body {
     width: 100%;
     z-index: -1;
     min-height: 30%;
+    top: 0;
+    left: 0;
 }
+
+.logo {
+    position: relative;
+    width: 25%;
+    top: 5%;
+    left: 4%;
+}
+
+.header-info {
+    display: inline-block;
+    position: relative;
+    top: 9%;
+    right: 4%;
+    text-align: right;
+    float: right;
+}
+
+    .header-desc {
+        position: relative;
+        padding: 5px;
+        color: #f0f0f0;
+        font-weight: bold;
+        font-size: 1em;
+    }
+
+    .header-phone {
+        display: inline-block;
+        padding: 5px;
+    }
 
 .hero {
     position: absolute;
