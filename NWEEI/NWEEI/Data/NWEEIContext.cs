@@ -45,12 +45,13 @@ namespace NWEEI.Data
 
         public static async Task CreateAdminUser(RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager) // add admin account
         {
-            string username = "admin";
+            string username = "admin@nweei.org";
             string password = "Sesame1!";
             string roleName = "Admin";
             string firstName = "Admin";
             string lastName = "User";
             string email = "admin@nweei.org";
+            bool emailConfirmed = true;
 
             if (await roleManager.FindByNameAsync(roleName) == null)        // if role doesn't exist, 
             {
@@ -66,7 +67,8 @@ namespace NWEEI.Data
                     FirstName = firstName,
                     LastName = lastName,
                     DateRegistered = DateTime.Now,
-                    Email = email
+                    Email = email,
+                    EmailConfirmed = emailConfirmed
                 };
 
                 var result = await userManager.CreateAsync(user, password); // attach the specified password
