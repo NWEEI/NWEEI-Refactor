@@ -81,8 +81,10 @@ body {
 
 
 
-/* HEADER */
 
+/* -------------------------------------------------- */
+
+/* HEADER */
 .header-content {
     position: relative;
     height: 30vh;
@@ -141,6 +143,7 @@ body {
 }
 
 
+/* -------------------------------------------------- */
 
 
 /* NAVIGATION */
@@ -169,6 +172,7 @@ body {
 }
 
 
+/* -------------------------------------------------- */
 
 
 
@@ -176,8 +180,34 @@ body {
 .main-content-container {
     z-index: 5;
     background-color: white;
+    margin-top: 3%;
 }
 
 .main-content-inner {
     
 }
+
+.tile-container {
+
+}
+
+    .tile-content {
+
+    }
+
+    .tile-image {
+
+    }
+
+
+/* -------------------------------------------------- */
+
+
+/* HOME */
+.welcome {
+    line-height: 1.5em;
+    text-align: left;
+}
+
+
+/* -------------------------------------------------- */
