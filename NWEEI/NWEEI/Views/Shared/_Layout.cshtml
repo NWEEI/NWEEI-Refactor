@@ -29,12 +29,6 @@
                 <span><a class="text-dark" asp-controller="Programs" asp-action="Certificates">Certificates</a></span>
                 <span><a class="text-dark" asp-controller="Resources" asp-action="Index">Resources</a></span>
                 <span><a class="text-dark" asp-controller="Registration" asp-action="Index">Register</a></span>
-
-                <!-- admin menu option only displayed to users who are logged in and have the appropriate access -->
-                @if (User.IsInRole("Admin"))
-                {
-                    <span><a class="text-dark" asp-controller="AppUser" asp-action="Index">Admin</a></span>
-                }
             </div>
 
             <!-- sub navigation menu (dynamic) -->
@@ -88,7 +82,7 @@
     <!-- END PAGE CONTENT CONTAINER -->
 
     <!-- FOOTER -->
-    <footer class="border-top footer text-muted bg-dark">
+    <footer class="border-top footer text-muted bg-dark fixed-bottom">
         <div class="container">
             <partial name="_LoginPartial" />
         </div>
