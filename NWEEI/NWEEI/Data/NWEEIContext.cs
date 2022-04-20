@@ -47,16 +47,25 @@ namespace NWEEI.Data
         {
             string username = "admin@nweei.org";
             string password = "Sesame1!";
-            string roleName = "Admin";
             string firstName = "Admin";
             string lastName = "User";
             string email = "admin@nweei.org";
             bool emailConfirmed = true;
 
+            // seed member role
+            string roleName = "Member";
             if (await roleManager.FindByNameAsync(roleName) == null)        // if role doesn't exist, 
-            {
                 await roleManager.CreateAsync(new IdentityRole(roleName));  // create it
-            }
+
+            // seed editor role
+            roleName = "Editor";
+            if (await roleManager.FindByNameAsync(roleName) == null)        // if role doesn't exist, 
+                await roleManager.CreateAsync(new IdentityRole(roleName));  // create it
+
+            // seed admin role
+            roleName = "Admin";
+            if (await roleManager.FindByNameAsync(roleName) == null)        // if role doesn't exist, 
+                await roleManager.CreateAsync(new IdentityRole(roleName));  // create it
 
             if (await userManager.FindByNameAsync(username) == null) // if username doesn't exist, 
             {
