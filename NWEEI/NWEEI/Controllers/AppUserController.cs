@@ -13,6 +13,7 @@ using NWEEI.ViewModels;
 
 namespace NWEEI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AppUserController : Controller
     {
         private readonly NWEEIContext _context;
@@ -127,9 +128,24 @@ namespace NWEEI.Controllers
         [HttpPost]
         public async Task<IActionResult> RemoveFromAdmin(string id)
         {
-            AppUser user = await _userManager.FindByIdAsync(id);
-            await _userManager.RemoveFromRoleAsync(user, "Admin");
-            return RedirectToAction("Index");
+            AppUser
+                // find the user in the db that is having their admin role removed
+                user = await _userManager.FindByIdAsync(id),
+                // find the user in the db that is performing the RemoveFromAdmin action
+                signedInUser = await _userManager.FindByNameAsync(User.Identity.Name),
+                // find the user in the db that is the seeded admin user
+                seededAdmin = _context.AppUsers.FirstOrDefault();
+
+            if (user == seededAdmin)
+                return View("CustomError", new CustomError("You can't remove the Admin role from the built-in admin user."));
+            else if (User.IsInRole("Admin") && user == signedInUser)
+                return View("CustomError", new CustomError("You can't remove the Admin role from yourself."));
+            else
+            {
+                // all good, do the thing
+                await _userManager.RemoveFromRoleAsync(user, "Admin");
+                return RedirectToAction("Index");
+            }
         }
         [HttpPost]
         public async Task<IActionResult> AddToEditor(string id)
@@ -149,9 +165,24 @@ namespace NWEEI.Controllers
         [HttpPost]
         public async Task<IActionResult> RemoveFromEditor(string id)
         {
-            AppUser user = await _userManager.FindByIdAsync(id);
-            await _userManager.RemoveFromRoleAsync(user, "Editor");
-            return RedirectToAction("Index");
+            AppUser
+                // find the user in the db that is having their admin role removed
+                user = await _userManager.FindByIdAsync(id),
+                // find the user in the db that is performing the RemoveFromAdmin action
+                signedInUser = await _userManager.FindByNameAsync(User.Identity.Name),
+                // find the user in the db that is the seeded admin user
+                seededAdmin = _context.AppUsers.FirstOrDefault();
+
+            if (user == seededAdmin)
+                return View("CustomError", new CustomError("You can't remove the Editor role from the built-in admin user."));
+            else if (User.IsInRole("Admin") && user == signedInUser)
+                return View("CustomError", new CustomError("You can't remove the Editor role from yourself."));
+            else
+            {
+                // all good, do the thing
+                await _userManager.RemoveFromRoleAsync(user, "Editor");
+                return RedirectToAction("Index");
+            }
         }
 
         // GET: AppUser/Edit/5
