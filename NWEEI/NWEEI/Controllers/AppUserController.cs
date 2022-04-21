@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using NWEEI.Data;
 using NWEEI.Models;
+using NWEEI.ViewModels;
 
 namespace NWEEI.Controllers
 {
@@ -16,17 +17,30 @@ namespace NWEEI.Controllers
     {
         private readonly NWEEIContext _context;
         private UserManager<AppUser> _userManager;
+        private RoleManager<IdentityRole> _roleManager;
 
-        public AppUserController(NWEEIContext context, UserManager<AppUser> userManager)
+        public AppUserController(NWEEIContext context, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         // GET: AppUser
         public async Task<IActionResult> Index()
         {
-            return View(await _context.AppUsers.ToListAsync());
+            var users = await _context.AppUsers.ToListAsync();
+            foreach (AppUser user in _userManager.Users)
+            {
+                user.RoleNames = await _userManager.GetRolesAsync(user);
+            }
+            AppUserViewModel model = new AppUserViewModel
+            {
+                Users = users,
+                Roles = _roleManager.Roles
+            };
+
+            return View(model);  
         }
 
         // GET: AppUser/Details/5
@@ -53,6 +67,15 @@ namespace NWEEI.Controllers
             return View();
         }
 
+        /**    UNUSED POST:CREATE CODE
+         * 
+         * This code was previously the method for creating a user, 
+         * but the scaffolded identity register view was used instead.
+         * 
+         * The method below was incomplete,
+         * as creating a user with an already hashed password was a roadblock
+         * 
+         * 
         // POST: AppUser/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -63,13 +86,6 @@ namespace NWEEI.Controllers
         {
             if (ModelState.IsValid)
             {
-                /*  Josh:   I dont like this way of creating a user with a given password.
-                *              I would like to leave no trace of the password, and I feel like there might be some history in the db if done this way
-                *              But it will work for now, I think.
-                */
-                string password = appUser.PasswordHash;
-                string hashedPassword = _userManager.PasswordHasher.HashPassword(appUser, password);
-                appUser.PasswordHash = hashedPassword;
 
                 // using only the input email, set the username, and normalized username/email
                 appUser.UserName = appUser.Email;
@@ -90,6 +106,52 @@ namespace NWEEI.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(appUser);
+        }
+        **/
+
+        [HttpPost]
+        public async Task<IActionResult> AddToAdmin(string id)
+        {
+            IdentityRole adminRole = await _roleManager.FindByNameAsync("Admin");
+            if (adminRole == null)
+            {
+                TempData["message"] = "Admin role does not exist. ";
+            }
+            else
+            {
+                AppUser user = await _userManager.FindByIdAsync(id);
+                await _userManager.AddToRoleAsync(user, adminRole.Name);
+            }
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public async Task<IActionResult> RemoveFromAdmin(string id)
+        {
+            AppUser user = await _userManager.FindByIdAsync(id);
+            await _userManager.RemoveFromRoleAsync(user, "Admin");
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddToEditor(string id)
+        {
+            IdentityRole editorRole = await _roleManager.FindByNameAsync("Editor");
+            if (editorRole == null)
+            {
+                TempData["message"] = "Editor role does not exist. ";
+            }
+            else
+            {
+                AppUser user = await _userManager.FindByIdAsync(id);
+                await _userManager.AddToRoleAsync(user, editorRole.Name);
+            }
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public async Task<IActionResult> RemoveFromEditor(string id)
+        {
+            AppUser user = await _userManager.FindByIdAsync(id);
+            await _userManager.RemoveFromRoleAsync(user, "Editor");
+            return RedirectToAction("Index");
         }
 
         // GET: AppUser/Edit/5
