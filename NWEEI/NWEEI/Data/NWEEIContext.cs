@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using NWEEI.Models;
+using Microsoft.Data.Sqlite;
+using System.IO;
 
 namespace NWEEI.Data
 {
@@ -22,25 +24,6 @@ namespace NWEEI.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder) // Seed data - Ready for initial Migration
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Category>().HasData(
-                new Category
-                {
-                    CategoryID = 1,
-                    Name = "Miscellaneous"
-                }
-            );
-            modelBuilder.Entity<Article>().HasData(
-                new Article
-                {
-                    ArticleID = 1,
-                    Title = "What is Lorem Ipsum?",
-                    DateCreated = DateTime.Now,
-                    Views = 9001,
-                    Featured = true,
-                    IsPublished = true,
-                    Body = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. "
-                }
-            );
         }
 
         public static async Task CreateAdminUser(RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager) // add admin account
@@ -77,6 +60,60 @@ namespace NWEEI.Data
                     await userManager.AddToRoleAsync(user, roleName); // attach the specified role
                 }
             }
+        }
+
+        public static void SeedLegacyData(SqliteConnection tempConnection)
+        {
+            // using as guides:
+            // https://stackoverflow.com/questions/58413440/including-sql-files-when-generating-migrations-in-ef-core-asp-net
+            // https://stackoverflow.com/questions/62147487/running-sql-script-using-c-sharp-code-asp-net-core
+
+            // prepare sql scripts using sql files in LegacyData folder
+            // articles, categories, FAQs, organizations, registrations, tags
+            FileInfo categoriesSql = new FileInfo("./Data/LegacyData/Categories.sql");
+            string categoriesScript = categoriesSql.OpenText().ReadToEnd();
+
+            FileInfo articlesSql = new FileInfo("./Data/LegacyData/Articles.sql");
+            string articlesScript = articlesSql.OpenText().ReadToEnd();
+
+            FileInfo faqsSql = new FileInfo("./Data/LegacyData/FAQs.sql");
+            string faqsScript = faqsSql.OpenText().ReadToEnd();
+
+            FileInfo organizationsSql = new FileInfo("./Data/LegacyData/Organizations.sql");
+            string organizationsScript = organizationsSql.OpenText().ReadToEnd();
+
+            FileInfo registrationsSql = new FileInfo("./Data/LegacyData/Organizations.sql");
+            string registrationsScript = registrationsSql.OpenText().ReadToEnd();
+
+            FileInfo tagsSql = new FileInfo("./Data/LegacyData/Tags.sql");
+            string tagsScript = tagsSql.OpenText().ReadToEnd();
+
+
+            // execute scripts
+            tempConnection.Open();
+
+            SqliteCommand categoriesCmd = new SqliteCommand(categoriesScript, tempConnection);
+            //SqliteCommand categoriesCmd = new SqliteCommand(categoriesScript);
+            categoriesCmd.ExecuteNonQuery();
+
+            SqliteCommand articlesCmd = new SqliteCommand(articlesScript, tempConnection);
+            //SqliteCommand articlesCmd = new SqliteCommand(articlesScript);
+            articlesCmd.ExecuteNonQuery();
+                        
+            SqliteCommand faqsCmd = new SqliteCommand(faqsScript, tempConnection);
+            faqsCmd.ExecuteNonQuery();
+
+            SqliteCommand organizationsCmd = new SqliteCommand(organizationsScript, tempConnection);
+            organizationsCmd.ExecuteNonQuery();
+
+            SqliteCommand registrationsCmd = new SqliteCommand(registrationsScript, tempConnection);
+            registrationsCmd.ExecuteNonQuery();
+
+            SqliteCommand tagsCmd = new SqliteCommand(tagsScript, tempConnection);
+            tagsCmd.ExecuteNonQuery();
+
+            tempConnection.Close();
+
         }
     }
 }
