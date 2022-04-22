@@ -8,7 +8,6 @@ namespace NWEEI.Models
         public string Question { get; set; }
         public string Answer { get; set; }
         public Category Category { get; set; }
-        public DateTime PublishDate { get; set; }
         public bool IsPublished { get; set; }
         public bool Featured { get; set; }
     }
