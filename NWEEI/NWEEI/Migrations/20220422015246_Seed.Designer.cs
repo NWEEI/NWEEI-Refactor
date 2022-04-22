@@ -2,19 +2,21 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NWEEI.Data;
 
 namespace NWEEI.Migrations
 {
     [DbContext(typeof(NWEEIContext))]
-    partial class NWEEIContextModelSnapshot : ModelSnapshot
+    [Migration("20220422015246_Seed")]
+    partial class Seed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.15");
+                .HasAnnotation("ProductVersion", "5.0.16");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -261,19 +263,6 @@ namespace NWEEI.Migrations
                     b.HasIndex("CategoryID");
 
                     b.ToTable("Articles");
-
-                    b.HasData(
-                        new
-                        {
-                            ArticleID = 1,
-                            Body = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. ",
-                            DateCreated = new DateTime(2022, 4, 14, 20, 19, 41, 409, DateTimeKind.Local).AddTicks(4860),
-                            Featured = true,
-                            IsPublished = true,
-                            PublishDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "What is Lorem Ipsum?",
-                            Views = 9001
-                        });
                 });
 
             modelBuilder.Entity("NWEEI.Models.Category", b =>
@@ -290,13 +279,6 @@ namespace NWEEI.Migrations
                     b.HasKey("CategoryID");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            CategoryID = 1,
-                            Name = "Miscellaneous"
-                        });
                 });
 
             modelBuilder.Entity("NWEEI.Models.FAQ", b =>
@@ -316,9 +298,6 @@ namespace NWEEI.Migrations
 
                     b.Property<bool>("IsPublished")
                         .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("PublishDate")
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("Question")
                         .HasColumnType("TEXT");
