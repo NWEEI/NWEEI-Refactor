@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NWEEI.Models;
+using Microsoft.Data.Sqlite;
 
 namespace NWEEI
 {
@@ -42,7 +43,7 @@ namespace NWEEI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, NWEEIContext context)
         {
             if (env.IsDevelopment())
             {
@@ -76,6 +77,10 @@ namespace NWEEI
             RoleManager<IdentityRole> roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>(); // create a role-manager object
 
             NWEEIContext.CreateAdminUser(roleManager, userManager).Wait();
+
+            // seed legacy data
+            SqliteConnection tempConnection = new SqliteConnection(Configuration.GetConnectionString("SQLiteConnection"));
+            NWEEIContext.SeedLegacyData(tempConnection);
         }
     }
 }
