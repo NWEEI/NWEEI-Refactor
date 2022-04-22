@@ -14,6 +14,7 @@
     <None Remove="Views\Resources\" />
     <None Remove="Views\Programs\" />
     <None Remove="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" />
+    <None Remove="Data\LegacyData\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
@@ -40,5 +41,6 @@
     <Folder Include="Views\About\" />
     <Folder Include="Views\Resources\" />
     <Folder Include="Views\Programs\" />
+    <Folder Include="Data\LegacyData\" />
   </ItemGroup>
 </Project>
