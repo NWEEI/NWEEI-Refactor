@@ -91,7 +91,7 @@ namespace NWEEI.Data
             FileInfo organizationsSql = new FileInfo("./Data/LegacyData/Organizations.sql");
             string organizationsScript = organizationsSql.OpenText().ReadToEnd();
 
-            FileInfo registrationsSql = new FileInfo("./Data/LegacyData/Organizations.sql");
+            FileInfo registrationsSql = new FileInfo("./Data/LegacyData/Registrations.sql");
             string registrationsScript = registrationsSql.OpenText().ReadToEnd();
 
             FileInfo tagsSql = new FileInfo("./Data/LegacyData/Tags.sql");
