@@ -59,11 +59,17 @@ namespace NWEEI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("RegistrationID,TrainingProgram,FirstName,LastName,Email,DateOfBirth,Title,Organization,Address1,Address2,City,State,ZipCode,Country,Phone,Fax,Referral,SpecialInstructions,PaymentType")] Registration registration)
         {
+            registration.DateSubmitted = DateTime.Now;
+            TempData["Training"] = registration.TrainingProgram;
+            TempData["DateSubmitted"] = registration.DateSubmitted.ToString();
+            TempData["FirstName"] = registration.FirstName;
+            TempData["LastName"] = registration.LastName;
+            TempData["Email"] = registration.Email;
             if (ModelState.IsValid)
             {
                 _context.Add(registration);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View("CreateConfirmation");
             }
             return View(registration);
         }
