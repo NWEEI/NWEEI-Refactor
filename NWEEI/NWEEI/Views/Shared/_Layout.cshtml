@@ -38,7 +38,7 @@
                 <span><a class="text-dark" asp-controller="Programs" asp-action="Degrees">Degrees</a></span>
                 <span><a class="text-dark" asp-controller="Programs" asp-action="Certificates">Certificates</a></span>
                 <span><a class="text-dark" asp-controller="Resources" asp-action="Index">Resources</a></span>
-                <span><a class="text-dark" asp-controller="Registration" asp-action="Index">Register</a></span>
+                <span><a class="text-dark" asp-controller="Registration" asp-action="Create">Register</a></span>
             </div>
 
             <!-- sub navigation menu (dynamic) -->
@@ -46,7 +46,6 @@
                 @if (@ViewBag.Current == "Home")
                 {
                     <span><a class="text-dark" asp-controller="Home" asp-action="Index">Contact Us</a></span>
-                    <span><a class="text-dark" asp-controller="Registration" asp-action="Index">Register</a></span>
                 }
                 else if (ViewBag.Current == "About")
                 {
