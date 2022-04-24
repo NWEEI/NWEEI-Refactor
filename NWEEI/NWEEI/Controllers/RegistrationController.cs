@@ -69,9 +69,19 @@ namespace NWEEI.Controllers
             {
                 _context.Add(registration);
                 await _context.SaveChangesAsync();
-                return View("CreateConfirmation");
+                return RedirectToAction(nameof(CreateConfirmation));
             }
             return View(registration);
+        }
+
+        public IActionResult CreateConfirmation()
+        {
+            TempData.Keep("Training");
+            TempData.Keep("DateSubmitted");
+            TempData.Keep("FirstName");
+            TempData.Keep("LastName");
+            TempData.Keep("Email");
+            return View();
         }
 
         // GET: Registration/Edit/5
