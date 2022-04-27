@@ -39,17 +39,6 @@ namespace NWEEI.Repositories
             return articles;
         }
 
-        public Article GetArticleByID(int id)
-        {
-            Article article = context.Articles
-                .Include(a => a.Author)
-                .Include(a => a.Category)
-                .Where(a => a.ArticleID == id)
-                .FirstOrDefault();
-
-            return article;
-        }
-
         public List<Article> GetArticlesByCategoryID(int categoryID)
         {
             List<Article> articles = context.Articles.OrderByDescending(a => a.DateCreated)
@@ -65,6 +54,17 @@ namespace NWEEI.Repositories
         public List<Article> GetArticlesBySearchQuery(string query)
         {
             throw new NotImplementedException();
+        }
+
+        public Article GetArticleByID(int id)
+        {
+            Article article = context.Articles
+                .Include(a => a.Author)
+                .Include(a => a.Category)
+                .Where(a => a.ArticleID == id)
+                .FirstOrDefault();
+
+            return article;
         }
 
         #endregion
