@@ -149,7 +149,7 @@ body {
 /* NAVIGATION */
 
 .navigation {
-    background-color: lightskyblue;
+    background-color: #44A5F9;
     color: white;
     text-align: center;
     display: flex;
@@ -158,12 +158,12 @@ body {
 }
 
 .sub-navigation {
-     background-color: gold;
-     color: blue;
-     text-align: center;
-     display: flex;
-     justify-content: space-evenly;
-     font-size: .9em;
+    background-color: #FEB913;
+    color: blue;
+    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
+    font-size: .9em;
 }
 
 .navigation > span,
