@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NWEEI.Models
 {
@@ -22,6 +23,9 @@ namespace NWEEI.Models
         public string WebsiteURL { get; set; }
 
         [Required(ErrorMessage = "At least one tag is required.")]
+        [NotMapped]
         public List<Tag> Tags { get { return tags; } }
+
+        public virtual ICollection<Tag> TagKeys { get; set; }
     }
 }
