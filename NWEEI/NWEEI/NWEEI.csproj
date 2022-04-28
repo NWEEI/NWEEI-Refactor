@@ -15,6 +15,14 @@
     <None Remove="Views\Programs\" />
     <None Remove="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" />
     <None Remove="Data\LegacyData\" />
+    <None Remove="Repositories\" />
+    <None Remove="Repositories\Article\" />
+    <None Remove="Repositories\Category\" />
+    <None Remove="Repositories\FAQ\" />
+    <None Remove="Repositories\Organization\" />
+    <None Remove="Repositories\Registration\" />
+    <None Remove="Repositories\Tag\" />
+    <None Remove="Repositories\FAQs\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
@@ -42,5 +50,12 @@
     <Folder Include="Views\Resources\" />
     <Folder Include="Views\Programs\" />
     <Folder Include="Data\LegacyData\" />
+    <Folder Include="Repositories\" />
+    <Folder Include="Repositories\Articles\" />
+    <Folder Include="Repositories\Categories\" />
+    <Folder Include="Repositories\Organizations\" />
+    <Folder Include="Repositories\Registrations\" />
+    <Folder Include="Repositories\Tags\" />
+    <Folder Include="Repositories\FAQs\" />
   </ItemGroup>
 </Project>
