@@ -24,7 +24,8 @@ namespace NWEEI.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Please enter your date of birth.")]
-        public string DateOfBirth { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime DateOfBirth { get; set; }
 
         public string Title { get; set; }
 
