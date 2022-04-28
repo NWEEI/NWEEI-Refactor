@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "CreateConfirmation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!--This page allows for the viewing of a created training registration, without allowing for the viewing of every registration ever submitted-->
+<h1>Confirmation:</h1>
+
+<h4>Training Registration Submitted</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <table>
+            <tr>
+                <td class="font-weight-bold">Training:</td>
+                <td>@TempData["Training"].ToString();</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Date Submitted:</td>
+                <td>@TempData["DateSubmitted"].ToString();</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">First Name:</td>
+                <td>@TempData["FirstName"].ToString();</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Last Name:</td>
+                <td>@TempData["LastName"].ToString();</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Email:</td>
+                <td>@TempData["Email"].ToString();</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Home" asp-action="Index">Home</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

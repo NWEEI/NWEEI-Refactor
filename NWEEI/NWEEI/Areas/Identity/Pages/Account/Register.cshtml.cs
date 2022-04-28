@@ -13,7 +13,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+
+// Supplementary using statements
 using NWEEI.Models;
+using NWEEI.Controllers;
+
+
 
 namespace NWEEI.Areas.Identity.Pages.Account
 {
@@ -116,8 +121,19 @@ namespace NWEEI.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        /** Josh Allison - NWEEI:
+                         * Modified from Identity Scaffolding to serve NWEEI's purposes...
+                         * Old Functionality:
+                         *      Upon creating a new user, log in as that new user.
+                         * New Functionality:
+                         *      Upon creating a new user, view the AppUser>Details of that user.
+                         * 
+                         * Old Code:
+                         * await _signInManager.SignInAsync(user, isPersistent: false);
+                         * return LocalRedirect(returnUrl);
+                         **/
+                        //New Code:
+                        return RedirectToAction("Details", "AppUser", new {id = user.Id});
                     }
                 }
                 foreach (var error in result.Errors)
