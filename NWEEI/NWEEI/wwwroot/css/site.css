@@ -158,12 +158,12 @@ body {
 }
 
 .sub-navigation {
-     background-color: #FEB913;
-     color: blue;
-     text-align: center;
-     display: flex;
-     justify-content: space-evenly;
-     font-size: .9em;
+    background-color: #FEB913;
+    color: blue;
+    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
+    font-size: .9em;
 }
 
 .navigation > span,

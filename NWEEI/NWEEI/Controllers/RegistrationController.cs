@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,12 +21,14 @@ namespace NWEEI.Controllers
         }
 
         // GET: Registration
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Registrations.OrderByDescending(r => r.DateSubmitted).ToListAsync());
         }
 
         // GET: Registration/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -56,16 +59,33 @@ namespace NWEEI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("RegistrationID,TrainingProgram,FirstName,LastName,Email,DateOfBirth,Title,Organization,Address1,Address2,City,State,ZipCode,Country,Phone,Fax,Referral,SpecialInstructions,PaymentType")] Registration registration)
         {
+            registration.DateSubmitted = DateTime.Now;
+            TempData["Training"] = registration.TrainingProgram;
+            TempData["DateSubmitted"] = registration.DateSubmitted.ToString();
+            TempData["FirstName"] = registration.FirstName;
+            TempData["LastName"] = registration.LastName;
+            TempData["Email"] = registration.Email;
             if (ModelState.IsValid)
             {
                 _context.Add(registration);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(CreateConfirmation));
             }
             return View(registration);
         }
 
+        public IActionResult CreateConfirmation()
+        {
+            TempData.Keep("Training");
+            TempData.Keep("DateSubmitted");
+            TempData.Keep("FirstName");
+            TempData.Keep("LastName");
+            TempData.Keep("Email");
+            return View();
+        }
+
         // GET: Registration/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,6 +106,7 @@ namespace NWEEI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("RegistrationID,TrainingProgram,FirstName,LastName,Email,DateOfBirth,Title,Organization,Address1,Address2,City,State,ZipCode,Country,Phone,Fax,Referral,SpecialInstructions,PaymentType")] Registration registration)
         {
             if (id != registration.RegistrationID)
@@ -117,6 +138,7 @@ namespace NWEEI.Controllers
         }
 
         // GET: Registration/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,6 +157,7 @@ namespace NWEEI.Controllers
         }
 
         // POST: Registration/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
