@@ -43,5 +43,11 @@ namespace NWEEI.Repositories
         }
 
         #endregion
+
+        public void UpdateCategory(Category category)
+        {
+            context.Categories.Update(category);
+            context.SaveChanges();
+        }
     }
 }

@@ -63,5 +63,11 @@ namespace NWEEI.Repositories
         }
 
         #endregion
+
+        public void UpdateFAQ(FAQ faq)
+        {
+            context.FAQs.Update(faq);
+            context.SaveChanges();
+        }
     }
 }

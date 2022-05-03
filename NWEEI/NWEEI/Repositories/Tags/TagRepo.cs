@@ -44,5 +44,11 @@ namespace NWEEI.Repositories
         }
 
         #endregion
+
+        public void UpdateTag(Tag tag)
+        {
+            context.Tags.Update(tag);
+            context.SaveChanges();
+        }
     }
 }

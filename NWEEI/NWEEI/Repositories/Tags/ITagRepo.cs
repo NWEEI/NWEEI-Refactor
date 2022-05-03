@@ -11,5 +11,8 @@ namespace NWEEI.Repositories
         IQueryable<Tag> Tags { get; }
         List<Tag> GetAllTags();
         Tag GetTagByID(int id);
+
+        // update
+        void UpdateTag(Tag tag);
     }
 }

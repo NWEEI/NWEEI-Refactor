@@ -29,5 +29,15 @@ namespace NWEEI.Repositories
             Category category = categories.Find(c => c.CategoryID == id);
             return category;
         }
+
+        // TODO: write test update method
+        public void UpdateCategory(Category category)
+        {
+            // retrieve category from list
+            Category existingCategory = categories.Find(c => c.CategoryID == c.CategoryID);
+
+            // update its properties
+            existingCategory.Name = category.Name;
+        }
     }
 }

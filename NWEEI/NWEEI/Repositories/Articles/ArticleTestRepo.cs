@@ -44,5 +44,23 @@ namespace NWEEI.Repositories
             Article article = articles.Find(a => a.ArticleID == id);
             return article;
         }
+
+        // TODO: write test update method
+        public void UpdateArticle(Article article)
+        {
+            // retrieve article from list
+            Article existingArticle = articles.Find(a => a.ArticleID == a.ArticleID);
+
+            // update its properties
+            existingArticle.Title = article.Title;
+            existingArticle.Body = article.Body;
+            existingArticle.DateCreated = article.DateCreated;
+            existingArticle.Author = article.Author;
+            existingArticle.Category = article.Category;
+            existingArticle.PublishDate = article.PublishDate;
+            existingArticle.IsPublished = article.IsPublished;
+            existingArticle.Featured = article.Featured;
+            existingArticle.Views = article.Views;
+        }
     }
 }

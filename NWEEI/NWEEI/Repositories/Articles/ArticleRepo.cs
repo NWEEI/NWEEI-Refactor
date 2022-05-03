@@ -69,5 +69,11 @@ namespace NWEEI.Repositories
 
         #endregion
 
+        public void UpdateArticle(Article article)
+        {
+            context.Articles.Update(article);
+            context.SaveChanges();
+        }
+
     }
 }

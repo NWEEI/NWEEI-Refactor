@@ -29,5 +29,14 @@ namespace NWEEI.Repositories
             Tag tag = tags.Find(t => t.TagID == id);
             return tag;
         }
+
+        public void UpdateTag(Tag tag)
+        {
+            // retrieve tag from list
+            Tag existingTag = tags.Find(t => t.TagID == tag.TagID);
+
+            // update its properties
+            existingTag.Name = tag.Name;
+        }
     }
 }

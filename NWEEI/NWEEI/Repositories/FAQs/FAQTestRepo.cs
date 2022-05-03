@@ -45,5 +45,18 @@ namespace NWEEI.Repositories
             FAQ faq = faqs.Find(f => f.FAQID == id);
             return faq;
         }
+
+        public void UpdateFAQ(FAQ faq)
+        {
+            // retrieve faq from list
+            FAQ existingFAQ = faqs.Find(f => f.FAQID == faq.FAQID);
+
+            // update its properties
+            existingFAQ.Question = faq.Question;
+            existingFAQ.Answer = faq.Answer;
+            existingFAQ.Category = faq.Category;
+            existingFAQ.IsPublished = faq.IsPublished;
+            existingFAQ.Featured = faq.Featured;
+        }
     }
 }

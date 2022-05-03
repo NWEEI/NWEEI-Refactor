@@ -45,5 +45,11 @@ namespace NWEEI.Repositories
         }
 
         #endregion
+
+        public void UpdateRegistration(Registration registration)
+        {
+            context.Registrations.Update(registration);
+            context.SaveChanges();
+        }
     }
 }

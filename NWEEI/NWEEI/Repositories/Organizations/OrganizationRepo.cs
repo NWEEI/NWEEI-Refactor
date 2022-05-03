@@ -58,5 +58,11 @@ namespace NWEEI.Repositories
         }
 
         #endregion
+
+        public void UpdateOrganization(Organization organization)
+        {
+            context.Organizations.Update(organization);
+            context.SaveChanges();
+        }
     }
 }

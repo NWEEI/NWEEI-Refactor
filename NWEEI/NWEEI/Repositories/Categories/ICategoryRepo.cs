@@ -12,5 +12,8 @@ namespace NWEEI.Repositories
         IQueryable<Category> Categories { get; }
         List<Category> GetAllCategories();
         Category GetCategoryByID(int id);
+
+        // update
+        void UpdateCategory(Category category);
     }
 }

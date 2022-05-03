@@ -11,5 +11,8 @@ namespace NWEEI.Repositories
         IQueryable<Registration> Registrations { get; }
         List<Registration> GetAllRegistrations();
         Registration GetRegistrationByID(int id);
+
+        // update
+        void UpdateRegistration(Registration registration);
     }
 }
