@@ -16,9 +16,6 @@ namespace NWEEI.Repositories
             context = c;
         }
 
-
-        #region retrieval methods
-
         public IQueryable<FAQ> FAQs
         {
             get
@@ -27,6 +24,16 @@ namespace NWEEI.Repositories
             }
         }
 
+        // add a new FAQ
+        public void AddFAQ(FAQ faq)
+        {
+            context.FAQs.Add(faq);
+            context.SaveChanges();
+        }
+
+        #region retrieval methods
+
+        // get a list of all FAQs
         public List<FAQ> GetAllFAQs()
         {
             List<FAQ> faqs = context.FAQs
@@ -36,6 +43,7 @@ namespace NWEEI.Repositories
             return faqs;
         }
 
+        // get a list of FAQs by category
         public List<FAQ> GetFAQsByCategoryID(int categoryID)
         {
             List<FAQ> faqs = context.FAQs
@@ -52,6 +60,7 @@ namespace NWEEI.Repositories
             throw new NotImplementedException();
         }
 
+        // get a specific FAQ by its id
         public FAQ GetFAQByID(int id)
         {
             FAQ faq = context.FAQs
@@ -63,5 +72,20 @@ namespace NWEEI.Repositories
         }
 
         #endregion
+
+        // update a FAQ
+        public void UpdateFAQ(FAQ faq)
+        {
+            context.FAQs.Update(faq);
+            context.SaveChanges();
+        }
+
+        // delete a FAQ
+        public void DeleteFAQ(FAQ faq)
+        {
+            FAQ existingFAQ = context.FAQs.Find(faq.FAQID);
+            context.FAQs.Remove(existingFAQ);
+            context.SaveChanges();
+        }
     }
 }

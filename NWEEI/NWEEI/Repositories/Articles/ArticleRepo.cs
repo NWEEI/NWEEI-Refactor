@@ -16,9 +16,6 @@ namespace NWEEI.Repositories
             context = c;
         }
 
-
-        #region retrieval methods
-
         public IQueryable<Article> Articles
         {
             get
@@ -29,6 +26,16 @@ namespace NWEEI.Repositories
             }
         }
 
+        // add a new article
+        public void AddArticle(Article article)
+        {
+            context.Articles.Add(article);
+            context.SaveChanges();
+        }
+
+        #region retrieval methods
+
+        // get a list of all articles
         public List<Article> GetAllArticles()
         {
             List<Article> articles = context.Articles.OrderByDescending(a => a.DateCreated)
@@ -39,6 +46,7 @@ namespace NWEEI.Repositories
             return articles;
         }
 
+        // get a list of articles by category
         public List<Article> GetArticlesByCategoryID(int categoryID)
         {
             List<Article> articles = context.Articles.OrderByDescending(a => a.DateCreated)
@@ -51,11 +59,13 @@ namespace NWEEI.Repositories
         }
 
         // TODO: build out search functionality
+        // get all articles that include a word or phrase
         public List<Article> GetArticlesBySearchQuery(string query)
         {
             throw new NotImplementedException();
         }
 
+        // get a specific article by its id
         public Article GetArticleByID(int id)
         {
             Article article = context.Articles
@@ -69,5 +79,19 @@ namespace NWEEI.Repositories
 
         #endregion
 
+        // update an article
+        public void UpdateArticle(Article article)
+        {
+            context.Articles.Update(article);
+            context.SaveChanges();
+        }
+
+        // delete an article
+        public void DeleteArticle(Article article)
+        {
+            Article existingArticle = context.Articles.Find(article.ArticleID);
+            context.Articles.Remove(existingArticle);
+            context.SaveChanges();
+        }
     }
 }

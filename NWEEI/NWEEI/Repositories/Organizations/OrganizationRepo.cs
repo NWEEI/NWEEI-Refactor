@@ -16,9 +16,6 @@ namespace NWEEI.Repositories
             context = c;
         }
 
-
-        #region retrieval methods
-
         public IQueryable<Organization> Organizations
         {
             get
@@ -27,7 +24,17 @@ namespace NWEEI.Repositories
                     .Include(org => org.Tags);
             }
         }
-        
+
+        // add a new organization
+        public void AddOrganization(Organization organization)
+        {
+            context.Add(organization);
+            context.SaveChanges();
+        }
+
+        #region retrieval methods
+
+        // get a list of all organizations
         public List<Organization> GetAllOrganizations()
         {
             List<Organization> organizations = context.Organizations
@@ -37,8 +44,7 @@ namespace NWEEI.Repositories
 
             return organizations;
         }
-
-        
+                
         // TODO: decide how to handle this - include tag methods within org repo
         // for retrieval by tagID?
         public List<Organization> GetOrganizationsByTagID(int tagID)
@@ -46,7 +52,7 @@ namespace NWEEI.Repositories
             throw new NotImplementedException();
         }
         
-
+        // get a specific organization by its id
         public Organization GetOrganizationByID(int id)
         {
             Organization organization = context.Organizations
@@ -58,5 +64,20 @@ namespace NWEEI.Repositories
         }
 
         #endregion
+
+        // update an organization
+        public void UpdateOrganization(Organization organization)
+        {
+            context.Organizations.Update(organization);
+            context.SaveChanges();
+        }
+
+        // delete an organization
+        public void DeleteOrganization(Organization organization)
+        {
+            Organization existingOrg = context.Organizations.Find(organization.OrganizationID);
+            context.Organizations.Remove(existingOrg);
+            context.SaveChanges();
+        }
     }
 }

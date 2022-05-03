@@ -7,9 +7,19 @@ namespace NWEEI.Repositories
 {
     public interface IRegistrationRepo
     {
-        // retrieval methods
         IQueryable<Registration> Registrations { get; }
+
+        // create
+        void AddRegistration(Registration registration);
+
+        // retrieve
         List<Registration> GetAllRegistrations();
         Registration GetRegistrationByID(int id);
+
+        // update
+        void UpdateRegistration(Registration registration);
+
+        // delete
+        void DeleteRegistration(Registration registration);
     }
 }
