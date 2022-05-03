@@ -8,8 +8,12 @@ namespace NWEEI.Repositories
 {
     public interface IFAQRepo
     {
-        // retrieval methods
         IQueryable<FAQ> FAQs { get; }
+
+        // create
+        void AddFAQ(FAQ faq);
+
+        // retrieve
         List<FAQ> GetAllFAQs();
         List<FAQ> GetFAQsByCategoryID(int categoryID);
         List<FAQ> GetFAQsBySearchQuery(string query);

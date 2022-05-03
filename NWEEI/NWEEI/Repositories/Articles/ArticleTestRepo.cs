@@ -17,6 +17,26 @@ namespace NWEEI.Repositories
             }
         }
 
+        // add a new article
+        public void AddArticle(Article article)
+        {
+            // attempt to retrieve existing article
+            Article existingArticle = articles.Find(a => a.Title == article.Title && a.Body == article.Body);
+
+            // add article to list if it doesn't already exist
+            if (existingArticle == null)
+            {
+                // simulate auto-incremented primary key and add article to list
+                article.ArticleID = articles.Count;
+                articles.Add(article);
+            }
+            else
+            {
+                throw new Exception("Article already exists");
+            }
+        }
+
+        // get a list of all articles
         public List<Article> GetAllArticles()
         {
             articles = Articles.ToList();
@@ -24,6 +44,7 @@ namespace NWEEI.Repositories
             return articles;
         }
 
+        // get a list of articles by category
         public List<Article> GetArticlesByCategoryID(int categoryID)
         {
             List<Article> articlesByCategory = articles
@@ -39,13 +60,14 @@ namespace NWEEI.Repositories
             throw new NotImplementedException();
         }
 
+        // get a specific article by its id
         public Article GetArticleByID(int id)
         {
             Article article = articles.Find(a => a.ArticleID == id);
             return article;
         }
 
-        // TODO: write test update method
+        // update an article
         public void UpdateArticle(Article article)
         {
             // retrieve article from list

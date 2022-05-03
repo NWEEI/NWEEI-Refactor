@@ -7,8 +7,12 @@ namespace NWEEI.Repositories
 {
     public interface IOrganizationRepo
     {
-        // retrieval methods
         IQueryable<Organization> Organizations { get; }
+
+        // create
+        void AddOrganization(Organization organization);
+
+        // retrieve
         List<Organization> GetAllOrganizations();
         List<Organization> GetOrganizationsByTagID(int tagID);
         Organization GetOrganizationByID(int id);

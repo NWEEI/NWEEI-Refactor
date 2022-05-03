@@ -7,8 +7,12 @@ namespace NWEEI.Repositories
 {
     public interface ITagRepo
     {
-        // retrieval methods
         IQueryable<Tag> Tags { get; }
+
+        // create
+        void AddTag(Tag tag);
+
+        // retrieve
         List<Tag> GetAllTags();
         Tag GetTagByID(int id);
 

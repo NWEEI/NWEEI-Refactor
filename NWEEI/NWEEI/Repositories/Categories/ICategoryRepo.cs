@@ -8,8 +8,12 @@ namespace NWEEI.Repositories
 {
     public interface ICategoryRepo
     {
-        // retrieval methods
         IQueryable<Category> Categories { get; }
+
+        // create
+        void AddCategory(Category category);
+
+        // retrieve
         List<Category> GetAllCategories();
         Category GetCategoryByID(int id);
 

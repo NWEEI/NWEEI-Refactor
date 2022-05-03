@@ -16,8 +16,6 @@ namespace NWEEI.Repositories
             context = c;
         }
 
-        #region retrieval methods
-
         public IQueryable<Registration> Registrations
         {
             get
@@ -26,6 +24,16 @@ namespace NWEEI.Repositories
             }
         }
 
+        // add a new registration
+        public void AddRegistration(Registration registration)
+        {
+            context.Registrations.Add(registration);
+            context.SaveChanges();
+        }
+
+        #region retrieval methods
+
+        // get a list of all registrations
         public List<Registration> GetAllRegistrations()
         {
             List<Registration> registrations = context.Registrations
@@ -35,6 +43,7 @@ namespace NWEEI.Repositories
             return registrations;
         }
 
+        // get a specific registration by its id
         public Registration GetRegistrationByID(int id)
         {
             Registration registration = context.Registrations
@@ -46,6 +55,7 @@ namespace NWEEI.Repositories
 
         #endregion
 
+        // update a registration
         public void UpdateRegistration(Registration registration)
         {
             context.Registrations.Update(registration);

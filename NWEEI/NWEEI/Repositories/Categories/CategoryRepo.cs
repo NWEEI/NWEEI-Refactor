@@ -15,6 +15,12 @@ namespace NWEEI.Repositories
             context = c;
         }
 
+        // create a new category
+        public void AddCategory(Category category)
+        {
+            context.Categories.Add(category);
+            context.SaveChanges();
+        }
 
         #region retrieval methods
 
@@ -26,6 +32,7 @@ namespace NWEEI.Repositories
             }
         }
 
+        // get a list of all categories
         public List<Category> GetAllCategories()
         {
             List<Category> categories = context.Categories.ToList();
@@ -33,6 +40,7 @@ namespace NWEEI.Repositories
             return categories;
         }
 
+        // get a specific category by its id
         public Category GetCategoryByID(int id)
         {
             Category category = context.Categories

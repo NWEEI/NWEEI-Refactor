@@ -17,6 +17,27 @@ namespace NWEEI.Repositories
             }
         }
 
+        // add a new registration
+        public void AddRegistration(Registration registration)
+        {
+            // attempt to retrieve existing registration
+            Registration existingRegistration = registrations
+                .Find(r => r.FirstName == registration.FirstName && r.LastName == registration.LastName);
+
+            // add registration to list if it doesn't already exist
+            if (existingRegistration == null)
+            {
+                // simulate auto-incremented primary key and add registration to list
+                registration.RegistrationID = registrations.Count;
+                registrations.Add(registration);
+            }
+            else
+            {
+                throw new Exception("Registration already exists");
+            }
+        }
+
+        // get a list of all registrations
         public List<Registration> GetAllRegistrations()
         {
             registrations = Registrations.ToList();
@@ -24,13 +45,14 @@ namespace NWEEI.Repositories
             return registrations;
         }
 
+        // get a specific registration by its id
         public Registration GetRegistrationByID(int id)
         {
             Registration registration = registrations.Find(r => r.RegistrationID == id);
             return registration;
         }
 
-        // TODO: write test update method
+        // update a registration
         public void UpdateRegistration(Registration registration)
         {
             // retrieve registration from list

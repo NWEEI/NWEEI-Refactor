@@ -17,6 +17,26 @@ namespace NWEEI.Repositories
             }
         }
 
+        // create a new category
+        public void AddCategory(Category category)
+        {
+            // attempt to retrieve existing category
+            Category existingCategory = categories.Find(c => c.Name == category.Name);
+
+            // add category to list if it doesn't already exist
+            if (existingCategory == null)
+            {
+                // simulate auto-incremented primary key and add category to list
+                category.CategoryID = categories.Count;
+                categories.Add(category);
+            }
+            else
+            {
+                throw new Exception("Category already exists");
+            }
+        }
+
+        // get a list of all categories
         public List<Category> GetAllCategories()
         {
             categories = Categories.ToList();
@@ -24,13 +44,14 @@ namespace NWEEI.Repositories
             return categories;
         }
 
+        // get a specific category by its id
         public Category GetCategoryByID(int id)
         {
             Category category = categories.Find(c => c.CategoryID == id);
             return category;
         }
 
-        // TODO: write test update method
+        // update a category
         public void UpdateCategory(Category category)
         {
             // retrieve category from list

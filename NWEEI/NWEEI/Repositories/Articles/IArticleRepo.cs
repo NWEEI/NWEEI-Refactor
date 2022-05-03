@@ -7,8 +7,12 @@ namespace NWEEI.Repositories
 {
     public interface IArticleRepo
     {
-        // retrieval
         IQueryable<Article> Articles { get; }
+
+        // create
+        void AddArticle(Article article);
+
+        // retrieve
         List<Article> GetAllArticles();
         List<Article> GetArticlesByCategoryID(int categoryID);
         List<Article> GetArticlesBySearchQuery(string query);

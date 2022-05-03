@@ -18,6 +18,26 @@ namespace NWEEI.Repositories
             }
         }
 
+        // add a new FAQ
+        public void AddFAQ(FAQ faq)
+        {
+            // attempt to retrieve existing FAQ
+            FAQ existingFAQ = faqs.Find(f => f.Question == faq.Question);
+
+            // add FAQ to list if it doesn't already exist
+            if (existingFAQ == null)
+            {
+                // simulate auto-incremented primary key and add FAQ to list
+                faq.FAQID = faqs.Count;
+                faqs.Add(faq);
+            }
+            else
+            {
+                throw new Exception("FAQ already exists");
+            }
+        }
+
+        // get a list of all FAQs
         public List<FAQ> GetAllFAQs()
         {
             faqs = FAQs.ToList();
@@ -25,6 +45,7 @@ namespace NWEEI.Repositories
             return faqs;
         }
 
+        // get a list of FAQs by category
         public List<FAQ> GetFAQsByCategoryID(int categoryID)
         {
             List<FAQ> faqsByCategory = faqs
@@ -40,12 +61,14 @@ namespace NWEEI.Repositories
             throw new NotImplementedException();
         }
 
+        // get a specific FAQ by its id
         public FAQ GetFAQByID(int id)
         {
             FAQ faq = faqs.Find(f => f.FAQID == id);
             return faq;
         }
 
+        // update a FAQ
         public void UpdateFAQ(FAQ faq)
         {
             // retrieve faq from list
