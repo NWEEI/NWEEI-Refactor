@@ -18,5 +18,8 @@ namespace NWEEI.Repositories
 
         // update
         void UpdateRegistration(Registration registration);
+
+        // delete
+        void DeleteRegistration(Registration registration);
     }
 }

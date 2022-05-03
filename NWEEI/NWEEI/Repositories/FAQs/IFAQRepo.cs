@@ -21,5 +21,8 @@ namespace NWEEI.Repositories
 
         // update
         void UpdateFAQ(FAQ faq);
+
+        // delete
+        void DeleteFAQ(FAQ faq);
     }
 }

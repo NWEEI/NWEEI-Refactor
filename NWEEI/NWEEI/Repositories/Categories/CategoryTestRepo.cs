@@ -60,5 +60,12 @@ namespace NWEEI.Repositories
             // update its properties
             existingCategory.Name = category.Name;
         }
+
+        // delete a category
+        public void DeleteCategory(Category category)
+        {
+            Category existingCategory = categories.Find(c => c.CategoryID == category.CategoryID);
+            categories.Remove(existingCategory);
+        }
     }
 }

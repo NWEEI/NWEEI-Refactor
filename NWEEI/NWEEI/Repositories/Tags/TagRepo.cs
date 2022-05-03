@@ -59,5 +59,13 @@ namespace NWEEI.Repositories
             context.Tags.Update(tag);
             context.SaveChanges();
         }
+
+        // delete a tag
+        public void DeleteTag(Tag tag)
+        {
+            Tag existingTag = context.Tags.Find(tag.TagID);
+            context.Tags.Remove(existingTag);
+            context.SaveChanges();
+        }
     }
 }

@@ -84,5 +84,12 @@ namespace NWEEI.Repositories
             existingArticle.Featured = article.Featured;
             existingArticle.Views = article.Views;
         }
+
+        // delete an article
+        public void DeleteArticle(Article article)
+        {
+            Article existingArticle = articles.Find(a => a.ArticleID == article.ArticleID);
+            articles.Remove(existingArticle);
+        }
     }
 }

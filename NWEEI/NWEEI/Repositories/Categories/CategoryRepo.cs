@@ -52,9 +52,18 @@ namespace NWEEI.Repositories
 
         #endregion
 
+        // update a category
         public void UpdateCategory(Category category)
         {
             context.Categories.Update(category);
+            context.SaveChanges();
+        }
+
+        // delete a category
+        public void DeleteCategory(Category category)
+        {
+            Category existingCategory = context.Categories.Find(category.CategoryID);
+            context.Categories.Remove(existingCategory);
             context.SaveChanges();
         }
     }

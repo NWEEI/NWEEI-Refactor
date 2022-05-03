@@ -60,5 +60,12 @@ namespace NWEEI.Repositories
             // update its properties
             existingTag.Name = tag.Name;
         }
+
+        // delete a tag
+        public void DeleteTag(Tag tag)
+        {
+            Tag existingTag = tags.Find(t => t.TagID == tag.TagID);
+            tags.Remove(existingTag);
+        }
     }
 }

@@ -61,5 +61,14 @@ namespace NWEEI.Repositories
             context.Registrations.Update(registration);
             context.SaveChanges();
         }
+
+        // delete a registration
+        public void DeleteRegistration(Registration registration)
+        {
+            Registration existingRegistration = context.Registrations
+                .Find(registration.RegistrationID);
+            context.Registrations.Remove(existingRegistration);
+            context.SaveChanges();
+        }
     }
 }

@@ -71,5 +71,13 @@ namespace NWEEI.Repositories
             context.Organizations.Update(organization);
             context.SaveChanges();
         }
+
+        // delete an organization
+        public void DeleteOrganization(Organization organization)
+        {
+            Organization existingOrg = context.Organizations.Find(organization.OrganizationID);
+            context.Organizations.Remove(existingOrg);
+            context.SaveChanges();
+        }
     }
 }

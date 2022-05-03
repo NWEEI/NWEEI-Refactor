@@ -77,5 +77,12 @@ namespace NWEEI.Repositories
                 existingOrg.Tags.Add(t);
             }
         }
+
+        // delete an organization
+        public void DeleteOrganization(Organization organization)
+        {
+            Organization existingOrg = organizations.Find(o => o.OrganizationID == organization.OrganizationID);
+            organizations.Remove(existingOrg);
+        }
     }
 }

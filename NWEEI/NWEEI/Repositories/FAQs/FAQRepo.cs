@@ -79,5 +79,13 @@ namespace NWEEI.Repositories
             context.FAQs.Update(faq);
             context.SaveChanges();
         }
+
+        // delete a FAQ
+        public void DeleteFAQ(FAQ faq)
+        {
+            FAQ existingFAQ = context.FAQs.Find(faq.FAQID);
+            context.FAQs.Remove(existingFAQ);
+            context.SaveChanges();
+        }
     }
 }

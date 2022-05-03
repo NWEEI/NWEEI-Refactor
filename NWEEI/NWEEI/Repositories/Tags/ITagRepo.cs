@@ -18,5 +18,8 @@ namespace NWEEI.Repositories
 
         // update
         void UpdateTag(Tag tag);
+
+        // delete
+        void DeleteTag(Tag tag);
     }
 }

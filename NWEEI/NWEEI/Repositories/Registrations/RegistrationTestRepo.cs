@@ -78,5 +78,12 @@ namespace NWEEI.Repositories
             existingReg.SpecialInstructions = registration.SpecialInstructions;
             existingReg.PaymentType = registration.PaymentType;
         }
+
+        // delete a registration
+        public void DeleteRegistration(Registration registration)
+        {
+            Registration existingRegistration = registrations.Find(r => r.RegistrationID == registration.RegistrationID);
+            registrations.Remove(existingRegistration);
+        }
     }
 }

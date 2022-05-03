@@ -20,5 +20,8 @@ namespace NWEEI.Repositories
 
         // update
         void UpdateArticle(Article article);
+
+        // delete
+        void DeleteArticle(Article article);
     }
 }

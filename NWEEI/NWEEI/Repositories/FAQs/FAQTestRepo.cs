@@ -81,5 +81,12 @@ namespace NWEEI.Repositories
             existingFAQ.IsPublished = faq.IsPublished;
             existingFAQ.Featured = faq.Featured;
         }
+
+        // delete a FAQ
+        public void DeleteFAQ(FAQ faq)
+        {
+            FAQ existingFAQ = faqs.Find(f => f.FAQID == faq.FAQID);
+            faqs.Remove(existingFAQ);
+        }
     }
 }

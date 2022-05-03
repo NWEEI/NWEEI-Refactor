@@ -19,5 +19,8 @@ namespace NWEEI.Repositories
 
         // update
         void UpdateOrganization(Organization organization);
+
+        // delete
+        void DeleteOrganization(Organization organization);
     }
 }

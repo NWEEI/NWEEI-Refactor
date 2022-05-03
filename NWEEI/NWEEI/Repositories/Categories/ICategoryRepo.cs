@@ -19,5 +19,8 @@ namespace NWEEI.Repositories
 
         // update
         void UpdateCategory(Category category);
+
+        // delete
+        void DeleteCategory(Category category);
     }
 }

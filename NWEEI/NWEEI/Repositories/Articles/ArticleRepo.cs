@@ -86,5 +86,12 @@ namespace NWEEI.Repositories
             context.SaveChanges();
         }
 
+        // delete an article
+        public void DeleteArticle(Article article)
+        {
+            Article existingArticle = context.Articles.Find(article.ArticleID);
+            context.Articles.Remove(existingArticle);
+            context.SaveChanges();
+        }
     }
 }
