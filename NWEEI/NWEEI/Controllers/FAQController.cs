@@ -7,22 +7,23 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NWEEI.Data;
 using NWEEI.Models;
+using NWEEI.Repositories;
 
 namespace NWEEI.Controllers
 {
     public class FAQController : Controller
     {
-        private readonly NWEEIContext _context;
+        IFAQRepo repo;
 
-        public FAQController(NWEEIContext context)
+        public FAQController(IFAQRepo r)
         {
-            _context = context;
+            repo = r;
         }
 
         // GET: FAQ
         public async Task<IActionResult> Index()
         {
-            return View(await _context.FAQs.ToListAsync());
+            return View(await repo.FAQs.ToListAsync());
         }
 
         // GET: FAQ/Details/5
@@ -33,7 +34,7 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
-            var fAQ = await _context.FAQs
+            FAQ fAQ = await repo.FAQs
                 .FirstOrDefaultAsync(m => m.FAQID == id);
             if (fAQ == null)
             {
@@ -58,8 +59,7 @@ namespace NWEEI.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(fAQ);
-                await _context.SaveChangesAsync();
+                repo.AddFAQ(fAQ);
                 return RedirectToAction(nameof(Index));
             }
             return View(fAQ);
@@ -73,12 +73,12 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
-            var fAQ = await _context.FAQs.FindAsync(id);
-            if (fAQ == null)
+            FAQ faq = repo.GetFAQByID((int)id);
+            if (faq == null)
             {
                 return NotFound();
             }
-            return View(fAQ);
+            return View(faq);
         }
 
         // POST: FAQ/Edit/5
@@ -97,8 +97,7 @@ namespace NWEEI.Controllers
             {
                 try
                 {
-                    _context.Update(fAQ);
-                    await _context.SaveChangesAsync();
+                    repo.UpdateFAQ(fAQ);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -124,7 +123,7 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
-            var fAQ = await _context.FAQs
+            var fAQ = await repo.FAQs
                 .FirstOrDefaultAsync(m => m.FAQID == id);
             if (fAQ == null)
             {
@@ -139,15 +138,14 @@ namespace NWEEI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var fAQ = await _context.FAQs.FindAsync(id);
-            _context.FAQs.Remove(fAQ);
-            await _context.SaveChangesAsync();
+            FAQ faq = repo.GetFAQByID((int)id);
+            repo.DeleteFAQ(faq);
             return RedirectToAction(nameof(Index));
         }
 
         private bool FAQExists(int id)
         {
-            return _context.FAQs.Any(e => e.FAQID == id);
+            return repo.FAQs.Any(e => e.FAQID == id);
         }
     }
 }
