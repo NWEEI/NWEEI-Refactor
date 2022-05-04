@@ -8,23 +8,24 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NWEEI.Data;
 using NWEEI.Models;
+using NWEEI.Repositories;
 
 namespace NWEEI.Controllers
 {
     public class RegistrationController : Controller
     {
-        private readonly NWEEIContext _context;
+        IRegistrationRepo repo;
 
-        public RegistrationController(NWEEIContext context)
+        public RegistrationController(IRegistrationRepo r)
         {
-            _context = context;
+            repo = r;
         }
 
         // GET: Registration
         [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Registrations.OrderByDescending(r => r.DateSubmitted).ToListAsync());
+            return View(await repo.Registrations.OrderByDescending(r => r.DateSubmitted).ToListAsync());
         }
 
         // GET: Registration/Details/5
@@ -36,7 +37,7 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
-            var registration = await _context.Registrations
+            Registration registration = await repo.Registrations
                 .FirstOrDefaultAsync(m => m.RegistrationID == id);
             if (registration == null)
             {
@@ -67,8 +68,7 @@ namespace NWEEI.Controllers
             TempData["Email"] = registration.Email;
             if (ModelState.IsValid)
             {
-                _context.Add(registration);
-                await _context.SaveChangesAsync();
+                repo.AddRegistration(registration);
                 return RedirectToAction(nameof(CreateConfirmation));
             }
             return View(registration);
@@ -93,7 +93,7 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
-            var registration = await _context.Registrations.FindAsync(id);
+            Registration registration = repo.GetRegistrationByID((int)id);
             if (registration == null)
             {
                 return NotFound();
@@ -118,8 +118,7 @@ namespace NWEEI.Controllers
             {
                 try
                 {
-                    _context.Update(registration);
-                    await _context.SaveChangesAsync();
+                    repo.UpdateRegistration(registration);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -146,7 +145,7 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
-            var registration = await _context.Registrations
+            Registration registration = await repo.Registrations
                 .FirstOrDefaultAsync(m => m.RegistrationID == id);
             if (registration == null)
             {
@@ -162,15 +161,14 @@ namespace NWEEI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var registration = await _context.Registrations.FindAsync(id);
-            _context.Registrations.Remove(registration);
-            await _context.SaveChangesAsync();
+            Registration registration = repo.GetRegistrationByID(id);
+            repo.DeleteRegistration(registration);
             return RedirectToAction(nameof(Index));
         }
 
         private bool RegistrationExists(int id)
         {
-            return _context.Registrations.Any(e => e.RegistrationID == id);
+            return repo.Registrations.Any(e => e.RegistrationID == id);
         }
     }
 }
