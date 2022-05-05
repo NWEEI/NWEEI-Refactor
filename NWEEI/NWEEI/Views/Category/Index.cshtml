@@ -1,10 +1,11 @@
-@model IEnumerable<NWEEI.Models.Category>
+@*@model IEnumerable<NWEEI.Models.Category>*@
+@model List<Category>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Manage Categories";
 }
 
-<h1>Index</h1>
+<h1>Manage Categories</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -12,21 +13,23 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th></th>
+            <th>Category Name</th>
+            <th style="text-align:center;">Number of Articles</th>
+            <th>Manage</th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+            <td style="text-align:center;">
+                @Html.DisplayFor(modelItem => item.Articles.Count)
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <a asp-controller="Article" asp-action="Category" asp-route-categoryID="@item.CategoryID">View Articles</a>
+            </td> 
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CategoryID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CategoryID">Details</a> |
+                <a asp-action="Edit" asp-route-id="@item.CategoryID">Edit</a>
+                &nbsp;&nbsp;|&nbsp;&nbsp;
                 <a asp-action="Delete" asp-route-id="@item.CategoryID">Delete</a>
             </td>
         </tr>

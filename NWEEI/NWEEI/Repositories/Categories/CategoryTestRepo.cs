@@ -51,6 +51,13 @@ namespace NWEEI.Repositories
             return category;
         }
 
+        // TODO: write test method
+        // get a list of articles in a specific category
+        public List<Article> GetArticlesByCategoryID(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         // update a category
         public void UpdateCategory(Category category)
         {

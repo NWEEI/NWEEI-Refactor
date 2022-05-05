@@ -26,6 +26,14 @@ namespace NWEEI.Controllers
             return View(await repo.Articles.ToListAsync());
         }
 
+        // get all articles in a category
+        // GET: Category/Articles/5
+        //[Route("categoryID")]
+        public async Task<IActionResult> Category(int categoryID)
+        {
+            return View(repo.GetArticlesByCategoryID(categoryID));
+        }
+
         // GET: Article/Details/5
         public async Task<IActionResult> Details(int? id)
         {

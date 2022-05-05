@@ -16,6 +16,7 @@ namespace NWEEI.Repositories
         // retrieve
         List<Category> GetAllCategories();
         Category GetCategoryByID(int id);
+        List<Article> GetArticlesByCategoryID(int id);
 
         // update
         void UpdateCategory(Category category);

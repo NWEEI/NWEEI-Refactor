@@ -23,6 +23,9 @@ namespace NWEEI.Controllers
         // GET: Category
         public async Task<IActionResult> Index()
         {
+            //List<Category> categories = repo.GetAllCategories();
+            //return View(categories);
+
             return View(await repo.Categories.ToListAsync());
         }
 
