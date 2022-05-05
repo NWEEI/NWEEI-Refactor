@@ -1,0 +1,60 @@
+﻿@model List<Article>
+
+@{
+    ViewData["Title"] = "Articles";
+}
+
+<h1>Articles</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Date Created
+            </th>
+            <th>
+                Published
+            </th>
+            <th>
+                Featured
+            </th>
+            <th>
+                Views
+            </th>
+            <th>Manage</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @item.DateCreated.ToShortDateString()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsPublished)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Featured)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Views)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ArticleID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ArticleID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ArticleID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
