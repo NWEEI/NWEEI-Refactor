@@ -2,30 +2,33 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NWEEI.Data;
 using NWEEI.Models;
+using NWEEI.Repositories;
 
 namespace NWEEI.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly NWEEIContext _context;
+        ICategoryRepo repo;
 
-        public CategoryController(NWEEIContext context)
+        public CategoryController(ICategoryRepo r)
         {
-            _context = context;
+            repo = r;
         }
 
         // GET: Category
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categories.ToListAsync());
+            return View(await repo.Categories.ToListAsync());
         }
 
         // GET: Category/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,7 +36,7 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categories
+            var category = await repo.Categories
                 .FirstOrDefaultAsync(m => m.CategoryID == id);
             if (category == null)
             {
@@ -44,6 +47,7 @@ namespace NWEEI.Controllers
         }
 
         // GET: Category/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -54,18 +58,19 @@ namespace NWEEI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("CategoryID,Name")] Category category)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(category);
-                await _context.SaveChangesAsync();
+                repo.AddCategory(category);
                 return RedirectToAction(nameof(Index));
             }
             return View(category);
         }
 
         // GET: Category/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,7 +78,7 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categories.FindAsync(id);
+            Category category = repo.GetCategoryByID((int)id);
             if (category == null)
             {
                 return NotFound();
@@ -86,6 +91,7 @@ namespace NWEEI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("CategoryID,Name")] Category category)
         {
             if (id != category.CategoryID)
@@ -97,8 +103,7 @@ namespace NWEEI.Controllers
             {
                 try
                 {
-                    _context.Update(category);
-                    await _context.SaveChangesAsync();
+                    repo.UpdateCategory(category);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -117,6 +122,7 @@ namespace NWEEI.Controllers
         }
 
         // GET: Category/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,7 +130,7 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categories
+            var category = await repo.Categories
                 .FirstOrDefaultAsync(m => m.CategoryID == id);
             if (category == null)
             {
@@ -137,17 +143,17 @@ namespace NWEEI.Controllers
         // POST: Category/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
-            _context.Categories.Remove(category);
-            await _context.SaveChangesAsync();
+            Category category = repo.GetCategoryByID((int)id);
+            repo.DeleteCategory(category);
             return RedirectToAction(nameof(Index));
         }
 
         private bool CategoryExists(int id)
         {
-            return _context.Categories.Any(e => e.CategoryID == id);
+            return repo.Categories.Any(e => e.CategoryID == id);
         }
     }
 }

@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using NWEEI.Models;
 using Microsoft.Data.Sqlite;
 using MySql.Data.MySqlClient;
+using NWEEI.Repositories;
 
 namespace NWEEI
 {
@@ -38,11 +39,18 @@ namespace NWEEI
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-
-
+            // identity service
             services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<NWEEIContext>();
+
+            // inject repositories into controllers
+            services.AddTransient<IArticleRepo, ArticleRepo>();
+            services.AddTransient<ICategoryRepo, CategoryRepo>();
+            services.AddTransient<IFAQRepo, FAQRepo>();
+            services.AddTransient<IOrganizationRepo, OrganizationRepo>();
+            services.AddTransient<IRegistrationRepo, RegistrationRepo>();
+            services.AddTransient<ITagRepo, TagRepo>();
 
             services.AddRazorPages();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();

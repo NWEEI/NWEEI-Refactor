@@ -1,0 +1,81 @@
+﻿@model List<Article>
+
+@{
+    ViewData["Title"] = "Articles";
+}
+
+<h1>@Model[0].Category.Name Articles</h1>
+<a asp-controller="Category" asp-action="Index">Back to Categories</a>
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Article Title
+                </th>
+                <th>
+                    Date Created
+                </th>
+                <th>
+                    Published
+                </th>
+                <th>
+                    Featured
+                </th>
+                <th>
+                    Views
+                </th>
+                <th>Manage</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @item.DateCreated.ToShortDateString()
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsPublished)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Featured)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Views)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ArticleID">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.ArticleID">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ArticleID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="articles container">
+        @foreach (var item in Model)
+        {
+            <div class="article-tile-container">
+                <div class="article-tile-content">
+                    <a asp-action="Details" asp-route-id="@item.ArticleID">
+                        <div class="article-tile-title">@item.Title</div>
+                        @*<div class="article-tile-preview">@item.Body.Substring(0, 150)...</div>*@
+                        <div class="article-tile-date">@item.PublishDate.ToShortDateString()</div>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+}

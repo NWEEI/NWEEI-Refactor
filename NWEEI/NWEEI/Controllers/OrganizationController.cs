@@ -7,22 +7,23 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NWEEI.Data;
 using NWEEI.Models;
+using NWEEI.Repositories;
 
 namespace NWEEI.Controllers
 {
     public class OrganizationController : Controller
     {
-        private readonly NWEEIContext _context;
+        IOrganizationRepo repo;
 
-        public OrganizationController(NWEEIContext context)
+        public OrganizationController(IOrganizationRepo r)
         {
-            _context = context;
+            repo = r;
         }
 
         // GET: Organization
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Organizations.ToListAsync());
+            return View(await repo.Organizations.ToListAsync());
         }
 
         // GET: Organization/Details/5
@@ -33,7 +34,7 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
-            var organization = await _context.Organizations
+            Organization organization = await repo.Organizations
                 .FirstOrDefaultAsync(m => m.OrganizationID == id);
             if (organization == null)
             {
@@ -58,8 +59,7 @@ namespace NWEEI.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(organization);
-                await _context.SaveChangesAsync();
+                repo.AddOrganization(organization);
                 return RedirectToAction(nameof(Index));
             }
             return View(organization);
@@ -73,7 +73,7 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
-            var organization = await _context.Organizations.FindAsync(id);
+            Organization organization = repo.GetOrganizationByID((int)id);
             if (organization == null)
             {
                 return NotFound();
@@ -97,8 +97,7 @@ namespace NWEEI.Controllers
             {
                 try
                 {
-                    _context.Update(organization);
-                    await _context.SaveChangesAsync();
+                    repo.UpdateOrganization(organization);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -124,7 +123,7 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
-            var organization = await _context.Organizations
+            Organization organization = await repo.Organizations
                 .FirstOrDefaultAsync(m => m.OrganizationID == id);
             if (organization == null)
             {
@@ -139,15 +138,14 @@ namespace NWEEI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var organization = await _context.Organizations.FindAsync(id);
-            _context.Organizations.Remove(organization);
-            await _context.SaveChangesAsync();
+            Organization organization = repo.GetOrganizationByID((int)id);
+            repo.DeleteOrganization(organization);
             return RedirectToAction(nameof(Index));
         }
 
         private bool OrganizationExists(int id)
         {
-            return _context.Organizations.Any(e => e.OrganizationID == id);
+            return repo.Organizations.Any(e => e.OrganizationID == id);
         }
     }
 }
