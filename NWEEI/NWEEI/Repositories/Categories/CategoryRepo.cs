@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using NWEEI.Data;
 using NWEEI.Models;
 
@@ -15,6 +16,15 @@ namespace NWEEI.Repositories
             context = c;
         }
 
+        public IQueryable<Category> Categories
+        {
+            get
+            {
+                return context.Categories
+                    .Include(c => c.Articles);
+            }
+        }
+
         // create a new category
         public void AddCategory(Category category)
         {
@@ -24,18 +34,12 @@ namespace NWEEI.Repositories
 
         #region retrieval methods
 
-        public IQueryable<Category> Categories
-        {
-            get
-            {
-                return context.Categories;
-            }
-        }
-
         // get a list of all categories
         public List<Category> GetAllCategories()
         {
-            List<Category> categories = context.Categories.ToList();
+            List<Category> categories = context.Categories
+                .Include(c => c.Articles)
+                .ToList();
 
             return categories;
         }
@@ -44,10 +48,25 @@ namespace NWEEI.Repositories
         public Category GetCategoryByID(int id)
         {
             Category category = context.Categories
+                .Include(c => c.Articles)
                 .Where(c => c.CategoryID == id)
                 .FirstOrDefault();
 
             return category;
+        }
+
+        // get a list of articles in a specific category
+        public List<Article> GetArticlesByCategoryID(int id)
+        {
+            IQueryable<Article> articles = context.Articles
+                .Include(a => a.Author)
+                .Include(a => a.Category);
+
+            List<Article> articlesByCategory = articles
+                .Where(a => a.Category.CategoryID == id)
+                .ToList();
+
+            return articlesByCategory;
         }
 
         #endregion

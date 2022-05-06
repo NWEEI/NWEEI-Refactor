@@ -7,22 +7,23 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NWEEI.Data;
 using NWEEI.Models;
+using NWEEI.Repositories;
 
 namespace NWEEI.Controllers
 {
     public class TagController : Controller
     {
-        private readonly NWEEIContext _context;
+        ITagRepo repo;
 
-        public TagController(NWEEIContext context)
+        public TagController(ITagRepo r)
         {
-            _context = context;
+            repo = r;
         }
 
         // GET: Tag
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Tags.ToListAsync());
+            return View(await repo.Tags.ToListAsync());
         }
 
         // GET: Tag/Details/5
@@ -33,7 +34,7 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
-            var tag = await _context.Tags
+            Tag tag = await repo.Tags
                 .FirstOrDefaultAsync(m => m.TagID == id);
             if (tag == null)
             {
@@ -58,8 +59,7 @@ namespace NWEEI.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(tag);
-                await _context.SaveChangesAsync();
+                repo.AddTag(tag);
                 return RedirectToAction(nameof(Index));
             }
             return View(tag);
@@ -73,7 +73,7 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
-            var tag = await _context.Tags.FindAsync(id);
+            Tag tag = repo.GetTagByID((int)id);
             if (tag == null)
             {
                 return NotFound();
@@ -97,8 +97,7 @@ namespace NWEEI.Controllers
             {
                 try
                 {
-                    _context.Update(tag);
-                    await _context.SaveChangesAsync();
+                    repo.UpdateTag(tag);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -124,7 +123,7 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
-            var tag = await _context.Tags
+            var tag = await repo.Tags
                 .FirstOrDefaultAsync(m => m.TagID == id);
             if (tag == null)
             {
@@ -139,15 +138,14 @@ namespace NWEEI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var tag = await _context.Tags.FindAsync(id);
-            _context.Tags.Remove(tag);
-            await _context.SaveChangesAsync();
+            Tag tag = repo.GetTagByID(id);
+            repo.DeleteTag(tag);
             return RedirectToAction(nameof(Index));
         }
 
         private bool TagExists(int id)
         {
-            return _context.Tags.Any(e => e.TagID == id);
+            return repo.Tags.Any(e => e.TagID == id);
         }
     }
 }
