@@ -5,35 +5,54 @@
     ViewData["Title"] = "Manage Categories";
 }
 
+@if (User.IsInRole("Admin"))
+{
+    <h1>Manage Categories</h1>
 
-<h1>Manage Categories</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Category Name</th>
-            <th style="text-align:center;">Number of Articles</th>
-            <th>Manage</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => item.Name)</td>
-            <td style="text-align:center;">
-                @Html.DisplayFor(modelItem => item.Articles.Count)
-                &nbsp;&nbsp;|&nbsp;&nbsp;
-                <a asp-controller="Article" asp-action="Category" asp-route-categoryID="@item.CategoryID">View Articles</a>
-            </td> 
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CategoryID">Edit</a>
-                &nbsp;&nbsp;|&nbsp;&nbsp;
-                <a asp-action="Delete" asp-route-id="@item.CategoryID">Delete</a>
-            </td>
-        </tr>
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Category Name</th>
+                <th style="text-align:center;">Number of Articles</th>
+                <th>Manage</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td style="text-align:center;">
+                        @Html.DisplayFor(modelItem => item.Articles.Count)
+                        &nbsp;&nbsp;|&nbsp;&nbsp;
+                        <a asp-controller="Article" asp-action="Category" asp-route-categoryID="@item.CategoryID">View Articles</a>
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.CategoryID">Edit</a>
+                        &nbsp;&nbsp;|&nbsp;&nbsp;
+                        <a asp-action="Delete" asp-route-id="@item.CategoryID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
-    </tbody>
-</table>
+else
+{
+    <h1>Article Categories</h1>
+    <div class="container tiles">
+        @foreach (var item in Model)
+        {
+        <div class="tile-container">
+            <span class="tile-content">
+                <a asp-controller="Article" asp-action="Category" asp-route-categoryID="@item.CategoryID">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </a>
+            </span>
+        </div>
+        }
+    </div>
+}

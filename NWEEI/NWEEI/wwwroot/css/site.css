@@ -211,3 +211,34 @@ body {
 
 
 /* -------------------------------------------------- */
+
+
+/* CATEGORY TILES */
+.tiles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.tile-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    height: 200px;
+    width: 200px;
+    border: 2px solid black;
+    margin: 8px;
+    background-color: #03529B;
+    border-radius: 20px;
+}
+
+.tile-content {
+    padding: 10px;
+    text-align: center;
+}
+
+.tile-content > * {
+    color: white !important;
+}
