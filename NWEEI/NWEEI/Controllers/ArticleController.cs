@@ -7,22 +7,31 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NWEEI.Data;
 using NWEEI.Models;
+using NWEEI.Repositories;
 
 namespace NWEEI.Controllers
 {
     public class ArticleController : Controller
     {
-        private readonly NWEEIContext _context;
+        IArticleRepo repo;
 
-        public ArticleController(NWEEIContext context)
+        public ArticleController(IArticleRepo r)
         {
-            _context = context;
+            repo = r;
         }
 
         // GET: Article
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Articles.ToListAsync());
+            return View(await repo.Articles.ToListAsync());
+        }
+
+        // get all articles in a category
+        // GET: Category/Articles/5
+        //[Route("categoryID")]
+        public async Task<IActionResult> Category(int categoryID)
+        {
+            return View(repo.GetArticlesByCategoryID(categoryID));
         }
 
         // GET: Article/Details/5
@@ -33,7 +42,7 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
-            var article = await _context.Articles
+            Article article = await repo.Articles
                 .FirstOrDefaultAsync(m => m.ArticleID == id);
             if (article == null)
             {
@@ -58,8 +67,7 @@ namespace NWEEI.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(article);
-                await _context.SaveChangesAsync();
+                repo.AddArticle(article);
                 return RedirectToAction(nameof(Index));
             }
             return View(article);
@@ -73,7 +81,7 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
-            var article = await _context.Articles.FindAsync(id);
+            Article article = repo.GetArticleByID((int)id);
             if (article == null)
             {
                 return NotFound();
@@ -97,8 +105,7 @@ namespace NWEEI.Controllers
             {
                 try
                 {
-                    _context.Update(article);
-                    await _context.SaveChangesAsync();
+                    repo.UpdateArticle(article);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -124,7 +131,7 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
-            var article = await _context.Articles
+            Article article = await repo.Articles
                 .FirstOrDefaultAsync(m => m.ArticleID == id);
             if (article == null)
             {
@@ -139,15 +146,14 @@ namespace NWEEI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var article = await _context.Articles.FindAsync(id);
-            _context.Articles.Remove(article);
-            await _context.SaveChangesAsync();
+            Article article = repo.GetArticleByID((int)id);
+            repo.DeleteArticle(article);
             return RedirectToAction(nameof(Index));
         }
 
         private bool ArticleExists(int id)
         {
-            return _context.Articles.Any(e => e.ArticleID == id);
+            return repo.Articles.Any(e => e.ArticleID == id);
         }
     }
 }

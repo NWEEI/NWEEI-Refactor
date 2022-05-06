@@ -40,11 +40,12 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.16" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.16" />
+    <PackageReference Include="MySql.Data" Version="8.0.29" />
+    <PackageReference Include="MySql.EntityFrameworkCore" Version="5.0.13" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\images\" />
-    <Folder Include="Migrations\" />
     <Folder Include="Controllers\Navigation\" />
     <Folder Include="Views\About\" />
     <Folder Include="Views\Resources\" />
