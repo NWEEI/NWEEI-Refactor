@@ -4,7 +4,9 @@
     ViewData["Title"] = "Articles";
 }
 
-<h1>Articles</h1>
+<h1>@Model[0].Category.Name Articles</h1>
+
+<a asp-controller="Category" asp-action="Index">Back to Categories</a>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,7 +15,7 @@
     <thead>
         <tr>
             <th>
-                Title
+                Article Title
             </th>
             <th>
                 Date Created

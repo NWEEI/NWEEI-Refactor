@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using NWEEI.Repositories;
 
 namespace NWEEI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         ICategoryRepo repo;
@@ -23,9 +25,6 @@ namespace NWEEI.Controllers
         // GET: Category
         public async Task<IActionResult> Index()
         {
-            //List<Category> categories = repo.GetAllCategories();
-            //return View(categories);
-
             return View(await repo.Categories.ToListAsync());
         }
 
