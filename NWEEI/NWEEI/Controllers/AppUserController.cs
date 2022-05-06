@@ -30,12 +30,15 @@ namespace NWEEI.Controllers
         // GET: AppUser
         public async Task<IActionResult> Index()
         {
-            var users = await _context.AppUsers.ToListAsync();
-            foreach (AppUser user in _userManager.Users)
+            // var users = await _context.AppUsers.ToListAsync();
+
+            var users = _context.AppUsers.ToList();
+
+            foreach (AppUser user in users)
             {
-                user.RoleNames = await _userManager.GetRolesAsync(user);
+                user.RoleNames = await _userManager.GetRolesAsync(user); 
             }
-            AppUserViewModel model = new AppUserViewModel
+            AppUserViewModel model = new()
             {
                 Users = users,
                 Roles = _roleManager.Roles

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using NWEEI.Models;
 using Microsoft.Data.Sqlite;
 using System.IO;
+using MySql.Data.MySqlClient;
 
 namespace NWEEI.Data
 {
@@ -21,18 +22,16 @@ namespace NWEEI.Data
         public DbSet<Registration> Registrations { get; set; }
         public DbSet<Tag> Tags { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder) // Seed data - Ready for initial Migration
-        {
-            base.OnModelCreating(modelBuilder);
-        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder) => base.OnModelCreating(modelBuilder);
 
         public static async Task CreateAdminUser(RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager) // add admin account
         {
-            string username = "admin@nweei.org";
-            string password = "Sesame1!";
-            string firstName = "Admin";
-            string lastName = "User";
-            string email = "admin@nweei.org";
+            string
+                username = "admin@nweei.org",
+                password = "Sesame1!",
+                firstName = "Admin",
+                lastName = "User",
+                email = "admin@nweei.org";
             bool emailConfirmed = true;
 
             // seed member role
@@ -71,54 +70,65 @@ namespace NWEEI.Data
             }
         }
 
-        public static void SeedLegacyData(SqliteConnection tempConnection)
+        public static void SeedLegacyData(MySqlConnection tempConnection)
         {
+            /// This method is ripe for dehydration.
+
             // using as guides:
             // https://stackoverflow.com/questions/58413440/including-sql-files-when-generating-migrations-in-ef-core-asp-net
             // https://stackoverflow.com/questions/62147487/running-sql-script-using-c-sharp-code-asp-net-core
 
+
             // prepare sql scripts using sql files in LegacyData folder
             // articles, categories, FAQs, organizations, registrations, tags
-            FileInfo categoriesSql = new FileInfo("./Data/LegacyData/Categories.sql");
+            string Path = "./Data/LegacyData/";
+            bool usingMySql = true;
+            Path = usingMySql ? Path + "MySQL/" : Path;
+
+            FileInfo categoriesSql = new FileInfo(Path + "Categories.sql");
             string categoriesScript = categoriesSql.OpenText().ReadToEnd();
 
-            FileInfo articlesSql = new FileInfo("./Data/LegacyData/Articles.sql");
+            FileInfo articlesSql = new FileInfo(Path + "Articles.sql");
             string articlesScript = articlesSql.OpenText().ReadToEnd();
 
-            FileInfo faqsSql = new FileInfo("./Data/LegacyData/FAQs.sql");
+            FileInfo faqsSql = new FileInfo(Path + "FAQs.sql");
             string faqsScript = faqsSql.OpenText().ReadToEnd();
 
-            FileInfo organizationsSql = new FileInfo("./Data/LegacyData/Organizations.sql");
+            FileInfo organizationsSql = new FileInfo(Path + "Organizations.sql");
             string organizationsScript = organizationsSql.OpenText().ReadToEnd();
 
-            FileInfo registrationsSql = new FileInfo("./Data/LegacyData/Registrations.sql");
+            FileInfo registrationsSql = new FileInfo(Path + "Registrations.sql");
             string registrationsScript = registrationsSql.OpenText().ReadToEnd();
 
-            FileInfo tagsSql = new FileInfo("./Data/LegacyData/Tags.sql");
+            FileInfo tagsSql = new FileInfo(Path + "Tags.sql");
             string tagsScript = tagsSql.OpenText().ReadToEnd();
 
 
             // execute scripts
             tempConnection.Open();
 
-            SqliteCommand categoriesCmd = new SqliteCommand(categoriesScript, tempConnection);
-            //SqliteCommand categoriesCmd = new SqliteCommand(categoriesScript);
+            // SqliteCommand categoriesCmd = new (categoriesScript, tempConnection);
+            MySqlCommand categoriesCmd = new (categoriesScript, tempConnection);
             categoriesCmd.ExecuteNonQuery();
 
-            SqliteCommand articlesCmd = new SqliteCommand(articlesScript, tempConnection);
-            //SqliteCommand articlesCmd = new SqliteCommand(articlesScript);
+            // SqliteCommand articlesCmd = new (articlesScript, tempConnection);
+            MySqlCommand articlesCmd = new (articlesScript, tempConnection);
             articlesCmd.ExecuteNonQuery();
-                        
-            SqliteCommand faqsCmd = new SqliteCommand(faqsScript, tempConnection);
+
+            // SqliteCommand faqsCmd = new (faqsScript, tempConnection);
+            MySqlCommand faqsCmd = new (faqsScript, tempConnection);
             faqsCmd.ExecuteNonQuery();
 
-            SqliteCommand organizationsCmd = new SqliteCommand(organizationsScript, tempConnection);
+            // SqliteCommand organizationsCmd = new (organizationsScript, tempConnection);
+            MySqlCommand organizationsCmd = new (organizationsScript, tempConnection);
             organizationsCmd.ExecuteNonQuery();
 
-            SqliteCommand registrationsCmd = new SqliteCommand(registrationsScript, tempConnection);
+            // SqliteCommand registrationsCmd = new (registrationsScript, tempConnection);
+            MySqlCommand registrationsCmd = new (registrationsScript, tempConnection);
             registrationsCmd.ExecuteNonQuery();
 
-            SqliteCommand tagsCmd = new SqliteCommand(tagsScript, tempConnection);
+            // SqliteCommand tagsCmd = new (tagsScript, tempConnection);
+            MySqlCommand tagsCmd = new (tagsScript, tempConnection);
             tagsCmd.ExecuteNonQuery();
 
             tempConnection.Close();

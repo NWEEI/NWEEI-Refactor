@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NWEEI.Models;
 using Microsoft.Data.Sqlite;
+using MySql.Data.MySqlClient;
 
 namespace NWEEI
 {
@@ -29,17 +30,23 @@ namespace NWEEI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<NWEEIContext>(options =>
-                options.UseSqlite(
-                    Configuration.GetConnectionString("SQLiteConnection")));
+            ///SQLite
+            //services.AddDbContext<NWEEIContext>(options => options.UseSqlite(Configuration.GetConnectionString("SQLiteConnection")));
+            ///MySQL
+            services.AddDbContext<NWEEIContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySqlLiveConnection")));
+
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
+
+
             services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false)
-            .AddRoles<IdentityRole>()
-            .AddEntityFrameworkStores<NWEEIContext>();
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<NWEEIContext>();
 
             services.AddRazorPages();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.BuildServiceProvider().GetService<NWEEIContext>().Database.Migrate();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,14 +80,19 @@ namespace NWEEI
             });
 
             var serviceProvider = app.ApplicationServices;
-            UserManager<AppUser> userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();    // create a user-manager object
-            RoleManager<IdentityRole> roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>(); // create a role-manager object
 
-            NWEEIContext.CreateAdminUser(roleManager, userManager).Wait();
 
             // seed legacy data
-            SqliteConnection tempConnection = new SqliteConnection(Configuration.GetConnectionString("SQLiteConnection"));
+            /// SQLite
+            // SqliteConnection tempConnection = new SqliteConnection(Configuration.GetConnectionString("SQLiteConnection"));
+            /// MySQL
+            MySqlConnection tempConnection = new (Configuration.GetConnectionString("MySqlLiveConnection"));
             NWEEIContext.SeedLegacyData(tempConnection);
+
+            // seed admin role
+            UserManager<AppUser> userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();    // create a user-manager object
+            RoleManager<IdentityRole> roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>(); // create a role-manager object
+            NWEEIContext.CreateAdminUser(roleManager, userManager).Wait();
         }
     }
 }
