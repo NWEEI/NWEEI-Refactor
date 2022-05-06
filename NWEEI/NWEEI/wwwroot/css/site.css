@@ -187,19 +187,6 @@ body {
     
 }
 
-.tile-container {
-
-}
-
-    .tile-content {
-
-    }
-
-    .tile-image {
-
-    }
-
-
 /* -------------------------------------------------- */
 
 
@@ -242,3 +229,49 @@ body {
 .tile-content > * {
     color: white !important;
 }
+
+
+
+/* -------------------------------------------------- */
+
+
+/* ARTICLE LIST */
+
+.articles {
+    padding: 20px;
+}
+
+.article-tile-container {
+    padding: 10px;
+    background-color: #03529B;
+    border-radius: 20px;
+    margin: 10px;
+}
+
+.article-tile-content {
+    width: 90%;
+    padding: 10px;
+}
+
+.article-tile-title {
+    font-size: 1.1em;
+    color: white;
+    padding: 2px;
+}
+
+.article-tile-preview {
+    font-size: .9em;
+    font-style: italic;
+    color: lightgrey;
+    padding: 2px;
+}
+
+.article-tile-date {
+    font-size: .8em;
+    font-style: italic;
+    color: lightslategrey;
+    padding: 2px;
+}
+
+
+/* -------------------------------------------------- */
