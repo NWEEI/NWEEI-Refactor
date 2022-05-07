@@ -4,9 +4,15 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<div class="custom-breadcrumb">
+    <a asp-action="Index">
+        <span class="breadcrumb-icon"></span>
+        <span class="breadcrumb-name"><< Back to Categories</span>
+    </a>
+</div>
 
-<h4>Category</h4>
+<h1>Edit @Model.Name</h1>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,7 +20,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="CategoryID" />
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+                <label asp-for="Name" class="control-label">New Name</label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
@@ -23,10 +29,6 @@
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

@@ -4,14 +4,23 @@
     ViewData["Title"] = "Articles";
 }
 
-<h1>@Model[0].Category.Name Articles</h1>
-<a asp-controller="Category" asp-action="Index">Back to Categories</a>
+<div class="custom-breadcrumb">
+    <a asp-controller="Category" asp-action="Index">
+        <span class="breadcrumb-icon"></span>
+        <span class="breadcrumb-name"><< Back to Categories</span>
+    </a>
+</div>
 
 @if (User.IsInRole("Admin"))
 {
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
+    <div class="content-header">
+        <h1>@Model[0].Category.Name Articles</h1>
+
+        <span class="admin-action-button btn btn-primary">
+            <a asp-action="Create">Add Article</a>
+        </span>
+    </div>
+
     <table class="table">
         <thead>
             <tr>
@@ -26,28 +35,30 @@
         <tbody>
             @foreach (var item in Model)
             {
-            <tr>
-                <td class="title">
-                    <a asp-action="Details" asp-route-id="@item.ArticleID">
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </a>
-                </td>
-                <td class="text-center">@item.DateCreated.ToShortDateString()</td>
-                <td class="text-center">@Html.DisplayFor(modelItem => item.IsPublished)</td>
-                <td class="text-center">@Html.DisplayFor(modelItem => item.Featured)</td>
-                <td class="text-center">@Html.DisplayFor(modelItem => item.Views)</td>
-                <td class="text-center">
-                    <a asp-action="Edit" asp-route-id="@item.ArticleID">Edit</a>
-                    &nbsp;&nbsp;|&nbsp;&nbsp;
-                    <a asp-action="Delete" asp-route-id="@item.ArticleID">Delete</a>
-                </td>
-            </tr>
+                <tr>
+                    <td class="title">
+                        <a asp-action="Details" asp-route-id="@item.ArticleID">
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </a>
+                    </td>
+                    <td class="text-center">@item.DateCreated.ToShortDateString()</td>
+                    <td class="text-center">@Html.DisplayFor(modelItem => item.IsPublished)</td>
+                    <td class="text-center">@Html.DisplayFor(modelItem => item.Featured)</td>
+                    <td class="text-center">@Html.DisplayFor(modelItem => item.Views)</td>
+                    <td class="text-center">
+                        <a asp-action="Edit" asp-route-id="@item.ArticleID">Edit</a>
+                        &nbsp;&nbsp;|&nbsp;&nbsp;
+                        <a asp-action="Delete" asp-route-id="@item.ArticleID">Delete</a>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
 }
 else
 {
+    <h1>@Model[0].Category.Name Articles</h1>
+
     <div class="articles container">
         @foreach (var item in Model)
         {
