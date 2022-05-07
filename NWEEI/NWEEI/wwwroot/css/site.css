@@ -214,6 +214,10 @@ body {
     
 }
 
+.content-header {
+    position: relative;
+}
+
 /* buttons */
 
 .admin-action-button {
@@ -297,23 +301,6 @@ body {
 
 
 /* ARTICLES */
-
-.article-header {
-
-}
-
-.article-header-content {
-    position: relative;
-}
-
-.article-header-content > * {
-/*    vertical-align: middle;*/
-}
-
-.publish-date {
-
-}
-
 
 /* user views */
 
