@@ -9,60 +9,32 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="articles-table table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Body)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateCreated)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PublishDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsPublished)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Featured)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Views)
-            </th>
-            <th></th>
+            <th class="title">Article Title</th>
+            <th class="text-center">Date Created</th>
+            <th class="text-center">Published</th>
+            <th class="text-center">Featured</th>
+            <th class="text-center">Views</th>
+            <th class="text-center">Manage</th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
+            <td class="title">
+                <a asp-action="Details" asp-route-id="@item.ArticleID">
+                    @Html.DisplayFor(modelItem => item.Title)
+                </a>
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Body)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateCreated)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PublishDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsPublished)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Featured)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Views)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ArticleID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ArticleID">Details</a> |
+            <td class="text-center">@item.DateCreated.ToShortDateString()</td>
+            <td class="text-center">@Html.DisplayFor(modelItem => item.IsPublished)</td>
+            <td class="text-center">@Html.DisplayFor(modelItem => item.Featured)</td>
+            <td class="text-center">@Html.DisplayFor(modelItem => item.Views)</td>
+            <td class="text-center">
+                <a asp-action="Edit" asp-route-id="@item.ArticleID">Edit</a>
+                &nbsp;&nbsp;|&nbsp;&nbsp;
                 <a asp-action="Delete" asp-route-id="@item.ArticleID">Delete</a>
             </td>
         </tr>

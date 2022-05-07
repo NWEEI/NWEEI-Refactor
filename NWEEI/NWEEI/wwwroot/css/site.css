@@ -175,7 +175,6 @@ body {
 /* -------------------------------------------------- */
 
 
-
 /* PAGE CONTENT */
 .main-content-container {
     z-index: 5;
@@ -185,6 +184,21 @@ body {
 
 .main-content-inner {
     
+}
+
+
+/* -------------------------------------------------- */
+
+
+/* TABLES */
+
+.articles-table {
+    font-size: .9em;
+}
+
+.title {
+    width: 38%;
+
 }
 
 /* -------------------------------------------------- */
@@ -235,7 +249,10 @@ body {
 /* -------------------------------------------------- */
 
 
-/* ARTICLE LIST */
+/* ARTICLES */
+
+
+/* user views */
 
 .articles {
     padding: 20px;
