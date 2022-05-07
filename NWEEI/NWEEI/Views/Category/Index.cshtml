@@ -46,13 +46,16 @@ else
     <div class="container tiles">
         @foreach (var item in Model)
         {
-        <div class="tile-container">
-            <span class="tile-content">
-                <a asp-controller="Article" asp-action="Category" asp-route-categoryID="@item.CategoryID">
-                    @Html.DisplayFor(modelItem => item.Name)
-                </a>
-            </span>
-        </div>
+            @if (item.Articles.Count > 0)
+            {
+                <div class="tile-container">
+                    <span class="tile-content">
+                        <a asp-controller="Article" asp-action="Category" asp-route-categoryID="@item.CategoryID">
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </a>
+                    </span>
+                </div>
+            }
         }
     </div>
 }
