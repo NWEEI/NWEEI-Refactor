@@ -12,6 +12,10 @@ a {
   color: #0366d6;
 }
 
+a:hover {
+    text-decoration: none !important;
+}
+
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #fff;
     background-color: #1b6ec2;
@@ -19,7 +23,7 @@ a {
 }
 
 .btn {
-    border-radius: 1rem;
+    border-radius: 20px !important;
 }
 
 .btn-primary {
@@ -148,6 +152,8 @@ body {
 
 /* NAVIGATION */
 
+/* navbar */
+
 .navigation {
     background-color: #44A5F9;
     color: white;
@@ -172,6 +178,27 @@ body {
 }
 
 
+/* breadcrumb */
+
+.custom-breadcrumb {
+    position: relative;
+    margin-bottom: 3%;
+    line-height: 1em;
+    left: -2%;
+}
+
+.breadcrumb-icon {
+    vertical-align: middle;
+    margin-right: 3px;
+    font-size: 0.8em;
+}
+
+.breadcrumb-name {
+    vertical-align: middle;
+    font-size: 1.1em;
+}
+
+
 /* -------------------------------------------------- */
 
 
@@ -180,12 +207,32 @@ body {
     z-index: 5;
     background-color: white;
     margin-top: 3%;
+    margin-bottom: 7%;
 }
 
 .main-content-inner {
     
 }
 
+/* buttons */
+
+.admin-action-button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    text-decoration: none;
+    font-size: 1.1em !important;
+}
+
+.admin-action-button > * {
+    color: white;
+    text-decoration: none;
+}
+
+.admin-action-button > a:hover {
+    color: powderblue;
+    text-decoration: none;
+}
 
 /* -------------------------------------------------- */
 
@@ -250,6 +297,22 @@ body {
 
 
 /* ARTICLES */
+
+.article-header {
+
+}
+
+.article-header-content {
+    position: relative;
+}
+
+.article-header-content > * {
+/*    vertical-align: middle;*/
+}
+
+.publish-date {
+
+}
 
 
 /* user views */
