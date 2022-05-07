@@ -17,6 +17,7 @@
     <thead>
         <tr>
             <th class="title">Article Title</th>
+            <th class="text-center">Category</th>
             <th class="text-center">Date Created</th>
             <th class="text-center">Published</th>
             <th class="text-center">Featured</th>
@@ -33,6 +34,7 @@
                         @Html.DisplayFor(modelItem => item.Title)
                     </a>
                 </td>
+                <td class="text-center">@Html.DisplayFor(modelItem => item.Category.Name)</td>
                 <td class="text-center">@item.DateCreated.ToShortDateString()</td>
                 <td class="text-center">@Html.DisplayFor(modelItem => item.IsPublished)</td>
                 <td class="text-center">@Html.DisplayFor(modelItem => item.Featured)</td>
