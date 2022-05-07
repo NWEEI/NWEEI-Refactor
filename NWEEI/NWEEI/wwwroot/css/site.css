@@ -216,6 +216,7 @@ body {
 
 .content-header {
     position: relative;
+    margin-bottom: 2%;
 }
 
 /* buttons */
@@ -244,7 +245,7 @@ body {
 /* TABLES */
 
 .articles-table {
-    font-size: .9em;
+    font-size: .8em;
 }
 
 .title {
