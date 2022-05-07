@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,7 @@ namespace NWEEI.Controllers
         }
 
         // GET: Article
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await repo.Articles.ToListAsync());
@@ -28,7 +30,6 @@ namespace NWEEI.Controllers
 
         // get all articles in a category
         // GET: Category/Articles/5
-        //[Route("categoryID")]
         public async Task<IActionResult> Category(int categoryID)
         {
             return View(repo.GetArticlesByCategoryID(categoryID));
