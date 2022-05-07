@@ -1,5 +1,6 @@
 BEGIN;
 
+/*
 CREATE TABLE IF NOT EXISTS Articles (
 	ArticleID	INTEGER AUTO_INCREMENT,
 	Title	VARCHAR(256) NOT NULL,
@@ -13,6 +14,7 @@ CREATE TABLE IF NOT EXISTS Articles (
 	Views	INTEGER,
 	PRIMARY KEY(ArticleID)
 );
+*/
 
 INSERT IGNORE INTO Articles VALUES (1,'Energy Management','<p class="warning">As of Fall 2018, this program has been transitioned to being <a href="2-year-degrees/em-online.html">delivered online</a>. As of Fall of 2019&nbsp;<a href="http://www.nweei.org/2-year-degrees/building-controls-technician.html">Energy Management Technician Building Controls Technician option</a>&nbsp;is also only online.&nbsp; The Building Control Options is the only Energy Management degree offered at this time. For more information contact the Program Coordinator: Roger Ebbage 541-463-3670 or <a href="mailto:ebbage@lanecc.edu">ebbager@lanecc.edu</a>&nbsp;</p>
 <p>The Energy Management program is a rigorous two-year Associate of Applied Science degree that trains individuals to evaluate energy use patterns; develop, implement, market and maintain conservation programs; perform public outreach; recommend energy efficiency techniques; integrate alternative energy sources, and perform systems analysis to solve problems.</p>
