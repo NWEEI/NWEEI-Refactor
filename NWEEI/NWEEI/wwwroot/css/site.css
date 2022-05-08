@@ -229,12 +229,20 @@ body {
 .content-highlight-container {
     display: flex;
     justify-content: space-around;
-    padding-top: 1%;
+    padding-top: 2%;
 }
 
 .content-highlight {
-    display: inline-block;
     height: 100%;
+    width: 30%;
+    display: inline-block;
+    align-items: center;
+}
+
+.content-info {
+    height: 100%;
+    width: 50%;
+    display: inline-block;
     align-items: center;
 }
 
