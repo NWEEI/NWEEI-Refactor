@@ -14,10 +14,7 @@
         @if (User.IsInRole("Admin"))
         {
             <span class="nav-item">
-                <a class="nav-link text-light bg-dark btn btn-outline-primary" asp-controller="Registration" asp-action="Index">Manage Training Registrations</a>
-            </span>
-            <span class="nav-item">
-                <a class="nav-link text-light bg-dark btn btn-outline-primary" asp-controller="AppUser" asp-action="Index">Manage Users</a>
+                <a class="nav-link text-light bg-dark btn btn-outline-primary" asp-controller="Home" asp-action="Dashboard">Dashboard</a>
             </span>
         }
         <span class="navbar-text">
