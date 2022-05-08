@@ -92,6 +92,7 @@ body {
 .header-content {
     position: relative;
     height: 30vh;
+    min-height: 275px;
     width: 100%;
 }
 
@@ -103,7 +104,8 @@ body {
     pointer-events: none;
     width: 100%;
     z-index: -1;
-    min-height: 30%;
+    min-height: 177px;
+    max-height: 60%;
     top: 0;
     left: 0;
 }
@@ -111,6 +113,8 @@ body {
 .logo {
     position: relative;
     width: 25%;
+    min-width: 230px;
+    max-width: 280px;
     top: 5%;
     left: 4%;
 }
@@ -124,6 +128,16 @@ body {
     float: right;
 }
 
+    @media (max-width: 750px) {
+        .header-desc {
+            font-size: .8em !important;
+        }
+
+        .header-phone > a {
+            font-size: .8em !important;
+        }
+    }
+
     .header-desc {
         position: relative;
         padding: 5px;
@@ -135,7 +149,7 @@ body {
     .header-phone {
         display: inline-block;
         padding: 5px;
-    }
+    } 
 
 .hero {
     position: absolute;
