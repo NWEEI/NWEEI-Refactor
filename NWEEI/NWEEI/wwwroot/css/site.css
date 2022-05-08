@@ -219,6 +219,67 @@ body {
     margin-bottom: 2%;
 }
 
+.content-section {
+    padding: 4% 0%;
+    line-height: 2.3em;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.content-highlight-container {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 1%;
+}
+
+.content-highlight {
+    display: inline-block;
+    height: 100%;
+    align-items: center;
+}
+
+.button-group {
+    width: 50%;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 2%;
+}
+
+.button-group > .btn {
+    font-size: 1.1em !important;
+}
+
+.content-image {
+    width: 40%;
+    border-radius: 5px;
+}
+
+.dark-block {
+    background-color: #03529B;
+    color: #bcd9f7;
+    width: 100vw;
+    position: relative;
+    left: calc(-50vw + 50%);
+}
+
+.dark-block :is(h4, h6) {
+    color: white;
+}
+
+.light-block {
+    background-color: #fedd90;
+    color: #03529b;
+    width: 100vw;
+    position: relative;
+    left: calc(-50vw + 50%);
+}
+
+.light-block :is(h4, h6) {
+    color: #2c4592;
+}
+
+
 /* buttons */
 
 .admin-action-button {
@@ -250,7 +311,6 @@ body {
 
 .title {
     width: 38%;
-
 }
 
 /* -------------------------------------------------- */
@@ -343,3 +403,40 @@ body {
 
 
 /* -------------------------------------------------- */
+
+/* DEGREES */
+
+.degree-header {
+    background-image: url('../images/shutterstock_56230774.jpeg');
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: 50% 21%;
+    background-size: cover;
+    z-index: 1;
+    height: 200px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.degree-title {
+    position: relative;
+    text-align: center;
+    z-index: 2;
+    color: white;
+    font-size: 2.8em;
+    font-weight: 600;
+    text-shadow: 2px 2px 6px #222222;
+}
+
+
+/* embc */
+
+
+
+
+
+
+
