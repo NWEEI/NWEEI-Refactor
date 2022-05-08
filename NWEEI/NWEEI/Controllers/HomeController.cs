@@ -21,7 +21,7 @@ namespace NWEEI.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Current = "Home";
+            ViewBag.Current = "ContactOption";
             return View();
         }
 
