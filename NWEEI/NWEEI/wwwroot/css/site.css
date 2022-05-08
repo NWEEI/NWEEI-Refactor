@@ -200,6 +200,36 @@ body {
 /* -------------------------------------------------- */
 
 
+/* ADMIN DASHBOARD */
+.dashboard-tile {
+    font-size: 3vh;
+    padding: 1vh;
+    padding-top: 2vh;
+    margin-bottom: 3vh;
+    color: gray;
+    background-color: white;
+    border: 0px rgba(0,0,0,0);
+    text-align: center;
+    border-radius: 15px;
+    min-width: 12vw;
+    box-shadow: rgba(0,0,0,0.4) 0px 12px 12px 6px;
+}
+
+.dashboard-tile:hover {
+    color: royalblue;
+    background-color: white;
+    text-decoration: none;
+}
+
+.dashboard-tile:active {
+    color: royalblue;
+    background-color: white;
+    box-shadow: rgba(0,0,0,0.4) 0px 6px 12px 6px inset
+}
+
+/* -------------------------------------------------- */
+
+
 /* CATEGORY TILES */
 .tiles {
     display: flex;
