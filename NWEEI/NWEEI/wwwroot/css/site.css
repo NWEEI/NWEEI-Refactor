@@ -9,7 +9,7 @@ a.navbar-brand {
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0366d6; /* Link Blue */
 }
 
 a:hover {
@@ -18,8 +18,8 @@ a:hover {
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    background-color: #1b6ec2; /* NWEEI Medium Blue */
+    border-color: #1861ac; /* NWEEI Dark Blue */
 }
 
 .btn {
@@ -27,13 +27,13 @@ a:hover {
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2; /* NWEEI Blue */
+    border-color: #1861ac; /* NWEEI Dark Blue */
 }
 
 .btn-light {
-    color: #666666;
+    color: #666666; /* Krylon Classic Gray */
 }
 
 /* Sticky footer styles
@@ -127,7 +127,7 @@ body {
     .header-desc {
         position: relative;
         padding: 5px;
-        color: #f0f0f0;
+        color: #f0f0f0; /* Chrysler White*/
         font-weight: bold;
         font-size: 1em;
     }
@@ -155,7 +155,7 @@ body {
 /* navbar */
 
 .navigation {
-    background-color: #44A5F9;
+    background-color: #44A5F9; /* NWEEI Light Blue */
     color: white;
     text-align: center;
     display: flex;
@@ -164,7 +164,7 @@ body {
 }
 
 .sub-navigation {
-    background-color: #FEB913;
+    background-color: #FEB913; /* NWEEI Yellow */
     color: blue;
     text-align: center;
     display: flex;
@@ -264,8 +264,8 @@ body {
 }
 
 .dark-block {
-    background-color: #03529B;
-    color: #bcd9f7;
+    background-color: #03529B; /* NWEEI Very-Dark Blue */
+    color: #bcd9f7; /* NWEEI Very-Light Blue */
     width: 100vw;
     position: relative;
     left: calc(-50vw + 50%);
@@ -276,15 +276,15 @@ body {
 }
 
 .light-block {
-    background-color: #fedd90;
-    color: #03529b;
+    background-color: #fedd90; /* NWEEI Light Yellow */
+    color: #03529b; /* NWEEI Very-Dark Blue */
     width: 100vw;
     position: relative;
     left: calc(-50vw + 50%);
 }
 
 .light-block :is(h4, h6) {
-    color: #2c4592;
+    color: #2c4592; /* NWEEI Medium-Dark Blue*/
 }
 
 
@@ -350,17 +350,16 @@ body {
 }
 
 .dashboard-tile:hover {
-    color: royalblue;
+    color: #1b6ec2; /* NWEEI Medium Blue */
     background-color: white;
     text-decoration: none;
 }
 
 .dashboard-tile:active {
-    color: royalblue;
+    color: #1b6ec2; /* NWEEI Medium Blue */
     background-color: white;
     box-shadow: rgba(0,0,0,0.4) 0px 6px 12px 6px inset
 }
-
 /* -------------------------------------------------- */
 
 

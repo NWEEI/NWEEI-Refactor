@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +17,12 @@ namespace NWEEI.Controllers
     public class ArticleController : Controller
     {
         IArticleRepo repo;
+        IWebHostEnvironment _env;
 
-        public ArticleController(IArticleRepo r)
+        public ArticleController(IArticleRepo r, IWebHostEnvironment env)
         {
             repo = r;
+            _env = env;
         }
 
         // GET: Article
@@ -64,14 +68,125 @@ namespace NWEEI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ArticleID,Title,Body,DateCreated,PublishDate,IsPublished,Featured,Views")] Article article)
+        public async Task<IActionResult> Create([Bind("ArticleID,Title,Body,DateCreated,PublishDate,IsPublished,Featured,Views")] Article article, string htmlcode)
         {
+            ViewData["IsPosted"] = true;
+            ViewData["PostedValue"] = htmlcode;
+            article.Body = htmlcode;
+            if (article.IsPublished)
+                article.PublishDate = DateTime.Now;
             if (ModelState.IsValid)
             {
                 repo.AddArticle(article);
                 return RedirectToAction(nameof(Index));
             }
             return View(article);
+        }
+        
+        // for rich text editor
+        string GetHtmlFileCode()
+        {
+            string fullpath = GetHtmlFilePath();
+            if (!System.IO.File.Exists(fullpath))
+                return "<b>No saved data yet</b>";
+            return System.IO.File.ReadAllText(fullpath);
+        }
+
+        // for rich text editor
+        string GetHtmlFilePath()
+        {
+            string filename = "/usertyped_htmlcontent.html";
+            string fullpath = Path.Combine(_env.WebRootPath, filename.TrimStart('/'));
+            return fullpath;
+        }
+
+        // for rich text editor
+        IActionResult ReportError(string msg)
+        {
+            Response.ContentType = "text/plain";
+            Response.StatusCode = 500;
+            return Content("ERROR:" + msg);
+        }
+
+        // for rich text editor
+        async Task<byte[]> FullReadDataAsync()
+        {
+            byte[] data = new byte[(int)Request.ContentLength];
+            int len = 0;
+            while (len < data.Length)
+            {
+                int rc = await Request.Body.ReadAsync(data, len, data.Length - len);
+                if (rc == 0)
+                    throw new Exception("Unexpected request data");
+                len += rc;
+            }
+            return data;
+        }
+
+        // for rich text editor
+        public async Task<IActionResult> ImageUploadHandler(string type, string name)
+        {
+            if (Request.ContentLength > 4000000)
+            {
+                return ReportError("file too big");
+            }
+
+            string ext = Path.GetExtension(name).ToLower();
+
+            if (type.StartsWith("image/"))
+            {
+                switch (ext)
+                {
+                    case ".jpeg":
+                    case ".jpg":
+                    case ".png":
+                        break;
+                    default:
+                        return ReportError("invalid file extension.");
+                }
+
+                byte[] data = await FullReadDataAsync();
+
+                string filename = "/imageuploads/" + DateTime.Now.Ticks + "-" + Guid.NewGuid() + ext;
+
+                string fullpath = Path.Combine(_env.WebRootPath, filename.TrimStart('/'));
+                string fulldir = Path.GetDirectoryName(fullpath);
+                if (!Directory.Exists(fulldir)) Directory.CreateDirectory(fulldir);
+
+                System.IO.File.WriteAllBytes(fullpath, data);
+
+                return Content("READY:" + filename);
+            }
+            else
+            {
+                switch (ext)
+                {
+                    case ".zip":
+                    case ".rar":
+                    case ".pdf":
+                    case ".doc":
+                    case ".docx":
+                    case ".xls":
+                    case ".xlsx":
+                    case ".rtf":
+                    case ".txt":
+                        break;
+                    default:
+                        return ReportError("Invalid file extension");
+                }
+
+                string filename = "/imageuploads/" + DateTime.Now.Ticks + "-" + Guid.NewGuid() + ext;
+
+                byte[] data = await FullReadDataAsync();
+
+                string fullpath = Path.Combine(_env.WebRootPath, filename.TrimStart('/'));
+                string fulldir = Path.GetDirectoryName(fullpath);
+                if (!Directory.Exists(fulldir)) Directory.CreateDirectory(fulldir);
+
+                System.IO.File.WriteAllBytes(fullpath, data);
+
+                return Content("READY:" + filename);
+            }
         }
 
         // GET: Article/Edit/5
@@ -95,7 +210,7 @@ namespace NWEEI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ArticleID,Title,Body,DateCreated,PublishDate,IsPublished,Featured,Views")] Article article)
+        public async Task<IActionResult> Edit(int id, [Bind("ArticleID,Title,Body,DateCreated,PublishDate,IsPublished,Featured,Views")] Article article, string htmlcode)
         {
             if (id != article.ArticleID)
             {
@@ -104,6 +219,9 @@ namespace NWEEI.Controllers
 
             if (ModelState.IsValid)
             {
+                ViewData["IsPosted"] = true;
+                ViewData["PostedValue"] = htmlcode;
+                article.Body = htmlcode;
                 try
                 {
                     repo.UpdateArticle(article);
