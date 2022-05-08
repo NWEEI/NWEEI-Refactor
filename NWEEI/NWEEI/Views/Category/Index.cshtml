@@ -7,30 +7,35 @@
 
 @if (User.IsInRole("Admin"))
 {
-    <h1>Manage Categories</h1>
+<div class="container">
+    <div>
+        <div class="content-header">
+            <h1>Manage Categories</h1>
 
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
+            <!-- admin edit button -->
+            <span class="admin-action-button btn btn-primary"><a asp-action="Create">Add Category</a></span>
+        </div>
+
+    </div>
     <table class="table">
         <thead>
             <tr>
-                <th>Category Name</th>
-                <th style="text-align:center;">Number of Articles</th>
-                <th>Manage</th>
+                <th class="title">Category Name</th>
+                <th class="text-center">Number of Articles</th>
+                <th class="text-center">Manage</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                    <td style="text-align:center;">
+                    <td class="title">@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td class="text-center">
                         @Html.DisplayFor(modelItem => item.Articles.Count)
                         &nbsp;&nbsp;|&nbsp;&nbsp;
                         <a asp-controller="Article" asp-action="Category" asp-route-categoryID="@item.CategoryID">View Articles</a>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <a asp-action="Edit" asp-route-id="@item.CategoryID">Edit</a>
                         &nbsp;&nbsp;|&nbsp;&nbsp;
                         <a asp-action="Delete" asp-route-id="@item.CategoryID">Delete</a>
@@ -39,6 +44,7 @@
             }
         </tbody>
     </table>
+</div>
 }
 else
 {

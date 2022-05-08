@@ -1,6 +1,6 @@
 BEGIN;
 
-
+/*
 CREATE TABLE IF NOT EXISTS FAQs (
 	FAQID	INTEGER AUTO_INCREMENT,
 	Question	VARCHAR(256) NOT NULL,
@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS FAQs (
 	Featured	INTEGER,
 	PRIMARY KEY(FAQID)
 );
+*/
 
 INSERT IGNORE INTO FAQs VALUES (1,'How do I find out about the field work?','<p>Field work will be part of each class and explained at the beginning of each term. Instructors will be asked to introduce all relevant field work for their class no later than five weeks into the term. Exceptions may apply depending on the course and/or if a special or individual project is arranged.</p>',60,1,0);
 INSERT IGNORE INTO FAQs VALUES (2,'How do I know for which field work I''ll be responsible?','<p>Each class will have a Fieldwork Mentor. In some areas the Fieldwork Mentor will be the same person - in other areas there may be a different Fieldwork Mentor for each class. The Fieldwork Mentor for a class will communicate with the course instructor prior to the beginning of the term to determine which field work projects are to be completed.</p>',60,1,0);

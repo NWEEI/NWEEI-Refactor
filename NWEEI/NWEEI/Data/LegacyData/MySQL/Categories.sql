@@ -1,11 +1,12 @@
 BEGIN;
 
+/*
 CREATE TABLE IF NOT EXISTS Categories (
 	CategoryID	INTEGER AUTO_INCREMENT,
 	Name	VARCHAR(256) NOT NULL,
 	PRIMARY KEY(CategoryID)
 );
-
+*/
 
 INSERT IGNORE INTO Categories VALUES (2,'Professional Development');
 INSERT IGNORE INTO Categories VALUES (3,'Custom Training');
