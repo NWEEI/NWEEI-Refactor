@@ -1,4 +1,5 @@
 BEGIN;
+/*
 CREATE TABLE IF NOT EXISTS Registrations (
 	RegistrationID	INTEGER NOT NULL AUTO_INCREMENT,
 	DateSubmitted	TEXT NOT NULL,
@@ -22,6 +23,7 @@ CREATE TABLE IF NOT EXISTS Registrations (
 	PaymentType	TEXT NOT NULL,
 	CONSTRAINT PK_Registrations PRIMARY KEY(RegistrationID)
 );
+*/
 INSERT IGNORE INTO Registrations VALUES (1,'2008-08-29 12:33:22','NABCEP Solar Entry Level – Sept 25/26','Sandra ','Walden','swalden@c-s-v.com','1951-05-09','President','Real Energy Solutions','621 SW Alder #300',NULL,'Portland','Oregon','97205','United States','503-709-0820','503-241-2204',NULL,NULL,'Credit Card (phone or mail only)');
 INSERT IGNORE INTO Registrations VALUES (2,'2008-08-29 12:39:49','NABCEP Solar Entry Level – Sept 25/26','Philip','Krain','philip@c-s-v.com','1972-05-14','Project Manager','Real Energy Solutions','621 SW Alder #300',NULL,'Portland','Oregon','97205','United States','971-322-8647','503-241-2204',NULL,NULL,'Credit Card (phone or mail only)');
 INSERT IGNORE INTO Registrations VALUES (3,'2008-08-29 18:04:03','NABCEP Solar Entry Level – Sept 25/26','Kelly','Rainey','llb@inlandelectricinc.com','1979-03-03',NULL,'Inland Electric, Inc.','360 SE Baseline  ',NULL,'Hillsboro','Oregon','97123','United States','503-681-4700','503-681-4738',NULL,NULL,'Check');

@@ -4,6 +4,13 @@
     ViewData["Title"] = "Delete";
 }
 
+<div class="custom-breadcrumb">
+    <a asp-action="Index">
+        <span class="breadcrumb-icon"></span>
+        <span class="breadcrumb-name"><< Back to Articles</span>
+    </a>
+</div>
+
 <h1>Delete</h1>
 
 <h3>Are you sure you want to delete this?</h3>
@@ -57,7 +64,6 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="ArticleID" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-danger" />
     </form>
 </div>

@@ -4,9 +4,15 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<div class="custom-breadcrumb">
+    <a asp-action="Index">
+        <span class="breadcrumb-icon"></span>
+        <span class="breadcrumb-name"><< Back to Categories</span>
+    </a>
+</div>
 
-<h4>Category</h4>
+<h1>Create Category</h1>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -22,10 +28,6 @@
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
