@@ -29,6 +29,7 @@ namespace NWEEI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
+            ViewBag.Current = "Resources";
             return View(await repo.Articles.ToListAsync());
         }
 
@@ -36,12 +37,15 @@ namespace NWEEI.Controllers
         // GET: Category/Articles/5
         public async Task<IActionResult> Category(int categoryID)
         {
+            ViewBag.Current = "Resources";
             return View(repo.GetArticlesByCategoryID(categoryID));
         }
 
         // GET: Article/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            ViewBag.Current = "Resources";
+
             if (id == null)
             {
                 return NotFound();
@@ -68,7 +72,12 @@ namespace NWEEI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+<<<<<<< HEAD
         public async Task<IActionResult> Create([Bind("ArticleID,Title,Body,DateCreated,PublishDate,IsPublished,Featured,Views")] Article article, string htmlcode)
+=======
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Create([Bind("ArticleID,Title,Body,DateCreated,PublishDate,IsPublished,Featured,Views")] Article article)
+>>>>>>> Jecca
         {
             ViewData["IsPosted"] = true;
             ViewData["PostedValue"] = htmlcode;
@@ -84,8 +93,11 @@ namespace NWEEI.Controllers
         }
 
         // GET: Article/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.Current = "Resources";
+
             if (id == null)
             {
                 return NotFound();
@@ -104,6 +116,7 @@ namespace NWEEI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("ArticleID,Title,Body,DateCreated,PublishDate,IsPublished,Featured,Views")] Article article, string htmlcode)
         {
             if (id != article.ArticleID)
@@ -137,6 +150,7 @@ namespace NWEEI.Controllers
         }
 
         // GET: Article/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -157,6 +171,7 @@ namespace NWEEI.Controllers
         // POST: Article/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             Article article = repo.GetArticleByID((int)id);
