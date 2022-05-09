@@ -48,7 +48,6 @@
     <Folder Include="wwwroot\images\" />
     <Folder Include="Controllers\Navigation\" />
     <Folder Include="Views\About\" />
-    <Folder Include="Views\Resources\" />
     <Folder Include="Views\Programs\" />
     <Folder Include="Data\LegacyData\" />
     <Folder Include="Repositories\" />
