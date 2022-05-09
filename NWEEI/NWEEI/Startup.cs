@@ -90,12 +90,14 @@ namespace NWEEI
             var serviceProvider = app.ApplicationServices;
 
 
-            // seed legacy data
             /// SQLite
             // SqliteConnection tempConnection = new SqliteConnection(Configuration.GetConnectionString("SQLiteConnection"));
             /// MySQL
             MySqlConnection tempConnection = new (Configuration.GetConnectionString("MySqlLiveConnection"));
-            NWEEIContext.SeedLegacyData(tempConnection);
+
+            ///Uncomment to seed the database
+            // seed legacy data
+            //NWEEIContext.SeedLegacyData(tempConnection);
 
             // seed admin role
             UserManager<AppUser> userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();    // create a user-manager object
