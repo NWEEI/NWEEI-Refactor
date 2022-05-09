@@ -82,7 +82,93 @@ namespace NWEEI.Controllers
             }
             return View(article);
         }
-        
+
+        // GET: Article/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Article article = repo.GetArticleByID((int)id);
+            if (article == null)
+            {
+                return NotFound();
+            }
+            return View(article);
+        }
+
+        // POST: Article/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("ArticleID,Title,Body,DateCreated,PublishDate,IsPublished,Featured,Views")] Article article, string htmlcode)
+        {
+            if (id != article.ArticleID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                ViewData["IsPosted"] = true;
+                ViewData["PostedValue"] = htmlcode;
+                article.Body = htmlcode;
+                try
+                {
+                    repo.UpdateArticle(article);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ArticleExists(article.ArticleID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(article);
+        }
+
+        // GET: Article/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Article article = await repo.Articles
+                .FirstOrDefaultAsync(m => m.ArticleID == id);
+            if (article == null)
+            {
+                return NotFound();
+            }
+
+            return View(article);
+        }
+
+        // POST: Article/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            Article article = repo.GetArticleByID((int)id);
+            repo.DeleteArticle(article);
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool ArticleExists(int id)
+        {
+            return repo.Articles.Any(e => e.ArticleID == id);
+        }
+
         // for rich text editor
         string GetHtmlFileCode()
         {
@@ -189,90 +275,6 @@ namespace NWEEI.Controllers
             }
         }
 
-        // GET: Article/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            Article article = repo.GetArticleByID((int)id);
-            if (article == null)
-            {
-                return NotFound();
-            }
-            return View(article);
-        }
-
-        // POST: Article/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ArticleID,Title,Body,DateCreated,PublishDate,IsPublished,Featured,Views")] Article article, string htmlcode)
-        {
-            if (id != article.ArticleID)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                ViewData["IsPosted"] = true;
-                ViewData["PostedValue"] = htmlcode;
-                article.Body = htmlcode;
-                try
-                {
-                    repo.UpdateArticle(article);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ArticleExists(article.ArticleID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(article);
-        }
-
-        // GET: Article/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Article article = await repo.Articles
-                .FirstOrDefaultAsync(m => m.ArticleID == id);
-            if (article == null)
-            {
-                return NotFound();
-            }
-
-            return View(article);
-        }
-
-        // POST: Article/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            Article article = repo.GetArticleByID((int)id);
-            repo.DeleteArticle(article);
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool ArticleExists(int id)
-        {
-            return repo.Articles.Any(e => e.ArticleID == id);
-        }
     }
 }

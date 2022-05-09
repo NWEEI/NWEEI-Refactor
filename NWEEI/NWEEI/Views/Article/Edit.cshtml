@@ -32,10 +32,11 @@
                 <script type="text/javascript" src='/richtexteditor/plugins/all_plugins.js'></script>
                 <script type="text/javascript" src="/rte-upload.js"></script>
                 <label asp-for="Body" class="control-label"></label>
-                <input asp-for="Body" name="htmlcode" id="inp_htmlcode" type="hidden" class="form-control" />
+                <input asp-for="Body" name="htmlcode" id="inp_htmlcode" type="hidden" class="form-control" value="@Model.Body"/>
                 <div id="div_editor1" class="richtexteditor" style="width: 960px;margin:0 auto;"></div>
                 <script>
                     var editor1 = new RichTextEditor(document.getElementById("div_editor1"));
+                    editor1.setHTML(document.getElementById("inp_htmlcode").value)
                     editor1.attachEvent("change", function () {
                         document.getElementById("inp_htmlcode").value = editor1.getHTMLCode();
                     });
