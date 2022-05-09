@@ -23,12 +23,15 @@ namespace NWEEI.Controllers
         // GET: FAQ
         public async Task<IActionResult> Index()
         {
+            ViewBag.Current = "Resources";
             return View(await repo.FAQs.ToListAsync());
         }
 
         // GET: FAQ/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            ViewBag.Current = "Resources";
+
             if (id == null)
             {
                 return NotFound();

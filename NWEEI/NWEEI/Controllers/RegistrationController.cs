@@ -25,6 +25,7 @@ namespace NWEEI.Controllers
         [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Index()
         {
+            ViewBag.Current = "ContactOption";
             return View(await repo.Registrations.OrderByDescending(r => r.DateSubmitted).ToListAsync());
         }
 
@@ -76,6 +77,8 @@ namespace NWEEI.Controllers
 
         public IActionResult CreateConfirmation()
         {
+            ViewBag.Current = "ContactOption";
+
             TempData.Keep("Training");
             TempData.Keep("DateSubmitted");
             TempData.Keep("FirstName");
