@@ -72,12 +72,8 @@ namespace NWEEI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-<<<<<<< HEAD
-        public async Task<IActionResult> Create([Bind("ArticleID,Title,Body,DateCreated,PublishDate,IsPublished,Featured,Views")] Article article, string htmlcode)
-=======
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([Bind("ArticleID,Title,Body,DateCreated,PublishDate,IsPublished,Featured,Views")] Article article)
->>>>>>> Jecca
+        public async Task<IActionResult> Create([Bind("ArticleID,Title,Body,DateCreated,PublishDate,IsPublished,Featured,Views")] Article article, string htmlcode)
         {
             ViewData["IsPosted"] = true;
             ViewData["PostedValue"] = htmlcode;
