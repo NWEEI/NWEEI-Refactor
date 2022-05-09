@@ -8,27 +8,23 @@ namespace NWEEI.Controllers.Navigation
 {
     public class ProgramsController : Controller
     {
-        // GET: /<controller>/
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         public IActionResult Certificates()
         {
             ViewBag.Current = "Certificates";
             return View();
         }
 
+        // get degrees overview view
         public IActionResult Degrees()
         {
             ViewBag.Current = "Degrees";
             return View();
         }
 
+        // get degrees > energy management - building controls view
         public IActionResult EMBC()
         {
-            ViewBag.Current = "EMBC";
+            ViewBag.Current = "Degrees";
             return View();
         }
     }
