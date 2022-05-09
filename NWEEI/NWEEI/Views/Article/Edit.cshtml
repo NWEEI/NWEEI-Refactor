@@ -4,15 +4,10 @@
     ViewData["Title"] = "Edit";
 }
 
-<div class="custom-breadcrumb">
-    <a asp-action="Index">
-        <span class="breadcrumb-icon"></span>
-        <span class="breadcrumb-name"><< Back to Articles</span>
-    </a>
-</div>
-
-<h1>Edit Article</h1>
-
+<h1>
+    Editing Article: "@Model.Title"
+</h1>
+<a data-btn-back asp-action="Index">to Articles</a>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -21,6 +16,7 @@
             <input type="hidden" asp-for="ArticleID" />
             <input asp-for="DateCreated" type="hidden" value="@Model.DateCreated" />
             <input asp-for="PublishDate" type="hidden" value="@Model.PublishDate" />
+            <input asp-for="Views" type="hidden" value="@Model.Views" />
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
@@ -32,7 +28,7 @@
                 <script type="text/javascript" src='/richtexteditor/plugins/all_plugins.js'></script>
                 <script type="text/javascript" src="/rte-upload.js"></script>
                 <label asp-for="Body" class="control-label"></label>
-                <input asp-for="Body" name="htmlcode" id="inp_htmlcode" type="hidden" class="form-control" value="@Model.Body"/>
+                <input asp-for="Body" name="htmlcode" id="inp_htmlcode" type="hidden" class="form-control" value="@Model.Body" />
                 <div id="div_editor1" class="richtexteditor" style="width: 960px;margin:0 auto;"></div>
                 <script>
                     var editor1 = new RichTextEditor(document.getElementById("div_editor1"));
@@ -53,14 +49,7 @@
                     <input class="form-check-input" asp-for="Featured" /> @Html.DisplayNameFor(model => model.Featured)
                 </label>
             </div>
-            <div class="form-group">
-                <label asp-for="Views" class="control-label"></label>
-                <input asp-for="Views" class="form-control" />
-                <span asp-validation-for="Views" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
+            <button data-btn-form-save></button>
         </form>
     </div>
 </div>
