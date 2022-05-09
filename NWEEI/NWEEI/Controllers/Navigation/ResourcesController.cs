@@ -16,5 +16,10 @@ namespace NWEEI.Controllers.Navigation
             ViewBag.Current = "Resources";
             return View();
         }
+        public IActionResult CareerMap()
+        {
+            ViewBag.Current = "Resources";
+            return View();
+        }
     }
 }
