@@ -5,12 +5,10 @@
 }
 
 <div class="content-header">
-    <h1>Manage Articles</h1>
-
-    <!-- admin edit button -->
-    <span class="admin-action-button btn btn-primary">
-        <a asp-action="Create">Add Article</a>
-    </span>
+    <h1>
+        Manage Articles
+        <a class="float-right" data-btn-create asp-action="Create">Add New Article</a>
+    </h1>
 </div>
 
 <table class="articles-table table">
@@ -22,29 +20,23 @@
             <th class="text-center">Published</th>
             <th class="text-center">Featured</th>
             <th class="text-center">Views</th>
-            <th class="text-center">Manage</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td class="title">
-                    <a asp-action="Details" asp-route-id="@item.ArticleID">
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </a>
-                </td>
-                <td class="text-center">@Html.DisplayFor(modelItem => item.Category.Name)</td>
-                <td class="text-center">@item.DateCreated.ToShortDateString()</td>
-                <td class="text-center">@Html.DisplayFor(modelItem => item.IsPublished)</td>
-                <td class="text-center">@Html.DisplayFor(modelItem => item.Featured)</td>
-                <td class="text-center">@Html.DisplayFor(modelItem => item.Views)</td>
-                <td class="text-center">
-                    <a asp-action="Edit" asp-route-id="@item.ArticleID">Edit</a>
-                    &nbsp;&nbsp;|&nbsp;&nbsp;
-                    <a asp-action="Delete" asp-route-id="@item.ArticleID">Delete</a>
-                </td>
-            </tr>
+        <tr>
+            <td class="title"><a data-btn-details asp-action="Details" asp-route-id="@item.ArticleID">@Html.DisplayFor(modelItem => item.Title)</a></td>
+            <td class="text-center">@Html.DisplayFor(modelItem => item.Category.Name)</td>
+            <td class="text-center">@item.DateCreated.ToShortDateString()</td>
+            <td class="text-center">@Html.DisplayFor(modelItem => item.IsPublished)</td>
+            <td class="text-center">@Html.DisplayFor(modelItem => item.Featured)</td>
+            <td class="text-center">@Html.DisplayFor(modelItem => item.Views)</td>
+            <td class="text-center"><a data-btn-delete asp-action="Delete" asp-route-id="@item.ArticleID">Delete</a></td>
+            <td class="text-center"><a data-btn-edit asp-action="Edit" asp-route-id="@item.ArticleID">Edit</a></td>
+</tr>
         }
     </tbody>
 </table>
