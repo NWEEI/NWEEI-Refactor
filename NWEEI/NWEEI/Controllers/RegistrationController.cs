@@ -16,11 +16,13 @@ namespace NWEEI.Controllers
     {
         private IRegistrationRepo repo;
         private readonly IPaymentOptionRepo payRepo;
+        private readonly ITrainingProgramRepo trainingRepo;
 
-        public RegistrationController(IRegistrationRepo r, IPaymentOptionRepo p)
+        public RegistrationController(IRegistrationRepo r, IPaymentOptionRepo p, ITrainingProgramRepo t)
         {
             repo = r;
             payRepo = p;
+            trainingRepo = t;
         }
 
         // GET: Registration
@@ -66,6 +68,16 @@ namespace NWEEI.Controllers
             SelectList payOptionsSelectList = new(payOptionsList, "Value", "Text", 1);
             // pass the SelectList to ViewData
             ViewData["PaymentOptions"] = payOptionsSelectList;
+
+            //do the same as the above for training programs.
+            var trainingPrograms = trainingRepo.GetAllTrainingPrograms().ToList();
+            List<SelectListItem> trainingProgramsList = new();
+            trainingProgramsList.Add(new SelectListItem { Selected = true, Text = "Select a training program...", Value = String.Empty });
+            for (int i = 0; i < trainingPrograms.Count; i++)
+                trainingProgramsList.Add(new SelectListItem { Selected = false, Text = trainingPrograms[i].Name, Value = trainingPrograms[i].Name });
+            SelectList trainingProgramsSelectList = new(trainingProgramsList, "Value", "Text", 1);
+            ViewData["TrainingPrograms"] = trainingProgramsSelectList;
+
             return View();
         }
 

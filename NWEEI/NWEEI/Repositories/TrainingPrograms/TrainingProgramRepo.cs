@@ -7,64 +7,55 @@ using NWEEI.Models;
 
 namespace NWEEI.Repositories
 {
-    public class PaymentOptionRepo : IPaymentOptionRepo
+    public class TrainingProgramRepo : ITrainingProgramRepo
     {
         private NWEEIContext context;
 
-        public PaymentOptionRepo(NWEEIContext c)
-        {
-            context = c;
-        }
+        public TrainingProgramRepo(NWEEIContext c) => context = c;
 
-        public IQueryable<PaymentOption> PaymentOptions
-        {
-            get
-            {
-                return context.PaymentOptions;
-            }
-        }
+        public IQueryable<TrainingProgram> TrainingPrograms => context.TrainingPrograms;
 
-        // add a new paymentOption
-        public void AddPaymentOption(PaymentOption paymentOption)
+        // add a new trainingProgram
+        public void AddTrainingProgram(TrainingProgram trainingProgram)
         {
-            context.PaymentOptions.Add(paymentOption);
+            context.TrainingPrograms.Add(trainingProgram);
             context.SaveChanges();
         }
 
         #region retrieval methods
 
-        // get a list of all paymentOptions
-        public List<PaymentOption> GetAllPaymentOptions()
+        // get a list of all trainingPrograms
+        public List<TrainingProgram> GetAllTrainingPrograms()
         {
-            List<PaymentOption> paymentOptions = context.PaymentOptions.ToList();
+            List<TrainingProgram> trainingPrograms = context.TrainingPrograms.ToList();
 
-            return paymentOptions;
+            return trainingPrograms;
         }
 
-        // get a specific paymentOption by its id
-        public PaymentOption GetPaymentOptionByID(int id)
+        // get a specific trainingProgram by its id
+        public TrainingProgram GetTrainingProgramByID(int id)
         {
-            PaymentOption paymentOption = context.PaymentOptions
-                .Where(t => t.PaymentOptionID == id)
+            TrainingProgram trainingProgram = context.TrainingPrograms
+                .Where(t => t.TrainingProgramID == id)
                 .FirstOrDefault();
 
-            return paymentOption;
+            return trainingProgram;
         }
 
         #endregion
 
-        // update a paymentOption
-        public void UpdatePaymentOption(PaymentOption paymentOption)
+        // update a trainingProgram
+        public void UpdateTrainingProgram(TrainingProgram trainingProgram)
         {
-            context.PaymentOptions.Update(paymentOption);
+            context.TrainingPrograms.Update(trainingProgram);
             context.SaveChanges();
         }
 
-        // delete a paymentOption
-        public void DeletePaymentOption(PaymentOption paymentOption)
+        // delete a trainingProgram
+        public void DeleteTrainingProgram(TrainingProgram trainingProgram)
         {
-            PaymentOption existingPaymentOption = context.PaymentOptions.Find(paymentOption.PaymentOptionID);
-            context.PaymentOptions.Remove(existingPaymentOption);
+            TrainingProgram existingTrainingProgram = context.TrainingPrograms.Find(trainingProgram.TrainingProgramID);
+            context.TrainingPrograms.Remove(existingTrainingProgram);
             context.SaveChanges();
         }
     }

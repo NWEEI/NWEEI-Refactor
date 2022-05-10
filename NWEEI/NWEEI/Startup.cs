@@ -51,6 +51,7 @@ namespace NWEEI
             services.AddTransient<IOrganizationRepo, OrganizationRepo>();
             services.AddTransient<IRegistrationRepo, RegistrationRepo>();
             services.AddTransient<IPaymentOptionRepo, PaymentOptionRepo>();
+            services.AddTransient<ITrainingProgramRepo, TrainingProgramRepo>();
             services.AddTransient<ITagRepo, TagRepo>();
 
             services.AddRazorPages();

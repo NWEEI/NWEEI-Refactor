@@ -1,8 +1,9 @@
 @model NWEEI.Models.Registration
 @{
     ViewData["Title"] = "Create";
-    // get the payOptions select list from ViewData
+    // get the payOptions and trainingPrograms select lists from ViewData
     var payOptions = (SelectList)ViewData["PaymentOptions"];
+    var trainingPrograms = (SelectList)ViewData["TrainingPrograms"];
 }
 
 <h1>Create</h1>
@@ -12,9 +13,10 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!-- Training Program Dropdown Selector (from: https://www.tutorialsteacher.com/mvc/htmlhelper-dropdownlist-dropdownlistfor) -->
             <div class="form-group">
                 <label asp-for="TrainingProgram" class="control-label"></label>
-                <input asp-for="TrainingProgram" class="form-control" />
+                @Html.DropDownListFor(t => t.TrainingProgram, trainingPrograms, new { @class = "form-control" })
                 <span asp-validation-for="TrainingProgram" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -100,7 +102,7 @@
             <!-- Payment Option Dropdown Selector (from: https://www.tutorialsteacher.com/mvc/htmlhelper-dropdownlist-dropdownlistfor) -->
             <div class="form-group">
                 <label asp-for="PaymentType" class="control-label"></label>
-                @Html.DropDownListFor(r => r.PaymentType, payOptions, new { @class = "form-control"}) 
+                @Html.DropDownListFor(r => r.PaymentType, payOptions, new { @class = "form-control" })
                 <span asp-validation-for="PaymentType" class="text-danger"></span>
             </div>
             <input type="submit" value="Create" class="btn btn-primary" />
