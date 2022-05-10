@@ -5,21 +5,21 @@ using NWEEI.Models;
 
 namespace NWEEI.Repositories
 {
-    public interface ITagRepo
+    public interface IPaymentOptionRepo
     {
-        IQueryable<Tag> Tags { get; }
+        IQueryable<PaymentOption> PaymentOptions { get; }
 
         // create
-        void AddTag(Tag tag);
+        void AddPaymentOption(PaymentOption paymentOption);
 
         // retrieve
-        List<Tag> GetAllTags();
-        Tag GetTagByID(int id);
+        List<PaymentOption> GetAllPaymentOptions();
+        PaymentOption GetPaymentOptionByID(int id);
 
         // update
-        void UpdateTag(Tag tag);
+        void UpdatePaymentOption(PaymentOption paymentOption);
 
         // delete
-        void DeleteTag(Tag tag);
+        void DeletePaymentOption(PaymentOption paymentOption);
     }
 }

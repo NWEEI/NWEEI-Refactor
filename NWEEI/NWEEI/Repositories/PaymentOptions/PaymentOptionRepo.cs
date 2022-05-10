@@ -16,55 +16,55 @@ namespace NWEEI.Repositories
             context = c;
         }
 
-        public IQueryable<Tag> Tags
+        public IQueryable<PaymentOption> PaymentOptions
         {
             get
             {
-                return context.Tags;
+                return context.PaymentOptions;
             }
         }
 
-        // add a new tag
-        public void AddTag(Tag tag)
+        // add a new paymentOption
+        public void AddPaymentOption(PaymentOption paymentOption)
         {
-            context.Tags.Add(tag);
+            context.PaymentOptions.Add(paymentOption);
             context.SaveChanges();
         }
 
         #region retrieval methods
 
-        // get a list of all tags
-        public List<Tag> GetAllTags()
+        // get a list of all paymentOptions
+        public List<PaymentOption> GetAllPaymentOptions()
         {
-            List<Tag> tags = context.Tags.ToList();
+            List<PaymentOption> paymentOptions = context.PaymentOptions.ToList();
 
-            return tags;
+            return paymentOptions;
         }
 
-        // get a specific tag by its id
-        public Tag GetTagByID(int id)
+        // get a specific paymentOption by its id
+        public PaymentOption GetPaymentOptionByID(int id)
         {
-            Tag tag = context.Tags
-                .Where(t => t.TagID == id)
+            PaymentOption paymentOption = context.PaymentOptions
+                .Where(t => t.PaymentOptionID == id)
                 .FirstOrDefault();
 
-            return tag;
+            return paymentOption;
         }
 
         #endregion
 
-        // update a tag
-        public void UpdateTag(Tag tag)
+        // update a paymentOption
+        public void UpdatePaymentOption(PaymentOption paymentOption)
         {
-            context.Tags.Update(tag);
+            context.PaymentOptions.Update(paymentOption);
             context.SaveChanges();
         }
 
-        // delete a tag
-        public void DeleteTag(Tag tag)
+        // delete a paymentOption
+        public void DeletePaymentOption(PaymentOption paymentOption)
         {
-            Tag existingTag = context.Tags.Find(tag.TagID);
-            context.Tags.Remove(existingTag);
+            PaymentOption existingPaymentOption = context.PaymentOptions.Find(paymentOption.PaymentOptionID);
+            context.PaymentOptions.Remove(existingPaymentOption);
             context.SaveChanges();
         }
     }
