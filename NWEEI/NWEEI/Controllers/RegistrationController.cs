@@ -14,11 +14,13 @@ namespace NWEEI.Controllers
 {
     public class RegistrationController : Controller
     {
-        IRegistrationRepo repo;
+        private IRegistrationRepo repo;
+        private readonly IPaymentOptionRepo payRepo;
 
-        public RegistrationController(IRegistrationRepo r)
+        public RegistrationController(IRegistrationRepo r, IPaymentOptionRepo p)
         {
             repo = r;
+            payRepo = p;
         }
 
         // GET: Registration
@@ -51,6 +53,19 @@ namespace NWEEI.Controllers
         // GET: Registration/Create
         public IActionResult Create()
         {
+            // get all the payment options in a list.
+            var payOptions = payRepo.GetAllPaymentOptions().ToList();
+            // make a new List of SelectListItems
+            List<SelectListItem> payOptionsList = new();
+            // add the first default list item to the SelectItems list
+            payOptionsList.Add(new SelectListItem { Selected = true, Text = "Select a payment type...", Value = String.Empty });
+            // add all the from the payment options list to the SelectItems list. 
+            for (int i = 0; i < payOptions.Count; i++)
+                payOptionsList.Add(new SelectListItem { Selected = false, Text = payOptions[i].Option, Value = payOptions[i].Option });
+            // make a new SelectList from the SelectItems list that contains all the SelectListItems
+            SelectList payOptionsSelectList = new(payOptionsList, "Value", "Text", 1);
+            // pass the SelectList to ViewData
+            ViewData["PaymentOptions"] = payOptionsSelectList;
             return View();
         }
 
@@ -59,7 +74,7 @@ namespace NWEEI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RegistrationID,TrainingProgram,FirstName,LastName,Email,DateOfBirth,Title,Organization,Address1,Address2,City,State,ZipCode,Country,Phone,Fax,Referral,SpecialInstructions,PaymentType")] Registration registration)
+        public IActionResult Create([Bind("RegistrationID,TrainingProgram,FirstName,LastName,Email,DateOfBirth,Title,Organization,Address1,Address2,City,State,ZipCode,Country,Phone,Fax,Referral,SpecialInstructions,PaymentType")] Registration registration)
         {
             registration.DateSubmitted = DateTime.Now;
             TempData["Training"] = registration.TrainingProgram;
@@ -89,7 +104,7 @@ namespace NWEEI.Controllers
 
         // GET: Registration/Edit/5
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -110,7 +125,7 @@ namespace NWEEI.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id, [Bind("RegistrationID,TrainingProgram,FirstName,LastName,Email,DateOfBirth,Title,Organization,Address1,Address2,City,State,ZipCode,Country,Phone,Fax,Referral,SpecialInstructions,PaymentType")] Registration registration)
+        public IActionResult Edit(int id, [Bind("RegistrationID,TrainingProgram,FirstName,LastName,Email,DateOfBirth,Title,Organization,Address1,Address2,City,State,ZipCode,Country,Phone,Fax,Referral,SpecialInstructions,PaymentType")] Registration registration)
         {
             if (id != registration.RegistrationID)
             {
@@ -162,7 +177,7 @@ namespace NWEEI.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
             Registration registration = repo.GetRegistrationByID(id);
             repo.DeleteRegistration(registration);
