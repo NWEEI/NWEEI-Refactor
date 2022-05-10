@@ -21,7 +21,7 @@ namespace NWEEI.Data
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<Registration> Registrations { get; set; }
         public DbSet<PaymentOption> PaymentOptions { get; set; }
-        public DbSet<TrainingProgram> TrainingProgram { get; set; }
+        public DbSet<TrainingProgram> TrainingPrograms { get; set; }
         public DbSet<Tag> Tags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) => base.OnModelCreating(modelBuilder);
