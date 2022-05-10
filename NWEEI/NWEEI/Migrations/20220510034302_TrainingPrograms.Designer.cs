@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NWEEI.Data;
 
 namespace NWEEI.Migrations
 {
     [DbContext(typeof(NWEEIContext))]
-    partial class NWEEIContextModelSnapshot : ModelSnapshot
+    [Migration("20220510034302_TrainingPrograms")]
+    partial class TrainingPrograms
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -371,8 +373,9 @@ namespace NWEEI.Migrations
                     b.Property<string>("Country")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime");
+                    b.Property<string>("DateOfBirth")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("DateSubmitted")
                         .HasColumnType("datetime");
