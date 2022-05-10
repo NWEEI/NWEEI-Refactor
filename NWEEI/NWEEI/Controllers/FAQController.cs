@@ -24,7 +24,7 @@ namespace NWEEI.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.Current = "Resources";
-            return View(await repo.FAQs.ToListAsync());
+            return View(repo.FAQs.ToList());
         }
 
         // GET: FAQ/Details/5
