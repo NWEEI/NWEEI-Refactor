@@ -114,7 +114,7 @@ namespace NWEEI_Tests
             // get list of FAQs from Index method
 
             /*
-             * the line below is where the error occurs
+             * the line below is where the error occurs (line 132)
              *      System.AggregateException : One or more errors occurred. 
              *      (The source 'IQueryable' doesn't implement 'IAsyncEnumerable<NWEEI.Models.FAQ>'. 
              *      Only sources that implement 'IAsyncEnumerable' can be used for Entity Framework 
