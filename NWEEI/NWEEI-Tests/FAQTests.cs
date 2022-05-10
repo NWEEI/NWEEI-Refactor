@@ -4,6 +4,10 @@ using NWEEI.Controllers;
 using NUnit.Framework;
 using NWEEI.Models;
 using Microsoft.AspNetCore.Identity;
+using System.Linq;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace NWEEI_Tests
 {
@@ -13,6 +17,7 @@ namespace NWEEI_Tests
         FAQController controller;
         UserManager<AppUser> userManager;
 
+        List<FAQ> faqs;
         FAQ f1, f2, f3, f4;
         Category c1, c2;
         AppUser u1;
@@ -20,6 +25,8 @@ namespace NWEEI_Tests
         [SetUp]
         public void Setup()
         {
+            faqs = new List<FAQ>();
+
             // arrange controller with test repo
             testRepo = new FAQTestRepo();
             controller = new FAQController(testRepo);
@@ -75,6 +82,76 @@ namespace NWEEI_Tests
                 LastName = "Name",
                 DateRegistered = DateTime.Now
             };
+        }
+
+        [Test]
+        // tests adding a new FAQ
+        public void TestCreate()
+        {
+            // use controller method to add FAQ to repo
+            controller.Create(f1).Wait();
+
+            // retrieve FAQ from repo
+            FAQ faq = testRepo.FAQs.ToList()[0];
+
+            // check values
+            Assert.IsNotNull(faq);
+            Assert.AreEqual(0, faq.FAQID);
+            Assert.AreEqual("Test FAQ 1", faq.Question);
+            Assert.AreEqual("Test Category 1", faq.Category.Name);
+        }
+
+        [Test]
+        // tests getting all FAQs
+        public void TestIndex()
+        {
+            // add all FAQs to repo
+            testRepo.AddFAQ(f1);
+            testRepo.AddFAQ(f2);
+            testRepo.AddFAQ(f3);
+            testRepo.AddFAQ(f4);
+
+            // get list of FAQs from Index method
+
+            /*
+             * the line below is where the error occurs
+             *      System.AggregateException : One or more errors occurred. 
+             *      (The source 'IQueryable' doesn't implement 'IAsyncEnumerable<NWEEI.Models.FAQ>'. 
+             *      Only sources that implement 'IAsyncEnumerable' can be used for Entity Framework 
+             *      asynchronous operations.) ----> 
+             *      System.InvalidOperationException : The source 'IQueryable' doesn't implement 
+             *      'IAsyncEnumerable<NWEEI.Models.FAQ>'. Only sources that implement 'IAsyncEnumerable' 
+             *      can be used for Entity Framework asynchronous operations.
+             * i'm pretty sure this is happening because FAQController.Index() is an async method and the
+             * FAQ > Index view uses IEnumerable<NWEEI.Models.FAQ> as its model, but the FAQ repo is not async 
+             * and returns FAQs as IQueryable<FAQ>.
+             * this is how brian's example is set up, so i'm not sure what the issue is.
+             * brian's example (IndexSortOrderTest method):
+             * https://github.com/LCC-CIT/CS296N-Example-BookReviews/blob/main/BookReviews/Tests/ReviewTests.cs
+            */
+            var viewResult = (ViewResult)controller.Index().Result; // this is where the error occurs
+            faqs = (List<FAQ>)viewResult.ViewData.Model;
+
+            // check values
+            Assert.AreEqual(4, faqs.Count);
+            Assert.AreEqual(faqs[0].Question, f1.Question);
+            Assert.AreEqual(faqs[1].Question, f2.Question);
+            Assert.AreEqual(faqs[2].Question, f3.Question);
+            Assert.AreEqual(faqs[3].Question, f4.Question);
+        }
+
+        [Test]
+        // tests getting a single FAQ by its id
+        public void TestEdit()
+        {
+
+        }
+
+        [Test]
+        // tests deleting an FAQ
+        public void TestDelete()
+        {
+
         }
     }
 }
