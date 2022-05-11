@@ -51,8 +51,8 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
-            Article article = await repo.Articles
-                .FirstOrDefaultAsync(m => m.ArticleID == id);
+            Article article = repo.Articles
+                .FirstOrDefault(m => m.ArticleID == id);
             if (article == null)
             {
                 return NotFound();
