@@ -25,7 +25,7 @@ namespace NWEEI.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.Current = "Resources";
-            return View(await repo.Categories.ToListAsync());
+            return View(repo.Categories.ToList());
         }
 
         // GET: Category/Details/5
@@ -37,8 +37,8 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
-            var category = await repo.Categories
-                .FirstOrDefaultAsync(m => m.CategoryID == id);
+            var category = repo.Categories
+                .FirstOrDefault(m => m.CategoryID == id);
             if (category == null)
             {
                 return NotFound();
