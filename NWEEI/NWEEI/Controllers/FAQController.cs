@@ -37,8 +37,8 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
-            FAQ fAQ = await repo.FAQs
-                .FirstOrDefaultAsync(m => m.FAQID == id);
+            FAQ fAQ = repo.FAQs
+                .FirstOrDefault(m => m.FAQID == id);
             if (fAQ == null)
             {
                 return NotFound();

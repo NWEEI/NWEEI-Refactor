@@ -111,6 +111,30 @@ namespace NWEEI_Tests
         }
 
         [Test]
+        // tests getting a single FAQ
+        public void TestDetails()
+        {
+            // add an FAQ to repo
+            testRepo.AddFAQ(f1);
+
+            // pull that FAQ back out to get its id
+            FAQ faq = testRepo.FAQs.ToList()[0];
+
+            // use controller method to retrieve the FAQ by its id
+            var viewResult = (ViewResult)controller.Details(faq.FAQID).Result;
+            FAQ newFAQ = (FAQ)viewResult.ViewData.Model;
+
+            // check values
+            Assert.IsNotNull(newFAQ);
+            Assert.AreEqual(f1.FAQID, newFAQ.FAQID);
+            Assert.AreEqual(f1.Question, newFAQ.Question);
+            Assert.AreEqual(f1.Answer, newFAQ.Answer);
+            Assert.AreEqual(f1.Category.Name, newFAQ.Category.Name);
+            Assert.AreEqual(f1.IsPublished, newFAQ.IsPublished);
+            Assert.AreEqual(f1.Featured, newFAQ.Featured);
+        }
+
+        [Test]
         // tests getting a single FAQ by its id
         public void TestEdit()
         {
