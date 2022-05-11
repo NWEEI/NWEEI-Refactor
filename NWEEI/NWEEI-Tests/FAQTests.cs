@@ -1,13 +1,10 @@
-﻿using System;
-using NWEEI.Repositories;
+﻿using NWEEI.Repositories;
 using NWEEI.Controllers;
 using NUnit.Framework;
 using NWEEI.Models;
-using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace NWEEI_Tests
 {
@@ -15,12 +12,10 @@ namespace NWEEI_Tests
     {
         FAQTestRepo testRepo;
         FAQController controller;
-        UserManager<AppUser> userManager;
 
         List<FAQ> faqs;
         FAQ f1, f2, f3, f4;
         Category c1, c2;
-        AppUser u1;
 
         [SetUp]
         public void Setup()
@@ -74,14 +69,6 @@ namespace NWEEI_Tests
                 IsPublished = false,
                 Featured = false
             };
-
-            // arrange user
-            u1 = new AppUser
-            {
-                FirstName = "First",
-                LastName = "Name",
-                DateRegistered = DateTime.Now
-            };
         }
 
         [Test]
@@ -127,14 +114,48 @@ namespace NWEEI_Tests
         // tests getting a single FAQ by its id
         public void TestEdit()
         {
+            // add an FAQ to repo
+            testRepo.AddFAQ(f1);
 
+            // pull that FAQ back out
+            FAQ faq = testRepo.FAQs.ToList()[0];
+
+            // edit its properties
+            faq.Question = "New Question";
+            faq.Answer = "New Answer";
+            faq.Category = c2;
+            faq.IsPublished = false;
+            faq.Featured = false;
+
+            // call update method with updated FAQ
+            controller.Edit(faq.FAQID, faq);
+
+            // pull FAQ out again
+            FAQ updatedFAQ = testRepo.FAQs.ToList()[0];
+
+            // check values
+            Assert.AreEqual(updatedFAQ.Question, faq.Question);
+            Assert.AreEqual(updatedFAQ.Answer, faq.Answer);
+            Assert.AreEqual(updatedFAQ.Category, faq.Category);
+            Assert.AreEqual(updatedFAQ.IsPublished, faq.IsPublished);
+            Assert.AreEqual(updatedFAQ.Featured, faq.Featured);
         }
 
         [Test]
         // tests deleting an FAQ
         public void TestDelete()
         {
+            // add an FAQ to repo
+            testRepo.AddFAQ(f1);
 
+            // pull that FAQ back out to get its id
+            FAQ faq = testRepo.FAQs.ToList()[0];
+
+            // call delete method (DeleteConfirmed) with id
+            controller.DeleteConfirmed(faq.FAQID);
+
+            // check number of FAQs in repo
+            Assert.AreEqual(0, testRepo.FAQs.ToList().Count);
         }
     }
 }
