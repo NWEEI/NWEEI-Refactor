@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace NWEEI_Tests
 {
     public class FAQTests
-    {
+    { 
         FAQTestRepo testRepo;
         FAQController controller;
 
