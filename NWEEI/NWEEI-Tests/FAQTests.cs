@@ -84,8 +84,8 @@ namespace NWEEI_Tests
             // check values
             Assert.IsNotNull(faq);
             Assert.AreEqual(0, faq.FAQID);
-            Assert.AreEqual("Test FAQ 1", faq.Question);
-            Assert.AreEqual("Test Category 1", faq.Category.Name);
+            Assert.AreEqual(f1.Question, faq.Question);
+            Assert.AreEqual(f1.Category.Name, faq.Category.Name);
         }
 
         [Test]
