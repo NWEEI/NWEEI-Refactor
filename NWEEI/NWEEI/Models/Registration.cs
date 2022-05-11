@@ -23,8 +23,9 @@ namespace NWEEI.Models
         [EmailAddress]
         public string Email { get; set; }
 
+        [DataType(DataType.Date)]
         [Required(ErrorMessage = "Please enter your date of birth.")]
-        public string DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
 
         public string Title { get; set; }
 
@@ -53,6 +54,7 @@ namespace NWEEI.Models
         [Required(ErrorMessage = "Please enter your phone number.")]
         public string Phone { get; set; }
 
+        [Phone]
         public string Fax { get; set; }
 
         public string Referral { get; set; }

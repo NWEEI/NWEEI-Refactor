@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NWEEI.Data;
 
 namespace NWEEI.Migrations
 {
     [DbContext(typeof(NWEEIContext))]
-    partial class NWEEIContextModelSnapshot : ModelSnapshot
+    [Migration("20220510001632_Payment-Options")]
+    partial class PaymentOptions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -371,8 +373,9 @@ namespace NWEEI.Migrations
                     b.Property<string>("Country")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime");
+                    b.Property<string>("DateOfBirth")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("DateSubmitted")
                         .HasColumnType("datetime");
@@ -442,21 +445,6 @@ namespace NWEEI.Migrations
                     b.HasKey("TagID");
 
                     b.ToTable("Tags");
-                });
-
-            modelBuilder.Entity("NWEEI.Models.TrainingProgram", b =>
-                {
-                    b.Property<int>("TrainingProgramID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("TrainingProgramID");
-
-                    b.ToTable("TrainingPrograms");
                 });
 
             modelBuilder.Entity("OrganizationTag", b =>

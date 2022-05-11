@@ -50,6 +50,8 @@ namespace NWEEI
             services.AddTransient<IFAQRepo, FAQRepo>();
             services.AddTransient<IOrganizationRepo, OrganizationRepo>();
             services.AddTransient<IRegistrationRepo, RegistrationRepo>();
+            services.AddTransient<IPaymentOptionRepo, PaymentOptionRepo>();
+            services.AddTransient<ITrainingProgramRepo, TrainingProgramRepo>();
             services.AddTransient<ITagRepo, TagRepo>();
 
             services.AddRazorPages();
@@ -90,12 +92,14 @@ namespace NWEEI
             var serviceProvider = app.ApplicationServices;
 
 
-            // seed legacy data
             /// SQLite
             // SqliteConnection tempConnection = new SqliteConnection(Configuration.GetConnectionString("SQLiteConnection"));
             /// MySQL
             MySqlConnection tempConnection = new (Configuration.GetConnectionString("MySqlLiveConnection"));
-            NWEEIContext.SeedLegacyData(tempConnection);
+
+            ///Uncomment to seed the database
+            // seed legacy data
+            //NWEEIContext.SeedLegacyData(tempConnection);
 
             // seed admin role
             UserManager<AppUser> userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();    // create a user-manager object
