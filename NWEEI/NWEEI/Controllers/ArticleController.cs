@@ -30,7 +30,7 @@ namespace NWEEI.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.Current = "Resources";
-            return View(await repo.Articles.ToListAsync());
+            return View(repo.Articles.ToList());
         }
 
         // get all articles in a category
