@@ -54,6 +54,34 @@ namespace NWEEI.Repositories
             return faqs;
         }
 
+        // TODO: refactor as async. pretty slow currently
+        // get a list of lists of all FAQs grouped by category
+        public List<List<FAQ>> GetFAQsByCategories()
+        {
+            // list of lists: each sub-list contains all FAQs in a category 
+            List<List<FAQ>> faqsByCategory = new List<List<FAQ>>();
+
+            // get all categories
+            List<Category> categories = context.Categories.ToList();
+
+            // loop through all categories and store their corresponding FAQs in individual lists
+            foreach (Category c in categories)
+            {
+                List<FAQ> faqs = new List<FAQ>();
+
+                // call GetFAQsByCategoryID. if result is > 0, add it to faqsByCategory
+                faqs = GetFAQsByCategoryID(c.CategoryID);
+
+                if (faqs.Count > 0)
+                {
+                    faqsByCategory.Add(faqs);
+                }
+            }
+
+            return faqsByCategory;
+            
+        }
+
         // TODO: build out search functionality
         public List<FAQ> GetFAQsBySearchQuery(string query)
         {
