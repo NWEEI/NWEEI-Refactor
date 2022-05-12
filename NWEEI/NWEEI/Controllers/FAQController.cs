@@ -24,7 +24,7 @@ namespace NWEEI.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.Current = "Resources";
-            return View(await repo.FAQs.ToListAsync());
+            return View(repo.FAQs.ToList());
         }
 
         // GET: FAQ/Details/5
@@ -37,8 +37,8 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
-            FAQ fAQ = await repo.FAQs
-                .FirstOrDefaultAsync(m => m.FAQID == id);
+            FAQ fAQ = repo.FAQs
+                .FirstOrDefault(m => m.FAQID == id);
             if (fAQ == null)
             {
                 return NotFound();

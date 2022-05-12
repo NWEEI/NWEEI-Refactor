@@ -30,7 +30,7 @@ namespace NWEEI.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.Current = "Resources";
-            return View(await repo.Articles.ToListAsync());
+            return View(repo.Articles.ToList());
         }
 
         // get all articles in a category
@@ -51,8 +51,8 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
-            Article article = await repo.Articles
-                .FirstOrDefaultAsync(m => m.ArticleID == id);
+            Article article = repo.Articles
+                .FirstOrDefault(m => m.ArticleID == id);
             if (article == null)
             {
                 return NotFound();
