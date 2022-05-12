@@ -25,9 +25,7 @@ namespace NWEEI.Controllers
         {
             ViewBag.Current = "Resources";
 
-            // TODO: refactor as async. pretty slow currently
-            // return all FAQs grouped by category
-            return View(repo.GetFAQsByCategories());
+            return View(repo.GetFAQCategories());
         }
 
         // GET: FAQ/Details/5

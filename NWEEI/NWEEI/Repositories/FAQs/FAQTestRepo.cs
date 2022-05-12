@@ -55,6 +55,13 @@ namespace NWEEI.Repositories
             return faqsByCategory;
         }
 
+        // TODO: write GetFAQCategories method and unit test
+        // get a list of categories that have FAQs
+        public List<Category> GetFAQCategories()
+        {
+            throw new NotImplementedException();
+        }
+
         // TODO: build out search functionality
         public List<FAQ> GetFAQsBySearchQuery(string query)
         {

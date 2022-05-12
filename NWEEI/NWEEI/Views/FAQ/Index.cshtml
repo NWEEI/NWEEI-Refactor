@@ -1,5 +1,5 @@
+@model List<Category>
 @*@model IEnumerable<NWEEI.Models.FAQ>*@
-@model List<List<FAQ>>
 
 @{
     ViewData["Title"] = "FAQs";
@@ -69,24 +69,20 @@ else
         <h1>Frequently Asked Questions</h1>
     </div>
 
-    // loop for categories
-    @foreach (var faqList in Model)
+    // loop through each category and display FAQs
+    @foreach (var item in Model)
     {
         <div class="faq-section-container">
-            <h3 class="p-2">@faqList[0].Category.Name</h3>
-
+            <h3 class="p-2">@item.Name</h3>
             <div class="container">
-                @foreach (var faq in faqList)
+                @foreach (var faq in item.FAQs)
                 {
                     <div class="faq">
                         <div>@faq.Question</div>
                         <div>@Html.Raw(faq.Answer)</div>
                     </div>
-                    <br />
                 }
             </div>
         </div>
     }
-
 }
-
