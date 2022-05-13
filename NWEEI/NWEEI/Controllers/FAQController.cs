@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,13 @@ namespace NWEEI.Controllers
             ViewBag.Current = "Resources";
 
             return View(repo.GetFAQCategories());
+        }
+
+        // get all FAQs
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Manage()
+        {
+            return View(repo.FAQs.ToList());
         }
 
         // get all FAQs in a category

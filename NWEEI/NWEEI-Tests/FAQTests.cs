@@ -92,7 +92,7 @@ namespace NWEEI_Tests
 
         [Test]
         // tests getting all FAQs
-        public void TestIndex()
+        public void TestManage()
         {
             // add all FAQs to repo
             testRepo.AddFAQ(f1);
@@ -101,7 +101,7 @@ namespace NWEEI_Tests
             testRepo.AddFAQ(f4);
 
             // get list of FAQs from Index method
-            var viewResult = (ViewResult)controller.Index().Result;
+            var viewResult = (ViewResult)controller.Manage().Result;
             faqs = (List<FAQ>)viewResult.ViewData.Model;
 
             // check values
