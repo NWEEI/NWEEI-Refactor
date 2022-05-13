@@ -4,6 +4,13 @@
     ViewData["Title"] = "FAQs";
 }
 
+<div class="custom-breadcrumb">
+    <a asp-controller="FAQ" asp-action="Index">
+        <span class="breadcrumb-icon"></span>
+        <span class="breadcrumb-name"><< Back to FAQ Topics</span>
+    </a>
+</div>
+
 <div class="content-header">
     <h1>Frequently Asked Questions: @Model[0].Category.Name</h1>
 </div>
@@ -19,21 +26,21 @@
             var idSelector = "#" + id;
 
             <!-- individual faq -->
-        <div class="card">
+            <div class="card">
 
-            <!-- faq question-->
-            <div class="card-header card-link collapsed" data-toggle="collapse" data-target="@idSelector">
-                @faq.Question
-                <i class="fa fa-chevron-up" aria-hidden="true"></i>
-            </div>
+                <!-- faq question-->
+                <div class="card-header card-link collapsed" data-toggle="collapse" data-target="@idSelector">
+                    @faq.Question
+                    <i class="fa fa-chevron-up" aria-hidden="true"></i>
+                </div>
 
-            <!-- faq answer -->
-            <div id="@id" class="collapse">
-                <div class="card-body">
-                    @Html.Raw(faq.Answer)
+                <!-- faq answer -->
+                <div id="@id" class="collapse">
+                    <div class="card-body">
+                        @Html.Raw(faq.Answer)
+                    </div>
                 </div>
             </div>
-        </div>
         }
 
     </div>
