@@ -69,19 +69,46 @@ else
         <h1>Frequently Asked Questions</h1>
     </div>
 
-    // loop through each category and display FAQs
+    @* loop through each category and display FAQs *@
     @foreach (var item in Model)
     {
+        <!-- category section -->
         <div class="faq-section-container">
-            <h3 class="p-2">@item.Name</h3>
+
+            <!-- category name -->
+            <h3 class="p-2">
+                @item.Name
+            </h3>
+
+            <!-- faq section -->
             <div class="container">
-                @foreach (var faq in item.FAQs)
-                {
-                    <div class="faq">
-                        <div>@faq.Question</div>
-                        <div>@Html.Raw(faq.Answer)</div>
-                    </div>
-                }
+                <div class="faq-accordion">
+
+                    @* loop through each faq *@
+                    @foreach (var faq in item.FAQs)
+                    {
+                        var id = "faq-" + faq.FAQID;
+                        var idSelector = "#" + id;
+
+                        <!-- individual faq -->
+                        <div class="card">
+
+                            <!-- faq question-->
+                            <div class="card-header">
+                                <a class="card-link" data-toggle="collapse" data-target="@idSelector">
+                                    @faq.Question
+                                </a>
+                            </div>
+
+                            <!-- faq answer -->
+                            <div id="@id" class="collapse">
+                                <div class="card-body">
+                                    @Html.Raw(faq.Answer)
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     }
