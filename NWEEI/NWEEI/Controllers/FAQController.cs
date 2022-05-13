@@ -28,6 +28,13 @@ namespace NWEEI.Controllers
             return View(repo.GetFAQCategories());
         }
 
+        // get all FAQs in a category
+        public async Task<IActionResult> ByCategory(int categoryID)
+        {
+            ViewBag.Current = "Resources";
+            return View(repo.GetFAQsByCategoryID(categoryID));
+        }
+
         // GET: FAQ/Details/5
         public async Task<IActionResult> Details(int? id)
         {

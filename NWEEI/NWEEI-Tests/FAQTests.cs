@@ -29,10 +29,12 @@ namespace NWEEI_Tests
             // arrange categories
             c1 = new Category
             {
+                CategoryID = 0,
                 Name = "Test Category 1"
             };
             c2 = new Category
             {
+                CategoryID = 1,
                 Name = "Test Category 2"
             };
 
@@ -108,6 +110,25 @@ namespace NWEEI_Tests
             Assert.AreEqual(faqs[1].Question, f2.Question);
             Assert.AreEqual(faqs[2].Question, f3.Question);
             Assert.AreEqual(faqs[3].Question, f4.Question);
+        }
+
+        [Test]
+        // tests getting all FAQs in a category
+        public void TestByCategory()
+        {
+            // add all FAQs to repo
+            testRepo.AddFAQ(f1);
+            testRepo.AddFAQ(f2);
+            testRepo.AddFAQ(f3);
+            testRepo.AddFAQ(f4);
+
+            // get list of FAQs from Index method
+            var viewResult = (ViewResult)controller.ByCategory(0).Result;
+            faqs = (List<FAQ>)viewResult.ViewData.Model;
+
+            // check values
+            Assert.AreEqual(2, faqs.Count);
+            Assert.AreEqual("Test Category 1", f1.Category.Name);
         }
 
         [Test]
