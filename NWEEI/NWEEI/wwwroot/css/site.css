@@ -450,6 +450,10 @@ body {
     color: white !important;
 }
 
+.tile-link {
+    color: white !important;
+}
+
 
 
 /* -------------------------------------------------- */
@@ -495,11 +499,28 @@ body {
     padding: 2px;
 }
 
-
 /* -------------------------------------------------- */
 
-/* DEGREES */
 
+/* FAQs */
+.card-header {
+    cursor: pointer;
+}
+
+.fa-chevron-up {
+    position: relative;
+    float: right;
+    color: #999999;
+    transition: all 0.3s ease;
+}
+
+.card-link.collapsed > .fa-chevron-up {
+    transform: rotate(180deg);
+}
+
+
+/* -------------------------------------------------- */
+/* DEGREES */
 .degree-header {
     background-image: url('../images/shutterstock_56230774.jpeg');
     background-repeat: no-repeat;
