@@ -20,8 +20,7 @@ namespace NWEEI.Repositories
         {
             get
             {
-                return context.Organizations
-                    .Include(org => org.Tags);
+                return context.Organizations;
             }
         }
 
@@ -39,7 +38,6 @@ namespace NWEEI.Repositories
         {
             List<Organization> organizations = context.Organizations
                 .OrderBy(org => org.Name)
-                .Include(org => org.Tags)
                 .ToList();
 
             return organizations;
@@ -56,8 +54,6 @@ namespace NWEEI.Repositories
         public Organization GetOrganizationByID(int id)
         {
             Organization organization = context.Organizations
-                .Include(org => org.Tags)
-                .Where(org => org.OrganizationID == id)
                 .FirstOrDefault();
 
             return organization;

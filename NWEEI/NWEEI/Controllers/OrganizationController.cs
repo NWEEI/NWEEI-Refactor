@@ -21,44 +21,35 @@ namespace NWEEI.Controllers
         }
 
         // GET: Organization
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             ViewBag.Current = "Resources";
-            return View(await repo.Organizations.ToListAsync());
+            return View(repo.GetAllOrganizations());
         }
 
         // GET: Organization/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             ViewBag.Current = "Resources";
 
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            Organization organization = await repo.Organizations
-                .FirstOrDefaultAsync(m => m.OrganizationID == id);
-            if (organization == null)
-            {
-                return NotFound();
-            }
+            // get the organization from the repo of which the id matches the requested id
+            Organization organization = repo.Organizations.FirstOrDefault(m => m.OrganizationID == id);
 
-            return View(organization);
+            // return not found if the organzation requersted is null, otherwise return the detail view of that organization
+            return organization == null ? NotFound() : View( organization );
         }
 
         // GET: Organization/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
+        public IActionResult Create() => View();
 
         // POST: Organization/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrganizationID,Name,Description,ImageURL,WebsiteURL")] Organization organization)
+        public IActionResult Create([Bind("OrganizationID,Name,Description,ImageURL,WebsiteURL")] Organization organization)
         {
             if (ModelState.IsValid)
             {
@@ -69,7 +60,7 @@ namespace NWEEI.Controllers
         }
 
         // GET: Organization/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -89,7 +80,7 @@ namespace NWEEI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrganizationID,Name,Description,ImageURL,WebsiteURL")] Organization organization)
+        public IActionResult Edit(int id, [Bind("OrganizationID,Name,Description,ImageURL,WebsiteURL")] Organization organization)
         {
             if (id != organization.OrganizationID)
             {
@@ -119,15 +110,15 @@ namespace NWEEI.Controllers
         }
 
         // GET: Organization/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Organization organization = await repo.Organizations
-                .FirstOrDefaultAsync(m => m.OrganizationID == id);
+            Organization organization = repo.Organizations
+                .FirstOrDefault(m => m.OrganizationID == id);
             if (organization == null)
             {
                 return NotFound();
@@ -139,7 +130,7 @@ namespace NWEEI.Controllers
         // POST: Organization/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
             Organization organization = repo.GetOrganizationByID((int)id);
             repo.DeleteOrganization(organization);
