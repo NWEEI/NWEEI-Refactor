@@ -36,6 +36,7 @@ a:hover {
     color: #666666; /* Krylon Classic Gray */
 }
 
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -518,6 +519,10 @@ body {
     transform: rotate(180deg);
 }
 
+.edit-textarea {
+    height: 15vh !important;
+}
+
 
 /* -------------------------------------------------- */
 /* DEGREES */
@@ -554,11 +559,11 @@ body {
 /* CATEGORY SELECTOR */
 
 .category-selector {
-    margin: 10%;
+    margin: 3% 0%;
 }
 
 .form-select {
-    padding: 3%;
+    padding: 1%;
 }
 
 
