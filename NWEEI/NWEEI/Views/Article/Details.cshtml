@@ -8,24 +8,22 @@
 
 <div>
     <!-- article header: title, publish date, edit option-->
-    <div>
-        <div>
-            <h1>
-                @Model.Title
+    <div class="article-header">
+        <div><h1>@Model.Title</h1></div>
+
+        <div class="article-header-content">
+            <!-- admin edit button -->
+            <span class="admin-action-button btn btn-primary">
                 @if (User.IsInRole("Admin"))
                 {
-                    <a data-btn-edit asp-action="Edit" asp-route-id="@Model.ArticleID">Edit Article</a>
+                    <a asp-action="Edit" asp-route-id="@Model.ArticleID">Edit Article</a>
                 }
-            </h1>
-        </div>
-
-        <div class="content-header">
-            <!-- admin edit button -->
+            </span>
 
             <!-- publish date -->
             <span class="publish-date"><i>Published on @Model.PublishDate.ToShortDateString()</i></span>
         </div>
-        
+
     </div>
 
     <hr />
