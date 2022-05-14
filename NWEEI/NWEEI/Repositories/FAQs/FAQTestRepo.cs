@@ -9,6 +9,7 @@ namespace NWEEI.Repositories
     public class FAQTestRepo : IFAQRepo
     {
         private List<FAQ> faqs = new List<FAQ>();
+        private List<Category> categories = new List<Category>();
 
         public IQueryable<FAQ> FAQs
         {
@@ -94,6 +95,23 @@ namespace NWEEI.Repositories
         {
             FAQ existingFAQ = faqs.Find(f => f.FAQID == faq.FAQID);
             faqs.Remove(existingFAQ);
+        }
+
+
+        public IQueryable<Category> Categories
+        {
+            get
+            {
+                return categories.AsQueryable<Category>();
+            }
+        }
+
+        // get a list of all categories
+        public List<Category> GetAllCategories()
+        {
+            categories = Categories.ToList();
+
+            return categories;
         }
     }
 }

@@ -98,5 +98,15 @@ namespace NWEEI.Repositories
             context.FAQs.Remove(existingFAQ);
             context.SaveChanges();
         }
+
+        // get a list of all categories
+        public List<Category> GetAllCategories()
+        {
+            List<Category> categories = context.Categories
+                .Include(c => c.FAQs)
+                .ToList();
+
+            return categories;
+        }
     }
 }

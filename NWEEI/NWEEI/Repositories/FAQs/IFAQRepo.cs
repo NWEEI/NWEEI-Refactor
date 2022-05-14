@@ -19,6 +19,7 @@ namespace NWEEI.Repositories
         List<Category> GetFAQCategories();
         List<FAQ> GetFAQsBySearchQuery(string query);
         FAQ GetFAQByID(int id);
+        List<Category> GetAllCategories();
 
         // update
         void UpdateFAQ(FAQ faq);
