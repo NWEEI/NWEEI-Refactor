@@ -113,6 +113,7 @@ namespace NWEEI.Controllers
             repo.DeleteOrganization(organization);
             return RedirectToAction(nameof(Index));
         }
+
         private bool OrganizationExists( int id ) => repo.OrganizationExists(id);
     }
 }
