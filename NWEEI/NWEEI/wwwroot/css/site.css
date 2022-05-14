@@ -547,10 +547,19 @@ body {
 }
 
 
-/* embc */
+
+/* -------------------------------------------------- */
 
 
+/* CATEGORY SELECTOR */
 
+.category-selector {
+    margin: 10%;
+}
+
+.form-select {
+    padding: 3%;
+}
 
 
 
