@@ -18,7 +18,11 @@
     <div class="container">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- hidden inputs for current FAQ properties-->
             <input type="hidden" asp-for="@Model.CurrentFAQ.FAQID" />
+            <input type="hidden" asp-for="@Model.CurrentFAQ.Category.Name" value="temp" />
+
             <div class="form-group">
                 <label asp-for="@Model.CurrentFAQ.Question" class="control-label"></label>
                 <input asp-for="@Model.CurrentFAQ.Question" class="form-control" />
@@ -34,14 +38,21 @@
             <div class="category-selector">
                 <label asp-for="@Model.NewCategoryID" class="control-label">Category</label><br />
                 <select class="form-select" asp-for="NewCategoryID">
-                    <option selected>@Model.CurrentCategory.Name</option>
 
+                    <!-- loop through categories -->
                     @foreach (var item in Model.Categories)
                     {
-                        <option value="@item.CategoryID">@item.Name</option>
+                        if (item.CategoryID == Model.CurrentCategory.CategoryID)
+                        {
+                            <option selected value="@item.CategoryID">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.CategoryID">@item.Name</option>
+
+                        }
                     }
                 </select>
-
             </div>
 
 

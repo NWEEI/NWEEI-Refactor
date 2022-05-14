@@ -121,9 +121,6 @@ namespace NWEEI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
-            // TODO: add validation to view for category, question, answer
-            // TODO: set current category name to correct index in category list
-
             if (id == null)
             {
                 return NotFound();
@@ -144,8 +141,6 @@ namespace NWEEI.Controllers
             {
                 Categories = faqCategories,
                 CurrentCategory = faq.Category,
-                // TODO: likely need to change this to finding index by category ID
-                IndexOfCurrentCategory = faqCategories.FindIndex(c => c.Name.Equals(faq.Category.Name, StringComparison.Ordinal)),
                 CurrentFAQ = faq
             };
 
