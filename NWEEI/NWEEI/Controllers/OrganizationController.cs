@@ -15,10 +15,7 @@ namespace NWEEI.Controllers
     {
         IOrganizationRepo repo;
 
-        public OrganizationController(IOrganizationRepo r)
-        {
-            repo = r;
-        }
+        public OrganizationController( IOrganizationRepo r ) => repo = r;
 
         // GET: Organization
         public IActionResult Index()
@@ -32,13 +29,13 @@ namespace NWEEI.Controllers
         {
             ViewBag.Current = "Resources";
 
-            if (id == null) return NotFound();
+            if (id is null) return NotFound();
 
             // get the organization from the repo of which the id matches the requested id
-            Organization organization = repo.Organizations.FirstOrDefault(m => m.OrganizationID == id);
+            Organization organization = repo.GetOrganizationByID( (int)id );
 
-            // return not found if the organzation requersted is null, otherwise return the detail view of that organization
-            return organization == null ? NotFound() : View( organization );
+            // return not found if the organzation requested is null, otherwise return the detail view of that organization
+            return organization is not null ? View( organization ) : NotFound();
         }
 
         // GET: Organization/Create
@@ -51,28 +48,23 @@ namespace NWEEI.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("OrganizationID,Name,Description,ImageURL,WebsiteURL")] Organization organization)
         {
-            if (ModelState.IsValid)
-            {
-                repo.AddOrganization(organization);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(organization);
+            // if data attempting to be posted is not valid, refresh view and display validation summaries
+            if ( !ModelState.IsValid ) return View( organization );
+            
+            // otherwise, add the valid organization to it's repo and then return to the index view of organizations
+            repo.AddOrganization( organization );
+            return RedirectToAction( nameof( Index ) );
         }
 
         // GET: Organization/Edit/5
         public IActionResult Edit(int? id)
         {
-            if (id == null)
+            if (id is not null )
             {
-                return NotFound();
-            }
-
-            Organization organization = repo.GetOrganizationByID((int)id);
-            if (organization == null)
-            {
-                return NotFound();
-            }
-            return View(organization);
+                Organization organization = repo.GetOrganizationByID( (int)id );
+                // if the organization returned by querying by id is not null, return the edit view of that organization, otherwise return the NotFound() view.
+                return organization is not null ? View( organization ) : NotFound() ;
+            } else return NotFound();
         }
 
         // POST: Organization/Edit/5
@@ -82,49 +74,34 @@ namespace NWEEI.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("OrganizationID,Name,Description,ImageURL,WebsiteURL")] Organization organization)
         {
-            if (id != organization.OrganizationID)
-            {
-                return NotFound();
-            }
+            // if the id parameter does not match the id of the object parameter, return the NotFound view
+            if ( id != organization.OrganizationID ) return NotFound();
 
-            if (ModelState.IsValid)
+            // if data attempting to be posted is not valid, refresh view and display validation summaries
+            if ( !ModelState.IsValid ) return View( organization ); 
+
+            // attempt to save the object to it's repo.
+            try { repo.UpdateOrganization( organization ); }
+            // if the save fails, 
+            catch ( DbUpdateConcurrencyException )
             {
-                try
-                {
-                    repo.UpdateOrganization(organization);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!OrganizationExists(organization.OrganizationID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                // and it fails because the object did not actually save to the repo, return the NotFound view
+                if ( !OrganizationExists( organization.OrganizationID ) ) return NotFound();
+                // otherwise, it failed because of a concurrency exception
+                else throw;
             }
-            return View(organization);
+            // if the save didn't fail, go back to the index.
+            return RedirectToAction( nameof( Index ) );
         }
 
         // GET: Organization/Delete/5
         public IActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id is null) return NotFound();
 
-            Organization organization = repo.Organizations
-                .FirstOrDefault(m => m.OrganizationID == id);
-            if (organization == null)
-            {
-                return NotFound();
-            }
+            Organization organization = repo.GetOrganizationByID( (int)id );
 
-            return View(organization);
+            return organization is not null ? View( organization ) : NotFound();
         }
 
         // POST: Organization/Delete/5
@@ -132,14 +109,10 @@ namespace NWEEI.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            Organization organization = repo.GetOrganizationByID((int)id);
+            Organization organization = repo.GetOrganizationByID( id );
             repo.DeleteOrganization(organization);
             return RedirectToAction(nameof(Index));
         }
-
-        private bool OrganizationExists(int id)
-        {
-            return repo.Organizations.Any(e => e.OrganizationID == id);
-        }
+        private bool OrganizationExists( int id ) => repo.OrganizationExists(id);
     }
 }
