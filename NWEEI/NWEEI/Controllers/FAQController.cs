@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using NWEEI.Data;
 using NWEEI.Models;
 using NWEEI.Repositories;
+using NWEEI.ViewModels;
 
 namespace NWEEI.Controllers
 {
@@ -44,6 +45,7 @@ namespace NWEEI.Controllers
         }
 
         // GET: FAQ/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             ViewBag.Current = "Resources";
@@ -64,6 +66,7 @@ namespace NWEEI.Controllers
         }
 
         // GET: FAQ/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -74,6 +77,7 @@ namespace NWEEI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("FAQID,Question,Answer,IsPublished,Featured")] FAQ fAQ)
         {
             if (ModelState.IsValid)
@@ -85,6 +89,7 @@ namespace NWEEI.Controllers
         }
 
         // GET: FAQ/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -92,12 +97,25 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
+            // get FAQ
             FAQ faq = repo.GetFAQByID((int)id);
             if (faq == null)
             {
                 return NotFound();
             }
-            return View(faq);
+
+            // get FAQ categories
+            List<Category> faqCategories = repo.GetFAQCategories();
+
+            // initialize new category selector VM
+            CategorySelectorViewModel viewModel = new CategorySelectorViewModel
+            {
+                Categories = faqCategories,
+                CurrentCategory = faq.Category,
+                CurrentFAQ = faq
+            };
+
+            return View(viewModel);
         }
 
         // POST: FAQ/Edit/5
@@ -105,22 +123,38 @@ namespace NWEEI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FAQID,Question,Answer,IsPublished,Featured")] FAQ fAQ)
+        [Authorize(Roles = "Admin")]
+        //public async Task<IActionResult> Edit(int id, [Bind("FAQID,Question,Answer,IsPublished,Featured")] FAQ fAQ)
+        public async Task<IActionResult> Edit(int id, CategorySelectorViewModel viewModel)
+
         {
-            if (id != fAQ.FAQID)
+            if (id != viewModel.CurrentFAQ.FAQID)
             {
                 return NotFound();
             }
+
+            // get existing FAQ with id
+            FAQ faq = repo.GetFAQByID(id);
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    repo.UpdateFAQ(fAQ);
+                    // update existing FAQ's values with viewModel values
+                    faq.Category = repo.GetFAQCategories()
+                        .Where(c => c.CategoryID == viewModel.NewCategoryID)
+                        .FirstOrDefault();
+
+                    faq.Question = viewModel.CurrentFAQ.Question;
+                    faq.Answer = viewModel.CurrentFAQ.Answer;
+                    faq.IsPublished = viewModel.CurrentFAQ.IsPublished;
+                    faq.Featured = viewModel.CurrentFAQ.Featured;
+
+                    repo.UpdateFAQ(faq);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!FAQExists(fAQ.FAQID))
+                    if (!FAQExists(viewModel.CurrentFAQ.FAQID))
                     {
                         return NotFound();
                     }
@@ -131,10 +165,11 @@ namespace NWEEI.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(fAQ);
+            return View(faq);
         }
 
         // GET: FAQ/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -155,6 +190,7 @@ namespace NWEEI.Controllers
         // POST: FAQ/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             FAQ faq = repo.GetFAQByID((int)id);

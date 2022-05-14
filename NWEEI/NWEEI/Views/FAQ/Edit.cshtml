@@ -1,36 +1,52 @@
-@model NWEEI.Models.FAQ
+@model NWEEI.ViewModels.CategorySelectorViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit FAQ";
 }
 
-<h1>Edit</h1>
+<h1>Edit FAQ</h1>
 
-<h4>FAQ</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="FAQID" />
+            <input type="hidden" asp-for="@Model.CurrentFAQ.FAQID" />
             <div class="form-group">
-                <label asp-for="Question" class="control-label"></label>
-                <input asp-for="Question" class="form-control" />
-                <span asp-validation-for="Question" class="text-danger"></span>
+                <label asp-for="@Model.CurrentFAQ.Question" class="control-label"></label>
+                <input asp-for="@Model.CurrentFAQ.Question" class="form-control" />
+                <span asp-validation-for="@Model.CurrentFAQ.Question" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Answer" class="control-label"></label>
-                <input asp-for="Answer" class="form-control" />
-                <span asp-validation-for="Answer" class="text-danger"></span>
+                <label asp-for="@Model.CurrentFAQ.Answer" class="control-label"></label>
+                <input asp-for="@Model.CurrentFAQ.Answer" class="form-control" />
+                <span asp-validation-for="@Model.CurrentFAQ.Answer" class="text-danger"></span>
             </div>
+
+            <!-- category selector -->
+            @*<vc:category-selector-vc></vc:category-selector-vc>*@
+
+            <div id="category-selector">
+                <select class="form-select" asp-for="NewCategoryID">
+                    <option selected>@Model.CurrentCategory.Name</option>
+
+                    @foreach (var item in Model.Categories)
+                    {
+                        <option value="@item.CategoryID">@item.Name</option>
+                    }
+                </select>
+
+            </div>
+
+
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsPublished" /> @Html.DisplayNameFor(model => model.IsPublished)
+                    <input class="form-check-input" asp-for="@Model.CurrentFAQ.IsPublished" /> @Model.CurrentFAQ.IsPublished
                 </label>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Featured" /> @Html.DisplayNameFor(model => model.Featured)
+                    <input class="form-check-input" asp-for="@Model.CurrentFAQ.Featured" /> @Model.CurrentFAQ.Featured
                 </label>
             </div>
             <div class="form-group">
