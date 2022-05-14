@@ -69,7 +69,25 @@ namespace NWEEI.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
-            return View();
+            // TODO: update to return full list of categories,
+            // not just categories with FAQs currently assigned
+            // get FAQ categories
+            List<Category> faqCategories = repo.GetFAQCategories();
+
+            // initialize new category selector VM
+            CategorySelectorViewModel viewModel = new CategorySelectorViewModel
+            {
+                Categories = faqCategories,
+                CurrentFAQ = new FAQ
+                {
+                    Category = new Category
+                    {
+                        Name = ""
+                    }
+                }
+            };
+
+            return View(viewModel);
         }
 
         // POST: FAQ/Create
@@ -78,20 +96,34 @@ namespace NWEEI.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([Bind("FAQID,Question,Answer,IsPublished,Featured")] FAQ fAQ)
+        public async Task<IActionResult> Create(CategorySelectorViewModel viewModel)
         {
+            FAQ faq = new FAQ();
+
             if (ModelState.IsValid)
             {
-                repo.AddFAQ(fAQ);
-                return RedirectToAction(nameof(Index));
+                // create new FAQ with viewModel values
+                faq.Question = viewModel.CurrentFAQ.Question;
+                faq.Answer = viewModel.CurrentFAQ.Answer;
+                faq.IsPublished = viewModel.CurrentFAQ.IsPublished;
+                faq.Featured = viewModel.CurrentFAQ.Featured;
+                faq.Category = repo.GetFAQCategories()
+                    .Where(c => c.CategoryID == viewModel.CurrentFAQ.Category.CategoryID)
+                    .FirstOrDefault();
+
+                repo.AddFAQ(faq);
+                return RedirectToAction(nameof(Manage));
             }
-            return View(fAQ);
+            return View(viewModel);
         }
 
         // GET: FAQ/Edit/5
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
+            // TODO: add validation to view for category, question, answer
+            // TODO: set current category name to correct index in category list
+
             if (id == null)
             {
                 return NotFound();
@@ -112,6 +144,8 @@ namespace NWEEI.Controllers
             {
                 Categories = faqCategories,
                 CurrentCategory = faq.Category,
+                // TODO: likely need to change this to finding index by category ID
+                IndexOfCurrentCategory = faqCategories.FindIndex(c => c.Name.Equals(faq.Category.Name, StringComparison.Ordinal)),
                 CurrentFAQ = faq
             };
 
@@ -163,9 +197,9 @@ namespace NWEEI.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Manage));
             }
-            return View(faq);
+            return View(viewModel);
         }
 
         // GET: FAQ/Delete/5
@@ -195,7 +229,7 @@ namespace NWEEI.Controllers
         {
             FAQ faq = repo.GetFAQByID((int)id);
             repo.DeleteFAQ(faq);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Manage));
         }
 
         private bool FAQExists(int id)
