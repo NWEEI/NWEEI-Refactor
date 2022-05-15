@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using NWEEI.Data;
 using NWEEI.Models;
 using NWEEI.Repositories;
 
@@ -27,29 +25,21 @@ namespace NWEEI.Controllers
 
         // GET: Registration
         [Authorize(Roles ="Admin")]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             ViewBag.Current = "ContactOption";
-            return View(await repo.Registrations.OrderByDescending(r => r.DateSubmitted).ToListAsync());
+            return View(repo.Registrations.OrderByDescending(r => r.DateSubmitted).ToList());
         }
 
         // GET: Registration/Details/5
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id is null) return NotFound();
 
-            Registration registration = await repo.Registrations
-                .FirstOrDefaultAsync(m => m.RegistrationID == id);
-            if (registration == null)
-            {
-                return NotFound();
-            }
+            Registration registration = repo.GetRegistrationByID( (int)id );
 
-            return View(registration);
+            return registration is null ? NotFound( ) : View( registration ); 
         }
 
         // GET: Registration/Create
@@ -88,18 +78,16 @@ namespace NWEEI.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("RegistrationID,TrainingProgram,FirstName,LastName,Email,DateOfBirth,Title,Organization,Address1,Address2,City,State,ZipCode,Country,Phone,Fax,Referral,SpecialInstructions,PaymentType")] Registration registration)
         {
+
+            if (!ModelState.IsValid ) return View(registration);
             registration.DateSubmitted = DateTime.Now;
             TempData["Training"] = registration.TrainingProgram;
             TempData["DateSubmitted"] = registration.DateSubmitted.ToString();
             TempData["FirstName"] = registration.FirstName;
             TempData["LastName"] = registration.LastName;
             TempData["Email"] = registration.Email;
-            if (ModelState.IsValid)
-            {
-                repo.AddRegistration(registration);
-                return RedirectToAction(nameof(CreateConfirmation));
-            }
-            return View(registration);
+            repo.AddRegistration(registration);
+            return RedirectToAction(nameof(CreateConfirmation));
         }
 
         public IActionResult CreateConfirmation()
@@ -118,17 +106,11 @@ namespace NWEEI.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound( ); 
 
             Registration registration = repo.GetRegistrationByID((int)id);
-            if (registration == null)
-            {
-                return NotFound();
-            }
-            return View(registration);
+
+            return registration is null ? NotFound( ) : View(registration);
         }
 
         // POST: Registration/Edit/5
@@ -139,50 +121,27 @@ namespace NWEEI.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Edit(int id, [Bind("RegistrationID,TrainingProgram,FirstName,LastName,Email,DateOfBirth,Title,Organization,Address1,Address2,City,State,ZipCode,Country,Phone,Fax,Referral,SpecialInstructions,PaymentType")] Registration registration)
         {
-            if (id != registration.RegistrationID)
-            {
-                return NotFound();
-            }
+            if ( id != registration.RegistrationID ) return NotFound( );
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid ) return View( registration );
+            try { repo.UpdateRegistration( registration ); }
+            catch ( DbUpdateConcurrencyException )
             {
-                try
-                {
-                    repo.UpdateRegistration(registration);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RegistrationExists(registration.RegistrationID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                if ( !RegistrationExists( registration.RegistrationID ) ) return NotFound( );
+                else throw; 
             }
-            return View(registration);
+            return RedirectToAction( nameof( Index ) );
         }
 
         // GET: Registration/Delete/5
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            Registration registration = await repo.Registrations
-                .FirstOrDefaultAsync(m => m.RegistrationID == id);
-            if (registration == null)
-            {
-                return NotFound();
-            }
+            Registration registration = repo.GetRegistrationByID( (int)id );
 
-            return View(registration);
+            return registration is null ? NotFound( ) : View(registration);
         }
 
         // POST: Registration/Delete/5
@@ -196,9 +155,6 @@ namespace NWEEI.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RegistrationExists(int id)
-        {
-            return repo.Registrations.Any(e => e.RegistrationID == id);
-        }
+        private bool RegistrationExists( int id ) => repo.Registrations.Any( e => e.RegistrationID == id );
     }
 }

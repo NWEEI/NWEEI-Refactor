@@ -11,18 +11,9 @@ namespace NWEEI.Repositories
     {
         private NWEEIContext context;
 
-        public PaymentOptionRepo(NWEEIContext c)
-        {
-            context = c;
-        }
+        public PaymentOptionRepo( NWEEIContext c ) => context = c;
 
-        public IQueryable<PaymentOption> PaymentOptions
-        {
-            get
-            {
-                return context.PaymentOptions;
-            }
-        }
+        public IQueryable<PaymentOption> PaymentOptions => context.PaymentOptions;
 
         // add a new paymentOption
         public void AddPaymentOption(PaymentOption paymentOption)
@@ -31,27 +22,13 @@ namespace NWEEI.Repositories
             context.SaveChanges();
         }
 
-        #region retrieval methods
-
         // get a list of all paymentOptions
-        public List<PaymentOption> GetAllPaymentOptions()
-        {
-            List<PaymentOption> paymentOptions = context.PaymentOptions.ToList();
-
-            return paymentOptions;
-        }
+        public List<PaymentOption> GetAllPaymentOptions() => context.PaymentOptions.ToList();
 
         // get a specific paymentOption by its id
-        public PaymentOption GetPaymentOptionByID(int id)
-        {
-            PaymentOption paymentOption = context.PaymentOptions
+        public PaymentOption GetPaymentOptionByID(int id) => context.PaymentOptions
                 .Where(t => t.PaymentOptionID == id)
                 .FirstOrDefault();
-
-            return paymentOption;
-        }
-
-        #endregion
 
         // update a paymentOption
         public void UpdatePaymentOption(PaymentOption paymentOption)
@@ -63,8 +40,9 @@ namespace NWEEI.Repositories
         // delete a paymentOption
         public void DeletePaymentOption(PaymentOption paymentOption)
         {
-            PaymentOption existingPaymentOption = context.PaymentOptions.Find(paymentOption.PaymentOptionID);
-            context.PaymentOptions.Remove(existingPaymentOption);
+            context.PaymentOptions.Remove( context.PaymentOptions
+                .Find( paymentOption.PaymentOptionID )
+            );
             context.SaveChanges();
         }
     }

@@ -7,56 +7,42 @@ namespace NWEEI.Repositories
 {
     public class RegistrationTestRepo : IRegistrationRepo
     {
-        private List<Registration> registrations = new List<Registration>();
+        private List<Registration> registrations = new( );
 
-        public IQueryable<Registration> Registrations
-        {
-            get
-            {
-                return registrations.AsQueryable<Registration>();
-            }
-        }
+        public IQueryable<Registration> Registrations => registrations
+            .AsQueryable<Registration>( );
 
         // add a new registration
-        public void AddRegistration(Registration registration)
+        public void AddRegistration( Registration registration )
         {
             // attempt to retrieve existing registration
             Registration existingRegistration = registrations
-                .Find(r => r.FirstName == registration.FirstName && r.LastName == registration.LastName);
+                .Find( r =>
+                    r.FirstName == registration.FirstName &&
+                    r.LastName == registration.LastName );
 
-            // add registration to list if it doesn't already exist
-            if (existingRegistration == null)
-            {
-                // simulate auto-incremented primary key and add registration to list
-                registration.RegistrationID = registrations.Count;
-                registrations.Add(registration);
-            }
-            else
-            {
-                throw new Exception("Registration already exists");
-            }
+            // dont add registration to list if it already exists
+            if ( existingRegistration is not null ) throw new Exception( "Registration already exists" );
+
+            // simulate auto-incremented primary key and add registration to list
+            registration.RegistrationID = registrations.Count;
+            registrations.Add( registration );
         }
 
         // get a list of all registrations
-        public List<Registration> GetAllRegistrations()
-        {
-            registrations = Registrations.ToList();
-
-            return registrations;
-        }
+        public List<Registration> GetAllRegistrations( ) => Registrations
+            .OrderByDescending( r => r.DateSubmitted )
+            .ToList( );
 
         // get a specific registration by its id
-        public Registration GetRegistrationByID(int id)
-        {
-            Registration registration = registrations.Find(r => r.RegistrationID == id);
-            return registration;
-        }
+        public Registration GetRegistrationByID( int id ) => registrations
+            .Find( r => r.RegistrationID == id );
 
         // update a registration
-        public void UpdateRegistration(Registration registration)
+        public void UpdateRegistration( Registration registration )
         {
             // retrieve registration from list
-            Registration existingReg = registrations.Find(r => r.RegistrationID == registration.RegistrationID);
+            Registration existingReg = registrations.Find( r => r.RegistrationID == registration.RegistrationID );
 
             // update its properties
             existingReg.TrainingProgram = registration.TrainingProgram;
@@ -80,10 +66,12 @@ namespace NWEEI.Repositories
         }
 
         // delete a registration
-        public void DeleteRegistration(Registration registration)
-        {
-            Registration existingRegistration = registrations.Find(r => r.RegistrationID == registration.RegistrationID);
-            registrations.Remove(existingRegistration);
-        }
+        public void DeleteRegistration( Registration registration ) => registrations
+            .Remove( registrations
+                .Find( r => r.RegistrationID == registration.RegistrationID ) );
+
+        // see if a registration exists 
+        public bool RegistrationExists( int id ) => registrations
+            .Any( r => r.RegistrationID == id );
     }
 }
