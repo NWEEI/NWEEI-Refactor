@@ -11,19 +11,9 @@ namespace NWEEI.Repositories
     {
         private NWEEIContext context;
 
-        public OrganizationRepo(NWEEIContext c)
-        {
-            context = c;
-        }
+        public OrganizationRepo( NWEEIContext c ) => context = c;
 
-        public IQueryable<Organization> Organizations
-        {
-            get
-            {
-                return context.Organizations
-                    .Include(org => org.Tags);
-            }
-        }
+        public IQueryable<Organization> Organizations => context.Organizations;
 
         // add a new organization
         public void AddOrganization(Organization organization)
@@ -35,33 +25,17 @@ namespace NWEEI.Repositories
         #region retrieval methods
 
         // get a list of all organizations
-        public List<Organization> GetAllOrganizations()
-        {
-            List<Organization> organizations = context.Organizations
-                .OrderBy(org => org.Name)
-                .Include(org => org.Tags)
-                .ToList();
+        public List<Organization> GetAllOrganizations() => context.Organizations.OrderBy( org => org.Name ).ToList();
 
-            return organizations;
-        }
-                
         // TODO: decide how to handle this - include tag methods within org repo
         // for retrieval by tagID?
-        public List<Organization> GetOrganizationsByTagID(int tagID)
-        {
-            throw new NotImplementedException();
-        }
-        
-        // get a specific organization by its id
-        public Organization GetOrganizationByID(int id)
-        {
-            Organization organization = context.Organizations
-                .Include(org => org.Tags)
-                .Where(org => org.OrganizationID == id)
-                .FirstOrDefault();
+        public List<Organization> GetOrganizationsByTagID( int tagID ) => throw new NotImplementedException();
 
-            return organization;
-        }
+        // get a specific organization by its id
+        public Organization GetOrganizationByID( int id ) => context.Organizations.FirstOrDefault( o => o.OrganizationID == id );
+
+        // check to see if an organization exists
+        public bool OrganizationExists( int id ) => Organizations.Any( e => e.OrganizationID == id );
 
         #endregion
 
@@ -79,5 +53,6 @@ namespace NWEEI.Repositories
             context.Organizations.Remove(existingOrg);
             context.SaveChanges();
         }
+
     }
 }
