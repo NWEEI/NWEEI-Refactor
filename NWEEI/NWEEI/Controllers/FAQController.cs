@@ -69,15 +69,13 @@ namespace NWEEI.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
-            // TODO: update to return full list of categories,
-            // not just categories with FAQs currently assigned
-            // get FAQ categories
-            List<Category> faqCategories = repo.GetFAQCategories();
+            // get categories
+            List<Category> categories = repo.GetAllCategories();
 
             // initialize new category selector VM
             CategorySelectorViewModel viewModel = new CategorySelectorViewModel
             {
-                Categories = faqCategories,
+                Categories = categories,
                 CurrentFAQ = new FAQ
                 {
                     Category = new Category
@@ -107,7 +105,7 @@ namespace NWEEI.Controllers
                 faq.Answer = viewModel.CurrentFAQ.Answer;
                 faq.IsPublished = viewModel.CurrentFAQ.IsPublished;
                 faq.Featured = viewModel.CurrentFAQ.Featured;
-                faq.Category = repo.GetFAQCategories()
+                faq.Category = repo.GetAllCategories()
                     .Where(c => c.CategoryID == viewModel.CurrentFAQ.Category.CategoryID)
                     .FirstOrDefault();
 
@@ -133,13 +131,13 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
-            // get FAQ categories
-            List<Category> faqCategories = repo.GetFAQCategories();
+            // get categories
+            List<Category> categories = repo.GetAllCategories();
 
             // initialize new category selector VM
             CategorySelectorViewModel viewModel = new CategorySelectorViewModel
             {
-                Categories = faqCategories,
+                Categories = categories,
                 CurrentCategory = faq.Category,
                 CurrentFAQ = faq
             };
@@ -170,7 +168,7 @@ namespace NWEEI.Controllers
                 try
                 {
                     // update existing FAQ's values with viewModel values
-                    faq.Category = repo.GetFAQCategories()
+                    faq.Category = repo.GetAllCategories()
                         .Where(c => c.CategoryID == viewModel.NewCategoryID)
                         .FirstOrDefault();
 
