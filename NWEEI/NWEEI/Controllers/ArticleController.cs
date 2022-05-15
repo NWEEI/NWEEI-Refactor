@@ -128,73 +128,68 @@ namespace NWEEI.Controllers
             return View(viewModel);
         }
 
-
-        /*
-        // GET: Article/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-                
-        // POST: Article/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([Bind("ArticleID,Title,Body,DateCreated,PublishDate,IsPublished,Featured,Views")] Article article, string htmlcode)
-        {
-            ViewData["IsPosted"] = true;
-            ViewData["PostedValue"] = htmlcode;
-            article.Body = htmlcode;
-            if (article.IsPublished)
-                article.PublishDate = DateTime.Now;
-            if (ModelState.IsValid)
-            {
-                repo.AddArticle(article);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(article);
-        }
-        */
-
         // GET: Article/Edit/5
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
-            ViewBag.Current = "Resources";
-
             if (id == null)
             {
                 return NotFound();
             }
 
+            // get article
             Article article = repo.GetArticleByID((int)id);
+
             if (article == null)
             {
                 return NotFound();
             }
-            return View(article);
+
+            // get categories
+            List<Category> categories = repo.GetAllCategories();
+
+            // initialize new category selector VM
+            CategorySelectorViewModel viewModel = new CategorySelectorViewModel
+            {
+                Categories = categories,
+                CurrentCategory = article.Category,
+                CurrentArticle = article
+            };
+
+            return View(viewModel);
         }
 
         // POST: Article/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id, [Bind("ArticleID,Title,Body,DateCreated,PublishDate,IsPublished,Featured,Views")] Article article, string htmlcode)
+        public async Task<IActionResult> Edit(int id, CategorySelectorViewModel viewModel, string htmlcode)
         {
-            if (id != article.ArticleID)
+            if (id != viewModel.CurrentArticle.ArticleID)
             {
                 return NotFound();
             }
+
+            // get existing article with id
+            Article article = repo.GetArticleByID(id);
 
             if (ModelState.IsValid)
             {
                 ViewData["IsPosted"] = true;
                 ViewData["PostedValue"] = htmlcode;
+
+                // update existing article's values with viewModel values
+                article.Title = viewModel.CurrentArticle.Title;
                 article.Body = htmlcode;
+                article.DateCreated = viewModel.CurrentArticle.DateCreated;
+                article.Author = viewModel.CurrentArticle.Author;
+                article.IsPublished = viewModel.CurrentArticle.IsPublished;
+                article.Featured = viewModel.CurrentArticle.Featured;
+                article.Views = viewModel.CurrentArticle.Views;
+                article.Category = repo.GetAllCategories()
+                        .Where(c => c.CategoryID == viewModel.NewCategoryID)
+                        .FirstOrDefault();
+
                 try
                 {
                     repo.UpdateArticle(article);
@@ -210,9 +205,11 @@ namespace NWEEI.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(article);
+
+            return View(viewModel);
         }
 
         // GET: Article/Delete/5
