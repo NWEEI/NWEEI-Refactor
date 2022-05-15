@@ -16,6 +16,7 @@ namespace NWEEI.Repositories
         List<Organization> GetAllOrganizations();
         List<Organization> GetOrganizationsByTagID(int tagID);
         Organization GetOrganizationByID(int id);
+        bool OrganizationExists( int id );
 
         // update
         void UpdateOrganization(Organization organization);

@@ -16,17 +16,21 @@ namespace NWEEI.TagHelpers
             newCssClasses : $"{oldCssClasses} {newCssClasses}";
             list.SetAttribute("class", cssClasses);
         }
+
+
         public static void BuildTag(this TagHelperOutput output, string tagName, string classNames)
         {
             output.TagName = tagName;
             output.TagMode = TagMode.StartTagAndEndTag;
             output.Attributes.AppendCssClass(classNames);
         }
+
         public static void BuildLink(this TagHelperOutput output, string url, string className)
         {
             output.BuildTag("a", className);
             output.Attributes.SetAttribute("href", url);
         }
+
         public static void SetRawPreContentElement(this TagHelperOutput output, string rawHTML)
         // By Josh Allison (adapted from the above extension methods, and https://www.c-sharpcorner.com/article/creating-custom-tag-helpers-with-asp-net-core-mvc/)
         {
@@ -34,6 +38,7 @@ namespace NWEEI.TagHelpers
             sb.AppendFormat(rawHTML);
             output.PreContent.SetHtmlContent(sb.ToString());
         }
+
         public static void SetRawPostContentElement(this TagHelperOutput output, string rawHTML)
         // By Josh Allison (adapted from the above extension methods, and https://www.c-sharpcorner.com/article/creating-custom-tag-helpers-with-asp-net-core-mvc/)
         {
@@ -41,5 +46,11 @@ namespace NWEEI.TagHelpers
             sb.AppendFormat(rawHTML);
             output.PostContent.SetHtmlContent(sb.ToString());
         }
+
+        // By Josh Allison (adapted from the above extension methods, and https://www.c-sharpcorner.com/article/creating-custom-tag-helpers-with-asp-net-core-mvc/)
+        public static string GetElementId( this TagHelperAttributeList list ) => list[ "id" ]?.Value?.ToString();
+        public static string GetElementTarget( this TagHelperAttributeList list ) => list[ "target" ]?.Value?.ToString();
+        public static string GetElementAction( this TagHelperAttributeList list ) => list[ "action" ]?.Value?.ToString();
+        public static string GetElementASPfor( this TagHelperAttributeList list ) => list[ "asp-for" ]?.Value?.ToString();
     }
 }
