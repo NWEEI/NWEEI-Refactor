@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using NWEEI.Data;
 using NWEEI.Models;
 using NWEEI.Repositories;
+using NWEEI.ViewModels;
 
 namespace NWEEI.Controllers
 {
@@ -58,15 +59,83 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
+            // increase view count by 1
+            article.Views++;
+
             return View(article);
         }
 
+        // GET: Article/Create
+        [Authorize(Roles = "Admin")]
+        public IActionResult Create()
+        {
+            // get categories
+            List<Category> categories = repo.GetAllCategories();
+
+            // initialize new category selector VM
+            CategorySelectorViewModel viewModel = new CategorySelectorViewModel
+            {
+                Categories = categories,
+                CurrentArticle = new Article
+                {
+                    Category = new Category
+                    {
+                        Name = ""
+                    }
+                }
+            };
+
+            return View(viewModel);
+        }
+
+        // POST: Article/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Create(CategorySelectorViewModel viewModel, string htmlcode)
+        {
+            // create new article with viewModel values and html string from RTE
+            Article article = new Article();
+
+            ViewData["IsPosted"] = true;
+            ViewData["PostedValue"] = htmlcode;
+
+            if (ModelState.IsValid)
+            {
+                article.Title = viewModel.CurrentArticle.Title;
+                article.Body = htmlcode;
+                article.DateCreated = viewModel.CurrentArticle.DateCreated;
+                article.Author = viewModel.CurrentArticle.Author;
+                article.IsPublished = viewModel.CurrentArticle.IsPublished;
+                article.Featured = viewModel.CurrentArticle.Featured;
+                article.Views = viewModel.CurrentArticle.Views;
+                article.Category = repo.GetAllCategories()
+                    .Where(c => c.CategoryID == viewModel.CurrentArticle.Category.CategoryID)
+                    .FirstOrDefault();
+
+                // set publish date if article is set to be published
+                if (article.IsPublished)
+                {
+                    article.PublishDate = DateTime.Now;
+                }
+                    
+                repo.AddArticle(article);
+
+                // TODO: update redirect to article > manage page once it's been created
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(viewModel);
+        }
+
+
+        /*
         // GET: Article/Create
         public IActionResult Create()
         {
             return View();
         }
-
+                
         // POST: Article/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -87,6 +156,7 @@ namespace NWEEI.Controllers
             }
             return View(article);
         }
+        */
 
         // GET: Article/Edit/5
         [Authorize(Roles = "Admin")]
