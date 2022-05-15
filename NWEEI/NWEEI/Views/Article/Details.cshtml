@@ -4,7 +4,12 @@
     ViewData["Title"] = "Details";
 }
 
-<a data-btn-back asp-action="Index">to Articles</a>
+<div class="custom-breadcrumb">
+    <a asp-action="Manage">
+        <span class="breadcrumb-icon"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+        <span class="breadcrumb-name">Back to Articles</span>
+    </a>
+</div>
 
 <div>
     <!-- article header: title, publish date, edit option -->
@@ -22,8 +27,12 @@
             }
 
 
-            <!-- publish date -->
-            <span class="publish-date"><i>Published on @Model.PublishDate.ToShortDateString()</i></span>
+            <!-- category and publish date -->
+            <span>
+                <i>Category: @Model.Category.Name</i>
+                <br />
+                <i>Published on @Model.PublishDate.ToShortDateString()</i>
+            </span>
         </div>
 
     </div>

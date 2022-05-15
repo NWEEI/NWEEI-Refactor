@@ -89,8 +89,6 @@ namespace NWEEI.Controllers
         }
 
         // POST: FAQ/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -146,12 +144,9 @@ namespace NWEEI.Controllers
         }
 
         // POST: FAQ/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        //public async Task<IActionResult> Edit(int id, [Bind("FAQID,Question,Answer,IsPublished,Featured")] FAQ fAQ)
         public async Task<IActionResult> Edit(int id, CategorySelectorViewModel viewModel)
 
         {
@@ -165,18 +160,17 @@ namespace NWEEI.Controllers
 
             if (ModelState.IsValid)
             {
+                // update existing FAQ's values with viewModel values
+                faq.Question = viewModel.CurrentFAQ.Question;
+                faq.Answer = viewModel.CurrentFAQ.Answer;
+                faq.IsPublished = viewModel.CurrentFAQ.IsPublished;
+                faq.Featured = viewModel.CurrentFAQ.Featured;
+                faq.Category = repo.GetAllCategories()
+                    .Where(c => c.CategoryID == viewModel.NewCategoryID)
+                    .FirstOrDefault();
+
                 try
                 {
-                    // update existing FAQ's values with viewModel values
-                    faq.Category = repo.GetAllCategories()
-                        .Where(c => c.CategoryID == viewModel.NewCategoryID)
-                        .FirstOrDefault();
-
-                    faq.Question = viewModel.CurrentFAQ.Question;
-                    faq.Answer = viewModel.CurrentFAQ.Answer;
-                    faq.IsPublished = viewModel.CurrentFAQ.IsPublished;
-                    faq.Featured = viewModel.CurrentFAQ.Featured;
-
                     repo.UpdateFAQ(faq);
                 }
                 catch (DbUpdateConcurrencyException)
