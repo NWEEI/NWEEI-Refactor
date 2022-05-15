@@ -27,10 +27,16 @@ namespace NWEEI.Controllers
         }
 
         // GET: Article
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             ViewBag.Current = "Resources";
+            return View(repo.Articles.ToList());
+        }
+
+        // get all articles
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Manage()
+        {
             return View(repo.Articles.ToList());
         }
 
@@ -121,8 +127,7 @@ namespace NWEEI.Controllers
                     
                 repo.AddArticle(article);
 
-                // TODO: update redirect to article > manage page once it's been created
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Manage));
             }
 
             return View(viewModel);
@@ -206,7 +211,7 @@ namespace NWEEI.Controllers
                     }
                 }
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Manage));
             }
 
             return View(viewModel);
@@ -239,7 +244,7 @@ namespace NWEEI.Controllers
         {
             Article article = repo.GetArticleByID((int)id);
             repo.DeleteArticle(article);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Manage));
         }
 
         private bool ArticleExists(int id)
