@@ -15,47 +15,31 @@ namespace NWEEI.Controllers
     {
         ITagRepo repo;
 
-        public TagController(ITagRepo r)
-        {
-            repo = r;
-        }
+        public TagController( ITagRepo r ) => repo = r;
 
         // GET: Tag
-        public async Task<IActionResult> Index()
-        {
-            return View(await repo.Tags.ToListAsync());
-        }
+        public IActionResult Index( ) => View( repo.Tags.ToList( ) );
 
         // GET: Tag/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
-            if (id == null)
+            if (id is not null)
             {
-                return NotFound();
+                Tag tag = repo.Tags.FirstOrDefault( m => m.TagID == id );
+                return tag is null ? NotFound( ) : View( tag );
             }
-
-            Tag tag = await repo.Tags
-                .FirstOrDefaultAsync(m => m.TagID == id);
-            if (tag == null)
-            {
-                return NotFound();
-            }
-
-            return View(tag);
+            else return NotFound( );
         }
 
         // GET: Tag/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
+        public IActionResult Create( ) => View( );
 
         // POST: Tag/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TagID,Name")] Tag tag)
+        public IActionResult Create([Bind("TagID,Name")] Tag tag)
         {
             if (ModelState.IsValid)
             {
@@ -66,19 +50,13 @@ namespace NWEEI.Controllers
         }
 
         // GET: Tag/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id is null) return NotFound();
 
             Tag tag = repo.GetTagByID((int)id);
-            if (tag == null)
-            {
-                return NotFound();
-            }
-            return View(tag);
+
+            return tag is null ? NotFound( ) : View(tag);
         }
 
         // POST: Tag/Edit/5
@@ -86,12 +64,9 @@ namespace NWEEI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TagID,Name")] Tag tag)
+        public IActionResult Edit(int id, [Bind("TagID,Name")] Tag tag)
         {
-            if (id != tag.TagID)
-            {
-                return NotFound();
-            }
+            if (id != tag.TagID) return NotFound();
 
             if (ModelState.IsValid)
             {
@@ -101,14 +76,8 @@ namespace NWEEI.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TagExists(tag.TagID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    if (!TagExists(tag.TagID)) return NotFound();
+                    else throw; 
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -116,36 +85,28 @@ namespace NWEEI.Controllers
         }
 
         // GET: Tag/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
-            if (id == null)
+            if (id is not null)
             {
-                return NotFound();
+                var tag = repo.Tags.FirstOrDefaultAsync( m => m.TagID == id );
+                return tag is null ? NotFound( ) : View( tag );
             }
+            else
+                return NotFound( );
 
-            var tag = await repo.Tags
-                .FirstOrDefaultAsync(m => m.TagID == id);
-            if (tag == null)
-            {
-                return NotFound();
-            }
-
-            return View(tag);
         }
 
         // POST: Tag/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
             Tag tag = repo.GetTagByID(id);
             repo.DeleteTag(tag);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TagExists(int id)
-        {
-            return repo.Tags.Any(e => e.TagID == id);
-        }
+        private bool TagExists( int id ) => repo.Tags.Any( e => e.TagID == id );
     }
 }
