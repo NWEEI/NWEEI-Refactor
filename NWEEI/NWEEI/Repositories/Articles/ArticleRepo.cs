@@ -73,7 +73,7 @@ namespace NWEEI.Repositories
             return articles;
         }
 
-        // get a list of articles by category
+        // get a list of published articles by category
         public List<Article> GetPublishedArticlesByCategoryID(int categoryID)
         {
             List<Article> articles = context.Articles

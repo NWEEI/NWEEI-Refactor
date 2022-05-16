@@ -15,7 +15,7 @@
     @* loop through each category and display FAQs *@
     @foreach (var item in Model)
     {
-        @if (item.FAQs.Count > 0)
+        @if (item.FAQs.Where(f => f.IsPublished == true).ToList().Count > 0)
         {
             <a class="tile-link" asp-controller="FAQ" asp-action="ByCategory" asp-route-categoryID="@item.CategoryID">
                 <div class="tile-container">
