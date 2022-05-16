@@ -569,3 +569,28 @@ body {
 
 
 
+/* -------------------------------------------------- */
+
+
+/* SEARCH */
+
+.search-container {
+    text-align: center;
+    position: relative;
+    top: 0;
+}
+
+.search-bar {
+    border-radius: 20px;
+    width: 70%;
+    margin: auto;
+    padding: 15px;
+}
+
+.search-btn {
+    margin: 8px;
+    padding: .375rem 1rem;
+    background-color: #fedd90 !important;
+    color: #2c4592 !important;
+    border-radius: 40px;
+}
