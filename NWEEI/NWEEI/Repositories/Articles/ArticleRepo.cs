@@ -38,7 +38,21 @@ namespace NWEEI.Repositories
         // get a list of all articles
         public List<Article> GetAllArticles()
         {
-            List<Article> articles = context.Articles.OrderByDescending(a => a.DateCreated)
+            List<Article> articles = context.Articles
+                .OrderBy(a => a.DateCreated)
+                .Include(a => a.Author)
+                .Include(a => a.Category)
+                .ToList();
+
+            return articles;
+        }
+
+        // get a list of all published articles
+        public List<Article> GetPublishedArticles()
+        {
+            List<Article> articles = context.Articles
+                .Where(a => a.IsPublished == true)
+                .OrderBy(a => a.DateCreated)
                 .Include(a => a.Author)
                 .Include(a => a.Category)
                 .ToList();
@@ -49,7 +63,22 @@ namespace NWEEI.Repositories
         // get a list of articles by category
         public List<Article> GetArticlesByCategoryID(int categoryID)
         {
-            List<Article> articles = context.Articles.OrderByDescending(a => a.DateCreated)
+            List<Article> articles = context.Articles
+                .OrderBy(a => a.DateCreated)
+                .Include(a => a.Author)
+                .Include(a => a.Category)
+                .Where(a => a.Category.CategoryID == categoryID)
+                .ToList();
+
+            return articles;
+        }
+
+        // get a list of articles by category
+        public List<Article> GetPublishedArticlesByCategoryID(int categoryID)
+        {
+            List<Article> articles = context.Articles
+                .Where(a => a.IsPublished == true)
+                .OrderBy(a => a.DateCreated)
                 .Include(a => a.Author)
                 .Include(a => a.Category)
                 .Where(a => a.Category.CategoryID == categoryID)
