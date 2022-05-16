@@ -21,11 +21,6 @@ namespace NWEEI_Tests
         RegistrationController registrationController;
         Registration ControlRegistration, ResultRegistration;
 
-        // TempData stuff
-        HttpContext http;
-        ITempDataProvider tempDataProvider;
-
-
         // registration test helper methods
         static bool CompleteMemberEquality( Registration lhs, Registration rhs ) =>
                 lhs.TrainingProgram == rhs.TrainingProgram &&
@@ -101,7 +96,6 @@ namespace NWEEI_Tests
 
             registrationController = new( registrationTestRepo, paymentOptionTestRepo, trainingProgramTestRepo );
 
-
             // setup registration lists
             registrations = new( );
             for ( int i = 0 ; i < registrations.Count ; i++ )
@@ -161,9 +155,6 @@ namespace NWEEI_Tests
         {
             //arrange
             ControlRegistration = SetupRegistration( ControlRegistration, "control" );
-            TempDataDictionary tempData = new( http, tempDataProvider );
-            tempData.Add( "MyCustomData", "customData" );
-            registrationController.TempData = tempData;
 
             // act
             registrationController.Create( ControlRegistration );

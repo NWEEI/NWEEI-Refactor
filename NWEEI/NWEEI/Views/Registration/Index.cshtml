@@ -18,23 +18,19 @@
         <tr>
             <th>Date Submitted</th>
             <th>
-                @Html.DisplayNameFor(model => model.TrainingProgram)
+                @Html.DisplayNameFor( model => model.TrainingProgram )
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                @Html.DisplayNameFor( model => model.FirstName )
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                @Html.DisplayNameFor( model => model.LastName )
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                @Html.DisplayNameFor( model => model.Email )
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Organization)
-            </th>
+            <th></th>
+            <th></th>
             <th></th>
         </tr>
     </thead>
@@ -56,17 +52,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Organization)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.RegistrationID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.RegistrationID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.RegistrationID">Delete</a>
-            </td>
+            <td><a asp-action="Edit" asp-route-id="@item.RegistrationID">Edit</a></td>
+            <td><a asp-action="Details" asp-route-id="@item.RegistrationID">Details</a></td>
+            <td><a asp-action="Delete" asp-route-id="@item.RegistrationID">Delete</a></td>
         </tr>
 }
     </tbody>

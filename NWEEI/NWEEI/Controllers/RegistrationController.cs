@@ -81,25 +81,14 @@ namespace NWEEI.Controllers
 
             if (!ModelState.IsValid ) return View(registration);
             registration.DateSubmitted = DateTime.Now;
-            TempData["Training"] = registration.TrainingProgram;
-            TempData["DateSubmitted"] = registration.DateSubmitted.ToString();
-            TempData["FirstName"] = registration.FirstName;
-            TempData["LastName"] = registration.LastName;
-            TempData["Email"] = registration.Email;
             repo.AddRegistration(registration);
-            return RedirectToAction(nameof(CreateConfirmation));
+            return RedirectToAction("CreateConfirmation", registration);
         }
 
-        public IActionResult CreateConfirmation()
+        public IActionResult CreateConfirmation(Registration registration)
         {
             ViewBag.Current = "ContactOption";
-
-            TempData.Keep("Training");
-            TempData.Keep("DateSubmitted");
-            TempData.Keep("FirstName");
-            TempData.Keep("LastName");
-            TempData.Keep("Email");
-            return View();
+            return View( registration );
         }
 
         // GET: Registration/Edit/5
