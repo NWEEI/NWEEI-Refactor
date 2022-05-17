@@ -8,14 +8,20 @@ using Microsoft.EntityFrameworkCore;
 using NWEEI.Data;
 using NWEEI.Models;
 using NWEEI.Repositories;
+using static System.Net.WebRequestMethods;
 
 namespace NWEEI.Controllers
 {
     public class OrganizationController : Controller
     {
         IOrganizationRepo repo;
+        ITagRepo tagRepo;
 
-        public OrganizationController( IOrganizationRepo r ) => repo = r;
+        public OrganizationController( IOrganizationRepo r, ITagRepo t )
+        {
+            repo = r;
+            tagRepo = t;
+        }
 
         // GET: Organization
         public IActionResult Index()
@@ -39,7 +45,26 @@ namespace NWEEI.Controllers
         }
 
         // GET: Organization/Create
-        public IActionResult Create() => View();
+        public IActionResult Create()
+        {
+
+            /// Tags Dropdown Selector( from: https://www.tutorialsteacher.com/mvc/htmlhelper-dropdownlist-dropdownlistfor) 
+            // get all the tag options in a list.
+            var tags = tagRepo.GetAllTags( ).ToList( );
+            // make a new List of SelectListItems
+            List<SelectListItem> tagsList = new( );
+            // add the first default list item to the SelectItems list
+            tagsList.Add( new SelectListItem { Selected = true, Text = "Select a tag...", Value = String.Empty } );
+            // add all the from the tag options list to the SelectItems list. 
+            for ( int i = 0 ; i < tags.Count ; i++ )
+                tagsList.Add( new SelectListItem { Selected = false, Text = tags [ i ].Name, Value = tags [ i ].Name } );
+            // make a new SelectList from the SelectItems list that contains all the SelectListItems
+            SelectList tagsSelectList = new( tagsList, "Value", "Text", 1 );
+            // pass the SelectList to ViewData
+            ViewData [ "Tags" ] = tagsSelectList;
+
+            return View( );
+        }
 
         // POST: Organization/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -50,7 +75,7 @@ namespace NWEEI.Controllers
         {
             // if data attempting to be posted is not valid, refresh view and display validation summaries
             if ( !ModelState.IsValid ) return View( organization );
-            
+
             // otherwise, add the valid organization to it's repo and then return to the index view of organizations
             repo.AddOrganization( organization );
             return RedirectToAction( nameof( Index ) );

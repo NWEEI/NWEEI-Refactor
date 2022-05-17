@@ -13,7 +13,10 @@ namespace NWEEI.Repositories
 
         public OrganizationRepo( NWEEIContext c ) => context = c;
 
-        public IQueryable<Organization> Organizations => context.Organizations;
+        public IQueryable<Organization> Organizations => context.Organizations
+                    .Include( organization => organization.TagKeys );
+
+        public IQueryable<Tag> Tags => context.Tags;
 
         // add a new organization
         public void AddOrganization(Organization organization)

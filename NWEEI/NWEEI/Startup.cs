@@ -36,7 +36,6 @@ namespace NWEEI
             ///MySQL
             services.AddDbContext<NWEEIContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySqlLiveConnection")));
 
-
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             // identity service

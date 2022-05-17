@@ -8,6 +8,9 @@ using NWEEI.Models;
 using Microsoft.Data.Sqlite;
 using System.IO;
 using MySql.Data.MySqlClient;
+using System.Configuration;
+using System.Collections.Generic;
+using System.Numerics;
 
 namespace NWEEI.Data
 {
@@ -134,7 +137,6 @@ namespace NWEEI.Data
             tagsCmd.ExecuteNonQuery();
 
             tempConnection.Close();
-
         }
     }
 }

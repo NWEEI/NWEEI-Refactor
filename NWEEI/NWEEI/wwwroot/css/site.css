@@ -272,6 +272,7 @@ body {
     font-size: 1.1em !important;
 }
 
+
 .content-image {
     width: 40%;
     border-radius: 5px;
@@ -527,6 +528,50 @@ body {
 
 
 /* embc */
+
+
+/* -------------------------------------------------- */
+
+/* BEGIN: FORMS */
+
+/* The AddRow button is for dynamically adding for fields to a document. */
+#addRow{
+
+}
+
+/* Have nice buttons for inputgroup append and input group prepend that match the rest of the site.*/
+.input-group-append > button {
+    color: #dc3545;
+    border: 3px solid rgba(0,0,0,0.1);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding-bottom: .375rem;
+}
+
+.input-group-append > button:hover {
+    color: white;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    text-shadow: 0px 0px 5px 5px white;
+    /* box-shadow: rgba(255, 0, 0, 0.9) 3px 0px 10px 1px; */
+    animation-name: buttonAppendHover;
+    animation-duration: 0.2s;
+}
+
+@keyframes buttonAppendHover{
+    from {
+        color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    to {
+        color: white;
+        background-color: #dc3545;
+    }
+}
+
+    /* END: FORMS */
+
 
 
 

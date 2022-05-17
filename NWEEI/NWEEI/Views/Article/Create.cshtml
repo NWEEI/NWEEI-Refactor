@@ -36,7 +36,7 @@
                 <div id="div_editor1" class="richtexteditor" style="width: 960px;margin:0 auto;"></div>
                 <script>
                     var editor1 = new RichTextEditor(document.getElementById("div_editor1"));
-                    editor1.attachEvent("change", function () {
+                        editor1.attachEvent("change", function () {
                         document.getElementById("inp_htmlcode").value = editor1.getHTMLCode();
                     });
                 </script>
