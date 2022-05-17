@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NWEEI.Models;
 using NWEEI.Repositories;
 using NWEEI.ViewModels;
 
@@ -26,7 +27,14 @@ namespace NWEEI.Controllers.Navigation
             ViewBag.Current = "Resources";
 
             // initialize new searchVM
-            SearchVM viewModel = new SearchVM();
+            SearchViewModel viewModel = new SearchViewModel
+            {
+                SearchQuery = "",
+                HasResults = false,
+                Articles = new List<Article>(),
+                FAQs = new List<FAQ>(),
+                Organizations = new List<Organization>()
+            };
 
             return View(viewModel);
         }
@@ -34,7 +42,7 @@ namespace NWEEI.Controllers.Navigation
         [HttpPost]
         [ValidateAntiForgeryToken]
         // search articles, FAQs, organizations
-        public async Task<IActionResult> Index(SearchVM viewModel)
+        public async Task<IActionResult> Index(SearchViewModel viewModel)
         {
             ViewBag.Current = "Resources";
 
@@ -44,22 +52,20 @@ namespace NWEEI.Controllers.Navigation
                 // that contain the search query
                 viewModel.Articles = repo.GetArticlesBySearchQuery(viewModel.SearchQuery);
                 viewModel.FAQs = repo.GetFAQsBySearchQuery(viewModel.SearchQuery);
-                viewModel.Organizations = repo.GetOrgsBySearchQuery(viewModel.SearchQuery);
+                //viewModel.Organizations = repo.GetOrgsBySearchQuery(viewModel.SearchQuery);
+
+                // if results are found, set HasResults to true
+                // TODO: update to include orgs once built out
+                if (viewModel.Articles.Count > 0 || viewModel.FAQs.Count > 0)
+                {
+                    viewModel.HasResults = true;
+                }
 
                 return View(viewModel);
             }
 
             return NotFound();
         }
-
-        /*
-        // GET: /<controller>/
-        public IActionResult Index()
-        {
-            ViewBag.Current = "Resources";
-            return View();
-        }
-        */
 
         public IActionResult CareerMap()
         {
