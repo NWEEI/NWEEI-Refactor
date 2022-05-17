@@ -1,47 +1,83 @@
-@model NWEEI.Models.FAQ
+@model NWEEI.ViewModels.CategorySelectorViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit FAQ";
 }
 
-<h1>Edit</h1>
+<div class="custom-breadcrumb">
+    <a asp-action="Manage">
+        <span class="breadcrumb-icon"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+        <span class="breadcrumb-name">Back to FAQs</span>
+    </a>
+</div>
 
-<h4>FAQ</h4>
+<h1>Edit FAQ</h1>
+
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="container">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="FAQID" />
+
+            <!-- hidden inputs for current FAQ properties-->
+            <input type="hidden" asp-for="@Model.CurrentFAQ.FAQID" />
+            <input type="hidden" asp-for="@Model.CurrentFAQ.Category.Name" value="temp" />
+
+            <!-- question -->
             <div class="form-group">
-                <label asp-for="Question" class="control-label"></label>
-                <input asp-for="Question" class="form-control" />
-                <span asp-validation-for="Question" class="text-danger"></span>
+                <label asp-for="@Model.CurrentFAQ.Question" class="control-label"></label>
+                <input asp-for="@Model.CurrentFAQ.Question" class="form-control" />
+                <span asp-validation-for="@Model.CurrentFAQ.Question" class="text-danger"></span>
             </div>
+
+
+            <!-- answer -->
             <div class="form-group">
-                <label asp-for="Answer" class="control-label"></label>
-                <input asp-for="Answer" class="form-control" />
-                <span asp-validation-for="Answer" class="text-danger"></span>
+                <label asp-for="@Model.CurrentFAQ.Answer" class="control-label"></label>
+                <textarea asp-for="@Model.CurrentFAQ.Answer" class="form-control edit-textarea">@Model.CurrentFAQ.Answer</textarea>
+                <span asp-validation-for="@Model.CurrentFAQ.Answer" class="text-danger"></span>
             </div>
+
+            <!-- category selector -->
+            <div class="category-selector">
+                <label asp-for="@Model.NewCategoryID" class="control-label">Category</label><br />
+                <select class="form-select" asp-for="NewCategoryID">
+
+                    <!-- loop through categories -->
+                    @foreach (var item in Model.Categories)
+                    {
+                        if (item.CategoryID == Model.CurrentCategory.CategoryID)
+                        {
+                            <option selected value="@item.CategoryID">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.CategoryID">@item.Name</option>
+
+                        }
+                    }
+                </select>
+            </div>
+
+            <!-- published -->
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsPublished" /> @Html.DisplayNameFor(model => model.IsPublished)
+                    <input class="form-check-input" asp-for="@Model.CurrentFAQ.IsPublished" /> Published
                 </label>
             </div>
+
+            <!-- featured -->
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Featured" /> @Html.DisplayNameFor(model => model.Featured)
+                    <input class="form-check-input" asp-for="@Model.CurrentFAQ.Featured" /> Featured
                 </label>
             </div>
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

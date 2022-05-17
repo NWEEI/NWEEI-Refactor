@@ -17,6 +17,7 @@ namespace NWEEI.Repositories
         List<Article> GetArticlesByCategoryID(int categoryID);
         List<Article> GetArticlesBySearchQuery(string query);
         Article GetArticleByID(int id);
+        List<Category> GetAllCategories();
 
         // update
         void UpdateArticle(Article article);

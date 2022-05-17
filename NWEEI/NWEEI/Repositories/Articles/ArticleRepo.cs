@@ -93,5 +93,15 @@ namespace NWEEI.Repositories
             context.Articles.Remove(existingArticle);
             context.SaveChanges();
         }
+
+        // get a list of all categories
+        public List<Category> GetAllCategories()
+        {
+            List<Category> categories = context.Categories
+                .Include(c => c.Articles)
+                .ToList();
+
+            return categories;
+        }
     }
 }

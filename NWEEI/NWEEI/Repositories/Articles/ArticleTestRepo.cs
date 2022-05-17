@@ -8,6 +8,7 @@ namespace NWEEI.Repositories
     public class ArticleTestRepo : IArticleRepo
     {
         private List<Article> articles = new List<Article>();
+        private List<Category> categories = new List<Category>();
 
         public IQueryable<Article> Articles
         {
@@ -90,6 +91,22 @@ namespace NWEEI.Repositories
         {
             Article existingArticle = articles.Find(a => a.ArticleID == article.ArticleID);
             articles.Remove(existingArticle);
+        }
+
+        public IQueryable<Category> Categories
+        {
+            get
+            {
+                return categories.AsQueryable<Category>();
+            }
+        }
+
+        // get a list of all categories
+        public List<Category> GetAllCategories()
+        {
+            categories = Categories.ToList();
+
+            return categories;
         }
     }
 }

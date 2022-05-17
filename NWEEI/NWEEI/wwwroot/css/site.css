@@ -36,6 +36,7 @@ a:hover {
     color: #666666; /* Krylon Classic Gray */
 }
 
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -213,6 +214,7 @@ body {
 }
 
 
+
 /* -------------------------------------------------- */
 
 
@@ -327,7 +329,7 @@ body {
 
 /* TABLES */
 
-.articles-table {
+.manage-table {
     font-size: .8em;
 }
 
@@ -450,6 +452,10 @@ body {
     color: white !important;
 }
 
+.tile-link {
+    color: white !important;
+}
+
 
 
 /* -------------------------------------------------- */
@@ -495,11 +501,32 @@ body {
     padding: 2px;
 }
 
-
 /* -------------------------------------------------- */
 
-/* DEGREES */
 
+/* FAQs */
+.card-header {
+    cursor: pointer;
+}
+
+.fa-chevron-up {
+    position: relative;
+    float: right;
+    color: #999999;
+    transition: all 0.3s ease;
+}
+
+.card-link.collapsed > .fa-chevron-up {
+    transform: rotate(180deg);
+}
+
+.edit-textarea {
+    height: 15vh !important;
+}
+
+
+/* -------------------------------------------------- */
+/* DEGREES */
 .degree-header {
     background-image: url('../images/shutterstock_56230774.jpeg');
     background-repeat: no-repeat;
@@ -526,10 +553,19 @@ body {
 }
 
 
-/* embc */
+
+/* -------------------------------------------------- */
 
 
+/* CATEGORY SELECTOR */
 
+.category-selector {
+    margin: 3% 0%;
+}
+
+.form-select {
+    padding: 1%;
+}
 
 
 

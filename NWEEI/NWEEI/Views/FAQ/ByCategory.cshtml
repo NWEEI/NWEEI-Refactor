@@ -1,0 +1,47 @@
+﻿@model List<FAQ>
+
+@{
+    ViewData["Title"] = "FAQs";
+}
+
+<div class="custom-breadcrumb">
+    <a asp-controller="FAQ" asp-action="Index">
+        <span class="breadcrumb-icon"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+        <span class="breadcrumb-name">Back to FAQ Topics</>
+    </a>
+</div>
+
+<div class="content-header">
+    <h1>Frequently Asked Questions: @Model[0].Category.Name</h1>
+</div>
+
+<!-- faq section -->
+<div class="container">
+    <div class="faq-accordion">
+
+        @* loop through each faq *@
+        @foreach (var faq in Model)
+        {
+            var id = "faq-" + faq.FAQID;
+            var idSelector = "#" + id;
+
+            <!-- individual faq -->
+            <div class="card">
+
+                <!-- faq question-->
+                <div class="card-header card-link collapsed" data-toggle="collapse" data-target="@idSelector">
+                    @faq.Question
+                    <i class="fa fa-chevron-up" aria-hidden="true"></i>
+                </div>
+
+                <!-- faq answer -->
+                <div id="@id" class="collapse">
+                    <div class="card-body">
+                        @Html.Raw(faq.Answer)
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

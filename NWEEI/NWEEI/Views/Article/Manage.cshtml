@@ -1,0 +1,50 @@
+﻿@model IEnumerable<NWEEI.Models.Article>
+
+@{
+    ViewData["Title"] = "Manage Articles";
+}
+
+<div class="content-header">
+    <h1>Manage Articles</h1>
+
+    <!-- admin edit button -->
+    <span class="admin-action-button btn btn-primary">
+        <a asp-action="Create">Add Article</a>
+    </span>
+</div>
+
+<table class="manage-table table">
+    <thead>
+        <tr>
+            <th class="title">Article Title</th>
+            <th class="text-center">Category</th>
+            <th class="text-center">Date Created</th>
+            <th class="text-center">Published</th>
+            <th class="text-center">Featured</th>
+            <th class="text-center">Views</th>
+            <th class="text-center">Manage</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="title">
+                    <a asp-action="Details" asp-route-id="@item.ArticleID">
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </a>
+                </td>
+                <td class="text-center">@Html.DisplayFor(modelItem => item.Category.Name)</td>
+                <td class="text-center">@item.DateCreated.ToShortDateString()</td>
+                <td class="text-center">@Html.DisplayFor(modelItem => item.IsPublished)</td>
+                <td class="text-center">@Html.DisplayFor(modelItem => item.Featured)</td>
+                <td class="text-center">@Html.DisplayFor(modelItem => item.Views)</td>
+                <td class="text-center">
+                    <a asp-action="Edit" asp-route-id="@item.ArticleID">Edit</a>
+                    &nbsp;&nbsp;|&nbsp;&nbsp;
+                    <a asp-action="Delete" asp-route-id="@item.ArticleID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

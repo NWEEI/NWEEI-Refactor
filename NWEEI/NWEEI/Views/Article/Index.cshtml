@@ -4,39 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="content-header">
-    <h1>
-        Manage Articles
-        <a class="float-right" data-btn-create asp-action="Create">Add New Article</a>
-    </h1>
-</div>
+<!-- ~* dev note *~ -->
+<h3>This page's content has been moved to article/manage. This page will be repurposed for article search.</h3>
+<!-- ~* end dev note *~ -->
 
-<table class="articles-table table">
-    <thead>
-        <tr>
-            <th class="title">Article Title</th>
-            <th class="text-center">Category</th>
-            <th class="text-center">Date Created</th>
-            <th class="text-center">Published</th>
-            <th class="text-center">Featured</th>
-            <th class="text-center">Views</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td class="title"><a data-btn-details asp-action="Details" asp-route-id="@item.ArticleID">@Html.DisplayFor(modelItem => item.Title)</a></td>
-            <td class="text-center">@Html.DisplayFor(modelItem => item.Category.Name)</td>
-            <td class="text-center">@item.DateCreated.ToShortDateString()</td>
-            <td class="text-center">@Html.DisplayFor(modelItem => item.IsPublished)</td>
-            <td class="text-center">@Html.DisplayFor(modelItem => item.Featured)</td>
-            <td class="text-center">@Html.DisplayFor(modelItem => item.Views)</td>
-            <td class="text-center"><a data-btn-delete asp-action="Delete" asp-route-id="@item.ArticleID">Delete</a></td>
-            <td class="text-center"><a data-btn-edit asp-action="Edit" asp-route-id="@item.ArticleID">Edit</a></td>
-</tr>
-        }
-    </tbody>
-</table>
