@@ -130,7 +130,7 @@ namespace NWEEI_Tests
 
         [Test]
         // tests getting all articles
-        public void TestIndex()
+        public void TestManage()
         {
             // add all articles to repo
             testRepo.AddArticle(a1);
@@ -138,8 +138,8 @@ namespace NWEEI_Tests
             testRepo.AddArticle(a3);
             testRepo.AddArticle(a4);
 
-            // get list of articles from Index method
-            var viewResult = (ViewResult)controller.Index().Result;
+            // get list of articles from Manage method
+            var viewResult = (ViewResult)controller.Manage().Result;
             articles = (List<Article>)viewResult.ViewData.Model;
 
             // check values

@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using NWEEI.Data;
 using NWEEI.Models;
 using NWEEI.Repositories;
+using NWEEI.ViewModels;
 
 namespace NWEEI.Controllers
 {
@@ -26,10 +27,16 @@ namespace NWEEI.Controllers
         }
 
         // GET: Article
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             ViewBag.Current = "Resources";
+            return View(repo.Articles.ToList());
+        }
+
+        // get all articles
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Manage()
+        {
             return View(repo.Articles.ToList());
         }
 
@@ -58,73 +65,136 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
+            // increase view count by 1
+            article.Views++;
+
             return View(article);
         }
 
         // GET: Article/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
-            return View();
+            // get categories
+            List<Category> categories = repo.GetAllCategories();
+
+            // initialize new category selector VM
+            CategorySelectorViewModel viewModel = new CategorySelectorViewModel
+            {
+                Categories = categories,
+                CurrentArticle = new Article
+                {
+                    Category = new Category
+                    {
+                        Name = ""
+                    }
+                }
+            };
+
+            return View(viewModel);
         }
 
         // POST: Article/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([Bind("ArticleID,Title,Body,DateCreated,PublishDate,IsPublished,Featured,Views")] Article article, string htmlcode)
+        public async Task<IActionResult> Create(CategorySelectorViewModel viewModel, string htmlcode)
         {
+            // create new article with viewModel values and html string from RTE
+            Article article = new Article();
+
             ViewData["IsPosted"] = true;
             ViewData["PostedValue"] = htmlcode;
-            article.Body = htmlcode;
-            if (article.IsPublished)
-                article.PublishDate = DateTime.Now;
+
             if (ModelState.IsValid)
             {
+                article.Title = viewModel.CurrentArticle.Title;
+                article.Body = htmlcode;
+                article.DateCreated = viewModel.CurrentArticle.DateCreated;
+                article.Author = viewModel.CurrentArticle.Author;
+                article.IsPublished = viewModel.CurrentArticle.IsPublished;
+                article.Featured = viewModel.CurrentArticle.Featured;
+                article.Views = viewModel.CurrentArticle.Views;
+                article.Category = repo.GetAllCategories()
+                    .Where(c => c.CategoryID == viewModel.CurrentArticle.Category.CategoryID)
+                    .FirstOrDefault();
+
+                // set publish date if article is set to be published
+                if (article.IsPublished)
+                {
+                    article.PublishDate = DateTime.Now;
+                }
+                    
                 repo.AddArticle(article);
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction(nameof(Manage));
             }
-            return View(article);
+
+            return View(viewModel);
         }
 
         // GET: Article/Edit/5
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
-            ViewBag.Current = "Resources";
-
             if (id == null)
             {
                 return NotFound();
             }
 
+            // get article
             Article article = repo.GetArticleByID((int)id);
+
             if (article == null)
             {
                 return NotFound();
             }
-            return View(article);
+
+            // get categories
+            List<Category> categories = repo.GetAllCategories();
+
+            // initialize new category selector VM
+            CategorySelectorViewModel viewModel = new CategorySelectorViewModel
+            {
+                Categories = categories,
+                CurrentCategory = article.Category,
+                CurrentArticle = article
+            };
+
+            return View(viewModel);
         }
 
         // POST: Article/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id, [Bind("ArticleID,Title,Body,DateCreated,PublishDate,IsPublished,Featured,Views")] Article article, string htmlcode)
+        public async Task<IActionResult> Edit(int id, CategorySelectorViewModel viewModel, string htmlcode)
         {
-            if (id != article.ArticleID)
+            if (id != viewModel.CurrentArticle.ArticleID)
             {
                 return NotFound();
             }
+
+            // get existing article with id
+            Article article = repo.GetArticleByID(id);
 
             if (ModelState.IsValid)
             {
                 ViewData["IsPosted"] = true;
                 ViewData["PostedValue"] = htmlcode;
+
+                // update existing article's values with viewModel values
+                article.Title = viewModel.CurrentArticle.Title;
                 article.Body = htmlcode;
+                article.DateCreated = viewModel.CurrentArticle.DateCreated;
+                article.Author = viewModel.CurrentArticle.Author;
+                article.IsPublished = viewModel.CurrentArticle.IsPublished;
+                article.Featured = viewModel.CurrentArticle.Featured;
+                article.Views = viewModel.CurrentArticle.Views;
+                article.Category = repo.GetAllCategories()
+                        .Where(c => c.CategoryID == viewModel.NewCategoryID)
+                        .FirstOrDefault();
+
                 try
                 {
                     repo.UpdateArticle(article);
@@ -140,9 +210,11 @@ namespace NWEEI.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction(nameof(Manage));
             }
-            return View(article);
+
+            return View(viewModel);
         }
 
         // GET: Article/Delete/5
@@ -172,7 +244,7 @@ namespace NWEEI.Controllers
         {
             Article article = repo.GetArticleByID((int)id);
             repo.DeleteArticle(article);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Manage));
         }
 
         private bool ArticleExists(int id)

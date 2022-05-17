@@ -1,0 +1,44 @@
+﻿@model List<FAQ>
+
+@{
+    ViewData["Title"] = "Manage FAQs";
+}
+
+<div class="container">
+    <div class="content-header">
+        <h1>Frequently Asked Questions</h1>
+
+        <!-- admin edit button -->
+        <span class="admin-action-button btn btn-primary">
+            <a asp-action="Create">Add FAQ</a>
+        </span>
+    </div>
+</div>
+
+<table class="manage-table table">
+    <thead>
+        <tr>
+            <th class="title">Question</th>
+            <th class="text-center">Category</th>
+            <th class="text-center">Published</th>
+            <th class="text-center">Featured</th>
+            <th class="text-center">Manage</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td class="title"><a asp-action="Details" asp-route-id="@item.FAQID">@Html.DisplayFor(modelItem => item.Question)</a></td>
+            <td class="text-center">@Html.DisplayFor(modelItem => item.Category.Name)</td>
+            <td class="text-center">@Html.DisplayFor(modelItem => item.IsPublished)</td>
+            <td class="text-center">@Html.DisplayFor(modelItem => item.Featured)</td>
+            <td class="text-center">
+                <a asp-action="Edit" asp-route-id="@item.FAQID">Edit</a>
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <a asp-action="Delete" asp-route-id="@item.FAQID">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

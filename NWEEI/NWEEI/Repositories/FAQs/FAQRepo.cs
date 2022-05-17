@@ -54,6 +54,17 @@ namespace NWEEI.Repositories
             return faqs;
         }
 
+        public List<Category> GetFAQCategories()
+        {
+            // get all categories with FAQs
+            List<Category> faqCategories = context.Categories
+                .Include(c => c.FAQs)
+                .Where(c => c.FAQs.Any())
+                .ToList();
+
+            return faqCategories;
+        }
+
         // TODO: build out search functionality
         public List<FAQ> GetFAQsBySearchQuery(string query)
         {
@@ -86,6 +97,16 @@ namespace NWEEI.Repositories
             FAQ existingFAQ = context.FAQs.Find(faq.FAQID);
             context.FAQs.Remove(existingFAQ);
             context.SaveChanges();
+        }
+
+        // get a list of all categories
+        public List<Category> GetAllCategories()
+        {
+            List<Category> categories = context.Categories
+                .Include(c => c.FAQs)
+                .ToList();
+
+            return categories;
         }
     }
 }

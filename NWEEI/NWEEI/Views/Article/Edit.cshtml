@@ -1,54 +1,94 @@
-@model NWEEI.Models.Article
+@model NWEEI.ViewModels.CategorySelectorViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Article";
 }
 
-<h1>
-    Editing Article: "@Model.Title"
-</h1>
-<a data-btn-back asp-action="Index">to Articles</a>
+
+<div class="custom-breadcrumb">
+    <a asp-action="Manage">
+        <span class="breadcrumb-icon"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+        <span class="breadcrumb-name">Back to Articles</span>
+    </a>
+</div>
+
+<h2>Edit Article: @Model.CurrentArticle.Title</h2>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ArticleID" />
-            <input asp-for="DateCreated" type="hidden" value="@Model.DateCreated" />
-            <input asp-for="PublishDate" type="hidden" value="@Model.PublishDate" />
-            <input asp-for="Views" type="hidden" value="@Model.Views" />
+
+            <!-- hidden inputs for current article properties -->
+            <input type="hidden" asp-for="@Model.CurrentArticle.ArticleID" />
+            <input asp-for="@Model.CurrentArticle.DateCreated" type="hidden" value="@Model.CurrentArticle.DateCreated" />
+            <input asp-for="@Model.CurrentArticle.PublishDate" type="hidden" value="@Model.CurrentArticle.PublishDate" />
+            <input asp-for="@Model.CurrentArticle.Views" type="hidden" value="@Model.CurrentArticle.Views" />
+
+            <!-- article title -->
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+                <label asp-for="@Model.CurrentArticle.Title" class="control-label"></label>
+                <input asp-for="@Model.CurrentArticle.Title" class="form-control" />
+                <span asp-validation-for="@Model.CurrentArticle.Title" class="text-danger"></span>
             </div>
+
+            <!-- rich text editor for article body -->
             <div class="form-group">
                 <link rel="stylesheet" href="/richtexteditor/rte_theme_default.css" />
                 <script type="text/javascript" src="/richtexteditor/rte.js"></script>
                 <script type="text/javascript" src='/richtexteditor/plugins/all_plugins.js'></script>
                 <script type="text/javascript" src="/rte-upload.js"></script>
-                <label asp-for="Body" class="control-label"></label>
-                <input asp-for="Body" name="htmlcode" id="inp_htmlcode" type="hidden" class="form-control" value="@Model.Body" />
+                <label asp-for="@Model.CurrentArticle.Body" class="control-label"></label>
+
+                <!-- rich text editor with custom validation -->
+                <input asp-for="@Model.CurrentArticle.Body" name="htmlcode" id="inp_htmlcode" class="form-control" type="text" style="visibility:hidden; position:absolute;" data-val="true" data-val-required="Please enter text for the article body." />
                 <div id="div_editor1" class="richtexteditor" style="width: 960px;margin:0 auto;"></div>
-                <script>
-                    var editor1 = new RichTextEditor(document.getElementById("div_editor1"));
+                <script>var editor1 = new RichTextEditor(document.getElementById("div_editor1"));
                     editor1.setHTML(document.getElementById("inp_htmlcode").value)
                     editor1.attachEvent("change", function () {
                         document.getElementById("inp_htmlcode").value = editor1.getHTMLCode();
-                    });
-                </script>
-                <span asp-validation-for="Body" class="text-danger"></span>
+                    });</script>
+
+                <!-- validation output -->
+                <span data-valmsg-for="htmlcode" data-valmsg-replace="true" class="text-danger"></span>
+
+                <!-- category selector -->
+                <div class="category-selector">
+                    <label asp-for="@Model.NewCategoryID" class="control-label">Category</label><br />
+                    <select class="form-select" asp-for="NewCategoryID">
+
+                        <!-- loop through categories -->
+                        @foreach (var item in Model.Categories)
+                        {
+                            if (item.CategoryID == Model.CurrentCategory.CategoryID)
+                            {
+                                <option selected value="@item.CategoryID">@item.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@item.CategoryID">@item.Name</option>
+
+                            }
+                        }
+                    </select>
+                </div>
             </div>
+
+            <!-- published -->
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsPublished" /> @Html.DisplayNameFor(model => model.IsPublished)
+                    <input class="form-check-input" asp-for="@Model.CurrentArticle.IsPublished" /> Published
                 </label>
             </div>
+
+            <!-- featured -->
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Featured" /> @Html.DisplayNameFor(model => model.Featured)
+                    <input class="form-check-input" asp-for="@Model.CurrentArticle.Featured" /> Featured
                 </label>
             </div>
+
             <button data-btn-form-save></button>
         </form>
     </div>

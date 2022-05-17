@@ -1,53 +1,29 @@
-@model IEnumerable<NWEEI.Models.FAQ>
+@model List<Category>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "FAQs";
 }
 
-<h1>Index</h1>
+<div class="content-header">
+    <h1>Frequently Asked Questions</h1>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Question)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Answer)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsPublished)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Featured)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Question)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Answer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsPublished)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Featured)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.FAQID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.FAQID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.FAQID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<p>Select one of the topics below to see related FAQs.</p>
+
+<div class="container tiles">
+
+    @* loop through each category and display FAQs *@
+    @foreach (var item in Model)
+    {
+        @if (item.FAQs.Count > 0)
+        {
+            <a class="tile-link" asp-controller="FAQ" asp-action="ByCategory" asp-route-categoryID="@item.CategoryID">
+                <div class="tile-container">
+                    <span class="tile-content">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </span>
+                </div>
+            </a>
+        }
+    }
+</div>

@@ -10,7 +10,7 @@
 *.appsettings.json
 
 # migrations and db
-*/Migrations
+*/Migrations*
 *NWEEI.db
 *NWEEI.db*
 

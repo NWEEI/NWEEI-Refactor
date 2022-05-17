@@ -9,6 +9,7 @@ namespace NWEEI.Repositories
     public class FAQTestRepo : IFAQRepo
     {
         private List<FAQ> faqs = new List<FAQ>();
+        private List<Category> categories = new List<Category>();
 
         public IQueryable<FAQ> FAQs
         {
@@ -55,6 +56,13 @@ namespace NWEEI.Repositories
             return faqsByCategory;
         }
 
+        // TODO: write GetFAQCategories method and unit test
+        // get a list of categories that have FAQs
+        public List<Category> GetFAQCategories()
+        {
+            throw new NotImplementedException();
+        }
+
         // TODO: build out search functionality
         public List<FAQ> GetFAQsBySearchQuery(string query)
         {
@@ -87,6 +95,23 @@ namespace NWEEI.Repositories
         {
             FAQ existingFAQ = faqs.Find(f => f.FAQID == faq.FAQID);
             faqs.Remove(existingFAQ);
+        }
+
+
+        public IQueryable<Category> Categories
+        {
+            get
+            {
+                return categories.AsQueryable<Category>();
+            }
+        }
+
+        // get a list of all categories
+        public List<Category> GetAllCategories()
+        {
+            categories = Categories.ToList();
+
+            return categories;
         }
     }
 }

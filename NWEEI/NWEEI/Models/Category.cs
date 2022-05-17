@@ -7,6 +7,7 @@ namespace NWEEI.Models
     public class Category
     {
         private List<Article> articles = new List<Article>();
+        private List<FAQ> faqs = new List<FAQ>();
 
         public int CategoryID { get; set; }
 
@@ -15,5 +16,6 @@ namespace NWEEI.Models
         public string Name { get; set; }
 
         public List<Article> Articles { get { return articles; } }
+        public List<FAQ> FAQs { get { return faqs; } }
     }
 }
