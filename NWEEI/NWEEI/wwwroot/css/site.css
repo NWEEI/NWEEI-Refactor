@@ -585,12 +585,21 @@ body {
     width: 70%;
     margin: auto;
     padding: 15px;
+    display: inline !important;
+    position: relative;
 }
 
-.search-btn {
-    margin: 8px;
-    padding: .375rem 1rem;
-    background-color: #fedd90 !important;
-    color: #2c4592 !important;
-    border-radius: 40px;
+.search-bar-content {
+    width: 100%;
+}
+
+.search-submit {
+    position: relative;
+    right: 2%;
+    top: 11px;
+}
+
+.search-submit i {
+    position: absolute;
+    right: 3%;
 }

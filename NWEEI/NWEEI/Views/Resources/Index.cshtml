@@ -1,5 +1,5 @@
 ﻿@using NWEEI.ViewModels
-@model SearchVM
+@model SearchViewModel
 
 @{
     ViewData["Title"] = "Resources";
@@ -8,21 +8,99 @@
 <!-- search -->
 <div class="dark-block search-container">
     <div class="container">
-        <div class="content-section">
+        <div class="content-section" style="line-height:1.5em;">
 
             <h4 class="text-center">Search NWEEI</h4>
+
+
+            <!--<form asp-action="Index">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group search-bar">
+            <input asp-for="SearchQuery" class="form-control search-bar" />
+            <span asp-validation-for="SearchQuery" class="text-danger"></span>
+        </div>-->
+            @* TODO: replace with search icon inside input field div *@
+            <!--<div class="form-group">
+            <input type="submit" value="Search" class="search-btn btn btn-light" />
+        </div>
+    </form>-->
+
             <form asp-action="Index">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group search-bar">
-                    @*<label asp-for="SearchQuery" class="control-label"></label>*@
-                    <input asp-for="SearchQuery" class="form-control search-bar" />
-                    <span asp-validation-for="SearchQuery" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Search" class="search-btn btn btn-primary" />
+                    <!-- search input and icon -->
+                    <div class="search-bar-content">
+                        <!-- search input -->
+                        <input asp-for="SearchQuery" class="form-control search-bar" />
+
+                        <!-- icon -->
+                        <span class="search-submit">
+                            <i type="submit" class="fa fa-search"></i>
+                        </span>
+</div>
                 </div>
             </form>
 
-        </div>
+
         </div>
     </div>
+</div>
+
+<!-- results -->
+<div class="container">
+    @if (Model.HasResults)
+    {
+        <div>
+            <h4>Your search returned @Model.Articles.Count articles and @Model.FAQs.Count FAQs.</h4>
+            <div>
+                Jump to:
+
+                <div><a href="#article-results">Articles</a></div>
+                <div><a href="#faq-results">FAQs</a></div>
+            </div>
+        </div>
+    }
+
+    <!-- articles -->
+    @if (Model.Articles.Count > 0)
+    {
+        <div id="article-results">
+            <h5>Articles</h5>
+
+            @foreach (var article in Model.Articles)
+            {
+                <div>@article.Title</div>
+            }
+
+        </div>
+    }
+
+    <!-- FAQs -->
+    @if (Model.FAQs.Count > 0)
+    {
+        <div id="faq-results">
+            <h5>FAQs</h5>
+
+            @foreach (var faq in Model.FAQs)
+            {
+                <div>@faq.Question</div>
+            }
+
+        </div>
+    }
+
+    @* TODO: uncomment when organizations are finished
+        <!-- Organizations -->
+        @if (Model.Organizations.Count > 0)
+        {
+        <div id="org-results">
+            <h5>Organizations</h5>
+            @foreach (var org in Model.Organizations)
+            {
+                <div>@org.Name</div>
+            }
+        </div>
+        }
+    *@
+
+</div>
