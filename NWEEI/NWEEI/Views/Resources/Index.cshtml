@@ -1,5 +1,5 @@
-﻿@using NWEEI.ViewModels
-@model SearchViewModel
+﻿@model NWEEI.ViewModels.SearchViewModel
+@using System.Text.RegularExpressions;
 
 @{
     ViewData["Title"] = "Resources";
@@ -12,19 +12,6 @@
 
             <h4 class="text-center">Search NWEEI</h4>
 
-
-            <!--<form asp-action="Index">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group search-bar">
-            <input asp-for="SearchQuery" class="form-control search-bar" />
-            <span asp-validation-for="SearchQuery" class="text-danger"></span>
-        </div>-->
-            @* TODO: replace with search icon inside input field div *@
-            <!--<div class="form-group">
-            <input type="submit" value="Search" class="search-btn btn btn-light" />
-        </div>
-    </form>-->
-
             <form asp-action="Index">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group search-bar">
@@ -35,9 +22,11 @@
 
                         <!-- icon -->
                         <span class="search-submit">
-                            <i type="submit" class="fa fa-search"></i>
+                            <button type="submit" style="background: none; color: inherit; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit; position: absolute;">
+                                <i type="submit" class="fa fa-search"></i>
+                            </button>
                         </span>
-</div>
+                    </div>
                 </div>
             </form>
 
@@ -51,12 +40,12 @@
     @if (Model.HasResults)
     {
         <div>
-            <h4>Your search returned @Model.Articles.Count articles and @Model.FAQs.Count FAQs.</h4>
+            <h6>
+                Your search for "@Model.SearchQuery" returned
+                <a href="#article-results">@Model.Articles.Count articles</a>
+                and <a href="#faq-results">@Model.FAQs.Count FAQs</a>.
+            </h6>
             <div>
-                Jump to:
-
-                <div><a href="#article-results">Articles</a></div>
-                <div><a href="#faq-results">FAQs</a></div>
             </div>
         </div>
     }
@@ -64,12 +53,31 @@
     <!-- articles -->
     @if (Model.Articles.Count > 0)
     {
-        <div id="article-results">
-            <h5>Articles</h5>
+        <div id="article-results" class="search-results-container">
+            <h4>Articles</h4>
 
             @foreach (var article in Model.Articles)
             {
-                <div>@article.Title</div>
+                <div class="search-result">
+                    <div class="search-result-heading">
+                        <a asp-controller="Article" asp-action="Details" asp-route-id="@article.ArticleID">
+                            @article.Title
+                        </a>
+                    </div>
+                    <div class="search-preview">
+                        <span>
+                            @if (article.Body.Length < 250)
+                            {
+                                @Regex.Replace(article.Body, "<.*?>", string.Empty)
+                            }
+                            else
+                            {
+                                @Regex.Replace(article.Body.Substring(0, 250), "<.*?>", string.Empty)
+                            }
+                            ...
+                        </span>
+                    </div>
+                </div>
             }
 
         </div>
@@ -78,12 +86,31 @@
     <!-- FAQs -->
     @if (Model.FAQs.Count > 0)
     {
-        <div id="faq-results">
-            <h5>FAQs</h5>
+        <div id="faq-results" class="search-results-container">
+            <h4>FAQs</h4>
 
             @foreach (var faq in Model.FAQs)
             {
-                <div>@faq.Question</div>
+                <div class="search-result">
+                    <div class="search-result-heading">
+                        <a asp-controller="FAQ" asp-action="Details" asp-route-id="@faq.FAQID">
+                            @faq.Question
+                        </a>
+                    </div>
+                    <div class="search-preview">
+                        <span>
+                            @if (faq.Answer.Length < 250)
+                            {
+                                @Regex.Replace(faq.Answer, "<.*?>", string.Empty);
+                            }
+                            else
+                            {
+                                @Regex.Replace(faq.Answer.Substring(0, 250), "<.*?>", string.Empty);
+                            }
+                            ...
+                        </span>
+                    </div>
+                </div>
             }
 
         </div>
@@ -93,7 +120,7 @@
         <!-- Organizations -->
         @if (Model.Organizations.Count > 0)
         {
-        <div id="org-results">
+        <div id="org-results" class="search-results-container">
             <h5>Organizations</h5>
             @foreach (var org in Model.Organizations)
             {

@@ -577,7 +577,7 @@ body {
 .search-container {
     text-align: center;
     position: relative;
-    top: 0;
+    top: -2.19em;
 }
 
 .search-bar {
@@ -602,4 +602,21 @@ body {
 .search-submit i {
     position: absolute;
     right: 3%;
+}
+
+.search-results-container {
+    margin: 4% 0%;
+}
+
+.search-result {
+    padding: 1% 0%;
+}
+
+.search-result-heading {
+    font-size: 0.9em;
+}
+
+.search-preview > * {
+    color: grey !important;
+    font-size: 0.8em !important;
 }
