@@ -14,9 +14,11 @@ namespace NWEEI.Repositories
         void AddOrganization(Organization organization);
 
         // retrieve
-        List<Organization> GetAllOrganizations();
+        List<Organization> GetAllOrganizations( );
+        List<Tag> GetAllTags( );
         List<Organization> GetOrganizationsByTagID(int tagID);
         Organization GetOrganizationByID(int id);
+        Tag GetTagByID( int id );
         bool OrganizationExists( int id );
 
         // update

@@ -18,17 +18,16 @@ namespace NWEEI.Controllers
         public TagController( ITagRepo r ) => repo = r;
 
         // GET: Tag
-        public IActionResult Index( ) => View( repo.Tags.ToList( ) );
+        public IActionResult Index( ) => View( repo.GetAllTags( ) );
 
         // GET: Tag/Details/5
         public IActionResult Details(int? id)
         {
-            if (id is not null)
-            {
-                Tag tag = repo.Tags.FirstOrDefault( m => m.TagID == id );
-                return tag is null ? NotFound( ) : View( tag );
-            }
-            else return NotFound( );
+            if (id is null) return NotFound( );
+
+            Tag tag = repo.GetTagByID( (int)id );
+
+            return tag is null ? NotFound( ) : View( tag );
         }
 
         // GET: Tag/Create
@@ -41,12 +40,9 @@ namespace NWEEI.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("TagID,Name")] Tag tag)
         {
-            if (ModelState.IsValid)
-            {
-                repo.AddTag(tag);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(tag);
+            if (!ModelState.IsValid ) return View( tag );
+            repo.AddTag(tag);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Tag/Edit/5
@@ -68,33 +64,26 @@ namespace NWEEI.Controllers
         {
             if (id != tag.TagID) return NotFound();
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid ) return View( tag );
+
+            try
             {
-                try
-                {
-                    repo.UpdateTag(tag);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TagExists(tag.TagID)) return NotFound();
-                    else throw; 
-                }
-                return RedirectToAction(nameof(Index));
+                repo.UpdateTag(tag);
             }
-            return View(tag);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TagExists(tag.TagID)) return NotFound();
+                else throw; 
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Tag/Delete/5
         public IActionResult Delete(int? id)
         {
-            if (id is not null)
-            {
-                var tag = repo.Tags.FirstOrDefaultAsync( m => m.TagID == id );
-                return tag is null ? NotFound( ) : View( tag );
-            }
-            else
-                return NotFound( );
-
+            if (id is null) return NotFound( );
+            Tag tag = repo.GetTagByID( (int)id );
+            return tag is null ? NotFound( ) : View( tag );
         }
 
         // POST: Tag/Delete/5
@@ -102,11 +91,10 @@ namespace NWEEI.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            Tag tag = repo.GetTagByID(id);
-            repo.DeleteTag(tag);
+            repo.DeleteTag( repo.GetTagByID( id ) );
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TagExists( int id ) => repo.Tags.Any( e => e.TagID == id );
+        private bool TagExists( int id ) => repo.TagExists(id);
     }
 }

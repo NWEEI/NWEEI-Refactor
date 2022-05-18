@@ -1,27 +1,17 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using NWEEI.Data;
 using NWEEI.Models;
 using NWEEI.Repositories;
-using static System.Net.WebRequestMethods;
+using NWEEI.ViewModels;
 
 namespace NWEEI.Controllers
 {
     public class OrganizationController : Controller
     {
         IOrganizationRepo repo;
-        ITagRepo tagRepo;
 
-        public OrganizationController( IOrganizationRepo r, ITagRepo t )
-        {
-            repo = r;
-            tagRepo = t;
-        }
+        public OrganizationController( IOrganizationRepo r ) => repo = r;
 
         // GET: Organization
         public IActionResult Index()
@@ -47,23 +37,22 @@ namespace NWEEI.Controllers
         // GET: Organization/Create
         public IActionResult Create()
         {
+            // get categories
+            List<Tag> tags = repo.GetAllTags( );
 
-            /// Tags Dropdown Selector( from: https://www.tutorialsteacher.com/mvc/htmlhelper-dropdownlist-dropdownlistfor) 
-            // get all the tag options in a list.
-            var tags = tagRepo.GetAllTags( ).ToList( );
-            // make a new List of SelectListItems
-            List<SelectListItem> tagsList = new( );
-            // add the first default list item to the SelectItems list
-            tagsList.Add( new SelectListItem { Selected = true, Text = "Select a tag...", Value = String.Empty } );
-            // add all the from the tag options list to the SelectItems list. 
+            // initialize new category selector VM
+            OrganizationTagViewModel viewModel = new( )
+            {
+                Tags = tags,
+                CurrentTags = new( ),
+                CurrentOrganization = new( )
+
+            };
+
             for ( int i = 0 ; i < tags.Count ; i++ )
-                tagsList.Add( new SelectListItem { Selected = false, Text = tags [ i ].Name, Value = tags [ i ].Name } );
-            // make a new SelectList from the SelectItems list that contains all the SelectListItems
-            SelectList tagsSelectList = new( tagsList, "Value", "Text", 1 );
-            // pass the SelectList to ViewData
-            ViewData [ "Tags" ] = tagsSelectList;
+                viewModel.CurrentTags.Add( tags [ i ], false );
 
-            return View( );
+            return View( viewModel );
         }
 
         // POST: Organization/Create
@@ -71,13 +60,31 @@ namespace NWEEI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("OrganizationID,Name,Description,ImageURL,WebsiteURL")] Organization organization)
+        public IActionResult Create(OrganizationTagViewModel viewModel, string htmlcode)
         {
             // if data attempting to be posted is not valid, refresh view and display validation summaries
-            if ( !ModelState.IsValid ) return View( organization );
+            if ( !ModelState.IsValid )
+                return View( viewModel );
 
-            // otherwise, add the valid organization to it's repo and then return to the index view of organizations
+            // create new article with viewModel values and html string from RTE
+            Organization organization = new( );
+
+            ViewData [ "IsPosted" ] = true;
+            ViewData [ "PostedValue" ] = htmlcode;
+
+            // save all the properties passed from the view to the organization to be added to the db
+            organization.Name = viewModel.CurrentOrganization.Name;
+            organization.Description = htmlcode;
+            organization.WebsiteURL = viewModel.CurrentOrganization.WebsiteURL;
+            organization.ImageURL = viewModel.CurrentOrganization.ImageURL;
+
+            // add each tag from the vm to the org to be saved.
+            foreach (Tag tag in viewModel.CurrentOrganization.TagKeys )
+                organization.TagKeys.Add( tag );
+
+            // add and save the org to the db
             repo.AddOrganization( organization );
+
             return RedirectToAction( nameof( Index ) );
         }
 
@@ -134,8 +141,7 @@ namespace NWEEI.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            Organization organization = repo.GetOrganizationByID( id );
-            repo.DeleteOrganization(organization);
+            repo.DeleteOrganization( repo.GetOrganizationByID( id ) );
             return RedirectToAction(nameof(Index));
         }
 

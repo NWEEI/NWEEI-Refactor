@@ -51,7 +51,7 @@ namespace NWEEI_Tests
             // setup repo and controller
             organizationTestRepo = new();
             TagTestRepo tagRepo = new( );
-            organizationController = new( organizationTestRepo, tagRepo );
+            organizationController = new( organizationTestRepo );
             
 
             //setup tag objects and list

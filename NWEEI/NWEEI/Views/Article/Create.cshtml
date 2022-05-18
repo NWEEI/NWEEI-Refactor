@@ -70,11 +70,7 @@
             </div>
 
             <!-- published -->
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="@Model.CurrentArticle.IsPublished" /> Publish
-                </label>
-            </div>
+            @Html.CheckBoxFor(model => model.CurrentArticle.IsPublished)
 
             <!-- featured -->
             <div class="form-group form-check">

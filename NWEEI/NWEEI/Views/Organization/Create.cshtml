@@ -1,9 +1,7 @@
-@model NWEEI.Models.Organization
+@model NWEEI.ViewModels.OrganizationTagViewModel
 
 @{
     ViewData [ "Title" ] = "Create";
-    // get the tags select list from ViewData
-    var tags = ( SelectList ) ViewData [ "Tags" ];
 }
 
 <h1>Add an Organization</h1>
@@ -13,17 +11,17 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label">Organization Name</label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="CurrentOrganization.Name" class="control-label">Organization Name</label>
+                <input asp-for="CurrentOrganization.Name" class="form-control" />
+                <span asp-validation-for="CurrentOrganization.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <link rel="stylesheet" href="/richtexteditor/rte_theme_default.css" />
                 <script type="text/javascript" src="/richtexteditor/rte.js"></script>
                 <script type="text/javascript" src='/richtexteditor/plugins/all_plugins.js'></script>
                 <script type="text/javascript" src="/rte-upload.js"></script>
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" name="htmlcode" id="inp_htmlcode" type="hidden" class="form-control" />
+                <label asp-for="CurrentOrganization.Description" class="control-label"></label>
+                <input asp-for="CurrentOrganization.Description" name="htmlcode" id="inp_htmlcode" type="hidden" class="form-control" />
                 <div id="div_editor1" class="richtexteditor" style="width: 960px;margin:0 auto;"></div>
                 <script>
                     var editor1 = new RichTextEditor(document.getElementById("div_editor1"));
@@ -32,48 +30,43 @@
                         document.getElementById("inp_htmlcode").value = editor1.getHTMLCode();
                     });
                 </script>
-                <span asp-validation-for="Description" class="text-danger"></span>
+                <span asp-validation-for="CurrentOrganization.Description" class="text-danger"></span>
             </div>
             <div class="row">
                 <div class="form-group col-auto">
-                    <label asp-for="ImageURL" class="control-label"></label>
-                    <input asp-for="ImageURL" class="form-control" />
-                    <span asp-validation-for="ImageURL" class="text-danger"></span>
+                    <label asp-for="CurrentOrganization.ImageURL" class="control-label"></label>
+                    <input asp-for="CurrentOrganization.ImageURL" class="form-control" />
+                    <span asp-validation-for="CurrentOrganization.ImageURL" class="text-danger"></span>
                 </div>
                 <div class="form-group col-auto">
-                    <label asp-for="WebsiteURL" class="control-label"></label>
-                    <input asp-for="WebsiteURL" class="form-control" />
-                    <span asp-validation-for="WebsiteURL" class="text-danger"></span>
+                    <label asp-for="CurrentOrganization.WebsiteURL" class="control-label"></label>
+                    <input asp-for="CurrentOrganization.WebsiteURL" class="form-control" />
+                    <span asp-validation-for="CurrentOrganization.WebsiteURL" class="text-danger"></span>
                 </div>
             </div>
 
-            <!-- Tag Dropdown Selector (from: https://www.tutorialsteacher.com/mvc/htmlhelper-dropdownlist-dropdownlistfor) -->
-            <div class="form-group">
-                <label asp-for="Tags" class="control-label"></label>
+            @*TODO: Add Tag Radio CheckBox selector*@
+            <!-- tag selector -->
+        <table>
+            <thead>Tags</thead>
+            @for ( int i = 0 ; i < Model.Tags.Count ; i++ )
+                {
+                <tr>
+                    @Html.CheckBoxFor( Model.CurrentTags., Model.CurrentTags.)
+                    @Html.HiddenFor( m => m.EmploymentType [ i ].Text )
+                    @Html.CheckBoxFor( Model.CurrentTags )
+                </tr>
 
+                }
+        </table>
 
+            @*Good work so far, but I need to find a way to put the selected tags towards the CurrentOrganization.TagKeys List property.*@
 
-
-                @*
-                    //TODO: Get the dropdown list to work with the dynamic add row button.
-                *@
-
-                @Html.DropDownListFor( t => t.Tags, tags, new { @class = "form-control" } )
-                <span asp-validation-for="Tags" class="text-danger"></span>
-            </div>
-            <div class="row">
-                <div class="col-auto">
-                    <button id="addRow" type="button" class="btn btn-primary mb-2">Add a Tag</button>
-                    <div id="newRow">
-                        <input type="hidden" id="total" value="0" />
-                    </div>
-                </div>
-            </div>
             <hr />
             <div class="form-group">
                 <button data-btn-form-create></button>
             </div>
-        </form>
+</form>
     </div>
 </div>
 
@@ -82,33 +75,6 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync( "_ValidationScriptsPartial" );}
-
-    <!--Accreditation - 
-        Special thanks to RenaNi-MSFT for a guide on how to dynamically add input fields to a form within a razorpage: https://docs.microsoft.com/en-us/answers/questions/598813/dynamic-generation-of-form-fields-in-razor-pages.html
-        -->
-    <script>
-        $("#addRow").click(function () {
-            var rowCount = parseInt($("#total").val());
-            rowCount++;
-            $("#total").val(rowCount);
-            var html = '';
-            html += '<div id="inputRow" class="input-group">';
-            html +=     '<input type="text" class="form-control mb-2" name="[' + (rowCount - 1) + '].Name"  />';
-            html +=     '<div class="input-group-append">'
-            html +=         '<button id="removeRow" class="mb-2" type="button">Remove</button>';
-            html +=     '</div>';
-            html += '</div>';
-
-            $('#newRow').append(html);
-            document.getElementById("addRow").innerHTML = (rowCount > 0) ? "Add Another Tag" : "Add a Tag"
-        });
-        $(document).on('click', '#removeRow', function () {
-            var rowCount = parseInt($("#total").val());
-            rowCount--;
-            $("#total").val(rowCount);
-            $(this).closest('#inputRow').remove();
-        });
-    </script>
+    @{await Html.RenderPartialAsync( "_ValidationScriptsPartial" );} 
 }
 
