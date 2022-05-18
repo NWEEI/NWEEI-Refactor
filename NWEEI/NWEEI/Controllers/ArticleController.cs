@@ -260,23 +260,6 @@ namespace NWEEI.Controllers
             return repo.Articles.Any(e => e.ArticleID == id);
         }
 
-        // article search
-        public async Task<IActionResult> Search()
-        {
-            return View();
-        }
-
-        // article search
-        public async Task<IActionResult> Search(string query)
-        {
-            // get list of articles that contain query
-            List<Article> articles = repo.GetArticlesBySearchQuery(query);
-
-            return View(articles);
-        }
-
-
-
         #region RTE methods
 
         // for rich text editor

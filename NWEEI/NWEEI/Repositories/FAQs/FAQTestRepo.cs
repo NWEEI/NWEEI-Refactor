@@ -86,12 +86,6 @@ namespace NWEEI.Repositories
             throw new NotImplementedException();
         }
 
-        // TODO: build out search functionality
-        public List<FAQ> GetFAQsBySearchQuery(string query)
-        {
-            throw new NotImplementedException();
-        }
-
         // get a specific FAQ by its id
         public FAQ GetFAQByID(int id)
         {

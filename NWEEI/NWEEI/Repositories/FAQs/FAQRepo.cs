@@ -65,7 +65,7 @@ namespace NWEEI.Repositories
             return faqs;
         }
 
-        // get a list of published FAQs by category
+        // get a list of published  FAQs by category
         public List<FAQ> GetPublishedFAQsByCategoryID(int categoryID)
         {
             List<FAQ> faqs = context.FAQs
@@ -86,12 +86,6 @@ namespace NWEEI.Repositories
                 .ToList();
 
             return faqCategories;
-        }
-
-        // TODO: build out search functionality
-        public List<FAQ> GetFAQsBySearchQuery(string query)
-        {
-            throw new NotImplementedException();
         }
 
         // get a specific FAQ by its id

@@ -78,12 +78,6 @@ namespace NWEEI.Repositories
             return articles;
         }
 
-        // TODO: build out search functionality
-        public List<Article> GetArticlesBySearchQuery(string query)
-        {
-            throw new NotImplementedException();
-        }
-
         // get a specific article by its id
         public Article GetArticleByID(int id)
         {
