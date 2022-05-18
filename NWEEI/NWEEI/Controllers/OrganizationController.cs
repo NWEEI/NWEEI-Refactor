@@ -31,28 +31,31 @@ namespace NWEEI.Controllers
             Organization organization = repo.GetOrganizationByID( (int)id );
 
             // return not found if the organzation requested is null, otherwise return the detail view of that organization
-            return organization is not null ? View( organization ) : NotFound();
+            return organization is not null ? View(organization) : NotFound();
         }
 
         // GET: Organization/Create
         public IActionResult Create()
         {
-            // get categories
-            List<Tag> tags = repo.GetAllTags( );
+            // get tags
+            List<Tag> tags = repo.GetAllTags();
 
             // initialize new category selector VM
-            OrganizationTagViewModel viewModel = new( )
+            OrganizationTagViewModel viewModel = new()
             {
-                Tags = tags,
-                CurrentTags = new( ),
-                CurrentOrganization = new( )
-
+                Tags = new(),
+                TagKeys = new(),
+                CurrentTags = new(),
+                SelectedTags = new(),
+                CurrentOrganization = new(),
+                NumTags = tags.Count
             };
-
             for ( int i = 0 ; i < tags.Count ; i++ )
-                viewModel.CurrentTags.Add( tags [ i ], false );
-
-            return View( viewModel );
+            {
+                viewModel.SelectedTags.Add(false);
+                viewModel.Tags.Add(tags[i]);
+            }
+            return View(viewModel);
         }
 
         // POST: Organization/Create
@@ -63,8 +66,7 @@ namespace NWEEI.Controllers
         public IActionResult Create(OrganizationTagViewModel viewModel, string htmlcode)
         {
             // if data attempting to be posted is not valid, refresh view and display validation summaries
-            if ( !ModelState.IsValid )
-                return View( viewModel );
+            if (!ModelState.IsValid) return View(viewModel);
 
             // create new article with viewModel values and html string from RTE
             Organization organization = new( );
@@ -77,10 +79,17 @@ namespace NWEEI.Controllers
             organization.Description = htmlcode;
             organization.WebsiteURL = viewModel.CurrentOrganization.WebsiteURL;
             organization.ImageURL = viewModel.CurrentOrganization.ImageURL;
+            organization.TagKeys = viewModel.CurrentOrganization.TagKeys;
 
             // add each tag from the vm to the org to be saved.
-            foreach (Tag tag in viewModel.CurrentOrganization.TagKeys )
-                organization.TagKeys.Add( tag );
+            List<Tag> tags = repo.GetAllTags();
+            for (int i = 0; i < tags.Count; i++)
+            {
+                if (viewModel.SelectedTags[i] == true)
+                {
+                    organization.TagKeys.Add(tags[i]);
+                }
+            }
 
             // add and save the org to the db
             repo.AddOrganization( organization );
@@ -141,7 +150,7 @@ namespace NWEEI.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            repo.DeleteOrganization( repo.GetOrganizationByID( id ) );
+            repo.DeleteOrganization(repo.GetOrganizationByID(id));
             return RedirectToAction(nameof(Index));
         }
 

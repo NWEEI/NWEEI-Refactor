@@ -26,7 +26,9 @@ namespace NWEEI.Repositories
         }
 
         // get a list of all organizations
-        public List<Organization> GetAllOrganizations( ) => context.Organizations.OrderBy( org => org.Name ).ToList( );
+        public List<Organization> GetAllOrganizations( ) => context.Organizations
+            .Include(o => o.TagKeys)
+            .OrderBy( o => o.Name ).ToList( );
         public List<Tag> GetAllTags( ) => context.Tags.OrderBy( tag => tag.Name ).ToList( );
 
         // TODO: decide how to handle this - include tag methods within org repo
@@ -34,13 +36,16 @@ namespace NWEEI.Repositories
         public List<Organization> GetOrganizationsByTagID( int tagID ) => throw new NotImplementedException();
 
         // get a specific organization by its id
-        public Organization GetOrganizationByID( int id ) => context.Organizations.FirstOrDefault( o => o.OrganizationID == id );
+        public Organization GetOrganizationByID( int id ) => context.Organizations
+            .Include(o => o.TagKeys)
+            .FirstOrDefault( o => o.OrganizationID == id );
 
         // get a specific tag by its id
-        public Tag GetTagByID( int id ) => context.Tags.FirstOrDefault( t => t.TagID == id );
+        public Tag GetTagByID( int id ) => context.Tags.FirstOrDefault( t => t.TagID == id )
+            ;
 
         // check to see if an organization exists
-        public bool OrganizationExists( int id ) => Organizations.Any( e => e.OrganizationID == id );
+        public bool OrganizationExists( int id ) => Organizations.Any( o => o.OrganizationID == id );
 
         // update an organization
         public void UpdateOrganization(Organization organization)

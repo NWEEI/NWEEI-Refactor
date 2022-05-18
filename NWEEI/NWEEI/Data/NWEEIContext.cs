@@ -77,7 +77,7 @@ namespace NWEEI.Data
 
         public static void SeedLegacyData(MySqlConnection tempConnection)
         {
-            /// This method is ripe for dehydration.
+            // TODO: Dry out SeedLegacyData
 
             // using as guides:
             // https://stackoverflow.com/questions/58413440/including-sql-files-when-generating-migrations-in-ef-core-asp-net

@@ -13,8 +13,6 @@ namespace NWEEI.Models
 
         [Required(ErrorMessage = "Name is required.")]
         public string Name { get; set; }
-
-        [Required(ErrorMessage = "Description is required.")]
         public string Description { get; set; }
 
         public string ImageURL { get; set; }
@@ -22,7 +20,6 @@ namespace NWEEI.Models
         [Required(ErrorMessage = "Website is required.")]
         public string WebsiteURL { get; set; }
 
-        [Required(ErrorMessage = "At least one tag is required.")]
         [NotMapped]
         public List<Tag> Tags { get { return tags; } }
 
