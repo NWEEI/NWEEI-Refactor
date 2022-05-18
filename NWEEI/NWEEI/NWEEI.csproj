@@ -23,6 +23,7 @@
     <None Remove="Repositories\Registration\" />
     <None Remove="Repositories\Tag\" />
     <None Remove="Repositories\FAQs\" />
+    <None Remove="Repositories\Resources\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
@@ -56,5 +57,6 @@
     <Folder Include="Repositories\Registrations\" />
     <Folder Include="Repositories\Tags\" />
     <Folder Include="Repositories\FAQs\" />
+    <Folder Include="Repositories\Resources\" />
   </ItemGroup>
 </Project>

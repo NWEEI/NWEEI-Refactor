@@ -45,7 +45,15 @@ namespace NWEEI.Controllers
         public async Task<IActionResult> Category(int categoryID)
         {
             ViewBag.Current = "Resources";
-            return View(repo.GetArticlesByCategoryID(categoryID));
+
+            // if current user is admin return all articles
+            if (User.IsInRole("Admin"))
+            {
+                return View(repo.GetArticlesByCategoryID(categoryID));
+            }
+
+            // otherwise only return published articles
+            return View(repo.GetPublishedArticlesByCategoryID(categoryID));
         }
 
         // GET: Article/Details/5
@@ -252,6 +260,8 @@ namespace NWEEI.Controllers
             return repo.Articles.Any(e => e.ArticleID == id);
         }
 
+        #region RTE methods
+
         // for rich text editor
         string GetHtmlFileCode()
         {
@@ -358,6 +368,7 @@ namespace NWEEI.Controllers
             }
         }
 
+#endregion
 
     }
 }

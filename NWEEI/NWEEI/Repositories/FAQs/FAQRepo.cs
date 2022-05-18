@@ -43,12 +43,35 @@ namespace NWEEI.Repositories
             return faqs;
         }
 
+        // get a list of published FAQs
+        public List<FAQ> GetPublishedFAQs()
+        {
+            List<FAQ> faqs = context.FAQs
+                .Where(faq => faq.IsPublished == true)
+                .Include(faq => faq.Category)
+                .ToList();
+
+            return faqs;
+        }
+
         // get a list of FAQs by category
         public List<FAQ> GetFAQsByCategoryID(int categoryID)
         {
             List<FAQ> faqs = context.FAQs
                 .Include(faq => faq.Category)
                 .Where(faq => faq.Category.CategoryID == categoryID)
+                .ToList();
+
+            return faqs;
+        }
+
+        // get a list of published  FAQs by category
+        public List<FAQ> GetPublishedFAQsByCategoryID(int categoryID)
+        {
+            List<FAQ> faqs = context.FAQs
+                .Include(faq => faq.Category)
+                .Where(faq => faq.Category.CategoryID == categoryID)
+                .Where(faq => faq.IsPublished == true)
                 .ToList();
 
             return faqs;
@@ -63,12 +86,6 @@ namespace NWEEI.Repositories
                 .ToList();
 
             return faqCategories;
-        }
-
-        // TODO: build out search functionality
-        public List<FAQ> GetFAQsBySearchQuery(string query)
-        {
-            throw new NotImplementedException();
         }
 
         // get a specific FAQ by its id
