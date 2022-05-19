@@ -8,9 +8,9 @@ namespace NWEEI.Controllers.Navigation
 {
     public class ProgramsController : Controller
     {
-        public IActionResult Certificates()
+        public IActionResult ProfessionalDevelopment()
         {
-            ViewBag.Current = "Certificates";
+            ViewBag.Current = "Professional Development";
             return View();
         }
 
