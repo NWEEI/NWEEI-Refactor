@@ -45,6 +45,17 @@ namespace NWEEI.Repositories
             return articles;
         }
 
+        // get a list of all published articles
+        public List<Article> GetPublishedArticles()
+        {
+            List<Article> articles = Articles
+                .Where(a => a.IsPublished == true)
+                .OrderBy(a => a.DateCreated)
+                .ToList();
+
+            return articles;
+        }
+
         // get a list of articles by category
         public List<Article> GetArticlesByCategoryID(int categoryID)
         {
@@ -55,10 +66,16 @@ namespace NWEEI.Repositories
             return articlesByCategory;
         }
 
-        // TODO: build out search functionality
-        public List<Article> GetArticlesBySearchQuery(string query)
+        // get a list of articles by category
+        public List<Article> GetPublishedArticlesByCategoryID(int categoryID)
         {
-            throw new NotImplementedException();
+            List<Article> articles = Articles
+                .Where(a => a.IsPublished == true)
+                .OrderBy(a => a.DateCreated)
+                .Where(a => a.Category.CategoryID == categoryID)
+                .ToList();
+
+            return articles;
         }
 
         // get a specific article by its id

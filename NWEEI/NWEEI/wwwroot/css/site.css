@@ -569,3 +569,54 @@ body {
 
 
 
+/* -------------------------------------------------- */
+
+
+/* SEARCH */
+
+.search-container {
+    text-align: center;
+    position: relative;
+    top: -2.19em;
+}
+
+.search-bar {
+    border-radius: 20px;
+    width: 70%;
+    margin: auto;
+    padding: 15px;
+    display: inline !important;
+    position: relative;
+}
+
+.search-bar-content {
+    width: 100%;
+}
+
+.search-submit {
+    position: relative;
+    right: 2%;
+    top: 11px;
+}
+
+.search-submit i {
+    position: absolute;
+    right: 3%;
+}
+
+.search-results-container {
+    margin: 4% 0%;
+}
+
+.search-result {
+    padding: 1% 0%;
+}
+
+.search-result-heading {
+    font-size: 0.9em;
+}
+
+.search-preview > * {
+    color: grey !important;
+    font-size: 0.8em !important;
+}
