@@ -52,7 +52,7 @@ else
     <div class="container tiles">
         @foreach (var item in Model)
         {
-            @if (item.Articles.Count > 0)
+            @if (item.Articles.Where(a => a.IsPublished == true).ToList().Count > 0)
             {
                 <a class="tile-link" asp-controller="Article" asp-action="Category" asp-route-categoryID="@item.CategoryID">
                     <div class="tile-container">

@@ -41,7 +41,9 @@ namespace NWEEI.Controllers
         public async Task<IActionResult> ByCategory(int categoryID)
         {
             ViewBag.Current = "Resources";
-            return View(repo.GetFAQsByCategoryID(categoryID));
+
+            // only return published FAQs
+            return View(repo.GetPublishedFAQsByCategoryID(categoryID));
         }
 
         // GET: FAQ/Details/5

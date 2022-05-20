@@ -1,5 +1,133 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model NWEEI.ViewModels.SearchViewModel
+@using System.Text.RegularExpressions;
+
 @{
+    ViewData["Title"] = "Resources";
 }
+
+<!-- search -->
+<div class="dark-block search-container">
+    <div class="container">
+        <div class="content-section" style="line-height:1.5em;">
+
+            <h4 class="text-center">Search NWEEI</h4>
+
+            <form asp-action="Index">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group search-bar">
+                    <!-- search input and icon -->
+                    <div class="search-bar-content">
+                        <!-- search input -->
+                        <input asp-for="SearchQuery" class="form-control search-bar" />
+
+                        <!-- icon -->
+                        <span class="search-submit">
+                            <button type="submit" style="background: none; color: inherit; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit; position: absolute;">
+                                <i type="submit" class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+<!-- results -->
+<div class="container">
+    @if (Model.HasResults)
+    {
+        <div>
+            <h6>
+                Your search for "@Model.SearchQuery" returned
+                <a href="#article-results">@Model.Articles.Count articles</a>
+                and <a href="#faq-results">@Model.FAQs.Count FAQs</a>.
+            </h6>
+            <div>
+            </div>
+        </div>
+    }
+
+    <!-- articles -->
+    @if (Model.Articles.Count > 0)
+    {
+        <div id="article-results" class="search-results-container">
+            <h4>Articles</h4>
+
+            @foreach (var article in Model.Articles)
+            {
+                <div class="search-result">
+                    <div class="search-result-heading">
+                        <a asp-controller="Article" asp-action="Details" asp-route-id="@article.ArticleID">
+                            @article.Title
+                        </a>
+                    </div>
+                    <div class="search-preview">
+                        <span>
+                            @if (article.Body.Length < 250)
+                            {
+                                @Regex.Replace(article.Body, "<.*?>", string.Empty)
+                            }
+                            else
+                            {
+                                @Regex.Replace(article.Body.Substring(0, 250), "<.*?>", string.Empty)
+                            }
+                            ...
+                        </span>
+                    </div>
+                </div>
+            }
+
+        </div>
+    }
+
+    <!-- FAQs -->
+    @if (Model.FAQs.Count > 0)
+    {
+        <div id="faq-results" class="search-results-container">
+            <h4>FAQs</h4>
+
+            @foreach (var faq in Model.FAQs)
+            {
+                <div class="search-result">
+                    <div class="search-result-heading">
+                        <a asp-controller="FAQ" asp-action="Details" asp-route-id="@faq.FAQID">
+                            @faq.Question
+                        </a>
+                    </div>
+                    <div class="search-preview">
+                        <span>
+                            @if (faq.Answer.Length < 250)
+                            {
+                                @Regex.Replace(faq.Answer, "<.*?>", string.Empty);
+                            }
+                            else
+                            {
+                                @Regex.Replace(faq.Answer.Substring(0, 250), "<.*?>", string.Empty);
+                            }
+                            ...
+                        </span>
+                    </div>
+                </div>
+            }
+
+        </div>
+    }
+
+    @* TODO: uncomment when organizations are finished
+        <!-- Organizations -->
+        @if (Model.Organizations.Count > 0)
+        {
+        <div id="org-results" class="search-results-container">
+            <h5>Organizations</h5>
+            @foreach (var org in Model.Organizations)
+            {
+                <div>@org.Name</div>
+            }
+        </div>
+        }
+    *@
+
+</div>

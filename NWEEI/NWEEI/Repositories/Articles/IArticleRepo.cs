@@ -14,8 +14,9 @@ namespace NWEEI.Repositories
 
         // retrieve
         List<Article> GetAllArticles();
+        List<Article> GetPublishedArticles();
         List<Article> GetArticlesByCategoryID(int categoryID);
-        List<Article> GetArticlesBySearchQuery(string query);
+        List<Article> GetPublishedArticlesByCategoryID(int categoryID);
         Article GetArticleByID(int id);
         List<Category> GetAllCategories();
 
