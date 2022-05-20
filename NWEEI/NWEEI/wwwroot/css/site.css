@@ -526,12 +526,15 @@ body {
 
 
 /* -------------------------------------------------- */
-/* DEGREES */
-.degree-header {
-    background-image: url('../images/shutterstock_56230774.jpeg');
+
+/* PROGRAMS */
+
+
+/* EMBC */
+
+.program-header {
     background-repeat: no-repeat;
     background-attachment: scroll;
-    background-position: 50% 21%;
     background-size: cover;
     z-index: 1;
     height: 200px;
@@ -542,7 +545,18 @@ body {
     border-radius: 5px;
 }
 
-.degree-title {
+.embc {
+    background-image: url('../images/shutterstock_56230774.jpeg');
+    background-position: 50% 21%;
+}
+
+.custom-training {
+    background-image: url('../images/IMG_1993.JPG');
+/*    background-image: url('../images/Depositphotos_89317762_original.jpg');*/
+    background-position: 50% 53%;
+}
+
+.program-title {
     position: relative;
     text-align: center;
     z-index: 2;
@@ -553,12 +567,35 @@ body {
 }
 
 
+/* CUSTOM TRAINING */
+
+ul.training-details {
+    margin: auto;
+    margin-top: 10px;
+    align-content: space-evenly;
+    width: 95%;
+    padding-left: 0;
+    font-size: 0.9em;
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+    column-gap: 10%;
+}
+
+
+/*    .training-details > li {
+        list-style: none;
+        display: inline-block;
+        width: calc(100% / 3);
+        height: 120px;
+        text-align: center;
+    }*/
+
 
 /* -------------------------------------------------- */
 
 
 /* CATEGORY SELECTOR */
-
 .category-selector {
     margin: 3% 0%;
 }
