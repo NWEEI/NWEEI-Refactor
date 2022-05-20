@@ -19,7 +19,7 @@ namespace NWEEI.Repositories
             PaymentOption existingPaymentOption = paymentOptions.Find(p => p.Option == paymentOption.Option);
 
             // dont add paymentOption to list if it already exists
-            if (existingPaymentOption == null) throw new Exception("PaymentOption already exists");
+            if (existingPaymentOption is not null) throw new Exception("PaymentOption already exists");
 
             // simulate auto-incremented primary key and add article to list
             paymentOption.PaymentOptionID = paymentOptions.Count;

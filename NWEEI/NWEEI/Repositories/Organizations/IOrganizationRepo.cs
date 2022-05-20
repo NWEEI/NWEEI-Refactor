@@ -8,17 +8,15 @@ namespace NWEEI.Repositories
     public interface IOrganizationRepo
     {
         IQueryable<Organization> Organizations { get; }
-        IQueryable<Tag> Tags { get; }
 
         // create
         void AddOrganization(Organization organization);
 
         // retrieve
         List<Organization> GetAllOrganizations( );
-        List<Tag> GetAllTags( );
-        List<Organization> GetOrganizationsByTagID(int tagID);
         Organization GetOrganizationByID(int id);
-        Tag GetTagByID( int id );
+
+        // nullcheck
         bool OrganizationExists( int id );
 
         // update

@@ -8,49 +8,54 @@
 
 <h4>Organization</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="OrganizationID" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <link rel="stylesheet" href="/richtexteditor/rte_theme_default.css" />
-                <script type="text/javascript" src="/richtexteditor/rte.js"></script>
-                <script type="text/javascript" src='/richtexteditor/plugins/all_plugins.js'></script>
-                <script type="text/javascript" src="/rte-upload.js"></script>
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" name="htmlcode" id="inp_htmlcode" type="hidden" class="form-control" value="@Model.Description" />
-                <div id="div_editor1" class="richtexteditor" style="width: 960px;margin:0 auto;"></div>
-                <script>
-                    var editor1 = new RichTextEditor(document.getElementById("div_editor1"));
-                    editor1.setHTML(document.getElementById("inp_htmlcode").value)
-                    editor1.attachEvent("change", function () {
-                        document.getElementById("inp_htmlcode").value = editor1.getHTMLCode();
-                    });
-                </script>
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImageURL" class="control-label"></label>
-                <input asp-for="ImageURL" class="form-control" />
-                <span asp-validation-for="ImageURL" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="WebsiteURL" class="control-label"></label>
-                <input asp-for="WebsiteURL" class="form-control" />
-                <span asp-validation-for="WebsiteURL" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<form asp-action="Edit">
+    <input type="hidden" asp-for="OrganizationID" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="form-group col-4">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div> 
+        <div class="form-group col-4">
+            <label asp-for="WebsiteURL" class="control-label"></label>
+            <input asp-for="WebsiteURL" class="form-control" />
+            <span asp-validation-for="WebsiteURL" class="text-danger"></span>
+        </div>
+        <div class="form-group col-4">
+            <label asp-for="ImageURL" class="control-label"></label>
+            <input asp-for="ImageURL" class="form-control" />
+            <span asp-validation-for="ImageURL" class="text-danger"></span>
+        </div>
     </div>
-</div>
+    <div class="row">
+        <!-- rich text editor for article body -->
+        <div class="form-group col-12">
+            <link rel="stylesheet" href="/richtexteditor/rte_theme_default.css" />
+            <script type="text/javascript" src="/richtexteditor/rte.js"></script>
+            <script type="text/javascript" src='/richtexteditor/plugins/all_plugins.js'></script>
+            <script type="text/javascript" src="/rte-upload.js"></script>
+            <label asp-for="@Model.Description" class="control-label"></label>
+
+            <!-- rich text editor with custom validation -->
+            <input asp-for="@Model.Description" name="htmlcode" id="inp_htmlcode" class="form-control" type="text" style="visibility:hidden; position:absolute;" data-val="true" data-val-required="Please enter text for the article body." />
+            <div id="div_editor1" class="richtexteditor" style="width: 960px;margin:0 auto;"></div>
+            <script>
+                var editor1 = new RichTextEditor(document.getElementById("div_editor1"));
+                editor1.setHTML(document.getElementById("inp_htmlcode").value)
+                editor1.attachEvent("change", function () {
+                    document.getElementById("inp_htmlcode").value = editor1.getHTMLCode();
+                });
+            </script>
+
+            <!-- validation output -->
+            <span data-valmsg-for="htmlcode" data-valmsg-replace="true" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
 
 <div>
     <a asp-action="Index">Back to List</a>

@@ -35,61 +35,22 @@ namespace NWEEI.Controllers
         }
 
         // GET: Organization/Create
-        public IActionResult Create()
-        {
-            // get tags
-            List<Tag> tags = repo.GetAllTags();
-
-            // initialize new category selector VM
-            OrganizationTagViewModel viewModel = new()
-            {
-                Tags = new(),
-                TagKeys = new(),
-                CurrentTags = new(),
-                SelectedTags = new(),
-                CurrentOrganization = new(),
-                NumTags = tags.Count
-            };
-            for ( int i = 0 ; i < tags.Count ; i++ )
-            {
-                viewModel.SelectedTags.Add(false);
-                viewModel.Tags.Add(tags[i]);
-            }
-            return View(viewModel);
-        }
+        public IActionResult Create() => View();
 
         // POST: Organization/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(OrganizationTagViewModel viewModel, string htmlcode)
+        public IActionResult Create(Organization organization, string htmlcode)
         {
             // if data attempting to be posted is not valid, refresh view and display validation summaries
-            if (!ModelState.IsValid) return View(viewModel);
+            if (!ModelState.IsValid) return View(organization);
 
-            // create new article with viewModel values and html string from RTE
-            Organization organization = new( );
-
+            // set organization description equal to that passed in by htmlcode
             ViewData [ "IsPosted" ] = true;
             ViewData [ "PostedValue" ] = htmlcode;
-
-            // save all the properties passed from the view to the organization to be added to the db
-            organization.Name = viewModel.CurrentOrganization.Name;
             organization.Description = htmlcode;
-            organization.WebsiteURL = viewModel.CurrentOrganization.WebsiteURL;
-            organization.ImageURL = viewModel.CurrentOrganization.ImageURL;
-            organization.TagKeys = viewModel.CurrentOrganization.TagKeys;
-
-            // add each tag from the vm to the org to be saved.
-            List<Tag> tags = repo.GetAllTags();
-            for (int i = 0; i < tags.Count; i++)
-            {
-                if (viewModel.SelectedTags[i] == true)
-                {
-                    organization.TagKeys.Add(tags[i]);
-                }
-            }
 
             // add and save the org to the db
             repo.AddOrganization( organization );
@@ -100,12 +61,10 @@ namespace NWEEI.Controllers
         // GET: Organization/Edit/5
         public IActionResult Edit(int? id)
         {
-            if (id is not null )
-            {
-                Organization organization = repo.GetOrganizationByID( (int)id );
-                // if the organization returned by querying by id is not null, return the edit view of that organization, otherwise return the NotFound() view.
-                return organization is not null ? View( organization ) : NotFound() ;
-            } else return NotFound();
+            if (id is null) return NotFound();
+            Organization organization = repo.GetOrganizationByID((int)id);
+            // if the organization returned by querying by id is not null, return the edit view of that organization, otherwise return the NotFound() view.
+            return organization is not null ? View( organization ) : NotFound() ;
         }
 
         // POST: Organization/Edit/5
@@ -113,13 +72,16 @@ namespace NWEEI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("OrganizationID,Name,Description,ImageURL,WebsiteURL")] Organization organization)
+        public IActionResult Edit(int id, [Bind("OrganizationID,Name,Description,ImageURL,WebsiteURL")] Organization organization, string htmlcode)
         {
             // if the id parameter does not match the id of the object parameter, return the NotFound view
             if ( id != organization.OrganizationID ) return NotFound();
 
             // if data attempting to be posted is not valid, refresh view and display validation summaries
-            if ( !ModelState.IsValid ) return View( organization ); 
+            if ( !ModelState.IsValid ) return View( organization );
+
+            ViewData["IsPosted"] = true;
+            ViewData["PostedValue"] = htmlcode;
 
             // attempt to save the object to it's repo.
             try { repo.UpdateOrganization( organization ); }
