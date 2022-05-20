@@ -8,23 +8,30 @@ namespace NWEEI.Controllers.Navigation
 {
     public class ProgramsController : Controller
     {
-        public IActionResult ProfessionalDevelopment()
+        public async Task<IActionResult> ProfessionalDevelopment()
         {
             ViewBag.Current = "Professional Development";
             return View();
         }
 
         // get degrees overview view
-        public IActionResult Degrees()
+        public async Task<IActionResult> Degrees()
         {
             ViewBag.Current = "Degrees";
             return View();
         }
 
         // get degrees > energy management - building controls view
-        public IActionResult EMBC()
+        public async Task<IActionResult> EMBC()
         {
             ViewBag.Current = "Degrees";
+            return View();
+        }
+
+        // get professional development > custom training
+        public async Task<IActionResult> CustomTraining()
+        {
+            ViewBag.Current = "Professional Development";
             return View();
         }
     }
