@@ -1,13 +1,9 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using NWEEI.Data;
 using NWEEI.Models;
 using NWEEI.Repositories;
+using NWEEI.ViewModels;
 
 namespace NWEEI.Controllers
 {
@@ -35,7 +31,7 @@ namespace NWEEI.Controllers
             Organization organization = repo.GetOrganizationByID( (int)id );
 
             // return not found if the organzation requested is null, otherwise return the detail view of that organization
-            return organization is not null ? View( organization ) : NotFound();
+            return organization is not null ? View(organization) : NotFound();
         }
 
         // GET: Organization/Create
@@ -46,25 +42,29 @@ namespace NWEEI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("OrganizationID,Name,Description,ImageURL,WebsiteURL")] Organization organization)
+        public IActionResult Create(Organization organization, string htmlcode)
         {
             // if data attempting to be posted is not valid, refresh view and display validation summaries
-            if ( !ModelState.IsValid ) return View( organization );
-            
-            // otherwise, add the valid organization to it's repo and then return to the index view of organizations
+            if (!ModelState.IsValid) return View(organization);
+
+            // set organization description equal to that passed in by htmlcode
+            ViewData [ "IsPosted" ] = true;
+            ViewData [ "PostedValue" ] = htmlcode;
+            organization.Description = htmlcode;
+
+            // add and save the org to the db
             repo.AddOrganization( organization );
+
             return RedirectToAction( nameof( Index ) );
         }
 
         // GET: Organization/Edit/5
         public IActionResult Edit(int? id)
         {
-            if (id is not null )
-            {
-                Organization organization = repo.GetOrganizationByID( (int)id );
-                // if the organization returned by querying by id is not null, return the edit view of that organization, otherwise return the NotFound() view.
-                return organization is not null ? View( organization ) : NotFound() ;
-            } else return NotFound();
+            if (id is null) return NotFound();
+            Organization organization = repo.GetOrganizationByID((int)id);
+            // if the organization returned by querying by id is not null, return the edit view of that organization, otherwise return the NotFound() view.
+            return organization is not null ? View( organization ) : NotFound() ;
         }
 
         // POST: Organization/Edit/5
@@ -72,13 +72,16 @@ namespace NWEEI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("OrganizationID,Name,Description,ImageURL,WebsiteURL")] Organization organization)
+        public IActionResult Edit(int id, [Bind("OrganizationID,Name,Description,ImageURL,WebsiteURL")] Organization organization, string htmlcode)
         {
             // if the id parameter does not match the id of the object parameter, return the NotFound view
             if ( id != organization.OrganizationID ) return NotFound();
 
             // if data attempting to be posted is not valid, refresh view and display validation summaries
-            if ( !ModelState.IsValid ) return View( organization ); 
+            if ( !ModelState.IsValid ) return View( organization );
+
+            ViewData["IsPosted"] = true;
+            ViewData["PostedValue"] = htmlcode;
 
             // attempt to save the object to it's repo.
             try { repo.UpdateOrganization( organization ); }
@@ -109,8 +112,7 @@ namespace NWEEI.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            Organization organization = repo.GetOrganizationByID( id );
-            repo.DeleteOrganization(organization);
+            repo.DeleteOrganization(repo.GetOrganizationByID(id));
             return RedirectToAction(nameof(Index));
         }
 

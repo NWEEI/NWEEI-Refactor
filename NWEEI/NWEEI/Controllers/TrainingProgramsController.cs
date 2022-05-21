@@ -16,16 +16,14 @@ namespace NWEEI.Controllers
         public TrainingProgramsController(ITrainingProgramRepo r) => repo = r;
 
         // GET: TrainingPrograms
-        public async Task<IActionResult> Index() => View(await repo.TrainingPrograms.ToListAsync());
+        public IActionResult Index() => View(repo.GetAllTrainingPrograms());
 
         // GET: TrainingPrograms/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
-            NullCheck(id);
-
-            var trainingProgram = await repo.TrainingPrograms
-                .FirstOrDefaultAsync(m => m.TrainingProgramID == id);
-            return trainingProgram == null ? NotFound() : View(trainingProgram);
+            if (id is null) return NotFound();
+            TrainingProgram trainingProgram = repo.GetTrainingProgramByID((int)id);
+            return trainingProgram is null ? NotFound() : View(trainingProgram);
         }
 
         // GET: TrainingPrograms/Create
@@ -38,20 +36,17 @@ namespace NWEEI.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("TrainingProgramID,Name")] TrainingProgram trainingProgram)
         {
-            if (ModelState.IsValid)
-            {
-                repo.AddTrainingProgram(trainingProgram);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(trainingProgram);
+            if (!ModelState.IsValid) return View(trainingProgram);
+            repo.AddTrainingProgram(trainingProgram);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: TrainingPrograms/Edit/5
         public IActionResult Edit(int? id)
         {
-            NullCheck(id);
+            if (id is null) return NotFound();
             TrainingProgram trainingProgram = repo.GetTrainingProgramByID((int)id);
-            return trainingProgram == null ? NotFound() : View(trainingProgram);
+            return trainingProgram is null ? NotFound() : View(trainingProgram);
         }
 
         // POST: TrainingPrograms/Edit/5
@@ -61,34 +56,28 @@ namespace NWEEI.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("TrainingProgramID,Name")] TrainingProgram trainingProgram)
         {
-            if (id != trainingProgram.TrainingProgramID)
-                return NotFound();
+            if (id != trainingProgram.TrainingProgramID) return NotFound();
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(trainingProgram);
+            try
             {
-                try
-                {
-                    repo.UpdateTrainingProgram(trainingProgram);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TrainingProgramExists(trainingProgram.TrainingProgramID))
-                        return NotFound();
-                    else throw;
-                }
-                return RedirectToAction(nameof(Index));
+                repo.UpdateTrainingProgram(trainingProgram);
             }
-            return View(trainingProgram);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TrainingProgramExists(trainingProgram.TrainingProgramID))
+                    return NotFound();
+                else throw;
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: TrainingPrograms/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
-            NullCheck(id);
-            var trainingProgram = await repo.TrainingPrograms
-                .FirstOrDefaultAsync(m => m.TrainingProgramID == id);
-            NullCheck(trainingProgram);
-            return View(trainingProgram);
+            if (id is null) return NotFound();
+            TrainingProgram trainingProgram = repo.GetTrainingProgramByID((int)id);
+            return trainingProgram is null ? NotFound() : View(trainingProgram);
         }
 
         // POST: Tag/Delete/5
@@ -101,13 +90,7 @@ namespace NWEEI.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        /// <summary>
-        /// Checks to see if an object, property, or method of any type is null.
-        /// </summary>
-        /// <param name="arg"> A object, property, or method of any type. </param>
-        /// <returns> The 'NotFound' view if arg is null, nothing otherwise. </returns>
-        private NotFoundResult NullCheck<T>(T arg) => arg == null ? NotFound() : null;
-
-        private bool TrainingProgramExists(int id) => repo.TrainingPrograms.Any(e => e.TrainingProgramID == id);
+        private bool TrainingProgramExists(int id) =>
+            repo.TrainingPrograms.Any(e => e.TrainingProgramID == id);
     }
 }

@@ -9,13 +9,7 @@ namespace NWEEI.Repositories
     {
         private List<Tag> tags = new List<Tag>();
 
-        public IQueryable<Tag> Tags
-        {
-            get
-            {
-                return tags.AsQueryable<Tag>();
-            }
-        }
+        public IQueryable<Tag> Tags => tags.AsQueryable<Tag>( );
 
         // add a new tag
         public void AddTag(Tag tag)
@@ -24,32 +18,21 @@ namespace NWEEI.Repositories
             Tag existingTag = tags.Find(t => t.Name == tag.Name);
 
             // add tag to list if it doesn't already exist
-            if (existingTag == null)
-            {
-                // simulate auto-incremented primary key and add article to list
-                tag.TagID = tags.Count;
-                tags.Add(tag);
-            }
-            else
-            {
-                throw new Exception("Tag already exists");
-            }
+            if (existingTag is not null) throw new Exception( "Tag already exists" );
+
+            // simulate auto-incremented primary key and add article to list
+            tag.TagID = tags.Count;
+            tags.Add(tag);
         }
 
         // get a list of all tags
-        public List<Tag> GetAllTags()
-        {
-            tags = Tags.ToList();
-
-            return tags;
-        }
+        public List<Tag> GetAllTags() =>Tags.ToList();
 
         // get a specific tag by its id
-        public Tag GetTagByID(int id)
-        {
-            Tag tag = tags.Find(t => t.TagID == id);
-            return tag;
-        }
+        public Tag GetTagByID(int id) => tags.Find(t => t.TagID == id);
+
+        // check to see if an organization exists
+        public bool TagExists( int id ) => Tags.Any( t => t.TagID == id );
 
         // update a tag
         public void UpdateTag(Tag tag)
@@ -62,10 +45,6 @@ namespace NWEEI.Repositories
         }
 
         // delete a tag
-        public void DeleteTag(Tag tag)
-        {
-            Tag existingTag = tags.Find(t => t.TagID == tag.TagID);
-            tags.Remove(existingTag);
-        }
+        public void DeleteTag( Tag tag ) => tags.Remove( tags.Find( t => t.TagID == tag.TagID ) );
     }
 }

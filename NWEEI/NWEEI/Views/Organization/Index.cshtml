@@ -4,30 +4,40 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Manage Organizations</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a data-btn-create asp-action="Create"> Add an Organization</a>
 </p>
-<table class="table">
+<table data-index-table>
     <thead>
         <tr>
+            <th></th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor( model => model.Name )
             </th>
+            <th></th>
+            <th></th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (Organization organization in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @organization.OrganizationID
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.OrganizationID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.OrganizationID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.OrganizationID">Delete</a>
+                @Html.DisplayFor(modelItem => organization.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@organization.OrganizationID">Edit</a>
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@organization.OrganizationID">Details</a>
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@organization.OrganizationID">Delete</a>
             </td>
         </tr>
 }

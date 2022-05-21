@@ -9,7 +9,6 @@ namespace NWEEI.Models
 
         [Required(ErrorMessage = "Please enter a title.")]
         public string Title { get; set; }
-
         public string Body { get; set; }
         public DateTime DateCreated { get; set; }
         public AppUser Author { get; set; }

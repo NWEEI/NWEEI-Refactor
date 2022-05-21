@@ -8,8 +8,10 @@ namespace NWEEI.Repositories
     public class OrganizationTestRepo : IOrganizationRepo
     {
         private List<Organization> organizations = new();
+        private List<Tag> tags = new( );
 
         public IQueryable<Organization> Organizations => organizations.AsQueryable<Organization>();
+        public IQueryable<Tag> Tags => tags.AsQueryable<Tag>( );
 
         // add a new organization
         public void AddOrganization(Organization organization)
@@ -26,12 +28,16 @@ namespace NWEEI.Repositories
         }
 
         // get a list of all organizations
-        public List<Organization> GetAllOrganizations() => organizations.ToList();
+        public List<Organization> GetAllOrganizations( ) => organizations.ToList( );
+        public List<Tag> GetAllTags( ) => tags.ToList( );
 
         public List<Organization> GetOrganizationsByTagID(int tagID) => throw new NotImplementedException();
 
         // get a specific organization by its id
-        public Organization GetOrganizationByID(int id) => organizations.Find(org => org.OrganizationID == id); 
+        public Organization GetOrganizationByID( int id ) => organizations.Find( org => org.OrganizationID == id );
+
+        // get a specific tag by its id
+        public Tag GetTagByID( int id ) => tags.Find( tag => tag.TagID == id );
 
         // check to see if an organization exists
         public bool OrganizationExists( int id ) => Organizations.Any( e => e.OrganizationID == id );

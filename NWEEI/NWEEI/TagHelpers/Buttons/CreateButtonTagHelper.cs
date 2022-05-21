@@ -9,7 +9,6 @@ namespace NWEEI.TagHelpers
         {
             output.SetRawPreContentElement("<i class=\"fa fa-circle-plus fa-xl\"></i>");
             output.BuildTag("a", "btn btn-outline-success h3 m-0 mr-2");
-            output.Attributes.SetAttribute("style", "border-color: rgba(0,0,0,0)");
         }
     }
     [HtmlTargetElement("button", Attributes = "data-btn-create")]
@@ -19,7 +18,6 @@ namespace NWEEI.TagHelpers
         {
             output.SetRawPreContentElement("<i class=\"fa fa-circle-plus fa-xl\"></i>");
             output.BuildTag("button", "btn btn-outline-success h3 m-0 mr-2");
-            output.Attributes.SetAttribute("style", "border-color: rgba(0,0,0,0)");
         }
     }
 }

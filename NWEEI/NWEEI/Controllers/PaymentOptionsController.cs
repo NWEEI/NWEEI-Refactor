@@ -16,16 +16,14 @@ namespace NWEEI.Controllers
         public PaymentOptionsController(IPaymentOptionRepo r) => repo = r;
 
         // GET: PaymentOptions
-        public async Task<IActionResult> Index() => View(await repo.PaymentOptions.ToListAsync());
+        public IActionResult Index() => View(repo.GetAllPaymentOptions());
 
         // GET: PaymentOptions/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
-            NullCheck(id);
-
-            var paymentOption = await repo.PaymentOptions
-                .FirstOrDefaultAsync(m => m.PaymentOptionID == id);
-            return paymentOption == null ? NotFound() : View(paymentOption);
+            if (id is null) return NotFound();
+            var paymentOption = repo.GetPaymentOptionByID((int)id);
+            return paymentOption is null ? NotFound() : View(paymentOption);
         }
 
         // GET: PaymentOptions/Create
@@ -38,18 +36,15 @@ namespace NWEEI.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("PaymentOptionID,Option")] PaymentOption paymentOption)
         {
-            if (ModelState.IsValid)
-            {
-                repo.AddPaymentOption(paymentOption);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(paymentOption);
+            if (!ModelState.IsValid) return View(paymentOption);
+            repo.AddPaymentOption(paymentOption);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: PaymentOptions/Edit/5
         public IActionResult Edit(int? id)
         {
-            NullCheck(id);
+            if (id is null) return NotFound();
             PaymentOption paymentOption = repo.GetPaymentOptionByID((int)id);
             return paymentOption == null ? NotFound() : View(paymentOption);
         }
@@ -61,34 +56,29 @@ namespace NWEEI.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("PaymentOptionID,Option")] PaymentOption paymentOption)
         {
-            if (id != paymentOption.PaymentOptionID)
-                return NotFound();
+            if (id != paymentOption.PaymentOptionID) return NotFound();
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(paymentOption);
+            try
             {
-                try
-                {
-                    repo.UpdatePaymentOption(paymentOption);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PaymentOptionExists(paymentOption.PaymentOptionID))
-                        return NotFound();
-                    else throw;
-                }
-                return RedirectToAction(nameof(Index));
+                repo.UpdatePaymentOption(paymentOption);
             }
-            return View(paymentOption);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PaymentOptionExists(paymentOption.PaymentOptionID))
+                    return NotFound();
+                else
+                    throw;
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: PaymentOptions/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
-            NullCheck(id);
-            var paymentOption = await repo.PaymentOptions
-                .FirstOrDefaultAsync(m => m.PaymentOptionID == id);
-            NullCheck(paymentOption);
-            return View(paymentOption);
+            if (id is null) return NotFound();
+            PaymentOption paymentOption = repo.GetPaymentOptionByID((int)id);
+            return paymentOption is null ? NotFound() : View(paymentOption);
         }
 
         // POST: Tag/Delete/5
@@ -100,13 +90,6 @@ namespace NWEEI.Controllers
             repo.DeletePaymentOption(paymentOption);
             return RedirectToAction(nameof(Index));
         }
-
-        /// <summary>
-        /// Checks to see if an object, property, or method of any type is null.
-        /// </summary>
-        /// <param name="arg"> A object, property, or method of any type. </param>
-        /// <returns> The 'NotFound' view if arg is null, nothing otherwise. </returns>
-        private NotFoundResult NullCheck<T>(T arg) => arg == null ? NotFound(): null;
 
         private bool PaymentOptionExists(int id) => repo.PaymentOptions.Any(e => e.PaymentOptionID == id);
     }

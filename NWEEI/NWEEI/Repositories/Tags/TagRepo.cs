@@ -11,18 +11,9 @@ namespace NWEEI.Repositories
     {
         private NWEEIContext context;
 
-        public TagRepo(NWEEIContext c)
-        {
-            context = c;
-        }
+        public TagRepo( NWEEIContext c ) => context = c;
 
-        public IQueryable<Tag> Tags
-        {
-            get
-            {
-                return context.Tags;
-            }
-        }
+        public IQueryable<Tag> Tags => context.Tags;
 
         // add a new tag
         public void AddTag(Tag tag)
@@ -31,27 +22,16 @@ namespace NWEEI.Repositories
             context.SaveChanges();
         }
 
-        #region retrieval methods
-
         // get a list of all tags
-        public List<Tag> GetAllTags()
-        {
-            List<Tag> tags = context.Tags.ToList();
-
-            return tags;
-        }
+        public List<Tag> GetAllTags( ) => context.Tags.OrderBy( tag => tag.Name ).ToList( );
 
         // get a specific tag by its id
-        public Tag GetTagByID(int id)
-        {
-            Tag tag = context.Tags
+        public Tag GetTagByID(int id) =>context.Tags
                 .Where(t => t.TagID == id)
                 .FirstOrDefault();
 
-            return tag;
-        }
-
-        #endregion
+        // check to see if a tag exists
+        public bool TagExists( int id ) => Tags.Any( t => t.TagID == id );
 
         // update a tag
         public void UpdateTag(Tag tag)
@@ -63,8 +43,9 @@ namespace NWEEI.Repositories
         // delete a tag
         public void DeleteTag(Tag tag)
         {
-            Tag existingTag = context.Tags.Find(tag.TagID);
-            context.Tags.Remove(existingTag);
+            context.Tags.Remove( context.Tags
+                .Find( tag.TagID )
+            );
             context.SaveChanges();
         }
     }

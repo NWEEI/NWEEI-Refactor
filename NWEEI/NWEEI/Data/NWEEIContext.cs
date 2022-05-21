@@ -8,6 +8,9 @@ using NWEEI.Models;
 using Microsoft.Data.Sqlite;
 using System.IO;
 using MySql.Data.MySqlClient;
+using System.Configuration;
+using System.Collections.Generic;
+using System.Numerics;
 
 namespace NWEEI.Data
 {
@@ -74,7 +77,7 @@ namespace NWEEI.Data
 
         public static void SeedLegacyData(MySqlConnection tempConnection)
         {
-            /// This method is ripe for dehydration.
+            // TODO: Dry out SeedLegacyData
 
             // using as guides:
             // https://stackoverflow.com/questions/58413440/including-sql-files-when-generating-migrations-in-ef-core-asp-net
@@ -134,7 +137,6 @@ namespace NWEEI.Data
             tagsCmd.ExecuteNonQuery();
 
             tempConnection.Close();
-
         }
     }
 }

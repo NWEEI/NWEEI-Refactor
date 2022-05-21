@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NWEEI.Data;
 
 namespace NWEEI.Migrations
 {
     [DbContext(typeof(NWEEIContext))]
-    partial class NWEEIContextModelSnapshot : ModelSnapshot
+    [Migration("20220518212852_OrganizationValidation")]
+    partial class OrganizationValidation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

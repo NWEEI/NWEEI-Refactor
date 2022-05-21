@@ -20,6 +20,9 @@ namespace NWEEI.Repositories
         void UpdateRegistration(Registration registration);
 
         // delete
-        void DeleteRegistration(Registration registration);
+        void DeleteRegistration( Registration registration );
+
+        // exists
+        bool RegistrationExists( int id );
     }
 }

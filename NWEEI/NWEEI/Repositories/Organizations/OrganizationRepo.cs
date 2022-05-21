@@ -22,22 +22,16 @@ namespace NWEEI.Repositories
             context.SaveChanges();
         }
 
-        #region retrieval methods
-
         // get a list of all organizations
-        public List<Organization> GetAllOrganizations() => context.Organizations.OrderBy( org => org.Name ).ToList();
-
-        // TODO: decide how to handle this - include tag methods within org repo
-        // for retrieval by tagID?
-        public List<Organization> GetOrganizationsByTagID( int tagID ) => throw new NotImplementedException();
+        public List<Organization> GetAllOrganizations( ) => context.Organizations
+            .OrderBy( o => o.Name ).ToList( );
 
         // get a specific organization by its id
-        public Organization GetOrganizationByID( int id ) => context.Organizations.FirstOrDefault( o => o.OrganizationID == id );
+        public Organization GetOrganizationByID( int id ) => context.Organizations
+            .FirstOrDefault( o => o.OrganizationID == id );
 
         // check to see if an organization exists
-        public bool OrganizationExists( int id ) => Organizations.Any( e => e.OrganizationID == id );
-
-        #endregion
+        public bool OrganizationExists( int id ) => Organizations.Any( o => o.OrganizationID == id );
 
         // update an organization
         public void UpdateOrganization(Organization organization)

@@ -45,8 +45,9 @@
                 <input asp-for="@Model.CurrentArticle.Body" name="htmlcode" id="inp_htmlcode" class="form-control" type="text" style="visibility:hidden; position:absolute;" data-val="true" data-val-required="Please enter text for the article body." />
 
                 <div id="div_editor1" class="richtexteditor" style="width: 960px;margin:0 auto;"></div>
-                <script>var editor1 = new RichTextEditor(document.getElementById("div_editor1"));
-                    editor1.attachEvent("change", function () {
+                <script>
+                    var editor1 = new RichTextEditor(document.getElementById("div_editor1"));
+                        editor1.attachEvent("change", function () {
                         document.getElementById("inp_htmlcode").value = editor1.getHTMLCode();
                     });</script>
                 <!-- validation output -->
@@ -69,11 +70,7 @@
             </div>
 
             <!-- published -->
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="@Model.CurrentArticle.IsPublished" /> Publish
-                </label>
-            </div>
+            @Html.CheckBoxFor(model => model.CurrentArticle.IsPublished)
 
             <!-- featured -->
             <div class="form-group form-check">

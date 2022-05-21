@@ -6,6 +6,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using NWEEI.ViewModels;
 
 namespace NWEEI_Tests
 {
@@ -14,12 +15,12 @@ namespace NWEEI_Tests
         OrganizationController organizationController;
         OrganizationTestRepo organizationTestRepo;
         List<Organization> organizations, resultOrganizations;
-        Organization ControlOrganization, TestOrganization1, TestOrganization2, TestOrganization3, ResultOrganization;
+        Organization ControlOrganization, ResultOrganization;
         List<Tag> tags;
-        Tag tag1, tag2, tag3;
+        string htmlcode = "<p><span style=\"color: red;\">Test</span></p>";
 
         // organization test helper methods
-        bool CompleteMemberEquality( Organization organization, Organization other ) => 
+        bool CompleteMemberEquality(Organization organization, Organization other) =>
                 organization.Name == other.Name &&
                 organization.Description == other.Description &&
                 organization.WebsiteURL == other.WebsiteURL &&
@@ -48,21 +49,15 @@ namespace NWEEI_Tests
         [SetUp]
         public void Setup()
         {
-            // setup repo and controller
+            // setup repo & controller
             organizationTestRepo = new();
-            organizationController = new( organizationTestRepo );
-            
-
-            //setup tag objects and list
-            tags = new() { tag1, tag2, tag3, };
-            for ( int i = 0 ; i < tags.Count ; i++ )
-                tags[ i ] = new(){ Name = "Tag Test Name " + ( i + 1 ).ToString()};
+            organizationController = new(organizationTestRepo);
 
             // setup organization objects and lists
-            resultOrganizations = new( );
-            organizations = new() { TestOrganization1, TestOrganization2, TestOrganization3 };
-            for ( int i = 0 ; i < organizations.Count ; i++ )
-                organizations[ i ] = SetupOrganization( organizations[ i ], ( i + 1 ).ToString() );
+            resultOrganizations = new();
+            organizations = new();
+            for (int i = 0; i < organizations.Count; i++)
+                organizations[i] = SetupOrganization(organizations[i], (i + 1).ToString());
         }
 
         // Index GET
@@ -70,16 +65,16 @@ namespace NWEEI_Tests
         public void TestIndex()
         {
             // arrange
-            foreach ( Organization organization in organizations )
-                organizationTestRepo.AddOrganization( organization );
+            foreach (Organization organization in organizations)
+                organizationTestRepo.AddOrganization(organization);
 
             // act
             var viewResult = (ViewResult)organizationController.Index();
             resultOrganizations = (List<Organization>)viewResult.ViewData.Model;
 
             // assert
-            for ( int i = 0 ; i < organizations.Count ; i++ )
-                Assert.IsTrue( CompleteMemberEquality( organizations[i], resultOrganizations[ i ] ) );
+            for (int i = 0; i < organizations.Count; i++)
+                Assert.IsTrue(CompleteMemberEquality(organizations[i], resultOrganizations[i]));
         }
 
         // Details GET
@@ -87,19 +82,19 @@ namespace NWEEI_Tests
         public void TestDetails()
         {
             // arrange
-            foreach ( Organization organization in organizations )
-                organizationTestRepo.AddOrganization( organization );
+            foreach (Organization organization in organizations)
+                organizationTestRepo.AddOrganization(organization);
 
             // act
             var viewResult = (ViewResult)organizationController.Index();
             resultOrganizations = (List<Organization>)viewResult.ViewData.Model;
 
             // assert
-            Assert.AreEqual( organizations.Count, resultOrganizations.Count );
-            for ( int i = 0 ; i < organizations.Count ; i++ )
-                Assert.AreEqual( organizations[ i ].Name, resultOrganizations[ i ].Name );
+            Assert.AreEqual(organizations.Count, resultOrganizations.Count);
+            for (int i = 0; i < organizations.Count; i++)
+                Assert.AreEqual(organizations[i].Name, resultOrganizations[i].Name);
         }
-        
+
         // Create GET
         [Test]
         public void TestCreate_GET()
@@ -108,22 +103,22 @@ namespace NWEEI_Tests
             ViewResult result = (ViewResult)organizationController.Create();
 
             // assert
-            Assert.IsInstanceOf<ViewResult>( result );
+            Assert.IsInstanceOf<ViewResult>(result);
         }
-        
+
         // Create POST
         [Test]
         public void TestCreate_POST()
         {
             //arrange
-            ControlOrganization = SetupOrganization( ControlOrganization, "control" );
+            ControlOrganization = SetupOrganization(ControlOrganization, "control");
 
             // act
-            organizationController.Create( ControlOrganization );
+            organizationController.Create(ControlOrganization, htmlcode);
 
             // assert
-            ResultOrganization = organizationTestRepo.GetAllOrganizations()[ 0 ];
-            Assert.IsTrue( CompleteMemberEquality( ControlOrganization, ResultOrganization ) );
+            ResultOrganization = organizationTestRepo.GetAllOrganizations()[0];
+            Assert.IsTrue(CompleteMemberEquality(ControlOrganization, ResultOrganization));
         }
 
         // Edit GET
@@ -131,13 +126,13 @@ namespace NWEEI_Tests
         public void TestEdit_GET()
         {
             // act
-            ControlOrganization = SetupOrganization( ControlOrganization, "control" );
-            organizationTestRepo.AddOrganization( ControlOrganization );
-            var id = organizationTestRepo.GetAllOrganizations()[ 0 ].OrganizationID;
-            var result = organizationController.Edit( id );
+            ControlOrganization = SetupOrganization(ControlOrganization, "control");
+            organizationTestRepo.AddOrganization(ControlOrganization);
+            var id = organizationTestRepo.GetAllOrganizations()[0].OrganizationID;
+            var result = organizationController.Edit(id);
 
             // assert
-            Assert.IsInstanceOf<IActionResult>( result );
+            Assert.IsInstanceOf<IActionResult>(result);
         }
 
         // Edit POST
@@ -146,17 +141,17 @@ namespace NWEEI_Tests
         {
             //arrange
             // instantiate the result organization
-            ResultOrganization = SetupOrganization( ResultOrganization, "result" );
+            ResultOrganization = SetupOrganization(ResultOrganization, "result");
             // add it to the repo
-            organizationTestRepo.AddOrganization( ResultOrganization );
+            organizationTestRepo.AddOrganization(ResultOrganization);
             // once added, get the id of that control organization
-            var id = organizationTestRepo.GetAllOrganizations()[ 0 ].OrganizationID;
+            var id = organizationTestRepo.GetAllOrganizations()[0].OrganizationID;
             // set the result to be the organization returned by the repo (effectively assigning the id)
-            ResultOrganization = organizationTestRepo.GetAllOrganizations()[ 0 ];
+            ResultOrganization = organizationTestRepo.GetAllOrganizations()[0];
             // instantiate a control for the test
-            ControlOrganization = SetupOrganization( ResultOrganization, "control" );
+            ControlOrganization = SetupOrganization(ResultOrganization, "control");
             // Copy the values from the test organization over to the control organization, prior to editing
-            CopyOrganization( ControlOrganization, ResultOrganization );
+            CopyOrganization(ControlOrganization, ResultOrganization);
 
             // act
             // update the test organization
@@ -165,10 +160,10 @@ namespace NWEEI_Tests
             ResultOrganization.ImageURL += " Updated";
             ResultOrganization.WebsiteURL += " Updated";
             // save the organization to the repo by calling the controller edit>post method
-            organizationController.Edit( id, ResultOrganization );
+            organizationController.Edit(id, ResultOrganization, htmlcode);
 
             // assert
-            Assert.AreNotEqual( organizationTestRepo.GetAllOrganizations()[ 0 ], ControlOrganization );
+            Assert.AreNotEqual(organizationTestRepo.GetAllOrganizations()[0], ControlOrganization);
         }
 
         // Delete GET
@@ -177,18 +172,18 @@ namespace NWEEI_Tests
         {
             //arrange
             // instantiate the result organization
-            ResultOrganization = SetupOrganization( ResultOrganization, "result" );
+            ResultOrganization = SetupOrganization(ResultOrganization, "result");
             // add it to the repo
-            organizationTestRepo.AddOrganization( ResultOrganization );
+            organizationTestRepo.AddOrganization(ResultOrganization);
             // once added, get the id of that control organization
-            var id = organizationTestRepo.GetAllOrganizations()[ 0 ].OrganizationID;
+            var id = organizationTestRepo.GetAllOrganizations()[0].OrganizationID;
 
             // act
             // use the collected id to get the delete>get view result of that organization
             ViewResult result = (ViewResult)organizationController.Delete(id);
 
             // assert
-            Assert.IsInstanceOf<ViewResult>( result );
+            Assert.IsInstanceOf<ViewResult>(result);
         }
 
         // Delete POST
@@ -197,18 +192,18 @@ namespace NWEEI_Tests
         {
             //arrange
             // instantiate the result organization
-            ResultOrganization = SetupOrganization( ResultOrganization, "result" );
+            ResultOrganization = SetupOrganization(ResultOrganization, "result");
             // add it to the repo
-            organizationTestRepo.AddOrganization( ResultOrganization );
-            var id = organizationTestRepo.GetAllOrganizations()[ 0 ].OrganizationID;
+            organizationTestRepo.AddOrganization(ResultOrganization);
+            var id = organizationTestRepo.GetAllOrganizations()[0].OrganizationID;
 
             // act
             // call the delete>post method of the organization controller by passing in the collected id
-            organizationController.DeleteConfirmed( id );
+            organizationController.DeleteConfirmed(id);
 
             // assert
             // the organization should no longer be in the repo 
-            Assert.IsNull( organizationTestRepo.GetOrganizationByID( id ) );
+            Assert.IsNull(organizationTestRepo.GetOrganizationByID(id));
         }
-     }
+    }
 }

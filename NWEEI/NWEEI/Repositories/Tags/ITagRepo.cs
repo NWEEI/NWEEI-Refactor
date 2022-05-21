@@ -15,6 +15,7 @@ namespace NWEEI.Repositories
         // retrieve
         List<Tag> GetAllTags();
         Tag GetTagByID(int id);
+        bool TagExists( int id );
 
         // update
         void UpdateTag(Tag tag);

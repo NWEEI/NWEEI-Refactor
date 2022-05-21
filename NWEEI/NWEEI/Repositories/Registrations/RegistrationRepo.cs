@@ -11,18 +11,9 @@ namespace NWEEI.Repositories
     {
         private NWEEIContext context;
 
-        public RegistrationRepo(NWEEIContext c)
-        {
-            context = c;
-        }
+        public RegistrationRepo( NWEEIContext c ) => context = c;
 
-        public IQueryable<Registration> Registrations
-        {
-            get
-            {
-                return context.Registrations;
-            }
-        }
+        public IQueryable<Registration> Registrations => context.Registrations;
 
         // add a new registration
         public void AddRegistration(Registration registration)
@@ -31,29 +22,15 @@ namespace NWEEI.Repositories
             context.SaveChanges();
         }
 
-        #region retrieval methods
-
         // get a list of all registrations
-        public List<Registration> GetAllRegistrations()
-        {
-            List<Registration> registrations = context.Registrations
+        public List<Registration> GetAllRegistrations() => context.Registrations
                 .OrderByDescending(r => r.DateSubmitted)
                 .ToList();
 
-            return registrations;
-        }
-
         // get a specific registration by its id
-        public Registration GetRegistrationByID(int id)
-        {
-            Registration registration = context.Registrations
+        public Registration GetRegistrationByID(int id) => context.Registrations
                 .Where(r => r.RegistrationID == id)
                 .FirstOrDefault();
-
-            return registration;
-        }
-
-        #endregion
 
         // update a registration
         public void UpdateRegistration(Registration registration)
@@ -65,10 +42,13 @@ namespace NWEEI.Repositories
         // delete a registration
         public void DeleteRegistration(Registration registration)
         {
-            Registration existingRegistration = context.Registrations
-                .Find(registration.RegistrationID);
-            context.Registrations.Remove(existingRegistration);
+            context.Registrations.Remove( context.Registrations
+                .Find( registration.RegistrationID)
+            );
             context.SaveChanges();
         }
+
+        // check to see if a registration exists
+        public bool RegistrationExists( int id ) => Registrations.Any( e => e.RegistrationID == id );
     }
 }
