@@ -16,5 +16,12 @@ namespace NWEEI.Controllers.Navigation
             ViewBag.Current = "About";
             return View();
         }
+
+        // GET: /<controller>/
+        public IActionResult Contact()
+        {
+            ViewBag.Current = "About";
+            return View();
+        }
     }
 }
