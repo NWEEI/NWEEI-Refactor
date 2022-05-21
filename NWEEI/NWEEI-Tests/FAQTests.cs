@@ -1,21 +1,25 @@
-﻿using NWEEI.Repositories;
-using NWEEI.Controllers;
-using NUnit.Framework;
-using NWEEI.Models;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using NUnit.Framework;
+using NWEEI.Controllers;
+using NWEEI.Models;
+using NWEEI.Repositories;
+using NWEEI.ViewModels;
 
 namespace NWEEI_Tests
 {
     public class FAQTests
-    { 
-        FAQTestRepo testRepo;
+    {
         FAQController controller;
-
+        FAQTestRepo testRepo;
         List<FAQ> faqs;
         FAQ f1, f2, f3, f4;
+
+        CategoryTestRepo categoryRepo;
         Category c1, c2;
+
+        CategorySelectorViewModel viewModel;
 
         [SetUp]
         public void Setup()
@@ -27,16 +31,17 @@ namespace NWEEI_Tests
             controller = new FAQController(testRepo);
 
             // arrange categories
+            categoryRepo = new CategoryTestRepo();
             c1 = new Category
             {
-                CategoryID = 0,
                 Name = "Test Category 1"
             };
             c2 = new Category
             {
-                CategoryID = 1,
                 Name = "Test Category 2"
             };
+            categoryRepo.AddCategory(c1);
+            categoryRepo.AddCategory(c2);
 
             // arrange FAQs
             f1 = new FAQ
@@ -71,6 +76,13 @@ namespace NWEEI_Tests
                 IsPublished = false,
                 Featured = false
             };
+
+            // arrange view model
+            viewModel = new CategorySelectorViewModel
+            {
+                Categories = categoryRepo.GetAllCategories(),
+                CurrentFAQ = f1
+            };
         }
 
         [Test]
@@ -78,7 +90,7 @@ namespace NWEEI_Tests
         public void TestCreate()
         {
             // use controller method to add FAQ to repo
-            controller.Create(f1).Wait();
+            controller.Create(viewModel).Wait();
 
             // retrieve FAQ from repo
             FAQ faq = testRepo.FAQs.ToList()[0];
@@ -86,8 +98,8 @@ namespace NWEEI_Tests
             // check values
             Assert.IsNotNull(faq);
             Assert.AreEqual(0, faq.FAQID);
-            Assert.AreEqual(f1.Question, faq.Question);
-            Assert.AreEqual(f1.Category.Name, faq.Category.Name);
+            Assert.AreEqual(viewModel.CurrentFAQ.Question, faq.Question);
+            Assert.AreEqual(viewModel.CurrentFAQ.Category.Name, faq.Category.Name);
         }
 
         [Test]
@@ -162,28 +174,28 @@ namespace NWEEI_Tests
             // add an FAQ to repo
             testRepo.AddFAQ(f1);
 
-            // pull that FAQ back out
-            FAQ faq = testRepo.FAQs.ToList()[0];
+            // pull that FAQ back out and assign it to viewModel
+            viewModel.CurrentFAQ = testRepo.FAQs.ToList()[0];
 
             // edit its properties
-            faq.Question = "New Question";
-            faq.Answer = "New Answer";
-            faq.Category = c2;
-            faq.IsPublished = false;
-            faq.Featured = false;
+            viewModel.CurrentFAQ.Question = "New Question";
+            viewModel.CurrentFAQ.Answer = "New Answer";
+            viewModel.CurrentFAQ.Category = c2;
+            viewModel.CurrentFAQ.IsPublished = false;
+            viewModel.CurrentFAQ.Featured = false;
 
             // call update method with updated FAQ
-            controller.Edit(faq.FAQID, faq);
+            controller.Edit(viewModel.CurrentFAQ.FAQID, viewModel);
 
             // pull FAQ out again
             FAQ updatedFAQ = testRepo.FAQs.ToList()[0];
 
             // check values
-            Assert.AreEqual(updatedFAQ.Question, faq.Question);
-            Assert.AreEqual(updatedFAQ.Answer, faq.Answer);
-            Assert.AreEqual(updatedFAQ.Category, faq.Category);
-            Assert.AreEqual(updatedFAQ.IsPublished, faq.IsPublished);
-            Assert.AreEqual(updatedFAQ.Featured, faq.Featured);
+            Assert.AreEqual(viewModel.CurrentFAQ.Question, updatedFAQ.Question);
+            Assert.AreEqual(viewModel.CurrentFAQ.Answer, updatedFAQ.Answer);
+            Assert.AreEqual(viewModel.CurrentFAQ.Category, updatedFAQ.Category);
+            Assert.AreEqual(viewModel.CurrentFAQ.IsPublished, updatedFAQ.IsPublished);
+            Assert.AreEqual(viewModel.CurrentFAQ.Featured, updatedFAQ.Featured);
         }
 
         [Test]

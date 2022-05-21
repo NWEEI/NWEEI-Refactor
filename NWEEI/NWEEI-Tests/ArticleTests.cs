@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
+using NWEEI.ViewModels;
 
 namespace NWEEI_Tests
 {
@@ -15,13 +16,14 @@ namespace NWEEI_Tests
     {
         ArticleTestRepo testRepo;
         ArticleController controller;
-        UserManager<AppUser> userManager;
-
         List<Article> articles;
         Article a1, a2, a3, a4;
+
+        CategoryTestRepo categoryRepo;
         Category c1, c2;
         AppUser u1;
 
+        CategorySelectorViewModel viewModel;
         string htmlCode;
 
         IWebHostEnvironment _env;
@@ -45,6 +47,7 @@ namespace NWEEI_Tests
             };
 
             // arrange categories
+            categoryRepo = new CategoryTestRepo();
             c1 = new Category
             {
                 Name = "Test Category 1"
@@ -53,6 +56,8 @@ namespace NWEEI_Tests
             {
                 Name = "Test Category 2"
             };
+            categoryRepo.AddCategory(c1);
+            categoryRepo.AddCategory(c2);
 
             // arrange articles
             a1 = new Article
@@ -103,6 +108,13 @@ namespace NWEEI_Tests
                 Featured = true,
                 Views = 100
             };
+
+            // arrange view model
+            viewModel = new CategorySelectorViewModel
+            {
+                Categories = categoryRepo.GetAllCategories(),
+                CurrentArticle = a1
+            };
         }
 
         [Test]
@@ -110,7 +122,7 @@ namespace NWEEI_Tests
         public void TestCreate()
         {
             // use controller method to add article to repo
-            controller.Create(a1, htmlCode).Wait();
+            controller.Create(viewModel, htmlCode).Wait();
 
             // retrieve article from repo
             Article article = testRepo.Articles.ToList()[0];
@@ -119,11 +131,9 @@ namespace NWEEI_Tests
             Assert.IsNotNull(article);
             Assert.AreEqual(0, article.ArticleID);
             Assert.AreEqual(htmlCode, article.Body);  // article body should match the htmlCode string, not initialized value
-            Assert.AreEqual(a1.DateCreated, article.DateCreated);
             Assert.AreEqual(a1.Author, article.Author);
             Assert.AreEqual(a1.Category, article.Category);
             Assert.AreEqual(a1.IsPublished, article.IsPublished);
-            Assert.AreEqual(a1.PublishDate, article.PublishDate);
             Assert.AreEqual(a1.Featured, article.Featured);
             Assert.AreEqual(a1.Views, article.Views);
         }
@@ -178,29 +188,29 @@ namespace NWEEI_Tests
             // add an article to repo
             testRepo.AddArticle(a1);
 
-            // pull that article back out
-            Article article = testRepo.Articles.ToList()[0];
+            // pull that article back out and assign it to viewModel
+            viewModel.CurrentArticle = testRepo.Articles.ToList()[0];
 
             // edit its properties
-            article.Title = "New Title";
-            article.Category = c2;
-            article.IsPublished = false;
-            article.Featured = false;
+            viewModel.CurrentArticle.Title = "New Title";
+            viewModel.CurrentArticle.Category = c2;
+            viewModel.CurrentArticle.IsPublished = false;
+            viewModel.CurrentArticle.Featured = false;
             htmlCode = "<p>New article body</p>";
 
             // call update method with updated article
-            controller.Edit(article.ArticleID, article, htmlCode);
+            controller.Edit(viewModel.CurrentArticle.ArticleID, viewModel, htmlCode);
 
             // pull article out again
             Article updatedArticle = testRepo.Articles.ToList()[0];
 
             // check values
-            Assert.AreEqual(article.ArticleID, updatedArticle.ArticleID);
-            Assert.AreEqual(article.Title, updatedArticle.Title);
-            Assert.AreEqual(article.Body, updatedArticle.Body);
-            Assert.AreEqual(article.Category, updatedArticle.Category);
-            Assert.AreEqual(article.IsPublished, updatedArticle.IsPublished);
-            Assert.AreEqual(article.Featured, updatedArticle.Featured);
+            Assert.AreEqual(viewModel.CurrentArticle.ArticleID, updatedArticle.ArticleID);
+            Assert.AreEqual(viewModel.CurrentArticle.Title, updatedArticle.Title);
+            Assert.AreEqual(viewModel.CurrentArticle.Body, updatedArticle.Body);
+            Assert.AreEqual(viewModel.CurrentArticle.Category, updatedArticle.Category);
+            Assert.AreEqual(viewModel.CurrentArticle.IsPublished, updatedArticle.IsPublished);
+            Assert.AreEqual(viewModel.CurrentArticle.Featured, updatedArticle.Featured);
         }
 
         [Test]
