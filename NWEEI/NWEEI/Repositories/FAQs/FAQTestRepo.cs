@@ -15,7 +15,7 @@ namespace NWEEI.Repositories
         {
             get
             {
-                return faqs.AsQueryable<FAQ>();
+                return faqs.AsQueryable<FAQ>().Include(f => f.Category);
             }
         }
 

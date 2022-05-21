@@ -123,9 +123,7 @@ namespace NWEEI.Controllers
                 article.IsPublished = viewModel.CurrentArticle.IsPublished;
                 article.Featured = viewModel.CurrentArticle.Featured;
                 article.Views = viewModel.CurrentArticle.Views;
-                article.Category = repo.GetAllCategories()
-                    .Where(c => c.CategoryID == viewModel.CurrentArticle.Category.CategoryID)
-                    .FirstOrDefault();
+                article.Category = viewModel.CurrentArticle.Category;
 
                 // set publish date if article is set to be published
                 if (article.IsPublished)

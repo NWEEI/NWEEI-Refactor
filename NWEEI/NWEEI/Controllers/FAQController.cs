@@ -105,9 +105,7 @@ namespace NWEEI.Controllers
                 faq.Answer = viewModel.CurrentFAQ.Answer;
                 faq.IsPublished = viewModel.CurrentFAQ.IsPublished;
                 faq.Featured = viewModel.CurrentFAQ.Featured;
-                faq.Category = repo.GetAllCategories()
-                    .Where(c => c.CategoryID == viewModel.CurrentFAQ.Category.CategoryID)
-                    .FirstOrDefault();
+                faq.Category = viewModel.CurrentFAQ.Category;
 
                 repo.AddFAQ(faq);
                 return RedirectToAction(nameof(Manage));
