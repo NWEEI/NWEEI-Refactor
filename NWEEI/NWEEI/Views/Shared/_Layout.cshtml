@@ -38,7 +38,7 @@
                 <span><a class="text-dark" asp-controller="Home" asp-action="Index">Home</a></span>
                 <span><a class="text-dark" asp-controller="About" asp-action="Index">About</a></span>
                 <span><a class="text-dark" asp-controller="Programs" asp-action="Degrees">Degrees</a></span>
-                <span><a class="text-dark" asp-controller="Programs" asp-action="Certificates">Certificates</a></span>
+                <span><a class="text-dark" asp-controller="Programs" asp-action="ProfessionalDevelopment">Professional Development</a></span>
                 <span><a class="text-dark" asp-controller="Resources" asp-action="Index">Resources</a></span>
                 <span><a class="text-dark" asp-controller="Registration" asp-action="Create">Register</a></span>
             </div>
@@ -55,12 +55,14 @@
                 {
                     <span><a class="text-dark" asp-controller="Programs" asp-action="EMBC">Energy Management and Building Controls</a></span>
                     <span><a class="text-dark" asp-controller="Programs" asp-action="Index">Water Conservation</a></span>
-                    <span><a class="text-dark" asp-controller="Programs" asp-action="Index">Custom Training</a></span>
-                } else if (ViewBag.Current == "Certificates")
+                }
+                else if (ViewBag.Current == "Professional Development")
                 {
                     <span><a class="text-dark" asp-controller="Programs" asp-action="Index">Energy Management</a></span>
                     <span><a class="text-dark" asp-controller="Programs" asp-action="Index">Building Operator</a></span>
-                } else if (ViewBag.Current == "Resources")
+                    <span><a class="text-dark" asp-controller="Programs" asp-action="CustomTraining">Custom Training</a></span>
+                }
+                else if (ViewBag.Current == "Resources")
                 {
                     <span><a class="text-dark" asp-controller="Resources" asp-action="Index">NWEEI News</a></span>
                     <span><a class="text-dark" asp-controller="Resources" asp-action="Index">Industry News</a></span>
