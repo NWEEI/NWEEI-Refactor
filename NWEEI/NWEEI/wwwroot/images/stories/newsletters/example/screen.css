@@ -1,0 +1,123 @@
+body {
+   margin: 0;
+   padding: 0;
+   background-color: #d7cfb8;
+}
+
+a {
+   font-family: Arial;
+   font-size: 13px;
+   font-weight: normal;
+   color: #ce0316;
+}
+
+p {
+   font-family: Arial;
+   font-size: 11px;
+   font-weight: normal;
+   color: #333333;
+}
+
+h3 {
+   font-family: Arial;
+   font-size: 16px;
+   font-weight: normal;
+   color: #1a1a1a;
+   text-transform: uppercase;
+   margin: 0;
+   padding: 0;
+}
+
+table.back {
+   background-color: #faf4dd;
+}
+
+table.main {
+   background-color: #f4eed8;
+}
+
+td.permission a {
+   font-family: Arial;
+   font-size: 11px;
+   font-weight: normal;
+}
+
+td.header h1 {
+   font-family: 'Times New Roman';
+   font-size: 38px;
+   font-weight: bold;
+   color: #ce0316;
+   text-transform: uppercase;
+   display: inline;
+}
+
+td.sidebar ul {
+   margin: 0 0 0 24px;
+   padding: 0;
+}
+
+td.sidebar ul a {
+   text-decoration: none;
+}
+
+td.sidebar p {
+   font-family: Arial;
+   font-size: 13px;
+   font-weight: normal;
+   color: #4c4c4c;
+   margin: 10px 0 0 0;
+   padding: 0;
+}
+
+td.mainbar h2 {
+   font-family: Arial;
+   font-size: 22px;
+   font-weight: normal;
+   color: #000000;
+   margin: 0;
+   padding: 0;
+}
+
+td.mainbar h2 a {
+   font-family: Arial;
+   font-size: 22px;
+   font-weight: normal;
+   color: #000000;
+   text-decoration: none;
+}
+
+td.mainbar p {
+   font-family: Arial;
+   font-size: 13px;
+   font-weight: normal;
+   color: #4c4c4c;
+   margin: 10px 0 0 0;
+   padding: 0;
+}
+
+td.mainbar p.top a {
+   font-size: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
