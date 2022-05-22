@@ -242,6 +242,14 @@ body {
     align-items: center;
 }
 
+.content-list {
+    list-style-type: circle;
+}
+
+.content-list-heading {
+    font-weight: bold;
+}
+
 .content-highlight-container {
     display: flex;
     justify-content: space-around;
@@ -280,12 +288,42 @@ body {
     border-radius: 5px;
 }
 
+.content-figure{
+    width:40%;
+    border-radius: 5px;
+    background-color: rgba(0,0,0,0.2);
+}
+
+.content-figure-image {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.content-figcaption {
+    width: 100%;
+    text-align: center;
+}
+
 .dark-block {
     background-color: #03529B; /* NWEEI Very-Dark Blue */
     color: #bcd9f7; /* NWEEI Very-Light Blue */
     width: 100vw;
     position: relative;
     left: calc(-50vw + 50%);
+}
+
+.dark-block a {
+    /*dark-block is blue, so links need to be a different color.*/
+    color: dodgerblue;
+    text-decoration: underline;
+}
+
+.dark-block a:active {
+    color: white;
+}
+
+.dark-block a:visited {
+    color: mediumpurple;
 }
 
 .dark-block :is(h4, h6) {
@@ -304,6 +342,9 @@ body {
     color: #2c4592; /* NWEEI Medium-Dark Blue*/
 }
 
+.light-block a{
+    text-decoration: underline;
+}
 
 /* buttons */
 
@@ -353,29 +394,49 @@ body {
 
 /* ADMIN DASHBOARD */
 .dashboard-tile {
-    font-size: 3vh;
-    font-weight: bold;
-    padding: 1vh;
-    padding-top: 2vh;
-    margin: 2vh;
+    /*
+        In the following styling, I've added static percentages as inline comments.
+        This means if we switch between px or em or vw/vw as sizing measurement,
+        we can easily do so while also preserving the sizing proportions.
+        100% is equal to the length or width of the dashboard-tile element.
+        All box-shadows have a size of 0%, 6%, 6%, 3%, or 0%, -6%, 6%, 3%. 
+    */
+    /*Text*/
     color: gray;
-    box-shadow: rgba(0,0,0,0.2) 0px 12px 12px 6px;
+    font-size: 32px; /* 16% */
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    /*Size (should be square) */
+    width: 200px; /* 100% */
+    height: 200px; /* 100% */
+    min-width: 200px; /* 100% */
+    min-height: 200px; /* 100% */
+    /*Box Model*/
+    padding: 16px; /* 8% */
+    margin: 32px; /* 16% */
+    /*Overall Visual*/
     background-color: white;
     border: 0px rgba(0,0,0,0);
-    text-align: center;
-    border-radius: 15px;
-    width: 140px; /* 110px is the width of the icons +30 for some extra room*/
-    height: 140px; /* should be square*/
-    min-width: 140px;
-    min-height: 140px;
-    text-decoration: none;
+    border-radius: 32px; /* 16% */
+    box-shadow:
+        rgba(0,0,0,0.2) 0px 12px 12px 6px, /* 0%, 6%, 6%, 3% */
+        rgba(0,0,0,0.2) 0px -12px 12px 6px inset; /* 0%, -6%, 6%, 3% */
+}
+
+.dashboard-tile div {
+    font-size: 16px; /* 8% */
+    padding: 8px; /* 8% */
+    text-transform: uppercase;
 }
 
 .dashboard-tile:hover {
     animation-duration: 0.2s;
     animation-name: tileStaticToHover;
     color: royalblue;
-    box-shadow: rgba(2,82,155,0.4) 0px 12px 12px 6px;
+    box-shadow:
+        rgba(2,82,155,0.4) 0px 12px 12px 6px,
+        rgba(2,82,155,0.4) 0px -12px 12px 6px inset;
 }
 .dashboard-tile:not(:hover) {
     animation-duration: 0.2s;
@@ -385,44 +446,56 @@ body {
 .dashboard-tile:active {
     animation-duration: 0.2s;
     animation-name: tileHoverToActive;
-    box-shadow: rgba(2,82,155,0.4) 0px 12px 12px 6px inset
+    box-shadow: rgba(2,82,155,0.4) 0px 12px 12px 6px inset;
 }
 
-.dashboard-tile div {
-    font-size: 2vh;
-    padding-bottom: 2vh;
-}
+
 
 @keyframes tileStaticToHover {
     from {
         color: gray;
-        box-shadow: rgba(0,0,0,0.2) 0px 12px 12px 6px;
+        box-shadow:
+            rgba(0,0,0,0.2) 0px 12px 12px 6px,
+            rgba(0,0,0,0.2) 0px -12px 12px 6px inset;
     }
+
     to {
         color: royalblue;
-        box-shadow: rgba(2,82,155,0.4) 0px 12px 12px 6px;
+        box-shadow:
+            rgba(2,82,155,0.4) 0px 12px 12px 6px,
+            rgba(2,82,155,0.4) 0px -12px 12px 6px inset;
     }
 }
+
 @keyframes tileHoverToStatic {
     from {
-        box-shadow: rgba(2,82,155,0.4) 0px 12px 12px 6px;
+        box-shadow:
+            rgba(2,82,155,0.4) 0px 12px 12px 6px,
+            rgba(2,82,155,0.4) 0px -12px 12px 6px inset;
     }
+
     to {
-        box-shadow: rgba(0,0,0,0.2) 0px 12px 12px 6px;
+        box-shadow:
+            rgba(0,0,0,0.2) 0px 12px 12px 6px,
+            rgba(0,0,0,0.2) 0px -12px 12px 6px inset;
     }
 }
 
 @keyframes tileHoverToActive {
     from {
-        box-shadow: rgba(2,82,155,0.4) 0px 12px 12px 6px, rgba(0,0,0,0) 0px;
+        box-shadow:
+            rgba(2,82,155,0.4) 0px 12px 12px 6px,
+            rgba(2,82,155,0.4) 0px inset;
     }
+
     to {
-        box-shadow:rgba(0,0,0,0) 0px, rgba(2,82,155,0.4) 0px 12px 12px 6px inset ;
+        box-shadow:
+            rgba(2,82,155,0.4) 0px,
+            rgba(2,82,155,0.4) 0px 12px 12px 6px inset;
     }
 }
+
 /* -------------------------------------------------- */
-
-
 /* CATEGORY TILES */
 .tiles {
     display: flex;
