@@ -28,6 +28,13 @@ namespace NWEEI.Controllers.Navigation
             return View();
         }
 
+        // get degrees > water conservation
+        public async Task<IActionResult> WaterConservation()
+        {
+            ViewBag.Current = "Degrees";
+            return View();
+        }
+
         // get professional development > custom training
         public async Task<IActionResult> CustomTraining()
         {

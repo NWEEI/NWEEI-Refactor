@@ -313,9 +313,8 @@ body {
 }
 
 .dark-block a {
-    /*dark-block is blue, so links need to be a different color.*/
-    color: dodgerblue;
-    text-decoration: underline;
+    color: white;
+    text-decoration: none;
 }
 
 .dark-block a:active {
@@ -342,9 +341,9 @@ body {
     color: #2c4592; /* NWEEI Medium-Dark Blue*/
 }
 
-.light-block a{
+/*.light-block a{
     text-decoration: underline;
-}
+}*/
 
 /* buttons */
 
@@ -655,6 +654,21 @@ ul.training-details {
     -moz-columns: 2;
     column-gap: 10%;
 }
+
+/* WATER CONSERVATION */
+
+.water {
+    background-image: url('../images/sea-2597897.jpg');
+    background-position: 50% 96%;
+    /**/
+    /*
+    background-image: url('../images/above-4136764.jpg');
+    background-position: 50% 16%;
+    */
+}
+
+
+
 
 
 /* -------------------------------------------------- */
