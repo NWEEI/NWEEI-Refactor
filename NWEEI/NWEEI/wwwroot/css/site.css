@@ -280,12 +280,42 @@ body {
     border-radius: 5px;
 }
 
+.content-figure{
+    width:40%;
+    border-radius: 5px;
+    background-color: rgba(0,0,0,0.2);
+}
+
+.content-figure-image {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.content-figcaption {
+    width: 100%;
+    text-align: center;
+}
+
 .dark-block {
     background-color: #03529B; /* NWEEI Very-Dark Blue */
     color: #bcd9f7; /* NWEEI Very-Light Blue */
     width: 100vw;
     position: relative;
     left: calc(-50vw + 50%);
+}
+
+.dark-block a {
+    /*dark-block is blue, so links need to be a different color.*/
+    color: dodgerblue;
+    text-decoration: underline;
+}
+
+.dark-block a:active {
+    color: white;
+}
+
+.dark-block a:visited {
+    color: mediumpurple;
 }
 
 .dark-block :is(h4, h6) {
@@ -304,6 +334,9 @@ body {
     color: #2c4592; /* NWEEI Medium-Dark Blue*/
 }
 
+.light-block a{
+    text-decoration: underline;
+}
 
 /* buttons */
 
