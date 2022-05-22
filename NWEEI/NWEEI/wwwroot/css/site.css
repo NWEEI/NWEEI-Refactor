@@ -242,6 +242,14 @@ body {
     align-items: center;
 }
 
+.content-list {
+    list-style-type: circle;
+}
+
+.content-list-heading {
+    font-weight: bold;
+}
+
 .content-highlight-container {
     display: flex;
     justify-content: space-around;
