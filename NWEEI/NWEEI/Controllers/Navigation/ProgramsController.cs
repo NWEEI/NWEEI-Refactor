@@ -21,7 +21,7 @@ namespace NWEEI.Controllers.Navigation
             return View();
         }
 
-        // get degrees > energy management - building controls view
+        // get degrees > energy management building controls view
         public async Task<IActionResult> EMBC()
         {
             ViewBag.Current = "Degrees";
@@ -30,6 +30,13 @@ namespace NWEEI.Controllers.Navigation
 
         // get degrees > water conservation
         public async Task<IActionResult> WaterConservation()
+        {
+            ViewBag.Current = "Degrees";
+            return View();
+        }
+
+        // get degrees > energy management technician
+        public async Task<IActionResult> EnergyMgmt()
         {
             ViewBag.Current = "Degrees";
             return View();
