@@ -10,19 +10,20 @@ using Microsoft.AspNetCore.Identity;
 using NWEEI.Data;
 using NWEEI.Models;
 using NWEEI.ViewModels;
+using NWEEI.Repositories;
 
 namespace NWEEI.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class AppUserController : Controller
     {
-        private readonly NWEEIContext _context;
+        private IAppUserRepo repo;
         private UserManager<AppUser> _userManager;
         private RoleManager<IdentityRole> _roleManager;
 
-        public AppUserController(NWEEIContext context, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
+        public AppUserController(IAppUserRepo r, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            _context = context;
+            repo = r;
             _userManager = userManager;
             _roleManager = roleManager;
         }
@@ -30,14 +31,11 @@ namespace NWEEI.Controllers
         // GET: AppUser
         public async Task<IActionResult> Index()
         {
-            // var users = await _context.AppUsers.ToListAsync();
-
-            var users = _context.AppUsers.ToList();
+            List<AppUser> users = repo.GetAllAppUsers();
 
             foreach (AppUser user in users)
-            {
                 user.RoleNames = await _userManager.GetRolesAsync(user); 
-            }
+
             AppUserViewModel model = new()
             {
                 Users = users,
@@ -48,28 +46,15 @@ namespace NWEEI.Controllers
         }
 
         // GET: AppUser/Details/5
-        public async Task<IActionResult> Details(string id)
+        public IActionResult Details(string id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var appUser = await _context.AppUsers
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (appUser == null)
-            {
-                return NotFound();
-            }
-
-            return View(appUser);
+            if (id is null) return NotFound();
+            AppUser appUser = repo.GetAppUserByID(id);
+            return appUser is null ? NotFound() : View(appUser);
         }
 
         // GET: AppUser/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
+        public IActionResult Create() => View();
 
         /**    UNUSED POST:CREATE CODE
          * 
@@ -117,10 +102,8 @@ namespace NWEEI.Controllers
         public async Task<IActionResult> AddToAdmin(string id)
         {
             IdentityRole adminRole = await _roleManager.FindByNameAsync("Admin");
-            if (adminRole == null)
-            {
+            if (adminRole is null)
                 TempData["message"] = "Admin role does not exist. ";
-            }
             else
             {
                 AppUser user = await _userManager.FindByIdAsync(id);
@@ -137,7 +120,7 @@ namespace NWEEI.Controllers
                 // find the user in the db that is performing the RemoveFromAdmin action
                 signedInUser = await _userManager.FindByNameAsync(User.Identity.Name),
                 // find the user in the db that is the seeded admin user
-                seededAdmin = _context.AppUsers.FirstOrDefault();
+                seededAdmin = repo.AppUsers.FirstOrDefault();
 
             if (user == seededAdmin)
                 return View("CustomError", new CustomError("You can't remove the Admin role from the built-in admin user."));
@@ -154,15 +137,14 @@ namespace NWEEI.Controllers
         public async Task<IActionResult> AddToEditor(string id)
         {
             IdentityRole editorRole = await _roleManager.FindByNameAsync("Editor");
-            if (editorRole == null)
+            if (editorRole is not null)
             {
-                TempData["message"] = "Editor role does not exist. ";
+                await _userManager.AddToRoleAsync(
+                    await _userManager.FindByIdAsync(id),
+                    editorRole.Name);
             }
             else
-            {
-                AppUser user = await _userManager.FindByIdAsync(id);
-                await _userManager.AddToRoleAsync(user, editorRole.Name);
-            }
+                TempData["message"] = "Editor role does not exist. ";
             return RedirectToAction("Index");
         }
         [HttpPost]
@@ -174,7 +156,7 @@ namespace NWEEI.Controllers
                 // find the user in the db that is performing the RemoveFromAdmin action
                 signedInUser = await _userManager.FindByNameAsync(User.Identity.Name),
                 // find the user in the db that is the seeded admin user
-                seededAdmin = _context.AppUsers.FirstOrDefault();
+                seededAdmin = repo.AppUsers.FirstOrDefault();
 
             if (user == seededAdmin)
                 return View("CustomError", new CustomError("You can't remove the Editor role from the built-in admin user."));
@@ -189,19 +171,11 @@ namespace NWEEI.Controllers
         }
 
         // GET: AppUser/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public IActionResult Edit(string id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var appUser = await _context.AppUsers.FindAsync(id);
-            if (appUser == null)
-            {
-                return NotFound();
-            }
-            return View(appUser);
+            if (id is null) return NotFound();
+            AppUser appUser = repo.GetAppUserByID(id);
+            return appUser is null ? NotFound() : View(appUser);
         }
 
         // POST: AppUser/Edit/5
@@ -209,68 +183,44 @@ namespace NWEEI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("FirstName,LastName,Id,Email,EmailConfirmed,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled")] AppUser appUser)
+        public IActionResult Edit(string id, [Bind("FirstName,LastName,Id,Email,EmailConfirmed,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled")] AppUser appUser)
         {
-            if (id != appUser.Id)
-            {
-                return NotFound();
-            }
+            // find the user in the db that is the seeded admin user
+                AppUser seededAdmin = repo.AppUsers.FirstOrDefault();
 
-            if (ModelState.IsValid)
+            if (appUser == seededAdmin)
+                return View("CustomError", new CustomError("You can't edit the properties of the built-in admin user."));
+
+            if (id != appUser.Id) return NotFound();
+
+            if (!ModelState.IsValid) return View(appUser);
+            try
             {
-                try
-                {
-                    _context.Update(appUser);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AppUserExists(appUser.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                repo.UpdateAppUser(appUser);
             }
-            return View(appUser);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!repo.AppUserExists(appUser.Id)) return NotFound();
+                else throw;
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: AppUser/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public IActionResult Delete(string id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var appUser = await _context.AppUsers
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (appUser == null)
-            {
-                return NotFound();
-            }
-
-            return View(appUser);
+            if (id is null) return NotFound();
+            AppUser appUser = repo.GetAppUserByID(id);
+            return appUser is null ? NotFound() : View(appUser);
         }
 
         // POST: AppUser/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public IActionResult DeleteConfirmed(string id)
         {
-            var appUser = await _context.AppUsers.FindAsync(id);
-            _context.AppUsers.Remove(appUser);
-            await _context.SaveChangesAsync();
+            repo.DeleteAppUser(repo.GetAppUserByID(id));
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool AppUserExists(string id)
-        {
-            return _context.AppUsers.Any(e => e.Id == id);
         }
     }
 }

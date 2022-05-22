@@ -37,6 +37,7 @@ namespace NWEEI
                 .AddEntityFrameworkStores<NWEEIContext>();
 
             // inject repositories into controllers
+            services.AddTransient<IAppUserRepo, AppUserRepo>();
             services.AddTransient<IArticleRepo, ArticleRepo>();
             services.AddTransient<ICategoryRepo, CategoryRepo>();
             services.AddTransient<IFAQRepo, FAQRepo>();
