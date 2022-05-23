@@ -634,6 +634,14 @@ body {
 }
 
 
+/* ENERGY MANAGEMENT */
+
+.energy-mgmt {
+    background-image: url('../images/GeothermalPowerStation.jpg');
+    background-position: 50% 37%;
+}
+
+
 /* CUSTOM TRAINING */
 
 .custom-training {
@@ -666,9 +674,6 @@ ul.training-details {
     background-position: 50% 16%;
     */
 }
-
-
-
 
 
 /* -------------------------------------------------- */
