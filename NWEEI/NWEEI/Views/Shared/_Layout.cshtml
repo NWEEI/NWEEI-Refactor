@@ -91,15 +91,21 @@
                             Staff
                         </a>
                     </span>
-                } else if (ViewBag.Current == "Degrees")
+                }
+                else if (ViewBag.Current == "Degrees")
                 {
                     <span>
-                        <a class="text-dark" asp-controller="Programs" asp-action="EMBC">
-                            Energy Management and Building Controls
+                        <a class="text-dark" asp-controller="Programs" asp-action="EnergyMgmt">
+                            Energy Management
                         </a>
-                </span>
+                    </span>
                     <span>
-                        <a class="text-dark" asp-controller="Programs" asp-action="Index">
+                        <a class="text-dark" asp-controller="Programs" asp-action="EMBC">
+                            Energy Management & Building Controls
+                        </a>
+                    </span>
+                    <span>
+                        <a class="text-dark" asp-controller="Programs" asp-action="WaterConservation">
                             Water Conservation
                         </a>
                     </span>
@@ -108,12 +114,7 @@
                 {
                     <span>
                         <a class="text-dark" asp-controller="Programs" asp-action="Index">
-                            Energy Management
-                        </a>
-                    </span>
-                    <span>
-                        <a class="text-dark" asp-controller="Programs" asp-action="Index">
-                            Building Operator
+                            Building Operators Certification
                         </a>
                     </span>
                     <span>
