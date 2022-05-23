@@ -1,5 +1,61 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "2-Year Degrees";
 }
+
+<!-- degrees overview -->
+<div class="container content-section pt-1">
+    <h3>2-Year Degrees at NWEEI</h3>
+    <h5 class="pt-3 pb-1">Online Classes and Hands-On Mentorship is the Ideal Combination</h5>
+    <p>
+        We’ve combined the flexibility and ease of online coursework with hands-on
+        training with industry partners in the field to prepare you for a career in
+        energy efficiency. Our goal is to provide students with hands-on, high-quality
+        experiences with potential employers in your area equal to or better than what
+        they’d receive in a college laboratory environment. Apply your knowledge to a
+        growing, stable industry in the Pacific Northwest and elevate your career today.
+    </p>
+</div>
+
+<!-- degree tiles -->
+<div class="dark-block">
+    <div class="container">
+        <div class="content-section">
+            <h5 class="text-center pb-3">Select one of NWEEI's degrees to learn more:</h5>
+            <div class="container tiles w-75">
+
+                <a class="tile-link" asp-controller="Programs" asp-action="EnergyMgmt">
+                    <div class="tile-container light-tile">
+                        <span class="tile-content">
+                            Energy Management Technician
+                        </span>
+                    </div>
+                </a>
+
+                <a class="tile-link" asp-controller="Programs" asp-action="EMBC">
+                    <div class="tile-container light-tile">
+                        <span class="tile-content">
+                            Energy Management & Building Controls
+                        </span>
+                    </div>
+                </a>
+
+                <a class="tile-link" asp-controller="Programs" asp-action="WaterConservation">
+                    <div class="tile-container light-tile">
+                        <span class="tile-content">
+                            Water Conservation
+                        </span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- contact -->
+<div class="container content-section text-center">
+    <h4>Have a Question?</h4>
+    <h6>
+        <a asp-controller="About" asp-action="Contact">Contact us</a> with any
+        additional questions you have about NWEEI degree programs.
+    </h6>
+</div>
