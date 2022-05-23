@@ -2,7 +2,7 @@
     ViewData["Title"] = "Professional Development";
 }
 
-<!-- overview -->
+<!-- professional development overview -->
 <div class="container content-section" style="padding-top:1%;">
     <h3>Professional Development at NWEEI</h3>
     <p>
@@ -12,6 +12,38 @@
     </p>
 </div>
 
-<div>
-    <!-- TODO: add tiles for each training/certification program -->
+<!-- training/certification tiles -->
+<div class="dark-block">
+    <div class="container">
+        <div class="content-section">
+            <h5 class="text-center pb-3">Select one of NWEEI's training programs to learn more:</h5>
+            <div class="container tiles w-50">
+
+                <a class="tile-link" asp-controller="Programs" asp-action="BOC">
+                    <div class="tile-container light-tile">
+                        <span class="tile-content">
+                            Building Operators Certification
+                        </span>
+                    </div>
+                </a>
+
+                <a class="tile-link" asp-controller="Programs" asp-action="CustomTraining">
+                    <div class="tile-container light-tile">
+                        <span class="tile-content">
+                            Custom Training
+                        </span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- contact -->
+<div class="container content-section text-center">
+    <h4>Have a Question?</h4>
+    <h6 class="pt-2">
+        <a asp-controller="About" asp-action="Contact">Contact us</a> with any
+        additional questions you have about professional development at NWEEI.
+    </h6>
 </div>
