@@ -14,6 +14,7 @@ namespace NWEEI.Controllers.Navigation
     public class ResourcesController : Controller
     {
         IResourceRepo repo;
+        IOrganizationRepo orgRepo;
 
         public ResourcesController(IResourceRepo r)
         {
@@ -68,6 +69,12 @@ namespace NWEEI.Controllers.Navigation
         }
 
         public IActionResult CareerMap()
+        {
+            ViewBag.Current = "Resources";
+            return View();
+        }
+
+        public async Task<IActionResult> IndustryAssociations()
         {
             ViewBag.Current = "Resources";
             return View();
