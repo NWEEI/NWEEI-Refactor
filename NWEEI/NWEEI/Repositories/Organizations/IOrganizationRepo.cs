@@ -14,6 +14,7 @@ namespace NWEEI.Repositories
 
         // retrieve
         List<Organization> GetAllOrganizations( );
+        List<Organization> GetAllOrganizationsAZ();
         Organization GetOrganizationByID(int id);
 
         // nullcheck
