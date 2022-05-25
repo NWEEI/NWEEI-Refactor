@@ -18,14 +18,10 @@ namespace NWEEI.Controllers
     public class AppUserController : Controller
     {
         private IAppUserRepo repo;
-        private UserManager<AppUser> _userManager;
-        private RoleManager<IdentityRole> _roleManager;
 
-        public AppUserController(IAppUserRepo r, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
+        public AppUserController(IAppUserRepo r)
         {
             repo = r;
-            _userManager = userManager;
-            _roleManager = roleManager;
         }
 
         // GET: AppUser
@@ -34,12 +30,12 @@ namespace NWEEI.Controllers
             List<AppUser> users = repo.GetAllAppUsers();
 
             foreach (AppUser user in users)
-                user.RoleNames = await _userManager.GetRolesAsync(user); 
+                user.RoleNames = await repo.GetRolesAsync(user);
 
             AppUserViewModel model = new()
             {
                 Users = users,
-                Roles = _roleManager.Roles
+                Roles = repo.GetAllRoles()
             };
 
             return View(model);  
@@ -97,17 +93,17 @@ namespace NWEEI.Controllers
             return View(appUser);
         }
         **/
-
+        //TODO: Dry up add/remove to/from <Role> (encapsulate it, put it in repo)
         [HttpPost]
         public async Task<IActionResult> AddToAdmin(string id)
         {
-            IdentityRole adminRole = await _roleManager.FindByNameAsync("Admin");
+            IdentityRole adminRole = await repo.FindRoleByNameAsync("Admin");
             if (adminRole is null)
                 TempData["message"] = "Admin role does not exist. ";
             else
             {
-                AppUser user = await _userManager.FindByIdAsync(id);
-                await _userManager.AddToRoleAsync(user, adminRole.Name);
+                AppUser user = await repo.FindAppUserByIdAsync(id);
+                await repo.AddToRoleAsync(user, adminRole.Name);
             }
             return RedirectToAction("Index");
         }
@@ -116,11 +112,11 @@ namespace NWEEI.Controllers
         {
             AppUser
                 // find the user in the db that is having their admin role removed
-                user = await _userManager.FindByIdAsync(id),
+                user = await repo.FindAppUserByIdAsync(id),
                 // find the user in the db that is performing the RemoveFromAdmin action
-                signedInUser = await _userManager.FindByNameAsync(User.Identity.Name),
+                signedInUser = await repo.FindAppUserByNameAsync(User.Identity.Name),
                 // find the user in the db that is the seeded admin user
-                seededAdmin = repo.AppUsers.FirstOrDefault();
+                seededAdmin = await repo.GetAppUserByEmailAsync("admin@nweei.org");
 
             if (user == seededAdmin)
                 return View("CustomError", new CustomError("You can't remove the Admin role from the built-in admin user."));
@@ -129,18 +125,18 @@ namespace NWEEI.Controllers
             else
             {
                 // all good, do the thing
-                await _userManager.RemoveFromRoleAsync(user, "Admin");
+                await repo.RemoveFromRoleAsync(user, "Admin");
                 return RedirectToAction("Index");
             }
         }
         [HttpPost]
         public async Task<IActionResult> AddToEditor(string id)
         {
-            IdentityRole editorRole = await _roleManager.FindByNameAsync("Editor");
+            IdentityRole editorRole = await repo.FindRoleByNameAsync("Editor");
             if (editorRole is not null)
             {
-                await _userManager.AddToRoleAsync(
-                    await _userManager.FindByIdAsync(id),
+                await repo.AddToRoleAsync(
+                    await repo.FindAppUserByIdAsync(id),
                     editorRole.Name);
             }
             else
@@ -152,11 +148,11 @@ namespace NWEEI.Controllers
         {
             AppUser
                 // find the user in the db that is having their admin role removed
-                user = await _userManager.FindByIdAsync(id),
+                user = await repo.FindAppUserByIdAsync(id),
                 // find the user in the db that is performing the RemoveFromAdmin action
-                signedInUser = await _userManager.FindByNameAsync(User.Identity.Name),
+                signedInUser = await repo.FindAppUserByNameAsync(User.Identity.Name),
                 // find the user in the db that is the seeded admin user
-                seededAdmin = repo.AppUsers.FirstOrDefault();
+                seededAdmin = await repo.GetAppUserByEmailAsync("admin@nweei.org");
 
             if (user == seededAdmin)
                 return View("CustomError", new CustomError("You can't remove the Editor role from the built-in admin user."));
@@ -165,7 +161,7 @@ namespace NWEEI.Controllers
             else
             {
                 // all good, do the thing
-                await _userManager.RemoveFromRoleAsync(user, "Editor");
+                await repo.RemoveFromRoleAsync(user, "Editor");
                 return RedirectToAction("Index");
             }
         }
