@@ -27,7 +27,7 @@ namespace NWEEI
             ///SQLite
             //services.AddDbContext<NWEEIContext>(options => options.UseSqlite(Configuration.GetConnectionString("SQLiteConnection")));
             ///MySQL
-            services.AddDbContext<NWEEIContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySqlLiveConnection")));
+            services.AddDbContext<NWEEIContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySQLConnection")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -87,7 +87,7 @@ namespace NWEEI
             /// SQLite
             // SqliteConnection tempConnection = new SqliteConnection(Configuration.GetConnectionString("SQLiteConnection"));
             /// MySQL
-            MySqlConnection tempConnection = new (Configuration.GetConnectionString("MySqlLiveConnection"));
+            MySqlConnection tempConnection = new (Configuration.GetConnectionString("MySQLConnection"));
 
             ///Uncomment to seed the database
             // seed legacy data
