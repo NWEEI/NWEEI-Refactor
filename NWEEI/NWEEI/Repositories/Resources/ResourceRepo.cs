@@ -72,14 +72,14 @@ namespace NWEEI.Repositories
 
 
         #region organizations
-
+        /*
         public IQueryable<Organization> Organizations
         {
             get
             {
                 return context.Organizations
                     .Include(o => o.Tags)
-                    .Include(o => o.TagKeys);
+                    //.Include(o => o.TagKeys);
             }
         }
 
@@ -90,11 +90,12 @@ namespace NWEEI.Repositories
             List<Organization> organizations = context.Organizations
                 .Where(o => o.Name.Contains(query) || o.Description.Contains(query))
                 //.Include(o => o.Tags)
-                .Include(o => o.TagKeys)
+                //.Include(o => o.TagKeys)
                 .ToList();
 
             return organizations;
         }
+        */
 
         #endregion
     }
