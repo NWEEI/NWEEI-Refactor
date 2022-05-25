@@ -9,8 +9,8 @@ using NWEEI.Data;
 namespace NWEEI.Migrations
 {
     [DbContext(typeof(NWEEIContext))]
-    [Migration("20220505194158_Intial")]
-    partial class Intial
+    [Migration("20220525211606_UpdatedTag")]
+    partial class UpdatedTag
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,7 +22,7 @@ namespace NWEEI.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("varchar(767)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -59,7 +59,7 @@ namespace NWEEI.Migrations
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("varchar(767)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -82,7 +82,7 @@ namespace NWEEI.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("varchar(767)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -106,7 +106,7 @@ namespace NWEEI.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("varchar(767)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -118,10 +118,10 @@ namespace NWEEI.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("varchar(767)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("varchar(767)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -133,7 +133,7 @@ namespace NWEEI.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("varchar(767)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
@@ -154,7 +154,7 @@ namespace NWEEI.Migrations
             modelBuilder.Entity("NWEEI.Models.AppUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("varchar(767)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
@@ -231,7 +231,7 @@ namespace NWEEI.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("AuthorId")
-                        .HasColumnType("varchar(767)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Body")
                         .HasColumnType("text");
@@ -252,6 +252,7 @@ namespace NWEEI.Migrations
                         .HasColumnType("datetime");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("Views")
@@ -289,9 +290,10 @@ namespace NWEEI.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Answer")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("CategoryID")
+                    b.Property<int>("CategoryID")
                         .HasColumnType("int");
 
                     b.Property<bool>("Featured")
@@ -301,6 +303,7 @@ namespace NWEEI.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Question")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("FAQID");
@@ -317,7 +320,6 @@ namespace NWEEI.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("ImageURL")
@@ -334,6 +336,21 @@ namespace NWEEI.Migrations
                     b.HasKey("OrganizationID");
 
                     b.ToTable("Organizations");
+                });
+
+            modelBuilder.Entity("NWEEI.Models.PaymentOption", b =>
+                {
+                    b.Property<int>("PaymentOptionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Option")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("PaymentOptionID");
+
+                    b.ToTable("PaymentOptions");
                 });
 
             modelBuilder.Entity("NWEEI.Models.Registration", b =>
@@ -358,9 +375,8 @@ namespace NWEEI.Migrations
                     b.Property<string>("Country")
                         .HasColumnType("text");
 
-                    b.Property<string>("DateOfBirth")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime");
 
                     b.Property<DateTime>("DateSubmitted")
                         .HasColumnType("datetime");
@@ -427,24 +443,29 @@ namespace NWEEI.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
+                    b.Property<int?>("OrganizationID")
+                        .HasColumnType("int");
+
                     b.HasKey("TagID");
+
+                    b.HasIndex("OrganizationID");
 
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("OrganizationTag", b =>
+            modelBuilder.Entity("NWEEI.Models.TrainingProgram", b =>
                 {
-                    b.Property<int>("OrganizationsOrganizationID")
+                    b.Property<int>("TrainingProgramID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("TagKeysTagID")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.HasKey("OrganizationsOrganizationID", "TagKeysTagID");
+                    b.HasKey("TrainingProgramID");
 
-                    b.HasIndex("TagKeysTagID");
-
-                    b.ToTable("OrganizationTag");
+                    b.ToTable("TrainingPrograms");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -505,7 +526,7 @@ namespace NWEEI.Migrations
                         .HasForeignKey("AuthorId");
 
                     b.HasOne("NWEEI.Models.Category", "Category")
-                        .WithMany()
+                        .WithMany("Articles")
                         .HasForeignKey("CategoryID");
 
                     b.Navigation("Author");
@@ -516,25 +537,31 @@ namespace NWEEI.Migrations
             modelBuilder.Entity("NWEEI.Models.FAQ", b =>
                 {
                     b.HasOne("NWEEI.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryID");
+                        .WithMany("FAQs")
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("OrganizationTag", b =>
+            modelBuilder.Entity("NWEEI.Models.Tag", b =>
                 {
                     b.HasOne("NWEEI.Models.Organization", null)
-                        .WithMany()
-                        .HasForeignKey("OrganizationsOrganizationID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("TagKeys")
+                        .HasForeignKey("OrganizationID");
+                });
 
-                    b.HasOne("NWEEI.Models.Tag", null)
-                        .WithMany()
-                        .HasForeignKey("TagKeysTagID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            modelBuilder.Entity("NWEEI.Models.Category", b =>
+                {
+                    b.Navigation("Articles");
+
+                    b.Navigation("FAQs");
+                });
+
+            modelBuilder.Entity("NWEEI.Models.Organization", b =>
+                {
+                    b.Navigation("TagKeys");
                 });
 #pragma warning restore 612, 618
         }

@@ -4,7 +4,7 @@ using MySql.EntityFrameworkCore.Metadata;
 
 namespace NWEEI.Migrations
 {
-    public partial class Intial : Migration
+    public partial class OrgUpdate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +12,7 @@ namespace NWEEI.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "varchar(256)", nullable: false),
+                    Id = table.Column<string>(type: "varchar(255)", nullable: false),
                     Name = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "text", nullable: true)
@@ -26,7 +26,7 @@ namespace NWEEI.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "varchar(256)", nullable: false),
+                    Id = table.Column<string>(type: "varchar(255)", nullable: false),
                     FirstName = table.Column<string>(type: "text", nullable: true),
                     LastName = table.Column<string>(type: "text", nullable: true),
                     DateRegistered = table.Column<DateTime>(type: "datetime", nullable: false),
@@ -70,13 +70,26 @@ namespace NWEEI.Migrations
                     OrganizationID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    ImageURL = table.Column<string>(type: "text", nullable: true),
-                    WebsiteURL = table.Column<string>(type: "text", nullable: false)
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    WebsiteURL = table.Column<string>(type: "text", nullable: false),
+                    ImageURL = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Organizations", x => x.OrganizationID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PaymentOptions",
+                columns: table => new
+                {
+                    PaymentOptionID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    Option = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PaymentOptions", x => x.PaymentOptionID);
                 });
 
             migrationBuilder.CreateTable(
@@ -90,7 +103,7 @@ namespace NWEEI.Migrations
                     FirstName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
-                    DateOfBirth = table.Column<string>(type: "text", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime", nullable: false),
                     Title = table.Column<string>(type: "text", nullable: true),
                     Organization = table.Column<string>(type: "text", nullable: true),
                     Address1 = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: false),
@@ -124,12 +137,25 @@ namespace NWEEI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TrainingPrograms",
+                columns: table => new
+                {
+                    TrainingProgramID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TrainingPrograms", x => x.TrainingProgramID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    RoleId = table.Column<string>(type: "varchar(256)", nullable: false),
+                    RoleId = table.Column<string>(type: "varchar(255)", nullable: false),
                     ClaimType = table.Column<string>(type: "text", nullable: true),
                     ClaimValue = table.Column<string>(type: "text", nullable: true)
                 },
@@ -150,7 +176,7 @@ namespace NWEEI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<string>(type: "varchar(256)", nullable: false),
+                    UserId = table.Column<string>(type: "varchar(255)", nullable: false),
                     ClaimType = table.Column<string>(type: "text", nullable: true),
                     ClaimValue = table.Column<string>(type: "text", nullable: true)
                 },
@@ -172,7 +198,7 @@ namespace NWEEI.Migrations
                     LoginProvider = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: false),
                     ProviderKey = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "text", nullable: true),
-                    UserId = table.Column<string>(type: "varchar(256)", nullable: false)
+                    UserId = table.Column<string>(type: "varchar(255)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -189,8 +215,8 @@ namespace NWEEI.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "varchar(256)", nullable: false),
-                    RoleId = table.Column<string>(type: "varchar(256)", nullable: false)
+                    UserId = table.Column<string>(type: "varchar(255)", nullable: false),
+                    RoleId = table.Column<string>(type: "varchar(255)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -213,7 +239,7 @@ namespace NWEEI.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "varchar(256)", nullable: false),
+                    UserId = table.Column<string>(type: "varchar(255)", nullable: false),
                     LoginProvider = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: false),
                     Name = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: false),
                     Value = table.Column<string>(type: "text", nullable: true)
@@ -235,13 +261,13 @@ namespace NWEEI.Migrations
                 {
                     ArticleID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    Title = table.Column<string>(type: "text", nullable: true),
+                    Title = table.Column<string>(type: "text", nullable: false),
                     Body = table.Column<string>(type: "text", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime", nullable: false),
-                    AuthorId = table.Column<string>(type: "varchar(256)", nullable: true),
+                    AuthorId = table.Column<string>(type: "varchar(255)", nullable: true),
                     CategoryID = table.Column<int>(type: "int", nullable: true),
-                    PublishDate = table.Column<DateTime>(type: "datetime", nullable: false),
                     IsPublished = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    PublishDate = table.Column<DateTime>(type: "datetime", nullable: false),
                     Featured = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Views = table.Column<int>(type: "int", nullable: false)
                 },
@@ -268,9 +294,9 @@ namespace NWEEI.Migrations
                 {
                     FAQID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    Question = table.Column<string>(type: "text", nullable: true),
-                    Answer = table.Column<string>(type: "text", nullable: true),
-                    CategoryID = table.Column<int>(type: "int", nullable: true),
+                    Question = table.Column<string>(type: "text", nullable: false),
+                    Answer = table.Column<string>(type: "text", nullable: false),
+                    CategoryID = table.Column<int>(type: "int", nullable: false),
                     IsPublished = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Featured = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
@@ -282,7 +308,7 @@ namespace NWEEI.Migrations
                         column: x => x.CategoryID,
                         principalTable: "Categories",
                         principalColumn: "CategoryID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -394,7 +420,13 @@ namespace NWEEI.Migrations
                 name: "OrganizationTag");
 
             migrationBuilder.DropTable(
+                name: "PaymentOptions");
+
+            migrationBuilder.DropTable(
                 name: "Registrations");
+
+            migrationBuilder.DropTable(
+                name: "TrainingPrograms");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

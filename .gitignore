@@ -10,9 +10,6 @@
 *.appsettings.json
 
 # migrations and db
-*/Migrations*
-*NWEEI.db
-*NWEEI.db*
 
 # User-specific files
 *.suo

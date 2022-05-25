@@ -9,8 +9,8 @@ using NWEEI.Data;
 namespace NWEEI.Migrations
 {
     [DbContext(typeof(NWEEIContext))]
-    [Migration("20220518212852_OrganizationValidation")]
-    partial class OrganizationValidation
+    [Migration("20220524225516_OrgUpdate")]
+    partial class OrgUpdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,7 +22,7 @@ namespace NWEEI.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("varchar(767)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -59,7 +59,7 @@ namespace NWEEI.Migrations
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("varchar(767)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -82,7 +82,7 @@ namespace NWEEI.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("varchar(767)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -106,7 +106,7 @@ namespace NWEEI.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("varchar(767)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -118,10 +118,10 @@ namespace NWEEI.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("varchar(767)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("varchar(767)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -133,7 +133,7 @@ namespace NWEEI.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("varchar(767)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
@@ -154,7 +154,7 @@ namespace NWEEI.Migrations
             modelBuilder.Entity("NWEEI.Models.AppUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("varchar(767)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
@@ -231,7 +231,7 @@ namespace NWEEI.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("AuthorId")
-                        .HasColumnType("varchar(767)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Body")
                         .HasColumnType("text");
