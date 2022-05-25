@@ -49,7 +49,6 @@ namespace NWEEI
 
             services.AddRazorPages();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            services.BuildServiceProvider().GetService<NWEEIContext>().Database.Migrate();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

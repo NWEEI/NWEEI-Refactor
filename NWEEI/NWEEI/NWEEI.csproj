@@ -57,6 +57,5 @@
     <Folder Include="Repositories\Tags\" />
     <Folder Include="Repositories\FAQs\" />
     <Folder Include="Repositories\Resources\" />
-    <Folder Include="Migrations\" />
   </ItemGroup>
 </Project>

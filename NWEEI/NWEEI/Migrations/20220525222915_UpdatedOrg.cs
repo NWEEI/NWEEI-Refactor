@@ -4,7 +4,7 @@ using MySql.EntityFrameworkCore.Metadata;
 
 namespace NWEEI.Migrations
 {
-    public partial class OrgUpdate : Migration
+    public partial class UpdatedOrg : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -311,30 +311,6 @@ namespace NWEEI.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "OrganizationTag",
-                columns: table => new
-                {
-                    OrganizationsOrganizationID = table.Column<int>(type: "int", nullable: false),
-                    TagKeysTagID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrganizationTag", x => new { x.OrganizationsOrganizationID, x.TagKeysTagID });
-                    table.ForeignKey(
-                        name: "FK_OrganizationTag_Organizations_OrganizationsOrganizationID",
-                        column: x => x.OrganizationsOrganizationID,
-                        principalTable: "Organizations",
-                        principalColumn: "OrganizationID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_OrganizationTag_Tags_TagKeysTagID",
-                        column: x => x.TagKeysTagID,
-                        principalTable: "Tags",
-                        principalColumn: "TagID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Articles_AuthorId",
                 table: "Articles",
@@ -386,11 +362,6 @@ namespace NWEEI.Migrations
                 name: "IX_FAQs_CategoryID",
                 table: "FAQs",
                 column: "CategoryID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrganizationTag_TagKeysTagID",
-                table: "OrganizationTag",
-                column: "TagKeysTagID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -417,13 +388,16 @@ namespace NWEEI.Migrations
                 name: "FAQs");
 
             migrationBuilder.DropTable(
-                name: "OrganizationTag");
+                name: "Organizations");
 
             migrationBuilder.DropTable(
                 name: "PaymentOptions");
 
             migrationBuilder.DropTable(
                 name: "Registrations");
+
+            migrationBuilder.DropTable(
+                name: "Tags");
 
             migrationBuilder.DropTable(
                 name: "TrainingPrograms");
@@ -436,12 +410,6 @@ namespace NWEEI.Migrations
 
             migrationBuilder.DropTable(
                 name: "Categories");
-
-            migrationBuilder.DropTable(
-                name: "Organizations");
-
-            migrationBuilder.DropTable(
-                name: "Tags");
         }
     }
 }

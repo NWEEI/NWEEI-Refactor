@@ -9,7 +9,7 @@ using NWEEI.Data;
 namespace NWEEI.Migrations
 {
     [DbContext(typeof(NWEEIContext))]
-    [Migration("20220525213102_UpdatedOrg")]
+    [Migration("20220525222915_UpdatedOrg")]
     partial class UpdatedOrg
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
