@@ -29,6 +29,16 @@ namespace NWEEI.Repositories
         // get a list of all organizations
         public List<Organization> GetAllOrganizations( ) => organizations.ToList( );
 
+        public List<Organization> GetAllOrganizationsAZ()
+        {
+            List<Organization> orgs = organizations.OrderBy(o => o.Name).ToList();
+            return orgs;
+        }
+
+        public List<Tag> GetAllTags( ) => tags.ToList( );
+
+        public List<Organization> GetOrganizationsByTagID(int tagID) => throw new NotImplementedException();
+
         // get a specific organization by its id
         public Organization GetOrganizationByID( int id ) => organizations.Find( org => org.OrganizationID == id );
 

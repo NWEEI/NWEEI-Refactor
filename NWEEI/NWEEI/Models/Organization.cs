@@ -15,14 +15,13 @@ namespace NWEEI.Models
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public string ImageURL { get; set; }
-
         [Required(ErrorMessage = "Website is required.")]
         public string WebsiteURL { get; set; }
 
-        [NotMapped]
-        public List<Tag> Tags { get { return tags; } }
+        public string ImageURL { get; set; }
 
-        public virtual ICollection<Tag> TagKeys { get; set; }
+        //[NotMapped]
+        //public List<Tag> Tags { get { return tags; } }
+        //public virtual ICollection<Tag> TagKeys { get; set; }
     }
 }

@@ -1,0 +1,29 @@
+﻿@model List<Organization>
+
+@{
+    ViewData["Title"] = "Industry Associations";
+}
+
+<div class="container content-section" style="padding-top:1%;">
+    <h3>Industry Associations</h3>
+    <p>
+        Highlighted below are some of the most important and influential
+        energy and water-related professional organizations that provide
+        educational resources, guidance, and support within the industry.
+    </p>
+</div>
+
+<div class="container tiles">
+
+    <!-- loop through orgs -->
+    @foreach (var org in Model)
+            {
+                <a asp-controller="Organization" asp-action="Details" asp-route-id="@org.OrganizationID">
+                    <div class="card-container">
+                        <div class="card">
+                            
+                    </div>
+                </a>
+            }
+
+</div>
