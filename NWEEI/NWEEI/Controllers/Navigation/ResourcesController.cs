@@ -16,9 +16,10 @@ namespace NWEEI.Controllers.Navigation
         IResourceRepo repo;
         IOrganizationRepo orgRepo;
 
-        public ResourcesController(IResourceRepo r)
+        public ResourcesController(IResourceRepo r, IOrganizationRepo oR)
         {
             repo = r;
+            orgRepo = oR;
         }
 
         // GET: /Resources/Search
@@ -77,7 +78,8 @@ namespace NWEEI.Controllers.Navigation
         public async Task<IActionResult> IndustryAssociations()
         {
             ViewBag.Current = "Resources";
-            return View();
+            List<Organization> orgs = orgRepo.GetAllOrganizationsAZ();
+            return View(orgs);
         }
     }
 }
