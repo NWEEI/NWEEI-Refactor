@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NETCore.MailKit.Core;
 using NWEEI.Models;
 using NWEEI.Repositories;
 
@@ -78,8 +79,9 @@ namespace NWEEI.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("RegistrationID,TrainingProgram,FirstName,LastName,Email,DateOfBirth,Title,Organization,Address1,Address2,City,State,ZipCode,Country,Phone,Fax,Referral,SpecialInstructions,PaymentType")] Registration registration)
         {
-
+            // Refresh and show validation summary if model state is invalid.
             if (!ModelState.IsValid ) return View(registration);
+
             registration.DateSubmitted = DateTime.Now;
             repo.AddRegistration(registration);
             return RedirectToAction("CreateConfirmation", registration);
@@ -88,6 +90,7 @@ namespace NWEEI.Controllers
         public IActionResult CreateConfirmation(Registration registration)
         {
             ViewBag.Current = "ContactOption";
+            
             return View( registration );
         }
 
