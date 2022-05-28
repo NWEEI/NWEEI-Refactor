@@ -2,9 +2,9 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
@@ -12,9 +12,9 @@ a {
     color: #0366d6; /* Link Blue */
 }
 
-a:hover {
-    text-decoration: none !important;
-}
+    a:hover {
+        text-decoration: none !important;
+    }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #fff;
@@ -40,48 +40,50 @@ a:hover {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
 
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
 }
 
 
@@ -129,28 +131,28 @@ body {
     float: right;
 }
 
-    @media (max-width: 750px) {
-        .header-desc {
-            font-size: .8em !important;
-        }
-
-        .header-phone > a {
-            font-size: .8em !important;
-        }
-    }
-
+@media (max-width: 750px) {
     .header-desc {
-        position: relative;
-        padding: 5px;
-        color: #f0f0f0; /* Chrysler White*/
-        font-weight: bold;
-        font-size: 1em;
+        font-size: .8em !important;
     }
 
-    .header-phone {
-        display: inline-block;
-        padding: 5px;
-    } 
+    .header-phone > a {
+        font-size: .8em !important;
+    }
+}
+
+.header-desc {
+    position: relative;
+    padding: 5px;
+    color: #f0f0f0; /* Chrysler White*/
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.header-phone {
+    display: inline-block;
+    padding: 5px;
+}
 
 .hero {
     position: absolute;
@@ -187,10 +189,10 @@ body {
     font-size: .9em;
 }
 
-.navigation > span,
-.sub-navigation > span {
-    padding: 12px;
-}
+    .navigation > span,
+    .sub-navigation > span {
+        padding: 12px;
+    }
 
 
 /* breadcrumb */
@@ -227,7 +229,6 @@ body {
 }
 
 .main-content-inner {
-    
 }
 
 .content-header {
@@ -278,9 +279,10 @@ body {
     padding-top: 2%;
 }
 
-.button-group > .btn {
-    font-size: 1.1em !important;
-}
+    .button-group > .btn {
+        font-size: 1.1em !important;
+        margin: 5px 0px;
+    }
 
 
 .content-image {
@@ -288,8 +290,8 @@ body {
     border-radius: 5px;
 }
 
-.content-figure{
-    width:40%;
+.content-figure {
+    width: 40%;
     border-radius: 5px;
     background-color: rgba(0,0,0,0.2);
 }
@@ -312,22 +314,22 @@ body {
     left: calc(-50vw + 50%);
 }
 
-.dark-block a {
-    color: white;
-    text-decoration: none;
-}
+    .dark-block a {
+        color: white;
+        text-decoration: none;
+    }
 
-.dark-block a:active {
-    color: white;
-}
+        .dark-block a:active {
+            color: white;
+        }
 
-.dark-block a:visited {
-    color: mediumpurple;
-}
+        .dark-block a:visited {
+            color: mediumpurple;
+        }
 
-.dark-block :is(h4, h6) {
-    color: white;
-}
+    .dark-block :is(h4, h6) {
+        color: white;
+    }
 
 .light-block {
     background-color: #fedd90; /* NWEEI Light Yellow */
@@ -337,9 +339,9 @@ body {
     left: calc(-50vw + 50%);
 }
 
-.light-block :is(h4, h6) {
-    color: #2c4592; /* NWEEI Medium-Dark Blue*/
-}
+    .light-block :is(h4, h6) {
+        color: #2c4592; /* NWEEI Medium-Dark Blue*/
+    }
 
 /*.light-block a{
     text-decoration: underline;
@@ -355,15 +357,15 @@ body {
     font-size: 1.1em !important;
 }
 
-.admin-action-button > * {
-    color: white;
-    text-decoration: none;
-}
+    .admin-action-button > * {
+        color: white;
+        text-decoration: none;
+    }
 
-.admin-action-button > a:hover {
-    color: powderblue;
-    text-decoration: none;
-}
+    .admin-action-button > a:hover {
+        color: powderblue;
+        text-decoration: none;
+    }
 
 /* -------------------------------------------------- */
 
@@ -418,79 +420,65 @@ body {
     background-color: white;
     border: 0px rgba(0,0,0,0);
     border-radius: 32px; /* 16% */
-    box-shadow:
-        rgba(0,0,0,0.2) 0px 12px 12px 6px, /* 0%, 6%, 6%, 3% */
-        rgba(0,0,0,0.2) 0px -12px 12px 6px inset; /* 0%, -6%, 6%, 3% */
+    box-shadow: rgba(0,0,0,0.2) 0px 12px 12px 6px, /* 0%, 6%, 6%, 3% */
+    rgba(0,0,0,0.2) 0px -12px 12px 6px inset; /* 0%, -6%, 6%, 3% */
 }
 
-.dashboard-tile div {
-    font-size: 16px; /* 8% */
-    padding: 8px; /* 8% */
-    text-transform: uppercase;
-}
+    .dashboard-tile div {
+        font-size: 16px; /* 8% */
+        padding: 8px; /* 8% */
+        text-transform: uppercase;
+    }
 
-.dashboard-tile:hover {
-    animation-duration: 0.2s;
-    animation-name: tileStaticToHover;
-    color: royalblue;
-    box-shadow:
-        rgba(2,82,155,0.4) 0px 12px 12px 6px,
-        rgba(2,82,155,0.4) 0px -12px 12px 6px inset;
-}
-.dashboard-tile:not(:hover) {
-    animation-duration: 0.2s;
-    animation-name: tileHoverToStatic;
-}
+    .dashboard-tile:hover {
+        animation-duration: 0.2s;
+        animation-name: tileStaticToHover;
+        color: royalblue;
+        box-shadow: rgba(2,82,155,0.4) 0px 12px 12px 6px, rgba(2,82,155,0.4) 0px -12px 12px 6px inset;
+    }
 
-.dashboard-tile:active {
-    animation-duration: 0.2s;
-    animation-name: tileHoverToActive;
-    box-shadow: rgba(2,82,155,0.4) 0px 12px 12px 6px inset;
-}
+    .dashboard-tile:not(:hover) {
+        animation-duration: 0.2s;
+        animation-name: tileHoverToStatic;
+    }
+
+    .dashboard-tile:active {
+        animation-duration: 0.2s;
+        animation-name: tileHoverToActive;
+        box-shadow: rgba(2,82,155,0.4) 0px 12px 12px 6px inset;
+    }
 
 
 
 @keyframes tileStaticToHover {
     from {
         color: gray;
-        box-shadow:
-            rgba(0,0,0,0.2) 0px 12px 12px 6px,
-            rgba(0,0,0,0.2) 0px -12px 12px 6px inset;
+        box-shadow: rgba(0,0,0,0.2) 0px 12px 12px 6px, rgba(0,0,0,0.2) 0px -12px 12px 6px inset;
     }
 
     to {
         color: royalblue;
-        box-shadow:
-            rgba(2,82,155,0.4) 0px 12px 12px 6px,
-            rgba(2,82,155,0.4) 0px -12px 12px 6px inset;
+        box-shadow: rgba(2,82,155,0.4) 0px 12px 12px 6px, rgba(2,82,155,0.4) 0px -12px 12px 6px inset;
     }
 }
 
 @keyframes tileHoverToStatic {
     from {
-        box-shadow:
-            rgba(2,82,155,0.4) 0px 12px 12px 6px,
-            rgba(2,82,155,0.4) 0px -12px 12px 6px inset;
+        box-shadow: rgba(2,82,155,0.4) 0px 12px 12px 6px, rgba(2,82,155,0.4) 0px -12px 12px 6px inset;
     }
 
     to {
-        box-shadow:
-            rgba(0,0,0,0.2) 0px 12px 12px 6px,
-            rgba(0,0,0,0.2) 0px -12px 12px 6px inset;
+        box-shadow: rgba(0,0,0,0.2) 0px 12px 12px 6px, rgba(0,0,0,0.2) 0px -12px 12px 6px inset;
     }
 }
 
 @keyframes tileHoverToActive {
     from {
-        box-shadow:
-            rgba(2,82,155,0.4) 0px 12px 12px 6px,
-            rgba(2,82,155,0.4) 0px inset;
+        box-shadow: rgba(2,82,155,0.4) 0px 12px 12px 6px, rgba(2,82,155,0.4) 0px inset;
     }
 
     to {
-        box-shadow:
-            rgba(2,82,155,0.4) 0px,
-            rgba(2,82,155,0.4) 0px 12px 12px 6px inset;
+        box-shadow: rgba(2,82,155,0.4) 0px, rgba(2,82,155,0.4) 0px 12px 12px 6px inset;
     }
 }
 
@@ -524,38 +512,38 @@ body {
     background-color: #03529B;
     border-radius: 20px;
     font-weight: 500;
-/*    box-shadow: 0 2px 25px 0 rgb(2 63 119), 0 0px 15px 0 rgb(2 63 119);*/
+    /*    box-shadow: 0 2px 25px 0 rgb(2 63 119), 0 0px 15px 0 rgb(2 63 119);*/
     -webkit-transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-/* begin tile hover */
-.tile-container::after {
-    border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    content: "";
-    height: 100%;
-    left: 0;
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-    width: 100%;
-    z-index: -1;
-}
+    /* begin tile hover */
+    .tile-container::after {
+        border-radius: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        content: "";
+        height: 100%;
+        left: 0;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        width: 100%;
+        z-index: -1;
+    }
 
-.tile-container:hover {
-    -webkit-transform: scale(1.01, 1.01);
-    transform: scale(1.01, 1.01);
-    z-index: 10;
-    opacity: 1;
-    transition: 0.3s;
-}
+    .tile-container:hover {
+        -webkit-transform: scale(1.01, 1.01);
+        transform: scale(1.01, 1.01);
+        z-index: 10;
+        opacity: 1;
+        transition: 0.3s;
+    }
 
-.tile-container:hover::after {
-    opacity: 1;
-}
+        .tile-container:hover::after {
+            opacity: 1;
+        }
 /* end tile hover */
 
 .tile-content {
@@ -722,8 +710,7 @@ ul.training-details {
 /* BEGIN: FORMS */
 
 /* The AddRow button is for dynamically adding for fields to a document. */
-#addRow{
-
+#addRow {
 }
 
 /* Have nice buttons for inputgroup append and input group prepend that match the rest of the site.*/
@@ -735,17 +722,17 @@ ul.training-details {
     padding-bottom: .375rem;
 }
 
-.input-group-append > button:hover {
-    color: white;
-    background-color: #dc3545;
-    border-color: #dc3545;
-    text-shadow: 0px 0px 5px 5px white;
-    /* box-shadow: rgba(255, 0, 0, 0.9) 3px 0px 10px 1px; */
-    animation-name: buttonAppendHover;
-    animation-duration: 0.2s;
-}
+    .input-group-append > button:hover {
+        color: white;
+        background-color: #dc3545;
+        border-color: #dc3545;
+        text-shadow: 0px 0px 5px 5px white;
+        /* box-shadow: rgba(255, 0, 0, 0.9) 3px 0px 10px 1px; */
+        animation-name: buttonAppendHover;
+        animation-duration: 0.2s;
+    }
 
-@keyframes buttonAppendHover{
+@keyframes buttonAppendHover {
     from {
         color: #dc3545;
         border-color: #dc3545;
@@ -757,7 +744,7 @@ ul.training-details {
     }
 }
 
-    /* END: FORMS */
+/* END: FORMS */
 
 
 /* -------------------------------------------------- */
@@ -804,10 +791,10 @@ ul.training-details {
     top: 11px;
 }
 
-.search-submit i {
-    position: absolute;
-    right: 3%;
-}
+    .search-submit i {
+        position: absolute;
+        right: 3%;
+    }
 
 .search-results-container {
     margin: 4% 0%;

@@ -1,0 +1,105 @@
+﻿/* INDUSTRY ASSOCIATIONS */
+
+.card-container {
+    position: relative;
+    width: 200px;
+/*    border: 1px solid grey;*/
+    border-radius: 20px;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: -webkit-radial-gradient(circle, rgba(255,255,255,1) 0, rgba(255,255,255,1) 1%, rgba(246,246,246,1) 100%);
+    background: -moz-radial-gradient(circle, rgba(255,255,255,1) 0, rgba(255,255,255,1) 1%, rgba(246,246,246,1) 100%);
+    background: radial-gradient(circle, rgba(255,255,255,1) 0, rgba(255,255,255,1) 1%, rgba(246,246,246,1) 100%);
+    background-position: 50% 50%;
+    -webkit-box-shadow: 2px 2px 6px 0 rgba(0,0,0,0.3);
+    box-shadow: 2px 2px 6px 0 rgba(0,0,0,0.3);
+    /*    text-shadow: 1px 2px 2px rgba(0,0,0,0.2);*/
+}
+
+/* begin card hover */
+    .card-container::after {
+        border-radius: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        content: "";
+        height: 100%;
+        left: 0;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        width: 100%;
+        z-index: -1;
+    }
+
+    .card-container:hover {
+        -webkit-transform: scale(1.01, 1.01);
+        transform: scale(1.01, 1.01);
+        z-index: 10;
+        opacity: 1;
+        transition: 0.3s;
+    }
+
+        .card-container:hover::after {
+            opacity: 1;
+        }
+/* end tile hover */
+
+.org-card {
+    padding: 5px;
+}
+
+.org-logo {
+    margin: 10px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    position: relative;
+}
+
+.org-img {
+    width: 80%;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
+.text-logo {
+    display: flex;
+    width: 80%;
+    height: 100%;
+    background-color: transparent;
+    color: darkgrey;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;
+    font-weight: 800;
+    letter-spacing: .05em;
+    text-shadow: 1px 2px 2px rgba(0,0,0,0.2);
+    -webkit-text-stroke-width: 0.2px;
+    -webkit-text-stroke-color: #4b4b4b;
+}
+
+.org-name {
+    /*    text-shadow: 1px 2px 2px rgba(0,0,0,0.2);*/
+    text-align: center;
+    color: #2c4592 !important;
+}
+
+.org-btn-container {
+    position: relative;
+    height: 100%;
+}
+
+.org-btn {
+/*    position: absolute;*/
+    text-align: center;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
