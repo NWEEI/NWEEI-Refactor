@@ -27,7 +27,7 @@ namespace NWEEI
             ///SQLite
             //services.AddDbContext<NWEEIContext>(options => options.UseSqlite(Configuration.GetConnectionString("SQLiteConnection")));
             ///MySQL
-            services.AddDbContext<NWEEIContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySqlLiveConnection")));
+            services.AddDbContext<NWEEIContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySQLConnection")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -50,7 +50,6 @@ namespace NWEEI
 
             services.AddRazorPages();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            services.BuildServiceProvider().GetService<NWEEIContext>().Database.Migrate();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,7 +88,7 @@ namespace NWEEI
             /// SQLite
             // SqliteConnection tempConnection = new SqliteConnection(Configuration.GetConnectionString("SQLiteConnection"));
             /// MySQL
-            MySqlConnection tempConnection = new (Configuration.GetConnectionString("MySqlLiveConnection"));
+            MySqlConnection tempConnection = new (Configuration.GetConnectionString("MySQLConnection"));
 
             ///Uncomment to seed the database
             // seed legacy data

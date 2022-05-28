@@ -26,6 +26,13 @@ namespace NWEEI.Repositories
         public List<Organization> GetAllOrganizations( ) => context.Organizations
             .OrderBy( o => o.Name ).ToList( );
 
+        // get a list of all organizations ordered by name (a-z)
+        public List<Organization> GetAllOrganizationsAZ()
+        {
+            List<Organization> orgs = context.Organizations.OrderBy(o => o.Name).ToList();
+            return orgs;
+        }
+
         // get a specific organization by its id
         public Organization GetOrganizationByID( int id ) => context.Organizations
             .FirstOrDefault( o => o.OrganizationID == id );
