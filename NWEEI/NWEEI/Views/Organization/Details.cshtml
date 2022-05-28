@@ -1,42 +1,46 @@
 @model NWEEI.Models.Organization
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = Model.Name;
 }
 
-<h1>Details</h1>
+<div class="custom-breadcrumb">
+    <a asp-controller="Resources" asp-action="IndustryAssociations">
+        <span class="breadcrumb-icon"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+        <span class="breadcrumb-name">Back to Industry Associations</span>
+    </a>
+</div>
 
 <div>
-    <h4>Organization</h4>
+    <div class="content-header">
+
+        <!-- org logo and name -->
+        <div class="org-header">
+            <div class="org-details-logo">
+                <img src="@Model.ImageURL" />
+            </div>
+
+            <h1>@Model.Name</h1>
+        </div>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <span class="admin-action-button btn btn-primary">
+                <a asp-action="Edit" asp-route-id="@Model.OrganizationID">Edit Organization</a>
+            </span>
+        }
+    </div>
+
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.Raw(Model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageURL)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageURL)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.WebsiteURL)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.WebsiteURL)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.OrganizationID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+    <!-- org description -->
+    <div>
+        @Html.Raw(Model.Description)
+    </div>
+
+    <!-- website button -->
+    <div class="button-group row">
+        <a href="@Model.WebsiteURL" class="btn btn-primary">Visit Website</a>
+    </div>
+
 </div>

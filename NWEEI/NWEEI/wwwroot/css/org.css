@@ -1,4 +1,6 @@
-﻿/* INDUSTRY ASSOCIATIONS */
+﻿/* -------------------------------------------------- */
+
+/* INDUSTRY ASSOCIATIONS */
 
 .card-container {
     position: relative;
@@ -102,4 +104,19 @@
     left: 0;
     bottom: 0;
     width: 100%;
+}
+
+
+/* -------------------------------------------------- */
+
+
+/* SINGLE ORG - DETAILS */
+
+.org-header {
+
+}
+
+.org-details-logo {
+    position: relative;
+    height: 100px;
 }
