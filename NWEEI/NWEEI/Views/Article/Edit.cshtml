@@ -40,7 +40,6 @@
                 <script type="text/javascript" src='/richtexteditor/plugins/all_plugins.js'></script>
                 <script type="text/javascript" src="/rte-upload.js"></script>
                 <label asp-for="@Model.CurrentArticle.Body" class="control-label"></label>
-
                 <!-- rich text editor with custom validation -->
                 <input asp-for="@Model.CurrentArticle.Body" name="htmlcode" id="inp_htmlcode" class="form-control" type="text" style="visibility:hidden; position:absolute;" data-val="true" data-val-required="Please enter text for the article body." />
                 <div id="div_editor1" class="richtexteditor" style="width: 960px;margin:0 auto;"></div>
