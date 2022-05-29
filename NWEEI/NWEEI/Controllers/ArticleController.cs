@@ -18,11 +18,13 @@ namespace NWEEI.Controllers
     public class ArticleController : Controller
     {
         IArticleRepo repo;
+        ICategoryRepo catRepo;
         IWebHostEnvironment _env;
 
-        public ArticleController(IArticleRepo r, IWebHostEnvironment env)
+        public ArticleController(IArticleRepo r, ICategoryRepo c, IWebHostEnvironment env)
         {
             repo = r;
+            catRepo = c;
             _env = env;
         }
 
@@ -123,7 +125,7 @@ namespace NWEEI.Controllers
                 article.IsPublished = viewModel.CurrentArticle.IsPublished;
                 article.Featured = viewModel.CurrentArticle.Featured;
                 article.Views = viewModel.CurrentArticle.Views;
-                article.Category = viewModel.CurrentArticle.Category;
+                article.Category = catRepo.GetCategoryByID(viewModel.CurrentArticle.Category.CategoryID);
 
                 // set publish date if article is set to be published
                 if (article.IsPublished)

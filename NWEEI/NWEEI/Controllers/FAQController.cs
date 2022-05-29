@@ -16,12 +16,14 @@ namespace NWEEI.Controllers
     public class FAQController : Controller
     {
         IFAQRepo repo;
+        ICategoryRepo catRepo;
 
-        public FAQController(IFAQRepo r)
+        public FAQController(IFAQRepo r, ICategoryRepo cr)
         {
             repo = r;
+            catRepo = cr;
         }
-
+        
         // GET: FAQ
         public async Task<IActionResult> Index()
         {
@@ -105,7 +107,7 @@ namespace NWEEI.Controllers
                 faq.Answer = viewModel.CurrentFAQ.Answer;
                 faq.IsPublished = viewModel.CurrentFAQ.IsPublished;
                 faq.Featured = viewModel.CurrentFAQ.Featured;
-                faq.Category = viewModel.CurrentFAQ.Category;
+                faq.Category = catRepo.GetCategoryByID(viewModel.CurrentArticle.Category.CategoryID);
 
                 repo.AddFAQ(faq);
                 return RedirectToAction(nameof(Manage));
