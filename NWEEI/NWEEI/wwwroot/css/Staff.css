@@ -1,0 +1,38 @@
+﻿.staff {
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.staff h1 {
+    text-align: center;
+}
+
+.staff-container {
+    border-radius: 20px;
+    box-shadow: rgba(0,0,0,0.2) 0px 12px 12px 6px, rgba(0,0,0,0.2) 0px -12px 12px 6px inset;
+    margin-bottom: 2em;
+}
+
+.staff .row {
+    align-items: center;
+}
+
+.staff img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    margin: 20px;
+    margin-bottom: 40px;
+}
+
+.linkedin-btn {
+    height: 15px;
+    width: 80px;
+    background-image: url(/images/stories/btn_liprofile_blue_80x15.png);
+    border: 0px;
+    float: right;
+}
+
+.staff-bio {
+    padding: 20px;
+}
