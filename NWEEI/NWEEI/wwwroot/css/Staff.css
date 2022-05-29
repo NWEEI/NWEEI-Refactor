@@ -1,0 +1,29 @@
+﻿.staff {
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.staff h1 {
+    text-align: center;
+}
+
+.staff-container {
+    border-radius: 20px;
+    box-shadow: rgba(0,0,0,0.2) 0px 12px 12px 6px, rgba(0,0,0,0.2) 0px -12px 12px 6px inset;
+    margin-bottom: 2em;
+}
+
+.staff .row {
+    align-items: center;
+}
+
+.staff img {
+    width: 100%;
+    height: auto;
+    padding: 0.5rem;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+.staff-bio {
+    padding: 20px;
+}
