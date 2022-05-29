@@ -13,17 +13,41 @@
     </p>
 </div>
 
-<div class="container tiles">
+<div class="tiles">
 
     <!-- loop through orgs -->
     @foreach (var org in Model)
-            {
-                <a asp-controller="Organization" asp-action="Details" asp-route-id="@org.OrganizationID">
-                    <div class="card-container">
-                        <div class="card">
-                            
+    {
+        <div class="card-container">
+            <a asp-controller="Organization" asp-action="Details" asp-route-id="@org.OrganizationID">
+                <div class="org-card">
+
+                    <!-- logo image / text -->
+                    <div class="org-logo">
+
+                        @if (org.ImageURL == null)
+                        {
+                            <div class="text-logo">
+                                <!-- acronym will go here -->
+                                TEST
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="org-img" style="background-image: url('@org.ImageURL')"></div>
+                        }
+
                     </div>
-                </a>
-            }
+
+                    <!-- name -->
+                    <div class="org-name">
+                        <h6>@org.Name</h6>
+                    </div>
+
+                </div>
+
+            </a>
+        </div>
+    }
 
 </div>
