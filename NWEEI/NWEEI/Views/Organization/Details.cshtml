@@ -12,24 +12,27 @@
 </div>
 
 <div>
-    <div class="content-header">
+    <div class="content-header row">
 
-        <!-- org logo and name -->
-        <div class="org-header">
-            <div class="org-details-logo">
-                <img src="@Model.ImageURL" />
-            </div>
+        <div class="col-10">
+            <!-- org logo and name -->
+            <img class="org-details-logo" src="@Model.ImageURL" />
 
             <h1>@Model.Name</h1>
         </div>
 
-        @if (User.IsInRole("Admin"))
-        {
-            <span class="admin-action-button btn btn-primary">
-                <a asp-action="Edit" asp-route-id="@Model.OrganizationID">Edit Organization</a>
-            </span>
-        }
+        <div class="col-2">
+            <!-- admin edit button -->
+            @if (User.IsInRole("Admin"))
+            {
+                <span class="admin-action-button btn btn-primary" style="margin-right: 15px;">
+                    <a asp-action="Edit" asp-route-id="@Model.OrganizationID">Edit Organization</a>
+                </span>
+            }
+        </div>
+
     </div>
+
 
     <hr />
 
