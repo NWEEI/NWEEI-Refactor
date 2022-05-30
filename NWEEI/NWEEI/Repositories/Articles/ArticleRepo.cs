@@ -121,6 +121,7 @@ namespace NWEEI.Repositories
         {
             List<Category> categories = context.Categories
                 .Include(c => c.Articles)
+                .OrderBy(c => c.Name)
                 .ToList();
 
             return categories;

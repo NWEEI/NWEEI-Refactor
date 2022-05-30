@@ -12,7 +12,6 @@
 <table data-index-table>
     <thead>
         <tr>
-            <th></th>
             <th>
                 @Html.DisplayNameFor( model => model.Name )
             </th>
@@ -24,9 +23,6 @@
     <tbody>
 @foreach (Organization organization in Model) {
         <tr>
-            <td>
-                @organization.OrganizationID
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => organization.Name)
             </td>

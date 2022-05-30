@@ -82,6 +82,7 @@ namespace NWEEI.Controllers
 
             ViewData["IsPosted"] = true;
             ViewData["PostedValue"] = htmlcode;
+            organization.Description = htmlcode;
 
             // attempt to save the object to it's repo.
             try { repo.UpdateOrganization( organization ); }
