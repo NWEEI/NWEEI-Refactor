@@ -14,9 +14,18 @@
 <div>
     <div class="content-header row">
         <div class="col-10">
-            <!-- org logo and name -->
-            <img class="org-details-logo" src="@Model.ImageURL" />
-            <h1>@Model.Name</h1>
+            <!-- org logo -->
+            @if (Model.ImageFileName != null)
+            {
+                <img class="org-details-logo mt-3" src="~/images/orgs/@Model.ImageFileName" />
+            }
+            else if (Model.ImageURL != null)
+            {
+                <img class="org-details-logo" src="@Model.ImageURL" />
+            }
+
+            <!-- org name -->
+            <h1 class="pt-4">@Model.Name</h1>
         </div>
 
         <div class="col-2">

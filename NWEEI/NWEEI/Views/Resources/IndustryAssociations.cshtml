@@ -19,22 +19,25 @@
     @foreach (var org in Model)
     {
         <div class="card-container">
-            <a asp-controller="Organization" asp-action="Details" asp-route-id="@org.OrganizationID">
+            <a class="org-link" asp-controller="Organization" asp-action="Details" asp-route-id="@org.OrganizationID">
                 <div class="org-card">
 
                     <!-- logo image / text -->
                     <div class="org-logo">
 
-                        @if (org.ImageURL == null)
+                        @if (org.ImageFileName != null)
                         {
-                            <div class="text-logo">
-                                <!-- acronym will go here -->
-                                TEST
-                            </div>
+                            <div class="org-img" style="background-image: url('../images/orgs/@org.ImageFileName')"></div>
+                        }
+                        else if (org.ImageURL != null)
+                        {
+                            <div class="org-img" style="background-image: url('@org.ImageURL')"></div>
                         }
                         else
                         {
-                            <div class="org-img" style="background-image: url('@org.ImageURL')"></div>
+                            <div class="text-logo">
+                                @org.ShortName
+                            </div>
                         }
 
                     </div>
@@ -49,5 +52,4 @@
             </a>
         </div>
     }
-
 </div>
