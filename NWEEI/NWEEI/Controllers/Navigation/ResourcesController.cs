@@ -81,5 +81,17 @@ namespace NWEEI.Controllers.Navigation
             List<Organization> orgs = orgRepo.GetAllOrganizationsAZ();
             return View(orgs);
         }
+
+        public async Task<IActionResult> NWEEINews()
+        {
+            ViewBag.Current = "Resources";
+            return View(repo.GetNWEEINewsArticles());
+        }
+
+        public async Task<IActionResult> IndustryNews()
+        {
+            ViewBag.Current = "Resources";
+            return View(repo.GetIndustryNewsArticles());
+        }
     }
 }
