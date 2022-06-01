@@ -24,36 +24,36 @@
     }
 }
 
+<div>
+    <!-- article header: title, publish date, edit option -->
     <div>
-        <!-- article header: title, publish date, edit option -->
-        <div>
-            <div><h1>@Model.Title</h1></div>
+        <div><h1>@Model.Title</h1></div>
 
-            <div class="content-header">
-                <!-- admin edit button -->
+        <div class="content-header">
+            <!-- admin edit button -->
 
-                @if (User.IsInRole("Admin"))
+            @if (User.IsInRole("Admin"))
             {
-                    <span class="admin-action-button btn btn-primary">
-                        <a asp-action="Edit" asp-route-id="@Model.ArticleID">Edit Article</a>
-                    </span>
+                <span class="admin-action-button btn btn-primary">
+                    <a asp-action="Edit" asp-route-id="@Model.ArticleID">Edit Article</a>
+                </span>
             }
 
 
-                <!-- category and publish date -->
-                <span>
-                    <i>Category: @Model.Category.Name</i>
-                    <br />
-                    <i>Published on @Model.PublishDate.ToShortDateString()</i>
-                </span>
-            </div>
-
+            <!-- category and publish date -->
+            <span>
+                <i>Category: @Model.Category.Name</i>
+                <br />
+                <i>Published on @Model.PublishDate.ToShortDateString()</i>
+            </span>
         </div>
 
-        <hr />
-
-        <!-- article body -->
-        <div class="article-body">
-            @Html.Raw(Model.Body)
-        </div>
     </div>
+
+    <hr />
+
+    <!-- article body -->
+    <div class="article-body">
+        @Html.Raw(Model.Body)
+    </div>
+</div>

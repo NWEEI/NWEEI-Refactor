@@ -44,7 +44,7 @@ namespace NWEEI.Controllers
 
         // get all articles in a category
         // GET: Category/Articles/5
-        public async Task<IActionResult> Category(int categoryID)
+        public async Task<IActionResult> ByCategory(int categoryID)
         {
             ViewBag.Current = "Resources";
 

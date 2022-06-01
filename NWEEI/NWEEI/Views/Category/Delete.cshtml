@@ -10,7 +10,7 @@
 
     <div>
         <p>This category can't be deleted because there are @Model.Articles.Count articles associated with it. </p>
-        <a asp-controller="Article" asp-action="Category" asp-route-categoryID="@Model.CategoryID">View Articles</a>
+        <a asp-controller="Article" asp-action="ByCategory" asp-route-categoryID="@Model.CategoryID">View Articles</a>
         <hr />
         <a asp-action="Index">Back to Categories</a>
     </div>
