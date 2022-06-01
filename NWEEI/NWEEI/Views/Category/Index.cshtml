@@ -33,7 +33,7 @@
                         <td class="text-center">
                             @Html.DisplayFor(modelItem => item.Articles.Count)
                             &nbsp;&nbsp;|&nbsp;&nbsp;
-                            <a asp-controller="Article" asp-action="Category" asp-route-categoryID="@item.CategoryID">View Articles</a>
+                            <a asp-controller="Article" asp-action="ByCategory" asp-route-categoryID="@item.CategoryID">View Articles</a>
                         </td>
                         <td class="text-center">
                             <a asp-action="Edit" asp-route-id="@item.CategoryID">Edit</a>
@@ -48,13 +48,13 @@
 }
 else
 {
-    <h1>Article Categories</h1>
+    <h1 class="pb-3">Article Categories</h1>
     <div class="container tiles">
         @foreach (var item in Model)
         {
             @if (item.Articles.Where(a => a.IsPublished == true).ToList().Count > 0)
             {
-                <a class="tile-link" asp-controller="Article" asp-action="Category" asp-route-categoryID="@item.CategoryID">
+                <a class="tile-link" asp-controller="Article" asp-action="ByCategory" asp-route-categoryID="@item.CategoryID">
                     <div class="tile-container">
                         <span class="tile-content">
                             @Html.DisplayFor(modelItem => item.Name)
