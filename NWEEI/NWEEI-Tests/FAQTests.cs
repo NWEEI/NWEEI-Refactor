@@ -28,7 +28,7 @@ namespace NWEEI_Tests
 
             // arrange controller with test repo
             testRepo = new FAQTestRepo();
-            controller = new FAQController(testRepo);
+            controller = new FAQController(testRepo, categoryRepo);
 
             // arrange categories
             categoryRepo = new CategoryTestRepo();

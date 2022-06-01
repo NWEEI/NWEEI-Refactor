@@ -36,7 +36,7 @@ namespace NWEEI_Tests
 
             // arrange controller with test repo
             testRepo = new ArticleTestRepo();
-            controller = new ArticleController(testRepo, _env);
+            controller = new ArticleController(testRepo, categoryRepo, _env);
 
             // arrange user
             u1 = new AppUser
