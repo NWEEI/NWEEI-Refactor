@@ -17,6 +17,8 @@ namespace NWEEI.Repositories
 
         // news article retrieval
         List<Article> GetNWEEINewsArticles();
+        List<Article> GetFeaturedNWEEINewsArticles();
         List<Article> GetIndustryNewsArticles();
+        List<Article> GetFeaturedIndustryNewsArticles();
     }
 }

@@ -57,6 +57,24 @@ namespace NWEEI.Repositories
             return articles;
         }
 
+        // get featured published articles from the 'NWEEI News Articles' category (categoryID 7)
+        public List<Article> GetFeaturedNWEEINewsArticles()
+        {
+            int categoryID = 7;
+
+            List<Article> articles = context.Articles
+                .Where(a => a.Category.CategoryID == categoryID
+                    && a.IsPublished == true
+                    && a.Featured == true)
+                .OrderByDescending(a => a.Featured)
+                .ThenByDescending(a => a.DateCreated)
+                .Include(a => a.Author)
+                .Include(a => a.Category)
+                .ToList();
+
+            return articles;
+        }
+
         // get published articles from news-related categories:
         // "Short News Snippets" (categoryID 4)
         // "News" (categoryID 21)
@@ -67,6 +85,26 @@ namespace NWEEI.Repositories
 
             List<Article> articles = context.Articles
                 .Where(a => a.IsPublished == true)
+                .Where(a => categoryIDs.Contains(a.Category.CategoryID))
+                .OrderByDescending(a => a.Featured)
+                .ThenByDescending(a => a.DateCreated)
+                .Include(a => a.Author)
+                .Include(a => a.Category)
+                .ToList();
+
+            return articles;
+        }
+
+        // get featured published articles from news-related categories:
+        // "Short News Snippets" (categoryID 4)
+        // "News" (categoryID 21)
+        // "News" (categoryID 51)
+        public List<Article> GetFeaturedIndustryNewsArticles()
+        {
+            int[] categoryIDs = { 4, 21, 51 };
+
+            List<Article> articles = context.Articles
+                .Where(a => a.IsPublished == true && a.Featured == true)
                 .Where(a => categoryIDs.Contains(a.Category.CategoryID))
                 .OrderByDescending(a => a.Featured)
                 .ThenByDescending(a => a.DateCreated)
