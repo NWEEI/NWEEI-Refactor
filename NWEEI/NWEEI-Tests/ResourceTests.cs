@@ -172,13 +172,41 @@ namespace NWEEI_Tests
 
             // check results
             // should have 4 published articles, 3 of which are featured and should be first in list
-            // categoryIDs should 
+            // categoryIDs should be 4, 21, 51
             Assert.AreEqual(4, articles.Count);
             Assert.AreEqual(true, articles[2].Featured);
             Assert.AreEqual(false, articles[3].Featured);
             Assert.AreEqual(2, articles.Where(a => a.Category.CategoryID == 4).Count());    // c2
             Assert.AreEqual(1, articles.Where(a => a.Category.CategoryID == 21).Count());   // c3
             Assert.AreEqual(1, articles.Where(a => a.Category.CategoryID == 51).Count());   // c4
+        }
+
+        [Test]
+        // test getting all featured published articles from nweei news category
+        public void TestFeaturedNWEEINews()
+        {
+            // use repo method to get featured NWEEI News articles
+            articles = testRepo.GetFeaturedNWEEINewsArticles();
+
+            // check results
+            // should have 1 featured, published article
+            Assert.AreEqual(1, articles.Count);
+            Assert.AreEqual(true, articles[0].Featured);
+        }
+
+        [Test]
+        // test getting all featured published articles from nweei news category
+        public void TestFeaturedIndustryNews()
+        {
+            // use repo method to get featured Industry News articles
+            articles = testRepo.GetFeaturedIndustryNewsArticles();
+
+            // check results
+            // should have 3 featured, published articles
+            Assert.AreEqual(3, articles.Count);
+            Assert.AreEqual(true, articles[0].Featured);
+            Assert.AreEqual(true, articles[1].Featured);
+            Assert.AreEqual(true, articles[2].Featured);
         }
     }
 }
