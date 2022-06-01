@@ -75,8 +75,9 @@ namespace NWEEI.Controllers
                 return NotFound();
             }
 
-            // increase view count by 1
+            // increase view count by 1 and update
             article.Views++;
+            repo.UpdateArticle(article);
 
             return View(article);
         }

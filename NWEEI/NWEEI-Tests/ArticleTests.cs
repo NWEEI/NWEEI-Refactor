@@ -179,6 +179,9 @@ namespace NWEEI_Tests
             Assert.AreEqual(a1.ArticleID, newArticle.ArticleID);
             Assert.AreEqual(a1.Author, newArticle.Author);
             Assert.AreEqual(a1.Body, newArticle.Body);
+
+            // check view counter - should be 101
+            Assert.AreEqual(101, newArticle.Views);
         }
 
         [Test]
