@@ -22,6 +22,25 @@ namespace NWEEI.Repositories
             }
         }
 
+        // add a new article
+        public void AddArticle(Article article)
+        {
+            // attempt to retrieve existing article
+            Article existingArticle = articles.Find(a => a.Title == article.Title && a.Body == article.Body);
+
+            // add article to list if it doesn't already exist
+            if (existingArticle == null)
+            {
+                // simulate auto-incremented primary key and add article to list
+                article.ArticleID = articles.Count;
+                articles.Add(article);
+            }
+            else
+            {
+                throw new Exception("Article already exists");
+            }
+        }
+
         // get published articles that contain the search query
         // in either the title or body
         public List<Article> GetArticlesBySearchQuery(string query)
@@ -32,6 +51,38 @@ namespace NWEEI.Repositories
                 .ToList();
 
             return matchingArticles;
+        }
+
+        // get published articles from the "NWEEI News Articles" category (categoryID 7)
+        public List<Article> GetNWEEINewsArticles()
+        {
+            int categoryID = 7;
+
+            List<Article> newsArticles = articles
+                .Where(a => a.Category.CategoryID == categoryID && a.IsPublished == true)
+                .OrderByDescending(a => a.Featured)
+                .ThenByDescending(a => a.DateCreated)
+                .ToList();
+
+            return newsArticles;
+        }
+
+        // get published articles from news-related categories:
+        // "Short News Snippets" (categoryID 4)
+        // "News" (categoryID 21)
+        // "News" (categoryID 51)
+        public List<Article> GetIndustryNewsArticles()
+        {
+            int[] categoryIDs = { 4, 21, 51 };
+
+            List<Article> newsArticles = articles
+                .Where(a => a.IsPublished == true)
+                .Where(a => categoryIDs.Contains(a.Category.CategoryID))
+                .OrderByDescending(a => a.Featured)
+                .ThenByDescending(a => a.DateCreated)
+                .ToList();
+
+            return newsArticles;
         }
 
         #endregion
