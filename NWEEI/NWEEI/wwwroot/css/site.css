@@ -390,6 +390,25 @@ body {
     text-align: left;
 }
 
+.quick-section-container {
+/*    display: flex;*/
+/*    justify-content: space-around;*/
+    padding-top: 4%;
+}
+
+.quick-section {
+/*    display: inline-block;*/
+/*    width: 49%;*/
+    padding-bottom: 3%;
+    width: 94%;
+    margin: auto;
+}
+
+.quick-section > h3 {
+    text-align: center;
+    padding: 1% 0%;
+}
+
 
 /* -------------------------------------------------- */
 
@@ -565,72 +584,11 @@ body {
         color: white !important;
     }
 
-/*.tile-link {
-    color: white !important;
-}*/
-
-
-/* -------------------------------------------------- */
-
-
-/* ARTICLES */
-
-/* user views */
-
-.articles {
-    padding: 20px;
-}
-
-.article-tile-container {
-    padding: 10px;
-    background-color: #03529B;
-    border-radius: 20px;
-    margin: 10px;
-}
-
-.article-tile-content {
-    width: 90%;
-    padding: 10px;
-}
-
-.article-tile-title {
-    font-size: 1.1em;
-    color: white;
-    padding: 2px;
-}
-
-.article-tile-preview {
-    font-size: .9em;
-    font-style: italic;
-    color: lightgrey;
-    padding: 2px;
-}
-
-.article-tile-date {
-    font-size: .8em;
-    font-style: italic;
-    color: lightslategrey;
-    padding: 2px;
-}
 
 /* -------------------------------------------------- */
 
 
 /* FAQs */
-.card-header {
-    cursor: pointer;
-}
-
-.fa-chevron-up {
-    position: relative;
-    float: right;
-    color: #999999;
-    transition: all 0.3s ease;
-}
-
-.card-link.collapsed > .fa-chevron-up {
-    transform: rotate(180deg);
-}
 
 .edit-textarea {
     height: 15vh !important;
