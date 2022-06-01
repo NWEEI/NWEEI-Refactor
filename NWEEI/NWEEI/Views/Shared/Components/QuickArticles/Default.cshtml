@@ -1,0 +1,49 @@
+﻿@model List<Article>
+@using System.Text.RegularExpressions;
+
+<!-- quick news accordion -->
+<div class="container">
+    <div>
+
+        @* loop through each article *@
+        @foreach (var article in Model)
+        {
+            var id = "article-" + article.ArticleID;
+            var idSelector = "#" + id;
+
+            <!-- individual article -->
+            <div class="card">
+
+                <!-- article title -->
+                <div class="card-header card-link collapsed" data-toggle="collapse" data-target="@idSelector">
+                    @article.Title
+                    <i class="fa fa-chevron-up" style="line-height: inherit;" aria-hidden="true"></i>
+                </div>
+
+                <!-- article body -->
+                <div id="@id" class="collapse">
+                    <div class="card-body">
+
+                        @if (article.Body.Length < 400)
+                        {
+                            @Regex.Replace(article.Body, "<.*?>", string.Empty)
+                        }
+                        else
+                        {
+                            @Regex.Replace(article.Body.Substring(0, 400), "<.*?>", string.Empty)
+                            @Html.Raw("<span>...</span>")
+                        }
+
+                        <!-- read more button -->
+                        <div class="text-center pt-3">
+                            <a asp-controller="Article" asp-action="Details" asp-route-id="@article.ArticleID" class="btn btn-primary">
+                                Read More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
