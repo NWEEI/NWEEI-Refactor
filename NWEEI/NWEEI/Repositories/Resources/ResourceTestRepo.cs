@@ -10,7 +10,6 @@ namespace NWEEI.Repositories
     {
         private List<Article> articles = new List<Article>();
         private List<FAQ> faqs = new List<FAQ>();
-        private List<Organization> organizations = new List<Organization>();
 
         #region articles
 
@@ -110,30 +109,6 @@ namespace NWEEI.Repositories
             return matchingFAQs;
         }
 
-
-        #endregion
-
-
-        #region organizations
-
-        public IQueryable<Organization> Organizations
-        {
-            get
-            {
-                return organizations.AsQueryable<Organization>();
-            }
-        }
-
-        // get organization that contain the search query
-        // in either the name or description
-        public List<Organization> GetOrgsBySearchQuery(string query)
-        {
-            List<Organization> matchingOrgs = organizations
-                .Where(o => o.Name.Contains(query) || o.Description.Contains(query))
-                .ToList();
-
-            return matchingOrgs;
-        }
 
         #endregion
     }
