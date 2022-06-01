@@ -232,5 +232,30 @@ namespace NWEEI_Tests
             // check number of articles in repo
             Assert.AreEqual(0, testRepo.Articles.ToList().Count);
         }
+
+        [Test]
+        // tests an article's view count after retrieving it
+        public void TestViewCounter()
+        {
+            // add an article to repo
+            testRepo.AddArticle(a1);
+
+            // pull that article back out to get its id
+            Article article = testRepo.Articles.ToList()[0];
+
+            // use controller method to retrieve the article by its id
+            var viewResult = (ViewResult)controller.Details(article.ArticleID).Result;
+            Article newArticle = (Article)viewResult.ViewData.Model;
+
+            // check view counter - should be 101
+            Assert.AreEqual(101, newArticle.Views);
+
+            // use controller method to retrieve the article again
+            viewResult = (ViewResult)controller.Details(article.ArticleID).Result;
+            newArticle = (Article)viewResult.ViewData.Model;
+
+            // check view counter again - should be 102
+            Assert.AreEqual(102, newArticle.Views);
+        }
     }
 }
