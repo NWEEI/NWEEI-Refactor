@@ -23,7 +23,7 @@ namespace NWEEI.Controllers.Navigation
         }
 
         // GET: /Resources/Search
-        // search articles, FAQs, organizations
+        // search articles, FAQs
         public async Task<IActionResult> Index()
         {
             ViewBag.Current = "Resources";
@@ -43,21 +43,19 @@ namespace NWEEI.Controllers.Navigation
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        // search articles, FAQs, organizations
+        // search articles, FAQs
         public async Task<IActionResult> Index(SearchViewModel viewModel)
         {
             ViewBag.Current = "Resources";
 
             if (ModelState.IsValid)
             {
-                // get lists of articles, FAQs, and organizations
+                // get lists of articles and FAQs
                 // that contain the search query
                 viewModel.Articles = repo.GetArticlesBySearchQuery(viewModel.SearchQuery);
                 viewModel.FAQs = repo.GetFAQsBySearchQuery(viewModel.SearchQuery);
-                //viewModel.Organizations = repo.GetOrgsBySearchQuery(viewModel.SearchQuery);
 
                 // if results are found, set HasResults to true
-                // TODO: update to include orgs once built out
                 if (viewModel.Articles.Count > 0 || viewModel.FAQs.Count > 0)
                 {
                     viewModel.HasResults = true;
@@ -80,6 +78,18 @@ namespace NWEEI.Controllers.Navigation
             ViewBag.Current = "Resources";
             List<Organization> orgs = orgRepo.GetAllOrganizationsAZ();
             return View(orgs);
+        }
+
+        public async Task<IActionResult> NWEEINews()
+        {
+            ViewBag.Current = "Resources";
+            return View(repo.GetNWEEINewsArticles());
+        }
+
+        public async Task<IActionResult> IndustryNews()
+        {
+            ViewBag.Current = "Resources";
+            return View(repo.GetIndustryNewsArticles());
         }
     }
 }

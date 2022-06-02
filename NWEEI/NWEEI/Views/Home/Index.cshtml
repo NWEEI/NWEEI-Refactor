@@ -19,3 +19,18 @@
     </p>
     <a asp-controller="Resources" asp-action="CareerMap">View the Green Buildings Career Map</a>
 </div>
+
+
+<div class="quick-section-container">
+    <!-- quick nweei news -->
+    <div class="quick-section">
+        <h3>NWEEI News</h3>
+        @await Component.InvokeAsync("QuickArticles", "NWEEI News")
+    </div>
+
+    <!-- quick industry news -->
+    <div class="quick-section">
+        <h3>Industry News</h3>
+        @await Component.InvokeAsync("QuickArticles", "Industry News")
+    </div>
+</div>

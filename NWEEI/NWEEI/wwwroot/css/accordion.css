@@ -1,0 +1,19 @@
+﻿/* -------------------------------------------------- */
+
+
+/* ACCORDION */
+
+.card-header {
+    cursor: pointer;
+}
+
+.fa-chevron-up {
+    position: relative;
+    float: right;
+    color: #999999;
+    transition: all 0.3s ease;
+}
+
+.card-link.collapsed > .fa-chevron-up {
+    transform: rotate(180deg);
+}

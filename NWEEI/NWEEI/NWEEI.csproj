@@ -24,6 +24,8 @@
     <None Remove="Repositories\Tag\" />
     <None Remove="Repositories\FAQs\" />
     <None Remove="Repositories\Resources\" />
+    <None Remove="Views\Shared\Components\" />
+    <None Remove="Views\Shared\Components\QuickArticles\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
@@ -60,5 +62,7 @@
     <Folder Include="Repositories\Tags\" />
     <Folder Include="Repositories\FAQs\" />
     <Folder Include="Repositories\Resources\" />
+    <Folder Include="Views\Shared\Components\" />
+    <Folder Include="Views\Shared\Components\QuickArticles\" />
   </ItemGroup>
 </Project>

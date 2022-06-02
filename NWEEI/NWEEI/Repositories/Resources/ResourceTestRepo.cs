@@ -10,7 +10,6 @@ namespace NWEEI.Repositories
     {
         private List<Article> articles = new List<Article>();
         private List<FAQ> faqs = new List<FAQ>();
-        private List<Organization> organizations = new List<Organization>();
 
         #region articles
 
@@ -19,6 +18,25 @@ namespace NWEEI.Repositories
             get
             {
                 return articles.AsQueryable<Article>();
+            }
+        }
+
+        // add a new article
+        public void AddArticle(Article article)
+        {
+            // attempt to retrieve existing article
+            Article existingArticle = articles.Find(a => a.Title == article.Title && a.Body == article.Body);
+
+            // add article to list if it doesn't already exist
+            if (existingArticle == null)
+            {
+                // simulate auto-incremented primary key and add article to list
+                article.ArticleID = articles.Count;
+                articles.Add(article);
+            }
+            else
+            {
+                throw new Exception("Article already exists");
             }
         }
 
@@ -32,6 +50,72 @@ namespace NWEEI.Repositories
                 .ToList();
 
             return matchingArticles;
+        }
+
+        // get published articles from the "NWEEI News Articles" category (categoryID 7)
+        public List<Article> GetNWEEINewsArticles()
+        {
+            int categoryID = 7;
+
+            List<Article> newsArticles = articles
+                .Where(a => a.Category.CategoryID == categoryID && a.IsPublished == true)
+                .OrderByDescending(a => a.Featured)
+                .ThenByDescending(a => a.DateCreated)
+                .ToList();
+
+            return newsArticles;
+        }
+
+        // get featured published articles from the "NWEEI News Articles" category (categoryID 7)
+        public List<Article> GetFeaturedNWEEINewsArticles()
+        {
+            int categoryID = 7;
+
+            List<Article> newsArticles = articles
+                .Where(a => a.Category.CategoryID == categoryID
+                    && a.IsPublished == true
+                    && a.Featured == true)
+                .OrderByDescending(a => a.Featured)
+                .ThenByDescending(a => a.DateCreated)
+                .ToList();
+
+            return newsArticles;
+        }
+
+        // get published articles from news-related categories:
+        // "Short News Snippets" (categoryID 4)
+        // "News" (categoryID 21)
+        // "News" (categoryID 51)
+        public List<Article> GetIndustryNewsArticles()
+        {
+            int[] categoryIDs = { 4, 21, 51 };
+
+            List<Article> newsArticles = articles
+                .Where(a => a.IsPublished == true)
+                .Where(a => categoryIDs.Contains(a.Category.CategoryID))
+                .OrderByDescending(a => a.Featured)
+                .ThenByDescending(a => a.DateCreated)
+                .ToList();
+
+            return newsArticles;
+        }
+
+        // get featured published articles from news-related categories:
+        // "Short News Snippets" (categoryID 4)
+        // "News" (categoryID 21)
+        // "News" (categoryID 51)
+        public List<Article> GetFeaturedIndustryNewsArticles()
+        {
+            int[] categoryIDs = { 4, 21, 51 };
+
+            List<Article> newsArticles = articles
+                .Where(a => a.IsPublished == true && a.Featured == true)
+                .Where(a => categoryIDs.Contains(a.Category.CategoryID))
+                .OrderByDescending(a => a.Featured)
+                .ThenByDescending(a => a.DateCreated)
+                .ToList();
+
+            return newsArticles;
         }
 
         #endregion
@@ -59,30 +143,6 @@ namespace NWEEI.Repositories
             return matchingFAQs;
         }
 
-
-        #endregion
-
-
-        #region organizations
-
-        public IQueryable<Organization> Organizations
-        {
-            get
-            {
-                return organizations.AsQueryable<Organization>();
-            }
-        }
-
-        // get organization that contain the search query
-        // in either the name or description
-        public List<Organization> GetOrgsBySearchQuery(string query)
-        {
-            List<Organization> matchingOrgs = organizations
-                .Where(o => o.Name.Contains(query) || o.Description.Contains(query))
-                .ToList();
-
-            return matchingOrgs;
-        }
 
         #endregion
     }

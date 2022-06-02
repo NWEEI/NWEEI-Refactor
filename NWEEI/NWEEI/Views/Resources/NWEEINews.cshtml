@@ -1,0 +1,46 @@
+﻿@model List<Article>
+@using System.Text.RegularExpressions;
+
+@{
+    ViewData["Title"] = "NWEEI News";
+}
+
+<h1>NWEEI News</h1>
+
+<div class="articles container">
+    @foreach (var article in Model)
+    {
+        <a asp-action="Details" asp-route-id="@article.ArticleID">
+            <div class="article-tile-container">
+                <div class="article-tile-content">
+
+                    <div class="row">
+                        <div class="col-10">
+                            <!-- article title -->
+                            <div class="article-tile-title">@article.Title</div>
+                        </div>
+
+                        <div class="col-2">
+                            <!-- article date -->
+                            <div class="article-tile-date">@article.PublishDate.ToShortDateString()</div>
+                        </div>
+                    </div>
+
+                    <!-- article body preview -->
+                    <div class="article-tile-preview">
+                        @if (article.Body.Length < 150)
+                        {
+                            @Regex.Replace(article.Body, "<.*?>", string.Empty)
+                        }
+                        else
+                        {
+                            @Regex.Replace(article.Body.Substring(0, 150), "<.*?>", string.Empty)
+                            @Html.Raw("<span>...</span>")
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </a>
+    }
+</div>

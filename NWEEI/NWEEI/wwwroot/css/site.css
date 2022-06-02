@@ -390,6 +390,25 @@ body {
     text-align: left;
 }
 
+.quick-section-container {
+/*    display: flex;*/
+/*    justify-content: space-around;*/
+    padding-top: 4%;
+}
+
+.quick-section {
+/*    display: inline-block;*/
+/*    width: 49%;*/
+    padding-bottom: 3%;
+    width: 94%;
+    margin: auto;
+}
+
+.quick-section > h3 {
+    text-align: center;
+    padding: 1% 0%;
+}
+
 
 /* -------------------------------------------------- */
 
@@ -508,11 +527,18 @@ body {
     padding: 10px;
     height: 200px;
     width: 200px;
-    border: 2px solid black;
     margin: 8px;
     background-color: #03529B;
     border-radius: 20px;
     font-weight: 500;
+
+    background: -webkit-radial-gradient(circle, rgba(255,255,255,1) 0, rgba(255,255,255,1) 1%, rgba(246,246,246,1) 100%);
+    background: -moz-radial-gradient(circle, rgba(255,255,255,1) 0, rgba(255,255,255,1) 1%, rgba(246,246,246,1) 100%);
+    background: radial-gradient(circle, rgba(255,255,255,1) 0, rgba(255,255,255,1) 1%, rgba(246,246,246,1) 100%);
+    background-position: 50% 50%;
+    -webkit-box-shadow: 2px 2px 6px 0 rgba(0,0,0,0.3);
+    box-shadow: 2px 2px 6px 0 rgba(0,0,0,0.3);
+
     /*    box-shadow: 0 2px 25px 0 rgb(2 63 119), 0 0px 15px 0 rgb(2 63 119);*/
     -webkit-transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -550,78 +576,19 @@ body {
 .tile-content {
     padding: 10px;
     text-align: center;
+    color: #2c4592 !important;
+    font-size: 1.2em;
 }
 
     .tile-content > * {
         color: white !important;
     }
 
-.tile-link {
-    color: white !important;
-}
-
-
-/* -------------------------------------------------- */
-
-
-/* ARTICLES */
-
-/* user views */
-
-.articles {
-    padding: 20px;
-}
-
-.article-tile-container {
-    padding: 10px;
-    background-color: #03529B;
-    border-radius: 20px;
-    margin: 10px;
-}
-
-.article-tile-content {
-    width: 90%;
-    padding: 10px;
-}
-
-.article-tile-title {
-    font-size: 1.1em;
-    color: white;
-    padding: 2px;
-}
-
-.article-tile-preview {
-    font-size: .9em;
-    font-style: italic;
-    color: lightgrey;
-    padding: 2px;
-}
-
-.article-tile-date {
-    font-size: .8em;
-    font-style: italic;
-    color: lightslategrey;
-    padding: 2px;
-}
 
 /* -------------------------------------------------- */
 
 
 /* FAQs */
-.card-header {
-    cursor: pointer;
-}
-
-.fa-chevron-up {
-    position: relative;
-    float: right;
-    color: #999999;
-    transition: all 0.3s ease;
-}
-
-.card-link.collapsed > .fa-chevron-up {
-    transform: rotate(180deg);
-}
 
 .edit-textarea {
     height: 15vh !important;
