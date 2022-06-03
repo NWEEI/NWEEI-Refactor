@@ -47,6 +47,9 @@ namespace NWEEI
             services.AddTransient<ITrainingProgramRepo, TrainingProgramRepo>();
             services.AddTransient<ITagRepo, TagRepo>();
             services.AddTransient<IResourceRepo, ResourceRepo>();
+            
+            services.AddTransient<IEmailService, DotNetEmailService>();
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
 
             services.AddRazorPages();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
