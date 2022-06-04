@@ -72,13 +72,18 @@ namespace NWEEI.Repositories
         // gets a list of all custom training options
         public List<CustomTrainingOption> GetCustomTrainingOptions()
         {
-            return context.CustomTrainingOptions.ToList();
+            return context.CustomTrainingOptions
+                .Include(c => c.TrainingDetails)
+                .ToList();
         }
 
         // gets a single custom training option by its id
         public CustomTrainingOption GetCustomTrainingOptionByID(int id)
         {
-            return context.CustomTrainingOptions.Where(c => c.CustomTrainingOptionID == id).FirstOrDefault();
+            return context.CustomTrainingOptions
+                .Where(c => c.CustomTrainingOptionID == id)
+                .Include(c => c.TrainingDetails)
+                .FirstOrDefault();
         }
 
         // adds a custom training option to the db
