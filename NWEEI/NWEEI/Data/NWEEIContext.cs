@@ -25,6 +25,7 @@ namespace NWEEI.Data
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<Registration> Registrations { get; set; }
         public DbSet<PaymentOption> PaymentOptions { get; set; }
+        public DbSet<TrainingDetail> TrainingDetails { get; set; }
         public DbSet<TrainingProgram> TrainingPrograms { get; set; }
         public DbSet<Tag> Tags { get; set; }
 
