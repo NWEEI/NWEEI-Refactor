@@ -16,6 +16,8 @@ namespace NWEEI_Tests
         TrainingProgramTestRepo trainingProgramTestRepo;
         List<TrainingProgram> trainingPrograms, resultTrainingPrograms;
         TrainingProgram ControlTrainingProgram, ResultTrainingProgram;
+        CustomTrainingOption c1, c2, c3;
+        List<CustomTrainingOption> trainingOptions;
 
         // trainingProgram test helper methods
         bool CompleteMemberEquality(TrainingProgram trainingProgram, TrainingProgram other) =>
@@ -39,6 +41,38 @@ namespace NWEEI_Tests
             trainingPrograms = new();
             for (int i = 0; i < trainingPrograms.Count; i++)
                 trainingPrograms[i] = SetupTrainingProgram(trainingPrograms[i], (i + 1).ToString());
+
+            // set up custom training options
+            c1 = new CustomTrainingOption
+            {
+                Name = "Custom Training Option 1",
+                TrainingDetails =
+                    {
+                        "Detail 1",
+                        "Detail 2",
+                        "Detail 3",
+                        "Detail 4"
+                    }
+            };
+            c2 = new CustomTrainingOption
+            {
+                Name = "Custom Training Option 2",
+                TrainingDetails =
+                    {
+                        "Detail 1",
+                        "Detail 2"
+                    }
+            };
+            c3 = new CustomTrainingOption
+            {
+                Name = "Custom Training Option 3",
+                TrainingDetails =
+                    {
+                        "Detail 1",
+                        "Detail 2",
+                        "Detail 3"
+                    }
+            };
         }
 
         // Index GET
@@ -183,5 +217,49 @@ namespace NWEEI_Tests
             // the trainingProgram should no longer be in the repo 
             Assert.IsNull(trainingProgramTestRepo.GetTrainingProgramByID(id));
         }
+
+
+        #region CustomTrainingOption tests
+
+        [Test]
+        // tests getting all custom training options
+        public void TestCustomTraining()
+        {
+            // add custom training options to repo
+            trainingProgramTestRepo.AddCustomTrainingOption(c1);
+            trainingProgramTestRepo.AddCustomTrainingOption(c2);
+            trainingProgramTestRepo.AddCustomTrainingOption(c3);
+
+            // use controller method to retrieve the list of training options
+            var viewResult = (ViewResult)trainingProgramController.CustomTraining().Result;
+            trainingOptions = (List<CustomTrainingOption>)viewResult.ViewData.Model;
+
+            // check values
+            Assert.AreEqual(3, trainingOptions.Count);
+            Assert.AreEqual(4, trainingOptions[0].TrainingDetails.Count);
+        }
+
+        [Test]
+        // tests getting a single custom training option
+        public void TestCustomTrainingOption()
+        {
+            // add custom training options to repo
+            trainingProgramTestRepo.AddCustomTrainingOption(c1);
+
+            // get training back out to get its id
+            CustomTrainingOption c = trainingProgramTestRepo.CustomTrainingOptions.ToList()[0];
+
+            // use controller method to retrieve a single training option
+            var viewResult = (ViewResult)trainingProgramController
+                .CustomTrainingOption(c.CustomTrainingOptionID).Result;
+            CustomTrainingOption trainingOption = (CustomTrainingOption)viewResult.ViewData.Model;
+
+            // check values
+            Assert.IsNotNull(trainingOption);
+            Assert.AreEqual(c1.Name, trainingOption.Name);
+            Assert.AreEqual(4, trainingOption.TrainingDetails.Count);
+        }
+
+        #endregion
     }
 }

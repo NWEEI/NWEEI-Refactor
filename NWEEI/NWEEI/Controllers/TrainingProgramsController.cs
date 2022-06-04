@@ -92,5 +92,20 @@ namespace NWEEI.Controllers
 
         private bool TrainingProgramExists(int id) =>
             repo.TrainingPrograms.Any(e => e.TrainingProgramID == id);
+
+
+        #region CustomTrainingOption methods
+
+        public async Task<IActionResult> CustomTraining()
+        {
+            return View(repo.GetCustomTrainingOptions());
+        }
+
+        public async Task<IActionResult> CustomTrainingOption(int id)
+        {
+            return View(repo.GetCustomTrainingOptionByID(id));
+        }
+
+        #endregion
     }
 }
