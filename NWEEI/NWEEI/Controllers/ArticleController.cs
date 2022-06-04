@@ -220,7 +220,7 @@ namespace NWEEI.Controllers
                     }
                 }
 
-                return RedirectToAction(nameof(Manage));
+                return View(nameof(Details), article); // redirect to article details
             }
 
             return View(viewModel);
