@@ -58,5 +58,36 @@ namespace NWEEI.Repositories
             context.TrainingPrograms.Remove(existingTrainingProgram);
             context.SaveChanges();
         }
+
+        #region CustomTrainingOption
+
+        public IQueryable<CustomTrainingOption> CustomTrainingOptions
+        {
+            get
+            {
+                return context.CustomTrainingOptions;
+            }
+        }
+
+        // gets a list of all custom training options
+        public List<CustomTrainingOption> GetCustomTrainingOptions()
+        {
+            return context.CustomTrainingOptions.ToList();
+        }
+
+        // gets a single custom training option by its id
+        public CustomTrainingOption GetCustomTrainingOptionByID(int id)
+        {
+            return context.CustomTrainingOptions.Where(c => c.CustomTrainingOptionID == id).FirstOrDefault();
+        }
+
+        // adds a custom training option to the db
+        public void AddCustomTrainingOption(CustomTrainingOption trainingOption)
+        {
+            context.CustomTrainingOptions.Add(trainingOption);
+            context.SaveChanges();
+        }
+
+        #endregion
     }
 }
