@@ -8,6 +8,7 @@ namespace NWEEI.Repositories
     public class TrainingProgramTestRepo : ITrainingProgramRepo
     {
         private List<TrainingProgram> trainingPrograms = new List<TrainingProgram>();
+        private List<CustomTrainingOption> customTrainingOptions = new List<CustomTrainingOption>();
 
         public IQueryable<TrainingProgram> TrainingPrograms
         {
@@ -67,5 +68,50 @@ namespace NWEEI.Repositories
             TrainingProgram existingTrainingProgram = trainingPrograms.Find(t => t.TrainingProgramID == trainingProgram.TrainingProgramID);
             trainingPrograms.Remove(existingTrainingProgram);
         }
+
+
+        #region CustomTrainingOption methods
+
+        public IQueryable<CustomTrainingOption> CustomTrainingOptions
+        {
+            get
+            {
+                return customTrainingOptions.AsQueryable<CustomTrainingOption>();
+            }
+        }
+
+        // gets a list of all custom training options
+        public List<CustomTrainingOption> GetCustomTrainingOptions()
+        {
+            return customTrainingOptions.ToList();
+        }
+
+        // gets a single custom training option by its id
+        public CustomTrainingOption GetCustomTrainingOptionByID(int id)
+        {
+            return customTrainingOptions.Find(c => c.CustomTrainingOptionID == id);
+        }
+
+        // adds a custom training option to the db
+        public void AddCustomTrainingOption(CustomTrainingOption trainingOption)
+        {
+            // attempt to retrieve existing training option
+            CustomTrainingOption existingTrainingOption = customTrainingOptions
+                .Find(c => c.Name == trainingOption.Name);
+
+            // add training option to list if it doesn't already exist
+            if (existingTrainingOption == null)
+            {
+                // simulate auto-incremented primary key and add training option to list
+                trainingOption.CustomTrainingOptionID = customTrainingOptions.Count;
+                customTrainingOptions.Add(trainingOption);
+            }
+            else
+            {
+                throw new Exception("Training option already exists");
+            }
+        }
+
+        #endregion
     }
 }
