@@ -8,7 +8,6 @@ namespace NWEEI.Repositories
     public class OrganizationTestRepo : IOrganizationRepo
     {
         private List<Organization> organizations = new();
-        private List<Tag> tags = new( );
 
         public IQueryable<Organization> Organizations => organizations.AsQueryable<Organization>();
 

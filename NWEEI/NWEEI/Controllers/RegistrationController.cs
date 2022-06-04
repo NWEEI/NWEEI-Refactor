@@ -15,14 +15,14 @@ namespace NWEEI.Controllers
         private IRegistrationRepo repo;
         private readonly IPaymentOptionRepo payRepo;
         private readonly ITrainingProgramRepo trainingRepo;
-        private IEmailService emailService;
+        private IEmailService _emailService;
 
         public RegistrationController(IRegistrationRepo r, IPaymentOptionRepo p, ITrainingProgramRepo t, IEmailService e)
         {
             repo = r;
             payRepo = p;
             trainingRepo = t;
-            emailService = e;
+            _emailService = e;
         }
 
         // GET: Registration
@@ -86,7 +86,7 @@ namespace NWEEI.Controllers
             registration.DateSubmitted = DateTime.Now;
             repo.AddRegistration(registration);
 
-            repo.SendRegistrationConfirmation(emailService, registration, "allisonjm@my.lanecc.edu", "Josh");
+            repo.SendRegistrationConfirmation(_emailService, registration, "allisonjm@my.lanecc.edu", "Josh");
 
             return RedirectToAction("CreateConfirmation", registration);
         }

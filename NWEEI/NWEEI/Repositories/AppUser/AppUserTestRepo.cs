@@ -10,7 +10,6 @@ namespace NWEEI.Repositories
     public class AppUserTestRepo : IAppUserRepo
     {
         private List<AppUser> appUsers = new();
-        private List<Tag> tags = new( );
 
         public IQueryable<AppUser> AppUsers =>
             appUsers.AsQueryable<AppUser>();
