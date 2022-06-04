@@ -18,6 +18,7 @@ namespace NWEEI_Tests
         TrainingProgram ControlTrainingProgram, ResultTrainingProgram;
         CustomTrainingOption c1, c2, c3;
         List<CustomTrainingOption> trainingOptions;
+        TrainingDetail d1, d2, d3, d4;
 
         // trainingProgram test helper methods
         bool CompleteMemberEquality(TrainingProgram trainingProgram, TrainingProgram other) =>
@@ -42,36 +43,38 @@ namespace NWEEI_Tests
             for (int i = 0; i < trainingPrograms.Count; i++)
                 trainingPrograms[i] = SetupTrainingProgram(trainingPrograms[i], (i + 1).ToString());
 
-            // set up custom training options
+            // set up training details and custom training options
+            d1 = new TrainingDetail
+            {
+                Detail = "Test detail 1"
+            };
+            d2 = new TrainingDetail
+            {
+                Detail = "Test detail 2"
+            };
+            d3 = new TrainingDetail
+            {
+                Detail = "Test detail 3"
+            };
+            d4 = new TrainingDetail
+            {
+                Detail = "Test detail 4"
+            };
+
             c1 = new CustomTrainingOption
             {
                 Name = "Custom Training Option 1",
-                TrainingDetails =
-                    {
-                        "Detail 1",
-                        "Detail 2",
-                        "Detail 3",
-                        "Detail 4"
-                    }
+                TrainingDetails = { d1, d2, d3, d4 }
             };
             c2 = new CustomTrainingOption
             {
                 Name = "Custom Training Option 2",
-                TrainingDetails =
-                    {
-                        "Detail 1",
-                        "Detail 2"
-                    }
+                TrainingDetails = { d1, d2, d3 }
             };
             c3 = new CustomTrainingOption
             {
                 Name = "Custom Training Option 3",
-                TrainingDetails =
-                    {
-                        "Detail 1",
-                        "Detail 2",
-                        "Detail 3"
-                    }
+                TrainingDetails = { d1, d2 }
             };
         }
 
