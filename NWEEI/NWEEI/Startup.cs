@@ -53,7 +53,7 @@ namespace NWEEI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, NWEEIContext context)
         {
             if (env.IsDevelopment())
             {
@@ -98,6 +98,9 @@ namespace NWEEI
             UserManager<AppUser> userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();    // create a user-manager object
             RoleManager<IdentityRole> roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>(); // create a role-manager object
             NWEEIContext.CreateAdminUser(roleManager, userManager).Wait();
+
+            // seed custom training options
+            SeedData.SeedCustomTrainingOptions(context);
         }
     }
 }

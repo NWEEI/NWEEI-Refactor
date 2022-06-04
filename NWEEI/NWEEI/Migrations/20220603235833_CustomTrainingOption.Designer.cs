@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NWEEI.Data;
 
 namespace NWEEI.Migrations
 {
     [DbContext(typeof(NWEEIContext))]
-    partial class NWEEIContextModelSnapshot : ModelSnapshot
+    [Migration("20220603235833_CustomTrainingOption")]
+    partial class CustomTrainingOption
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -468,25 +470,6 @@ namespace NWEEI.Migrations
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("NWEEI.Models.TrainingDetail", b =>
-                {
-                    b.Property<int>("TrainingDetailID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Detail")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("TrainingOptionID")
-                        .HasColumnType("int");
-
-                    b.HasKey("TrainingDetailID");
-
-                    b.HasIndex("TrainingOptionID");
-
-                    b.ToTable("TrainingDetails");
-                });
-
             modelBuilder.Entity("NWEEI.Models.TrainingProgram", b =>
                 {
                     b.Property<int>("TrainingProgramID")
@@ -579,25 +562,11 @@ namespace NWEEI.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("NWEEI.Models.TrainingDetail", b =>
-                {
-                    b.HasOne("NWEEI.Models.CustomTrainingOption", "TrainingOption")
-                        .WithMany("TrainingDetails")
-                        .HasForeignKey("TrainingOptionID");
-
-                    b.Navigation("TrainingOption");
-                });
-
             modelBuilder.Entity("NWEEI.Models.Category", b =>
                 {
                     b.Navigation("Articles");
 
                     b.Navigation("FAQs");
-                });
-
-            modelBuilder.Entity("NWEEI.Models.CustomTrainingOption", b =>
-                {
-                    b.Navigation("TrainingDetails");
                 });
 #pragma warning restore 612, 618
         }
