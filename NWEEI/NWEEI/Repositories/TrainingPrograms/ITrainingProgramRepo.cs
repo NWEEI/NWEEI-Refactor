@@ -21,5 +21,11 @@ namespace NWEEI.Repositories
 
         // delete
         void DeleteTrainingProgram(TrainingProgram trainingProgram);
+
+
+        // CustomTrainingOption methods
+        List<CustomTrainingOption> GetCustomTrainingOptions();
+        CustomTrainingOption GetCustomTrainingOptionByID(int id);
+        void AddCustomTrainingOption(CustomTrainingOption trainingOption);
     }
 }

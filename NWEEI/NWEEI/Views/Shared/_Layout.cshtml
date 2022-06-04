@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using NWEEI.ViewModels
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -28,16 +30,45 @@
             <!-- short description, contact form, and call button -->
             <div class="header-info">
                 <div class="header-desc">Education & Training for Energy & Water Professionals</div>
-                <div class="header-phone">
-                    <a class="btn btn-light" asp-action="ContactUs" asp-controller="About">
-                        Send Email
-                        <i class="fa-solid fa-envelope"></i>
-                    </a>
-                    <a class="btn btn-light" href="tel:5415567724">
-                        Call Now:
-                        <i class="fa-solid fa-phone"></i>
-                        (541) 556-7724
-                    </a>
+
+                <div class="mt-1">
+                    <div class="header-search">
+
+                        <!-- search bar begin -->
+                        <form method="post">
+                            <div class="form-group mb-0">
+                                <!-- search input and icon -->
+                                <div class="search-bar-content">
+
+                                    @{
+                                        // create SearchViewModel object and if input is given, assign it to SearchQuery property
+                                        SearchViewModel viewModel = new SearchViewModel();
+                                    }
+                                    <!-- search input -->
+                                    <input asp-for="@viewModel.SearchQuery" class="form-control header-search-bar" placeholder="Search NWEEI..." />
+
+                                    <!-- icon -->
+                                    <span class="search-submit">
+                                        <button type="submit"
+                                                asp-controller="Resources" asp-action="Index"
+                                                style="background: none; color: inherit; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit; position: absolute;">
+                                            <i type="submit" class="fa fa-search mr-2"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- search bar end -->
+
+                    </div>
+
+                    <hr class="header-divider" />
+
+                    <!-- call icon -->
+                    <div class="header-phone">
+                        <a class="phone-button" href="tel:5415567724"><i type="submit" class="fa fa-phone"></i></a>
+                    </div>
+
                 </div>
             </div>
 
@@ -108,14 +139,18 @@
                 }
                 else if (ViewBag.Current == "Degrees")
                 {
+                    /*
+                    // not a currently valid degree
                     <span>
                         <a class="text-dark" asp-controller="Programs" asp-action="EnergyMgmt">
                             Energy Management
                         </a>
                     </span>
+                    */
+
                     <span>
                         <a class="text-dark" asp-controller="Programs" asp-action="EMBC">
-                            Energy Management & Building Controls
+                            Energy Management with Building Controls
                         </a>
                     </span>
                     <span>

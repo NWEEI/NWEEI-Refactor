@@ -35,18 +35,21 @@ namespace NWEEI.Controllers.Navigation
             return View();
         }
 
-        // get degrees > energy management technician
-        public async Task<IActionResult> EnergyMgmt()
-        {
-            ViewBag.Current = "Degrees";
-            return View();
-        }
-
         // get professional development > custom training
         public async Task<IActionResult> CustomTraining()
         {
             ViewBag.Current = "Professional Development";
             return View();
         }
+
+        /*
+        // not a currently valid degree
+        // get degrees > energy management technician
+        public async Task<IActionResult> EnergyMgmt()
+        {
+            ViewBag.Current = "Degrees";
+            return View();
+        }
+        */
     }
 }

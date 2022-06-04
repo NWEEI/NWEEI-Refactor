@@ -1,0 +1,70 @@
+﻿@model List<CustomTrainingOption>
+
+@{
+    ViewData["Title"] = "Custom Training Options";
+}
+
+
+<!-- program title and image -->
+<div>
+    <div class="custom-training program-header">
+        <div class="program-title">Custom Training</div>
+    </div>
+</div>
+
+<!-- program overview -->
+<div class="container content-section">
+    <h3>Custom Training Options</h3>
+    <p>
+        NWEEI utilizes instructors from an expansive network of industry experts to provide
+        training nationally and internationally. We customize and create programs for our
+        participants that are tailored to meet specific educational demand. These programs
+        can cover a wide range of efficiency topics and can be delivered utilizing on-site
+        facilities, remote locations and virtually online.
+    </p>
+
+    <p class="text-center pt-2 font-weight-bold">
+        <a asp-controller="About" asp-for="Contact">
+            Contact NWEEI to build your custom training program.
+        </a>
+    </p>
+</div>
+
+<!-- custom training option tiles -->
+<div class="dark-block">
+    <div class="container">
+        <div class="content-section">
+            <h5 class="text-center pb-3">Select one of NWEEI's custom training options to learn more:</h5>
+            <div class="container tiles" style="width: 83%;">
+
+                @foreach (CustomTrainingOption trainingOption in Model)
+                {
+                    <a class="tile-link" asp-controller="TrainingPrograms"
+                       asp-action="CustomTrainingOption" asp-route-id="@trainingOption.CustomTrainingOptionID">
+                        <div class="tile-container">
+                            <span class="tile-content">
+                                @trainingOption.Name
+                            </span>
+                        </div>
+                    </a>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- contact options -->
+<div class="container content-section text-center">
+    <h5 class="text-center">Contact NWEEI to build your custom training program.</h5>
+
+    <!-- buttons -->
+    <div class="container w-75">
+        <div class="button-group row">
+            <a href="tel:5415567724" class="btn btn-primary">Call Now</a>
+
+            <!-- TODO: link to email -->
+            <a href="#" class="btn btn-primary">Email Us</a>
+        </div>
+    </div>
+</div>
