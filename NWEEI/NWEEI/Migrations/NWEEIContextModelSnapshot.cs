@@ -281,6 +281,21 @@ namespace NWEEI.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("NWEEI.Models.CustomTrainingOption", b =>
+                {
+                    b.Property<int>("CustomTrainingOptionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("CustomTrainingOptionID");
+
+                    b.ToTable("CustomTrainingOptions");
+                });
+
             modelBuilder.Entity("NWEEI.Models.FAQ", b =>
                 {
                     b.Property<int>("FAQID")

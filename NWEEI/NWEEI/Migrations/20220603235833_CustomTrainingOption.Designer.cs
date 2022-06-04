@@ -9,7 +9,7 @@ using NWEEI.Data;
 namespace NWEEI.Migrations
 {
     [DbContext(typeof(NWEEIContext))]
-    [Migration("20220603221757_CustomTrainingOption")]
+    [Migration("20220603235833_CustomTrainingOption")]
     partial class CustomTrainingOption
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -281,6 +281,21 @@ namespace NWEEI.Migrations
                     b.HasKey("CategoryID");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("NWEEI.Models.CustomTrainingOption", b =>
+                {
+                    b.Property<int>("CustomTrainingOptionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("CustomTrainingOptionID");
+
+                    b.ToTable("CustomTrainingOptions");
                 });
 
             modelBuilder.Entity("NWEEI.Models.FAQ", b =>

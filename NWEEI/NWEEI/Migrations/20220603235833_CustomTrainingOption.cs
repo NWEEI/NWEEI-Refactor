@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using MySql.EntityFrameworkCore.Metadata;
 
 namespace NWEEI.Migrations
 {
@@ -78,10 +79,26 @@ namespace NWEEI.Migrations
                 oldClrType: typeof(string),
                 oldType: "varchar(255)",
                 oldNullable: true);
+
+            migrationBuilder.CreateTable(
+                name: "CustomTrainingOptions",
+                columns: table => new
+                {
+                    CustomTrainingOptionID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustomTrainingOptions", x => x.CustomTrainingOptionID);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "CustomTrainingOptions");
+
             migrationBuilder.AlterColumn<string>(
                 name: "UserId",
                 table: "AspNetUserTokens",
