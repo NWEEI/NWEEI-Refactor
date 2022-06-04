@@ -8,7 +8,6 @@ using NWEEI.Repositories;
 
 namespace NWEEI.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class TrainingProgramsController : Controller
     {
         private ITrainingProgramRepo repo;
@@ -16,9 +15,11 @@ namespace NWEEI.Controllers
         public TrainingProgramsController(ITrainingProgramRepo r) => repo = r;
 
         // GET: TrainingPrograms
+        [Authorize(Roles = "Admin")]
         public IActionResult Index() => View(repo.GetAllTrainingPrograms());
 
         // GET: TrainingPrograms/Details/5
+        [Authorize(Roles = "Admin")]
         public IActionResult Details(int? id)
         {
             if (id is null) return NotFound();
@@ -27,6 +28,7 @@ namespace NWEEI.Controllers
         }
 
         // GET: TrainingPrograms/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create() => View();
 
         // POST: TrainingPrograms/Create
@@ -34,6 +36,7 @@ namespace NWEEI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create([Bind("TrainingProgramID,Name")] TrainingProgram trainingProgram)
         {
             if (!ModelState.IsValid) return View(trainingProgram);
@@ -42,6 +45,7 @@ namespace NWEEI.Controllers
         }
 
         // GET: TrainingPrograms/Edit/5
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(int? id)
         {
             if (id is null) return NotFound();
@@ -54,6 +58,7 @@ namespace NWEEI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(int id, [Bind("TrainingProgramID,Name")] TrainingProgram trainingProgram)
         {
             if (id != trainingProgram.TrainingProgramID) return NotFound();
@@ -73,6 +78,7 @@ namespace NWEEI.Controllers
         }
 
         // GET: TrainingPrograms/Delete/5
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int? id)
         {
             if (id is null) return NotFound();
@@ -83,6 +89,7 @@ namespace NWEEI.Controllers
         // POST: Tag/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public IActionResult DeleteConfirmed(int id)
         {
             TrainingProgram trainingProgram = repo.GetTrainingProgramByID(id);
