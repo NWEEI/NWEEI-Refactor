@@ -5,12 +5,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using NWEEI.Models;
-using Microsoft.Data.Sqlite;
 using System.IO;
 using MySql.Data.MySqlClient;
 using System.Configuration;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Linq;
 
 namespace NWEEI.Data
 {
@@ -20,10 +20,12 @@ namespace NWEEI.Data
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<Article> Articles { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<CustomTrainingOption> CustomTrainingOptions { get; set; }
         public DbSet<FAQ> FAQs { get; set; }
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<Registration> Registrations { get; set; }
         public DbSet<PaymentOption> PaymentOptions { get; set; }
+        public DbSet<TrainingDetail> TrainingDetails { get; set; }
         public DbSet<TrainingProgram> TrainingPrograms { get; set; }
         public DbSet<Tag> Tags { get; set; }
 
@@ -113,27 +115,27 @@ namespace NWEEI.Data
             tempConnection.Open();
 
             // SqliteCommand categoriesCmd = new (categoriesScript, tempConnection);
-            MySqlCommand categoriesCmd = new (categoriesScript, tempConnection);
+            MySqlCommand categoriesCmd = new(categoriesScript, tempConnection);
             categoriesCmd.ExecuteNonQuery();
 
             // SqliteCommand articlesCmd = new (articlesScript, tempConnection);
-            MySqlCommand articlesCmd = new (articlesScript, tempConnection);
+            MySqlCommand articlesCmd = new(articlesScript, tempConnection);
             articlesCmd.ExecuteNonQuery();
 
             // SqliteCommand faqsCmd = new (faqsScript, tempConnection);
-            MySqlCommand faqsCmd = new (faqsScript, tempConnection);
+            MySqlCommand faqsCmd = new(faqsScript, tempConnection);
             faqsCmd.ExecuteNonQuery();
 
             // SqliteCommand organizationsCmd = new (organizationsScript, tempConnection);
-            MySqlCommand organizationsCmd = new (organizationsScript, tempConnection);
+            MySqlCommand organizationsCmd = new(organizationsScript, tempConnection);
             organizationsCmd.ExecuteNonQuery();
 
             // SqliteCommand registrationsCmd = new (registrationsScript, tempConnection);
-            MySqlCommand registrationsCmd = new (registrationsScript, tempConnection);
+            MySqlCommand registrationsCmd = new(registrationsScript, tempConnection);
             registrationsCmd.ExecuteNonQuery();
 
             // SqliteCommand tagsCmd = new (tagsScript, tempConnection);
-            MySqlCommand tagsCmd = new (tagsScript, tempConnection);
+            MySqlCommand tagsCmd = new(tagsScript, tempConnection);
             tagsCmd.ExecuteNonQuery();
 
             tempConnection.Close();

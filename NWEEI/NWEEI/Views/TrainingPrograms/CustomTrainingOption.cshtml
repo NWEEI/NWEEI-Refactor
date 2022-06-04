@@ -1,0 +1,69 @@
+﻿@model CustomTrainingOption
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="custom-breadcrumb">
+    <a asp-controller="TrainingPrograms" asp-action="CustomTraining">
+        <span class="breadcrumb-icon"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+        <span class="breadcrumb-name">Back to Custom Training</span>
+    </a>
+</div>
+
+<div>
+    <!-- custom training option header: name, edit option -->
+    <div>
+        <div class="text-center mb-4">
+            <h1>@Model.Name</h1>
+        </div>
+        <div class="content-header">
+            @*
+                TODO: uncomment when custom training edit functionality has been built out
+                <!-- admin edit button -->
+                if (User.IsInRole("Admin"))
+                {
+                    <span class="admin-action-button btn btn-primary">
+                        <a asp-action="Edit" asp-route-id="@Model.ArticleID">Edit Article</a>
+                    </span>
+                }
+            *@
+        </div>
+    </div>
+</div>
+
+<!-- training details -->
+<div class="dark-block">
+    <div class="container">
+        <div class="content-section">
+
+            <h4 class="text-center">The @Model.Name training option includes:</h4>
+
+            <div class="container">
+                <ul class="training-details">
+
+                    @foreach (TrainingDetail detail in Model.TrainingDetails)
+                    {
+                        <li>@detail.Detail</li>
+                    }
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- contact options -->
+<div class="container content-section text-center">
+    <h5 class="text-center">Contact NWEEI to build your custom training program.</h5>
+
+    <!-- buttons -->
+    <div class="container w-75">
+        <div class="button-group row">
+            <a href="tel:5415567724" class="btn btn-primary">Call Now</a>
+
+            <!-- TODO: link to email -->
+            <a href="#" class="btn btn-primary">Email Us</a>
+        </div>
+    </div>
+</div>
