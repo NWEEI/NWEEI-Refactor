@@ -1,3 +1,54 @@
 ﻿@{
     ViewData["Title"] = "About NWEEI";
 }
+
+
+<!-- contact -->
+<div class="container content-section text-center">
+    <h4 class="pt-2">
+        <a asp-controller="About" asp-action="ContactUs">Contact us</a> if you have any questions.
+    </h4>
+</div>
+
+<!-- about tiles -->
+<div class="dark-block">
+    <div class="container">
+        <div class="content-section">
+            <h5 class="text-center pb-3">Select a section to learn more:</h5>
+            <div class="container tiles w-75">
+
+                <a class="tile-link" asp-controller="About" asp-action="Contact">
+                    <div class="tile-container">
+                        <span class="tile-content">
+                            Contact & Location
+                        </span>
+                    </div>
+                </a>
+
+                <a class="tile-link" asp-controller="About" asp-action="Mission & History">
+                    <div class="tile-container">
+                        <span class="tile-content">
+                            Mission & History
+                        </span>
+                    </div>
+                </a>
+
+                <a class="tile-link" asp-controller="About" asp-action="Instructors">
+                    <div class="tile-container">
+                        <span class="tile-content">
+                            Instructors
+                        </span>
+                    </div>
+                </a>
+
+                <a class="tile-link" asp-controller="About" asp-action="Staff">
+                    <div class="tile-container">
+                        <span class="tile-content">
+                            Staff
+                        </span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
