@@ -48,6 +48,17 @@ namespace NWEEI
             services.AddTransient<ITagRepo, TagRepo>();
             services.AddTransient<IResourceRepo, ResourceRepo>();
 
+            services.AddTransient<IEmailService, DotNetEmailService>();
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
+            //This is where to edit who gets the email for the contact form
+            ///A better implementation would give admin the ability to choose the email that the contact form gets sent to.
+            EmailAddress ContactFormRecipient = new EmailAddress
+            {
+                Address = "allisonjm@my.lanecc.edu",
+                Name = "Josh Allison"
+            };
+            services.AddSingleton<EmailAddress>(ContactFormRecipient);
+
             services.AddRazorPages();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }

@@ -65,4 +65,8 @@
     <Folder Include="Views\Shared\Components\" />
     <Folder Include="Views\Shared\Components\QuickArticles\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Mail\SMTPTest.cshtml" />
+  </ItemGroup>
 </Project>

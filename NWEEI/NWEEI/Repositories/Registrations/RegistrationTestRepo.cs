@@ -29,6 +29,10 @@ namespace NWEEI.Repositories
             registrations.Add( registration );
         }
 
+        // send registration confirmation email
+        public void SendRegistrationConfirmation(IEmailService emailService, Registration registration, string toAddress, string toAddressAlias) =>
+            throw new NotImplementedException();
+
         // get a list of all registrations
         public List<Registration> GetAllRegistrations( ) => Registrations
             .OrderByDescending( r => r.DateSubmitted )

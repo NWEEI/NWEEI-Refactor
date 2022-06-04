@@ -1,4 +1,6 @@
-﻿namespace NWEEI.Models
+﻿using System.Threading.Tasks;
+
+namespace NWEEI.Models
 {
     public interface IEmailService
     {

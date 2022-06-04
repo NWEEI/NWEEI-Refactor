@@ -15,7 +15,7 @@ namespace NWEEI.TagHelpers
                 "<table class=\"form-group mb-2\">\n" +
                     "\t<tr>\n" +
                         "\t\t<td>\n" +
-                            "\t\t\t<i class=\"fa fa-circle-plus fa-xl\"></i>\n"
+                            "\t\t\t<i class=\"fa fa-circle-plus fa-xl\"></i> \n"
             );
             output.Content.Clear();
             output.Content.Append("\tCreate");

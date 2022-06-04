@@ -1,0 +1,1216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="NWEEI.Models.DotNetEmailService">
+    <Position X="37" Y="22" Width="3.25" />
+    <AssociationLine Name="_mailSettings" Type="NWEEI.Models.MailSettings">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.108" Y="0.132" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Models\Email\Services\DotNetEmailService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_mailSettings" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NWEEI.Models.EmailAddress">
+    <Position X="43" Y="24.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Email\EmailAddress.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.Models.EmailMessage">
+    <Position X="37" Y="24.5" Width="3.25" />
+    <AssociationLine Name="FromAddresses" Type="NWEEI.Models.EmailAddress">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.298" Y="0.039" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="ToAddresses" Type="NWEEI.Models.EmailAddress">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.443" Y="0.009" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAIAAAAAAAAAIAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Models\Email\EmailMessage.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="FromAddresses" />
+      <Property Name="ToAddresses" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="NWEEI.Models.MailSettings">
+    <Position X="43" Y="22" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAACAAACAACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Email\MailSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.Controllers.RegistrationController">
+    <Position X="29" Y="19.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAABAACAAAEAAAgQCAEAAEACAAEAAQAAAAA=</HashCode>
+      <FileName>Controllers\RegistrationController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="repo" />
+      <Field Name="payRepo" />
+      <Field Name="_emailService" />
+      <Field Name="trainingRepo" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="NWEEI.Controllers.MailController">
+    <Position X="43" Y="20" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAEAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\MailController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_emailService" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="NWEEI.Models.Registration">
+    <Position X="17.75" Y="19.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>ACCAAEAAgCAQAkAIAAAUAEAAAAIQAAAFAAAAJAAAIAg=</HashCode>
+      <FileName>Models\Registration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.Models.PaymentOption">
+    <Position X="17.75" Y="12.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\PaymentOption.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.Models.TrainingProgram">
+    <Position X="17.75" Y="28" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\TrainingProgram.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.Repositories.RegistrationRepo">
+    <Position X="17.75" Y="16.25" Width="2.75" />
+    <AssociationLine Name="context" Type="NWEEI.Data.NWEEIContext" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.5" Y="17.475" />
+        <Point X="28.542" Y="17.475" Type="JumpStart" />
+        <Point X="28.708" Y="17.475" Type="JumpEnd" />
+        <Point X="32.731" Y="17.475" />
+        <Point X="32.731" Y="0.875" />
+        <Point X="36.5" Y="0.875" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.111" Y="0.004" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAIIQAAAAAAAAAAAAAAAAAAAFAIAAAAAAAQAABAA=</HashCode>
+      <FileName>Repositories\Registrations\RegistrationRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="context" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Registrations" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NWEEI.Data.NWEEIContext">
+    <Position X="36.5" Y="0.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAIAAABAABAAAEQAAAAEABAGEAAAAAAEAAAAAA=</HashCode>
+      <FileName>Data\NWEEIContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.Controllers.PaymentOptionsController">
+    <Position X="29.25" Y="12.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAACAAAEAAAIAAAEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\PaymentOptionsController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="repo" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="NWEEI.Repositories.PaymentOptionRepo">
+    <Position X="17.75" Y="10" Width="2.75" />
+    <AssociationLine Name="context" Type="NWEEI.Data.NWEEIContext" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.5" Y="11.187" />
+        <Point X="32.44" Y="11.187" />
+        <Point X="32.44" Y="0.625" />
+        <Point X="36.5" Y="0.625" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.12" Y="-0.001" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAEAQAAAAAAIAAAAAAAIAAABAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Repositories\PaymentOptions\PaymentOptionRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="context" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="PaymentOptions" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NWEEI.Repositories.TrainingProgramRepo">
+    <Position X="17.75" Y="25.5" Width="2.75" />
+    <AssociationLine Name="context" Type="NWEEI.Data.NWEEIContext" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.5" Y="26.532" />
+        <Point X="23.51" Y="26.532" Type="JumpStart" />
+        <Point X="23.677" Y="26.532" Type="JumpEnd" />
+        <Point X="33.081" Y="26.532" />
+        <Point X="33.081" Y="1.125" />
+        <Point X="36.5" Y="1.125" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.121" Y="-0.002" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAABAAAAEAAAAAAAAAgACAAEAAAIAAAAAAA=</HashCode>
+      <FileName>Repositories\TrainingPrograms\TrainingProgramRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="context" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="TrainingPrograms" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NWEEI.Controllers.TrainingProgramsController">
+    <Position X="29" Y="28" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAACAABEAAAAAAAEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\TrainingProgramsController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="repo" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="NWEEI.Program" Collapsed="true">
+    <Position X="43.25" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.Startup" Collapsed="true">
+    <Position X="43.25" Y="1.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAgAAACAAAAAA=</HashCode>
+      <FileName>Startup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.Repositories.RegistrationTestRepo">
+    <Position X="11" Y="19.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>gAAAAIIQAAAAAAAAAAAAAAAAAAAFAIAAAAAAAQAABAA=</HashCode>
+      <FileName>Repositories\Registrations\RegistrationTestRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Registrations" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NWEEI.Repositories.PaymentOptionTestRepo">
+    <Position X="11" Y="12.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAQAAAAAAIAAAAAAAIAAABAAAAAQAAAAAAAAAg=</HashCode>
+      <FileName>Repositories\PaymentOptions\PaymentOptionTestRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="PaymentOptions" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NWEEI.Repositories.TrainingProgramTestRepo">
+    <Position X="11" Y="28" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAEAAgAAAAAAgACAAEAAAIAAAAAAA=</HashCode>
+      <FileName>Repositories\TrainingPrograms\TrainingProgramTestRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="TrainingPrograms" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NWEEI.Repositories.ResourceRepo">
+    <Position X="17.75" Y="57.75" Width="2.75" />
+    <AssociationLine Name="Articles" Type="NWEEI.Models.Article" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.5" Y="59.256" />
+        <Point X="20.875" Y="59.256" />
+        <Point X="20.875" Y="66.688" />
+        <Point X="20.5" Y="66.688" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="FAQs" Type="NWEEI.Models.FAQ" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="17.75" Y="58.188" />
+        <Point X="15.372" Y="58.188" Type="JumpStart" />
+        <Point X="15.206" Y="58.188" Type="JumpEnd" />
+        <Point X="15.073" Y="58.188" />
+        <Point X="15.073" Y="45.75" />
+        <Point X="17.75" Y="45.75" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="context" Type="NWEEI.Data.NWEEIContext" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.5" Y="58.472" />
+        <Point X="20.893" Y="58.472" />
+        <Point X="20.893" Y="57.517" />
+        <Point X="22.837" Y="57.517" Type="JumpStart" />
+        <Point X="23.003" Y="57.517" Type="JumpEnd" />
+        <Point X="23.089" Y="57.517" Type="JumpStart" />
+        <Point X="23.255" Y="57.517" Type="JumpEnd" />
+        <Point X="27.911" Y="57.517" Type="JumpStart" />
+        <Point X="28.078" Y="57.517" Type="JumpEnd" />
+        <Point X="28.292" Y="57.517" Type="JumpStart" />
+        <Point X="28.458" Y="57.517" Type="JumpEnd" />
+        <Point X="34.454" Y="57.517" />
+        <Point X="34.454" Y="2.125" />
+        <Point X="36.5" Y="2.125" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.099" Y="0.007" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>BAACQAAIAABAAAAAgAAAAAABAAAAAAAAAAIAEAAAAAA=</HashCode>
+      <FileName>Repositories\Resources\ResourceRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="context" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Articles" />
+      <Property Name="FAQs" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NWEEI.Repositories.ResourceTestRepo">
+    <Position X="11" Y="57.75" Width="2.75" />
+    <AssociationLine Name="Articles" Type="NWEEI.Models.Article" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.75" Y="58.375" />
+        <Point X="14.773" Y="58.375" Type="JumpStart" />
+        <Point X="14.939" Y="58.375" Type="JumpEnd" />
+        <Point X="15.095" Y="58.375" />
+        <Point X="15.095" Y="67.125" />
+        <Point X="17.75" Y="67.125" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.186" Y="0.016" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="FAQs" Type="NWEEI.Models.FAQ" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.75" Y="58.188" />
+        <Point X="14.654" Y="58.188" />
+        <Point X="14.654" Y="45.25" />
+        <Point X="17.75" Y="45.25" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>BAgAQAAIAABAAAAAgAAAAAABAAAQAAAAAAIAEIAAAAA=</HashCode>
+      <FileName>Repositories\Resources\ResourceTestRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Articles" />
+      <Property Name="FAQs" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NWEEI.Controllers.Navigation.ResourcesController">
+    <Position X="28.75" Y="57.75" Width="3" />
+    <AssociationLine Name="orgRepo" Type="NWEEI.Repositories.IOrganizationRepo" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="28.75" Y="58.062" />
+        <Point X="28.458" Y="58.062" Type="JumpStart" />
+        <Point X="28.292" Y="58.062" Type="JumpEnd" />
+        <Point X="27.994" Y="58.062" />
+        <Point X="27.994" Y="35.474" />
+        <Point X="26.25" Y="35.474" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAABCABAA=</HashCode>
+      <FileName>Controllers\Navigation\ResourcesController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="orgRepo" />
+      <Field Name="repo" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="NWEEI.Controllers.OrganizationController">
+    <Position X="29" Y="33.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAACAAAEAAAAAAAEAAEACAAEAAAAIAAA=</HashCode>
+      <FileName>Controllers\OrganizationController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="repo" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="NWEEI.Models.Organization">
+    <Position X="17.75" Y="33.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAABAAAAAQCAAAAEIAAAAABAAAAAAA=</HashCode>
+      <FileName>Models\Organization.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.Models.FAQ">
+    <Position X="17.75" Y="44.5" Width="2.75" />
+    <AssociationLine Name="Category" Type="NWEEI.Models.Category" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.5" Y="46.185" />
+        <Point X="22.922" Y="46.185" />
+        <Point X="22.922" Y="53.375" />
+        <Point X="20.5" Y="53.375" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.165" Y="0.005" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAEgAAAAhAACAA=</HashCode>
+      <FileName>Models\FAQ.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Category" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="NWEEI.Models.Article">
+    <Position X="17.75" Y="66.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAEAAiAABAAAAAAAAAAAAgAAEABAACAA=</HashCode>
+      <FileName>Models\Article.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.Models.AppUser">
+    <Position X="17.75" Y="82.5" Width="2.75" />
+    <InheritanceLine Type="Microsoft.AspNetCore.Identity.IdentityUser" FixedToPoint="true">
+      <Path>
+        <Point X="24.875" Y="80.691" />
+        <Point X="24.875" Y="81.066" />
+        <Point X="20.875" Y="81.066" />
+        <Point X="20.875" Y="82.812" />
+        <Point X="20.5" Y="82.812" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAg=</HashCode>
+      <FileName>Models\AppUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.Models.CustomError" Collapsed="true">
+    <Position X="36.5" Y="6.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAASA=</HashCode>
+      <FileName>Models\CustomError.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.Models.Category">
+    <Position X="17.75" Y="53.25" Width="2.75" />
+    <AssociationLine Name="Articles" Type="NWEEI.Models.Article" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.5" Y="53.812" />
+        <Point X="22.92" Y="53.812" />
+        <Point X="22.92" Y="66.938" />
+        <Point X="20.5" Y="66.938" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAgAAAAKAAAAAAAAAAAAAAQAAAAQAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Models\Category.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Articles" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Microsoft.AspNetCore.Identity.IdentityUser" Collapsed="true">
+    <Position X="23.5" Y="80" Width="2.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="NWEEI.Controllers.CategoryController">
+    <Position X="28.75" Y="53.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAACAAAEAAAAAAAEAAEACAAEAAAgAAAA=</HashCode>
+      <FileName>Controllers\CategoryController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="repo" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="NWEEI.Repositories.CategoryRepo">
+    <Position X="17.75" Y="50" Width="2.75" />
+    <AssociationLine Name="context" Type="NWEEI.Data.NWEEIContext" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.5" Y="51.129" />
+        <Point X="22.839" Y="51.129" Type="JumpStart" />
+        <Point X="23.006" Y="51.129" Type="JumpEnd" />
+        <Point X="23.089" Y="51.129" Type="JumpStart" />
+        <Point X="23.255" Y="51.129" Type="JumpEnd" />
+        <Point X="27.911" Y="51.129" Type="JumpStart" />
+        <Point X="28.078" Y="51.129" Type="JumpEnd" />
+        <Point X="28.259" Y="51.129" Type="JumpStart" />
+        <Point X="28.426" Y="51.129" Type="JumpEnd" />
+        <Point X="34.111" Y="51.129" />
+        <Point X="34.111" Y="1.875" />
+        <Point X="36.5" Y="1.875" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.088" Y="-0.011" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Categories" Type="NWEEI.Models.Category">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.364" Y="0.257" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ACACAAAAAAYAAAAAAAAAIAAAAAAAEAAAAAAAQAAAAAg=</HashCode>
+      <FileName>Repositories\Categories\CategoryRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="context" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Categories" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NWEEI.Repositories.CategoryTestRepo">
+    <Position X="11" Y="53.25" Width="2.75" />
+    <AssociationLine Name="Categories" Type="NWEEI.Models.Category" FixedToPoint="true">
+      <Path>
+        <Point X="13.75" Y="53.687" />
+        <Point X="14.57" Y="53.687" Type="JumpStart" />
+        <Point X="14.737" Y="53.687" Type="JumpEnd" />
+        <Point X="14.99" Y="53.687" Type="JumpStart" />
+        <Point X="15.157" Y="53.687" Type="JumpEnd" />
+        <Point X="15.206" Y="53.687" Type="JumpStart" />
+        <Point X="15.372" Y="53.687" Type="JumpEnd" />
+        <Point X="17.75" Y="53.687" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.176" Y="0.041" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAYAAAAAAAAAIAAQAAAAEAAAAAAAQAAAAAg=</HashCode>
+      <FileName>Repositories\Categories\CategoryTestRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Categories" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NWEEI.Repositories.OrganizationRepo">
+    <Position X="17.75" Y="30.75" Width="2.75" />
+    <AssociationLine Name="context" Type="NWEEI.Data.NWEEIContext" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.5" Y="32.113" />
+        <Point X="33.453" Y="32.113" />
+        <Point X="33.453" Y="1.375" />
+        <Point X="36.5" Y="1.375" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.101" Y="-0.002" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAABgAAAAAAAAAAAAAgAAAAABAQAIAAE=</HashCode>
+      <FileName>Repositories\Organizations\OrganizationRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="context" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Organizations" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NWEEI.Repositories.OrganizationTestRepo">
+    <Position X="11" Y="33.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAABgQAAAAAAAAAgAAgAAAAABAQAIAAE=</HashCode>
+      <FileName>Repositories\Organizations\OrganizationTestRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Organizations" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NWEEI.Models.Tag">
+    <Position X="17.75" Y="73.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Tag.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.Repositories.FAQRepo" BaseTypeListCollapsed="true">
+    <Position X="17.75" Y="40.75" Width="2.75" />
+    <AssociationLine Name="FAQs" Type="NWEEI.Models.FAQ">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.533" Y="0.209" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="context" Type="NWEEI.Data.NWEEIContext" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.5" Y="42.263" />
+        <Point X="27.911" Y="42.263" Type="JumpStart" />
+        <Point X="28.078" Y="42.263" Type="JumpEnd" />
+        <Point X="33.776" Y="42.263" />
+        <Point X="33.776" Y="1.625" />
+        <Point X="36.5" Y="1.625" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.111" Y="0.009" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ACACAAACAAAAAIAEAAAAAAAgAAAAABBAAAgAECAAgAA=</HashCode>
+      <FileName>Repositories\FAQs\FAQRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="context" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="FAQs" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NWEEI.Repositories.FAQTestRepo" BaseTypeListCollapsed="true">
+    <Position X="11" Y="44.5" Width="2.75" />
+    <AssociationLine Name="Categories" Type="NWEEI.Models.Category" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.75" Y="45.25" />
+        <Point X="14.437" Y="45.25" />
+        <Point X="14.437" Y="53.437" />
+        <Point X="14.57" Y="53.437" Type="JumpStart" />
+        <Point X="14.737" Y="53.437" Type="JumpEnd" />
+        <Point X="14.99" Y="53.437" Type="JumpStart" />
+        <Point X="15.157" Y="53.437" Type="JumpEnd" />
+        <Point X="15.206" Y="53.437" Type="JumpStart" />
+        <Point X="15.372" Y="53.437" Type="JumpEnd" />
+        <Point X="17.75" Y="53.437" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.164" Y="0.032" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="FAQs" Type="NWEEI.Models.FAQ" FixedToPoint="true">
+      <Path>
+        <Point X="13.75" Y="45" />
+        <Point X="17.75" Y="45" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.103" Y="0.013" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ACAAAAACAAAAAIAEAAAAAAAwAAAQEBBAAAgAECAAgAA=</HashCode>
+      <FileName>Repositories\FAQs\FAQTestRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Categories" />
+      <Property Name="FAQs" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NWEEI.Repositories.ArticleRepo" BaseTypeListCollapsed="true">
+    <Position X="17.75" Y="63.25" Width="2.75" />
+    <AssociationLine Name="Articles" Type="NWEEI.Models.Article">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.765" Y="0.146" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="context" Type="NWEEI.Data.NWEEIContext" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.5" Y="63.5" />
+        <Point X="20.792" Y="63.5" Type="JumpStart" />
+        <Point X="20.958" Y="63.5" Type="JumpEnd" />
+        <Point X="22.837" Y="63.5" Type="JumpStart" />
+        <Point X="23.003" Y="63.5" Type="JumpEnd" />
+        <Point X="23.099" Y="63.5" Type="JumpStart" />
+        <Point X="23.265" Y="63.5" Type="JumpEnd" />
+        <Point X="28.292" Y="63.5" Type="JumpStart" />
+        <Point X="28.458" Y="63.5" Type="JumpEnd" />
+        <Point X="34.748" Y="63.5" />
+        <Point X="34.748" Y="2.375" />
+        <Point X="36.5" Y="2.375" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.081" Y="-0.001" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ACASAAAYAACAAABAAAAAAAAAAAAAAAAAgAAAQIAAAAA=</HashCode>
+      <FileName>Repositories\Articles\ArticleRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="context" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Articles" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NWEEI.Repositories.ArticleTestRepo" BaseTypeListCollapsed="true">
+    <Position X="11" Y="66.5" Width="2.75" />
+    <AssociationLine Name="Articles" Type="NWEEI.Models.Article" FixedToPoint="true">
+      <Path>
+        <Point X="13.75" Y="67.375" />
+        <Point X="17.75" Y="67.375" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.174" Y="0.002" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Categories" Type="NWEEI.Models.Category" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.75" Y="67.125" />
+        <Point X="14.856" Y="67.125" />
+        <Point X="14.856" Y="53.937" />
+        <Point X="14.99" Y="53.937" Type="JumpStart" />
+        <Point X="15.157" Y="53.937" Type="JumpEnd" />
+        <Point X="15.206" Y="53.937" Type="JumpStart" />
+        <Point X="15.372" Y="53.937" Type="JumpEnd" />
+        <Point X="17.75" Y="53.937" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.172" Y="0.035" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ACgQAAAYAACAAABAAAAAAAAQAAAAEAAAgAAAQIAAAAA=</HashCode>
+      <FileName>Repositories\Articles\ArticleTestRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Articles" />
+      <Property Name="Categories" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NWEEI.Controllers.ArticleController">
+    <Position X="28.75" Y="66.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQBAACJAAEAABAAEAEIBEASAQEAAAAAEAA=</HashCode>
+      <FileName>Controllers\ArticleController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="repo" />
+      <Field Name="catRepo" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="NWEEI.Controllers.FAQController">
+    <Position X="28.75" Y="44.5" Width="3" />
+    <AssociationLine Name="catRepo" Type="NWEEI.Repositories.ICategoryRepo" ManuallyRouted="true">
+      <Path>
+        <Point X="28.75" Y="46.914" />
+        <Point X="28.342" Y="46.914" />
+        <Point X="28.342" Y="53.735" />
+        <Point X="28.078" Y="53.735" Type="JumpStart" />
+        <Point X="27.911" Y="53.735" Type="JumpEnd" />
+        <Point X="26.25" Y="53.735" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACABAACJAAEAAAAAAAEAAEACAQEAAAAAAAA=</HashCode>
+      <FileName>Controllers\FAQController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="catRepo" />
+      <Field Name="repo" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="NWEEI.Repositories.AppUserRepo">
+    <Position X="17.75" Y="77.5" Width="2.75" />
+    <AssociationLine Name="context" Type="NWEEI.Data.NWEEIContext" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.5" Y="77.75" />
+        <Point X="35.312" Y="77.75" />
+        <Point X="35.312" Y="2.938" />
+        <Point X="36.5" Y="2.938" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.11" Y="0.007" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AEACEBCCACAAAEAEAAASAAAAMAAAAACAAAAgQAgAAIA=</HashCode>
+      <FileName>Repositories\AppUser\AppUserRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="context" />
+      <Field Name="UserManager" />
+      <Field Name="RoleManager" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="AppUsers" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NWEEI.Repositories.AppUserTestRepo">
+    <Position X="11" Y="82.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AEAAEBACAAAAAFAEAAASAAAAMAAAAACAAAAgQAgAAIA=</HashCode>
+      <FileName>Repositories\AppUser\AppUserTestRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="AppUsers" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NWEEI.ViewModels.AppUserViewModel" Collapsed="true">
+    <Position X="17.75" Y="85" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\AppUserViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Roles" />
+      <Property Name="Users" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="NWEEI.ViewModels.CategorySelectorViewModel">
+    <Position X="3.5" Y="52.25" Width="2.25" />
+    <AssociationLine Name="CurrentFAQ" Type="NWEEI.Models.FAQ" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.75" Y="52.688" />
+        <Point X="6.235" Y="52.688" Type="JumpStart" />
+        <Point X="6.401" Y="52.688" Type="JumpEnd" />
+        <Point X="14.353" Y="52.688" Type="JumpStart" />
+        <Point X="14.52" Y="52.688" Type="JumpEnd" />
+        <Point X="14.57" Y="52.688" Type="JumpStart" />
+        <Point X="14.737" Y="52.688" Type="JumpEnd" />
+        <Point X="14.877" Y="52.688" />
+        <Point X="14.877" Y="45.5" />
+        <Point X="17.75" Y="45.5" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.853" Y="0.028" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="CurrentArticle" Type="NWEEI.Models.Article" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.75" Y="53.063" />
+        <Point X="6.235" Y="53.063" Type="JumpStart" />
+        <Point X="6.401" Y="53.063" Type="JumpEnd" />
+        <Point X="14.353" Y="53.063" Type="JumpStart" />
+        <Point X="14.52" Y="53.063" Type="JumpEnd" />
+        <Point X="14.57" Y="53.063" Type="JumpStart" />
+        <Point X="14.737" Y="53.063" Type="JumpEnd" />
+        <Point X="14.99" Y="53.063" Type="JumpStart" />
+        <Point X="15.157" Y="53.063" Type="JumpEnd" />
+        <Point X="15.289" Y="53.063" />
+        <Point X="15.289" Y="66.875" />
+        <Point X="17.75" Y="66.875" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="1.078" Y="0.003" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AQABAAAAAAAAAEAAAAABAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\CategorySelectorViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CurrentCategory" />
+      <Property Name="CurrentFAQ" />
+      <Property Name="CurrentArticle" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="NWEEI.ViewModels.SearchViewModel">
+    <Position X="3.5" Y="43.5" Width="2.25" />
+    <AssociationLine Name="Organizations" Type="NWEEI.Models.Organization" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.75" Y="44.063" />
+        <Point X="14.087" Y="44.063" />
+        <Point X="14.087" Y="36.382" />
+        <Point X="19.125" Y="36.382" />
+        <Point X="19.125" Y="36.007" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="FAQs" Type="NWEEI.Models.FAQ" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.75" Y="44.313" />
+        <Point X="14.1" Y="44.313" />
+        <Point X="14.1" Y="44.75" />
+        <Point X="17.75" Y="44.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.513" Y="0.024" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Articles" Type="NWEEI.Models.Article" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.75" Y="44.503" />
+        <Point X="6.318" Y="44.503" />
+        <Point X="6.318" Y="66.169" />
+        <Point X="14.773" Y="66.169" Type="JumpStart" />
+        <Point X="14.939" Y="66.169" Type="JumpEnd" />
+        <Point X="15.012" Y="66.169" Type="JumpStart" />
+        <Point X="15.178" Y="66.169" Type="JumpEnd" />
+        <Point X="15.206" Y="66.169" Type="JumpStart" />
+        <Point X="15.372" Y="66.169" Type="JumpEnd" />
+        <Point X="15.45" Y="66.169" />
+        <Point X="15.45" Y="66.625" />
+        <Point X="17.75" Y="66.625" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.63" Y="-0.004" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AEAAAAAIAAQAAABAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>ViewModels\SearchViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Organizations" />
+      <Property Name="Articles" />
+      <Property Name="FAQs" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Microsoft.AspNetCore.Identity.IdentityRole" Collapsed="true">
+    <Position X="17.75" Y="86" Width="2.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Microsoft.AspNetCore.Identity.UserManager&lt;TUser&gt;" Collapsed="true">
+    <Position X="23.5" Y="79" Width="2.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Microsoft.AspNetCore.Identity.RoleManager&lt;TRole&gt;" Collapsed="true">
+    <Position X="23.5" Y="78" Width="2.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="NWEEI.Repositories.TagRepo" BaseTypeListCollapsed="true">
+    <Position X="17.75" Y="71" Width="2.75" />
+    <AssociationLine Name="context" Type="NWEEI.Data.NWEEIContext" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.5" Y="72.291" />
+        <Point X="35.019" Y="72.291" />
+        <Point X="35.019" Y="2.688" />
+        <Point X="36.5" Y="2.688" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.092" Y="-0.006" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAIAAAEAAAAAAACAAAgAAEABAAAACAAAAAA=</HashCode>
+      <FileName>Repositories\Tags\TagRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="context" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Tags" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="NWEEI.Repositories.TagTestRepo" BaseTypeListCollapsed="true">
+    <Position X="11" Y="73.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAEAAAAAAACAAAgAAEABAABACAAAAAA=</HashCode>
+      <FileName>Repositories\Tags\TagTestRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Tags" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="NWEEI.Controllers.TagController">
+    <Position X="28.75" Y="73.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAACAAAEAAACAAAEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\TagController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="repo" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="NWEEI.Controllers.Navigation.AboutController" Collapsed="true">
+    <Position X="40.25" Y="1.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAACAAAAAAAACAAAAAAAAECAAAAAAA=</HashCode>
+      <FileName>Controllers\Navigation\AboutController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.Controllers.Navigation.ProgramsController" Collapsed="true">
+    <Position X="40.25" Y="2.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAIAAAAAAAAAAAAAAwAAAAACAACAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\Navigation\ProgramsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.Controllers.AppUserController">
+    <Position X="28.75" Y="82.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAFAAAAAABAACAAAGAAAAAAAEAAEICAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\AppUserController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="repo" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="NWEEI.Controllers.HomeController" Collapsed="true">
+    <Position X="40.25" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEQAAAAAAAAAAIAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.TagHelpers.TagHelperExtensions" Collapsed="true">
+    <Position X="36.5" Y="7.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAACAABEACAAAAAAAAAAAAAAAAAAAAAAAgAAAEg=</HashCode>
+      <FileName>TagHelpers\TagHelperExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.TagHelpers.BackButtonTagHelper" Collapsed="true">
+    <Position X="40.25" Y="12" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TagHelpers\Buttons\BackButtonTagHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.TagHelpers.CreateButtonATagHelper" Collapsed="true">
+    <Position X="40.25" Y="19" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TagHelpers\Buttons\CreateButtonTagHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.TagHelpers.CreateButtonTagHelper" Collapsed="true">
+    <Position X="40.25" Y="17" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TagHelpers\Buttons\CreateButtonTagHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.TagHelpers.DeleteButtonTagHelper" Collapsed="true">
+    <Position X="40.25" Y="16" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TagHelpers\Buttons\DeleteButtonTagHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.TagHelpers.DetailsButtonTagHelper" Collapsed="true">
+    <Position X="40.25" Y="11" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TagHelpers\Buttons\DetailsButtonTagHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.TagHelpers.EditButtonTagHelper" Collapsed="true">
+    <Position X="40.25" Y="14" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TagHelpers\Buttons\EditButtonTagHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.TagHelpers.FormCreateButtonTagHelper" Collapsed="true">
+    <Position X="40.25" Y="18" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TagHelpers\Buttons\FormCreateButtonTagHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.TagHelpers.FormSaveButtonTagHelper" Collapsed="true">
+    <Position X="40.25" Y="15" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TagHelpers\Buttons\FormSaveButtonTagHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.TagHelpers.TableTagHelper" Collapsed="true">
+    <Position X="40.25" Y="10" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TagHelpers\Tables\TableTagHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NWEEI.TagHelpers.RTETagHelper" Collapsed="true">
+    <Position X="40.25" Y="13" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TagHelpers\RTE\RTETagHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Microsoft.AspNetCore.Razor.TagHelpers.TagHelper" Collapsed="true">
+    <Position X="36.5" Y="9" Width="3.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="NWEEI.Models.IEmailService">
+    <Position X="37" Y="20" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Email\IEmailService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="NWEEI.Repositories.IRegistrationRepo">
+    <Position X="23.75" Y="19.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIIQAAAAAAAAAAAAAAAAAAAFAIAAAAAAAQAABAA=</HashCode>
+      <FileName>Repositories\Registrations\IRegistrationRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Registrations" />
+    </ShowAsCollectionAssociation>
+  </Interface>
+  <Interface Name="NWEEI.Repositories.IPaymentOptionRepo">
+    <Position X="23.75" Y="12.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAQAAAAAAIAAAAAAAIAAABAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Repositories\PaymentOptions\IPaymentOptionRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="PaymentOptions" />
+    </ShowAsCollectionAssociation>
+  </Interface>
+  <Interface Name="NWEEI.Repositories.ITrainingProgramRepo">
+    <Position X="23.5" Y="28" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAEAAAAAAAAAgACAAEAAAIAAAAAAA=</HashCode>
+      <FileName>Repositories\TrainingPrograms\ITrainingProgramRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="TrainingPrograms" />
+    </ShowAsCollectionAssociation>
+  </Interface>
+  <Interface Name="NWEEI.Repositories.IResourceRepo">
+    <Position X="23.5" Y="57.75" Width="2.75" />
+    <AssociationLine Name="Articles" Type="NWEEI.Models.Article" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="23.5" Y="58.625" />
+        <Point X="23.182" Y="58.625" />
+        <Point X="23.182" Y="67.188" />
+        <Point X="20.5" Y="67.188" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="FAQs" Type="NWEEI.Models.FAQ" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="23.5" Y="57.875" />
+        <Point X="23.172" Y="57.875" />
+        <Point X="23.172" Y="45.063" />
+        <Point X="20.5" Y="45.063" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>BAAAQAAIAABAAAAAgAAAAAABAAAAAAAAAAIAEAAAAAA=</HashCode>
+      <FileName>Repositories\Resources\IResourceRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Articles" />
+      <Property Name="FAQs" />
+    </ShowAsCollectionAssociation>
+  </Interface>
+  <Interface Name="NWEEI.Repositories.IOrganizationRepo">
+    <Position X="23.5" Y="33.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABgAAAAAAAAAAAAAgAAAAABAQAIAAE=</HashCode>
+      <FileName>Repositories\Organizations\IOrganizationRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Organizations" />
+    </ShowAsCollectionAssociation>
+  </Interface>
+  <Interface Name="NWEEI.Repositories.ICategoryRepo">
+    <Position X="23.5" Y="53.25" Width="2.75" />
+    <AssociationLine Name="Categories" Type="NWEEI.Models.Category" FixedToPoint="true">
+      <Path>
+        <Point X="23.5" Y="53.562" />
+        <Point X="23.255" Y="53.562" Type="JumpStart" />
+        <Point X="23.089" Y="53.562" Type="JumpEnd" />
+        <Point X="20.5" Y="53.562" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.206" Y="0.01" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAYAAAAAAAAAIAAAAAAAEAAAAAAAQAAAAAg=</HashCode>
+      <FileName>Repositories\Categories\ICategoryRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Categories" />
+    </ShowAsCollectionAssociation>
+  </Interface>
+  <Interface Name="NWEEI.Repositories.IFAQRepo">
+    <Position X="23.5" Y="44.5" Width="2.75" />
+    <AssociationLine Name="FAQs" Type="NWEEI.Models.FAQ" FixedToPoint="true">
+      <Path>
+        <Point X="23.5" Y="44.75" />
+        <Point X="20.5" Y="44.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ACAAAAACAAAAAIAEAAAAAAAgAAAAABBAAAgAECAAgAA=</HashCode>
+      <FileName>Repositories\FAQs\IFAQRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="FAQs" />
+    </ShowAsCollectionAssociation>
+  </Interface>
+  <Interface Name="NWEEI.Repositories.IArticleRepo">
+    <Position X="23.5" Y="66.5" Width="2.75" />
+    <AssociationLine Name="Articles" Type="NWEEI.Models.Article" FixedToPoint="true">
+      <Path>
+        <Point X="23.5" Y="67.438" />
+        <Point X="20.5" Y="67.438" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ACAQAAAYAACAAABAAAAAAAAAAAAAAAAAgAAAQIAAAAA=</HashCode>
+      <FileName>Repositories\Articles\IArticleRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Articles" />
+    </ShowAsCollectionAssociation>
+  </Interface>
+  <Interface Name="NWEEI.Repositories.IAppUserRepo">
+    <Position X="23.5" Y="82.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AEAAEBACAAAAAEAEAAASAAAAIAAAAACAAAAgQAgAAIA=</HashCode>
+      <FileName>Repositories\AppUser\IAppUserRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="AppUsers" />
+    </ShowAsCollectionAssociation>
+  </Interface>
+  <Interface Name="NWEEI.Repositories.ITagRepo">
+    <Position X="23.5" Y="73.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAEAAAAAAACAAAgAAEABAAAACAAAAAA=</HashCode>
+      <FileName>Repositories\Tags\ITagRepo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Tags" />
+    </ShowAsCollectionAssociation>
+  </Interface>
+  <Interface Name="NWEEI.Data.IRepository&lt;T&gt;" Collapsed="true">
+    <Position X="43.25" Y="2.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAMAACAAAAABAAAAAAAAAAIEAAAAAAAAAIAAAAAI=</HashCode>
+      <FileName>Data\IRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

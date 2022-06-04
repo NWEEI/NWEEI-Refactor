@@ -1,0 +1,34 @@
+﻿@model NWEEI.Models.ContactForm
+
+@{
+    ViewData["Title"] = "Contact Us";
+}
+<h1 class="text-center">Contact Us</h1>
+<div class="container">
+    <form asp-action="ContactUs" asp-controller="About" method="post">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="form-row">
+            <div class="col">
+                <input asp-for="Name" type="text" class="form-control" placeholder="Name" />
+                <span asp-validation-for="Name" class="invalid"></span>
+            </div>
+            <div class="col">
+                <input asp-for="Email" type="email" class="form-control" placeholder="Email" class="form-control"/>
+                <span asp-validation-for="Email" class="invalid"></span>
+            </div> 
+        </div>
+        <hr />
+        <div class="form-row">
+            <div class="col">
+                <textarea asp-for="Message" type="text" class="form-control" placeholder="Message" rows="5"></textarea>
+                <span asp-validation-for="Message" class="invalid"></span> 
+            </div>
+        </div>
+        <button data-btn-form-send></button>
+    </form>
+</div>
+
+@section scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

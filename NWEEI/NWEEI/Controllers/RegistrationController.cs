@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using NETCore.MailKit.Core;
 using NWEEI.Models;
 using NWEEI.Repositories;
 
@@ -16,12 +15,14 @@ namespace NWEEI.Controllers
         private IRegistrationRepo repo;
         private readonly IPaymentOptionRepo payRepo;
         private readonly ITrainingProgramRepo trainingRepo;
+        private IEmailService _emailService;
 
-        public RegistrationController(IRegistrationRepo r, IPaymentOptionRepo p, ITrainingProgramRepo t)
+        public RegistrationController(IRegistrationRepo r, IPaymentOptionRepo p, ITrainingProgramRepo t, IEmailService e)
         {
             repo = r;
             payRepo = p;
             trainingRepo = t;
+            _emailService = e;
         }
 
         // GET: Registration
@@ -84,14 +85,17 @@ namespace NWEEI.Controllers
 
             registration.DateSubmitted = DateTime.Now;
             repo.AddRegistration(registration);
+
+            repo.SendRegistrationConfirmation(_emailService, registration, "allisonjm@my.lanecc.edu", "Josh");
+
             return RedirectToAction("CreateConfirmation", registration);
         }
 
         public IActionResult CreateConfirmation(Registration registration)
         {
             ViewBag.Current = "ContactOption";
-            
-            return View( registration );
+
+            return View(registration);
         }
 
         // GET: Registration/Edit/5

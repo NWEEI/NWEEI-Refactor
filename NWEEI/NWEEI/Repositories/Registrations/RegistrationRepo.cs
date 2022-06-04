@@ -11,7 +11,7 @@ namespace NWEEI.Repositories
     {
         private NWEEIContext context;
 
-        public RegistrationRepo( NWEEIContext c ) => context = c;
+        public RegistrationRepo(NWEEIContext c) => context = c;
 
         public IQueryable<Registration> Registrations => context.Registrations;
 
@@ -20,6 +20,25 @@ namespace NWEEI.Repositories
         {
             context.Registrations.Add(registration);
             context.SaveChanges();
+        }
+
+        //send registration confirmation email notification
+        public void SendRegistrationConfirmation(IEmailService emailService, Registration registration, string toAddress, string toAddressAlias)
+        {
+            EmailMessage message = new();
+            message.ToAddresses.Add(new EmailAddress(toAddressAlias, toAddress));
+            message.Subject = "Someone has registered for a training program!";
+            message.Content =
+                "Training Program: ".PadRight(30) + registration.TrainingProgram.PadRight(70) + "\n" +
+                "Name: ".PadRight(30) + (registration.FirstName + " " + registration.LastName).PadRight(70) + "\n" +
+                "Email: ".PadRight(30) + registration.Email.PadRight(70) + "\n";
+            try
+            {
+                emailService.Send(message);
+            } catch
+            {
+                throw;
+            }
         }
 
         // get a list of all registrations
@@ -48,6 +67,7 @@ namespace NWEEI.Repositories
             context.SaveChanges();
         }
 
+        
         // check to see if a registration exists
         public bool RegistrationExists( int id ) => Registrations.Any( e => e.RegistrationID == id );
     }
