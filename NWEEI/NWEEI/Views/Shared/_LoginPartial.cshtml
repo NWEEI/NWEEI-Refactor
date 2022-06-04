@@ -5,20 +5,16 @@
 <div class="navigation bg-dark">
     @if (SignInManager.IsSignedIn(User))
     {
-        @if (User.IsInRole("Editor") || User.IsInRole("Editor"))
-        {
-            <span class="nav-item">
-                <a class="nav-link text-light bg-dark btn btn-outline-primary" asp-controller="Article" asp-action="Index">Manage Articles</a>
-            </span>
-        }
+        <span class="nav-item">
+            <a class="nav-link text-light bg-dark btn btn-outline-primary" asp-controller="Home" asp-action="Dashboard">Dashboard</a>
+        </span>
         @if (User.IsInRole("Admin"))
         {
-            <span class="nav-item">
-                <a class="nav-link text-light bg-dark btn btn-outline-primary" asp-controller="Home" asp-action="Dashboard">Dashboard</a>
-            </span>
+            @* <!-- Button - Send Test Email -->
             <span class="nav-item">
                 <a class="nav-link text-light bg-dark btn btn-outline-primary" asp-controller="Mail" asp-action="SMTPTest">Send Test Email</a>
-            </span>
+            </span> 
+            *@
         }
         <span class="navbar-text">
             <a class="nav-link text-light bg-dark btn btn-outline-primary" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Edit Profile</a>
