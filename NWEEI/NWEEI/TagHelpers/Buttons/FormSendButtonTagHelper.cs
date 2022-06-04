@@ -2,8 +2,8 @@
 
 namespace NWEEI.TagHelpers
 {
-    [HtmlTargetElement("button", Attributes = "data-btn-form-create")]
-    public class FormCreateButtonTagHelper : TagHelper
+    [HtmlTargetElement("button", Attributes = "data-btn-form-send")]
+    public class FormSendButtonTagHelper : TagHelper
     {
         //  Note:   This tag hlper will only work on "button" tags
         //              It will also only work in forms, and this button acts as form submission.
@@ -14,14 +14,14 @@ namespace NWEEI.TagHelpers
             output.SetRawPreContentElement(
                 "<table class=\"form-group mb-2\">\n" +
                     "\t<tr>\n" +
-                        "\t\t<td>\n" +
-                            "\t\t\t<i class=\"fa fa-circle-plus fa-xl\"></i> \n"
+                        "\t\t<td>\n"
             );
             output.Content.Clear();
-            output.Content.Append("\tCreate");
-            output.BuildTag("button", "btn btn-outline-success pb-0");
+            output.Content.Append("\tSend");
+            output.BuildTag("button", "btn btn-primary pb-0");
             output.Attributes.SetAttribute("type", "submit");
             output.SetRawPostContentElement(
+                            "\t\t\t<i class=\"fa fa-paper-plane fa-xl\"></i> \n" +
                         "\t\t</td>\n" +
                     "\t</tr>" +
                 "</table>"

@@ -33,9 +33,7 @@ namespace NWEEI.Repositories
             List<Organization> orgs = organizations.OrderBy(o => o.Name).ToList();
             return orgs;
         }
-
-        public List<Tag> GetAllTags( ) => tags.ToList( );
-
+        
         public List<Organization> GetOrganizationsByTagID(int tagID) => throw new NotImplementedException();
 
         // get a specific organization by its id

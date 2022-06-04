@@ -1,9 +1,6 @@
-﻿using System.Linq;
-using System.Net.Mail;
+﻿using System.Net.Mail;
 using System.Net;
-using MimeKit;
 using Microsoft.Extensions.Options;
-using System.Threading.Tasks;
 
 namespace NWEEI.Models
 {
@@ -36,6 +33,7 @@ namespace NWEEI.Models
             //set the subject & content
             mailMessage.Subject = msg.Subject;
             mailMessage.Body = msg.Content;
+            mailMessage.IsBodyHtml = true;
 
             //send the message 
             SmtpClient smtp = new(_mailSettings.Host);
