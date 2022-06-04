@@ -105,11 +105,13 @@ namespace NWEEI.Controllers
 
         public async Task<IActionResult> CustomTraining()
         {
+            ViewBag.Current = "Professional Development";
             return View(repo.GetCustomTrainingOptions());
         }
 
         public async Task<IActionResult> CustomTrainingOption(int id)
         {
+            ViewBag.Current = "Professional Development";
             return View(repo.GetCustomTrainingOptionByID(id));
         }
 
