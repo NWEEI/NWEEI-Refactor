@@ -39,7 +39,7 @@ namespace NWEEI.Repositories
         public List<Article> GetAllArticles()
         {
             List<Article> articles = context.Articles
-                .OrderBy(a => a.DateCreated)
+                .OrderByDescending(a => a.DateCreated)
                 .Include(a => a.Author)
                 .Include(a => a.Category)
                 .ToList();
@@ -52,7 +52,7 @@ namespace NWEEI.Repositories
         {
             List<Article> articles = context.Articles
                 .Where(a => a.IsPublished == true)
-                .OrderBy(a => a.DateCreated)
+                .OrderByDescending(a => a.DateCreated)
                 .Include(a => a.Author)
                 .Include(a => a.Category)
                 .ToList();
@@ -64,7 +64,7 @@ namespace NWEEI.Repositories
         public List<Article> GetArticlesByCategoryID(int categoryID)
         {
             List<Article> articles = context.Articles
-                .OrderBy(a => a.DateCreated)
+                .OrderByDescending(a => a.DateCreated)
                 .Include(a => a.Author)
                 .Include(a => a.Category)
                 .Where(a => a.Category.CategoryID == categoryID)
@@ -78,7 +78,7 @@ namespace NWEEI.Repositories
         {
             List<Article> articles = context.Articles
                 .Where(a => a.IsPublished == true)
-                .OrderBy(a => a.DateCreated)
+                .OrderByDescending(a => a.DateCreated)
                 .Include(a => a.Author)
                 .Include(a => a.Category)
                 .Where(a => a.Category.CategoryID == categoryID)
