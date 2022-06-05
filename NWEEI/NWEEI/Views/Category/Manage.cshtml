@@ -30,7 +30,8 @@
                     <td class="text-center">
                         @Html.DisplayFor(modelItem => item.Articles.Count)
                         &nbsp;&nbsp;|&nbsp;&nbsp;
-                        <a asp-controller="Article" asp-action="ByCategory" asp-route-categoryID="@item.CategoryID">View Articles</a>
+                        <a asp-controller="Article" asp-action="Manage"
+                           asp-route-categoryID="@item.CategoryID">View Articles</a>
                     </td>
                     <td class="text-center">
                         <a asp-action="Edit" asp-route-id="@item.CategoryID">Edit</a>
