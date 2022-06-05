@@ -21,8 +21,16 @@ namespace NWEEI.Controllers
             repo = r;
         }
 
-        // GET: Category
+        // gets all categories to display them to end users
         public async Task<IActionResult> Index()
+        {
+            ViewBag.Current = "Resources";
+            return View(repo.Categories.ToList());
+        }
+
+        // gets all categories for admin management
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Manage()
         {
             ViewBag.Current = "Resources";
             return View(repo.Categories.ToList());
@@ -65,7 +73,7 @@ namespace NWEEI.Controllers
             if (ModelState.IsValid)
             {
                 repo.AddCategory(category);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Manage));
             }
             return View(category);
         }
@@ -117,7 +125,7 @@ namespace NWEEI.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Manage));
             }
             return View(category);
         }
@@ -149,7 +157,7 @@ namespace NWEEI.Controllers
         {
             Category category = repo.GetCategoryByID((int)id);
             repo.DeleteCategory(category);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Manage));
         }
 
         private bool CategoryExists(int id)

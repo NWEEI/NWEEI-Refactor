@@ -1,67 +1,22 @@
-@*@model IEnumerable<NWEEI.Models.Category>*@
 @model List<Category>
 
 @{
-    ViewData["Title"] = "Manage Categories";
+    ViewData["Title"] = "Article Categories";
 }
 
-@if (User.IsInRole("Admin"))
-{
-    <div class="container">
-        <div>
-            <div class="content-header">
-                <h1>Manage Categories</h1>
-
-                <!-- admin edit button -->
-                <span class="admin-action-button btn btn-primary"><a asp-action="Create">Add Category</a></span>
-            </div>
-
-        </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th class="title">Category Name</th>
-                    <th class="text-center">Number of Articles</th>
-                    <th class="text-center">Manage</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td class="title">@Html.DisplayFor(modelItem => item.Name)</td>
-                        <td class="text-center">
-                            @Html.DisplayFor(modelItem => item.Articles.Count)
-                            &nbsp;&nbsp;|&nbsp;&nbsp;
-                            <a asp-controller="Article" asp-action="ByCategory" asp-route-categoryID="@item.CategoryID">View Articles</a>
-                        </td>
-                        <td class="text-center">
-                            <a asp-action="Edit" asp-route-id="@item.CategoryID">Edit</a>
-                            &nbsp;&nbsp;|&nbsp;&nbsp;
-                            <a asp-action="Delete" asp-route-id="@item.CategoryID">Delete</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-}
-else
-{
-    <h1 class="pb-3">Article Categories</h1>
-    <div class="container tiles">
-        @foreach (var item in Model)
+<h1 class="pb-3">Article Categories</h1>
+<div class="container tiles">
+    @foreach (var item in Model)
+    {
+        @if (item.Articles.Where(a => a.IsPublished == true).ToList().Count > 0)
         {
-            @if (item.Articles.Where(a => a.IsPublished == true).ToList().Count > 0)
-            {
-                <a class="tile-link" asp-controller="Article" asp-action="ByCategory" asp-route-categoryID="@item.CategoryID">
-                    <div class="tile-container">
-                        <span class="tile-content">
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </span>
-                    </div>
-                </a>
-            }
+            <a class="tile-link" asp-controller="Article" asp-action="ByCategory" asp-route-categoryID="@item.CategoryID">
+                <div class="tile-container">
+                    <span class="tile-content">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </span>
+                </div>
+            </a>
         }
-    </div>
-}
+    }
+</div>
