@@ -103,8 +103,7 @@ namespace NWEEI_Tests
                 DateCreated = DateTime.Now,
                 Author = u1,
                 Category = c2,
-                IsPublished = true,
-                PublishDate = DateTime.Now,
+                IsPublished = false,
                 Featured = true,
                 Views = 100
             };
@@ -139,7 +138,50 @@ namespace NWEEI_Tests
         }
 
         [Test]
-        // tests getting all articles
+        // tests getting all published articles (end-user)
+        public void TestIndex()
+        {
+            // add all articles to repo
+            testRepo.AddArticle(a1);
+            testRepo.AddArticle(a2);
+            testRepo.AddArticle(a3);
+            testRepo.AddArticle(a4);
+
+            // get list of published articles from Index method
+            var viewResult = (ViewResult)controller.Index().Result;
+            articles = (List<Article>)viewResult.ViewData.Model;
+
+            // check values
+            Assert.AreEqual(3, articles.Count);
+            Assert.AreEqual(a1.Title, articles[0].Title);
+            Assert.AreEqual(a2.Title, articles[1].Title);
+            Assert.AreEqual(a3.Title, articles[2].Title);
+        }
+
+        [Test]
+        // tests getting all published articles in a category (end-user)
+        public void TestByCategory()
+        {
+            // add all articles to repo
+            testRepo.AddArticle(a1);
+            testRepo.AddArticle(a2);
+            testRepo.AddArticle(a3);
+            testRepo.AddArticle(a4);
+
+            // get categoryID of c2
+            Category c = categoryRepo.Categories
+                .Where(c => c.Name == c2.Name).FirstOrDefault();
+
+            // get list of articles from Manage method
+            var viewResult = (ViewResult)controller.ByCategory(c.CategoryID).Result;
+            articles = (List<Article>)viewResult.ViewData.Model;
+
+            // check values
+            Assert.AreEqual(1, articles.Count);
+        }
+
+        [Test]
+        // tests getting all articles (admin)
         public void TestManage()
         {
             // add all articles to repo
@@ -158,6 +200,28 @@ namespace NWEEI_Tests
             Assert.AreEqual(a2.Title, articles[1].Title);
             Assert.AreEqual(a3.Title, articles[2].Title);
             Assert.AreEqual(a4.Title, articles[3].Title);
+        }
+
+        [Test]
+        // tests getting all articles in a category (admin)
+        public void TestManageByCategory()
+        {
+            // add all articles to repo
+            testRepo.AddArticle(a1);
+            testRepo.AddArticle(a2);
+            testRepo.AddArticle(a3);
+            testRepo.AddArticle(a4);
+
+            // get categoryID of c1
+            Category c = categoryRepo.Categories
+                .Where(c => c.Name == c1.Name).FirstOrDefault();
+
+            // get list of articles from Manage method
+            var viewResult = (ViewResult)controller.Manage(c.CategoryID).Result;
+            articles = (List<Article>)viewResult.ViewData.Model;
+
+            // check values
+            Assert.AreEqual(2, articles.Count);
         }
 
         [Test]
