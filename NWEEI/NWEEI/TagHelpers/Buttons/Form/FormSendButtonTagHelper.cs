@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using MimeKit.Text;
-using NWEEI.TagHelpers;
 
 namespace NWEEI.TagHelpers
 {
     [HtmlTargetElement("button", Attributes = "data-btn-form-send")]
     public class FormSend2ButtonTagHelper: TagHelper
     {
-        private FormButtonTagHelper formButton = new FormButtonTagHelper()
+        private ButtonTagHelper button = new ButtonTagHelper()
         {
             ButtonIcon = "paper-plane",
             ButtonText = "Send",
@@ -28,16 +27,16 @@ namespace NWEEI.TagHelpers
                 "</table>"
         };
 
-        /// <summary>This uses the 'formButton' above to build a form button tag helper.</summary>
+        /// <summary>This uses the 'button' above to build a form button tag helper.</summary>
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.SetRawPreContentElement(formButton.RawPreContentElement);
+            output.SetRawPreContentElement(button.RawPreContentElement);
             output.Content.Clear();
-            output.Content.Append(formButton.ButtonText);
-            output.BuildTag(formButton.HTMLTag, formButton.HTMLClassList);
-            foreach (System.Collections.Generic.KeyValuePair<string, string> attribute in formButton.Attributes)
+            output.Content.Append(button.ButtonText);
+            output.BuildTag(button.HTMLTag, button.HTMLClassList);
+            foreach (System.Collections.Generic.KeyValuePair<string, string> attribute in button.Attributes)
                 output.Attributes.SetAttribute(attribute.Key, attribute.Value);
-            output.SetRawPostContentElement(formButton.RawPostContentElement);
+            output.SetRawPostContentElement(button.RawPostContentElement);
         }
     }
 }

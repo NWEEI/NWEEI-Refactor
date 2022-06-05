@@ -94,7 +94,7 @@ namespace NWEEI_Tests
             PaymentOptionTestRepo paymentOptionTestRepo = new( );
             TrainingProgramTestRepo trainingProgramTestRepo = new( );
 
-            registrationController = new( registrationTestRepo, paymentOptionTestRepo, trainingProgramTestRepo );
+            //registrationController = new( registrationTestRepo, paymentOptionTestRepo, trainingProgramTestRepo );
 
             // setup registration lists
             registrations = new( );

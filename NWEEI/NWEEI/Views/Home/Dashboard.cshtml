@@ -7,6 +7,20 @@
 <h1 class="text-center">Site Dashboard</h1>
 <h5 class="text-muted text-center">Manage sections of the website from here.</h5>
 <div class="container">
+    <div class="row justify-content-around">
+        <a class="dashboard-tile col-auto" asp-controller="Category" asp-action="Index">
+            <div class="text-truncate">Categories</div>
+            <i class="fa-solid fa-table-columns fa-3x"></i><br />
+        </a>
+        <a class="dashboard-tile col-auto" asp-controller="Organization" asp-action="Index">
+            <div class="text-truncate">Organizations</div>
+            <i class="fa-solid fa-building fa-3x"></i><br />
+        </a>
+        <a class="dashboard-tile col-auto" asp-controller="FAQ" asp-action="Manage">
+            <div class="text-truncate">FAQs</div>
+            <i class="fa-solid fa-question fa-3x"></i><br />
+        </a>
+    </div>
     @if (User.IsInRole("Admin"))
     {
         <div class="row justify-content-around">
@@ -23,20 +37,18 @@
                 <i class="fa-solid fa-newspaper fa-3x"></i><br />
             </a>
         </div>
+        <div class="row justify-content-around">
+            <a class="dashboard-tile col-auto" asp-controller="TrainingProgram" asp-action="Index">
+                    <div class="text-wrap">Training</div>
+                    <i class="fa-solid fa-clipboard-list fa-3x"></i><br />
+            </a>
+            <a class="dashboard-tile col-auto" asp-controller="PaymentOptions" asp-action="Index">
+                <div class="text-truncate">Payment Options</div>
+                <i class="fa-solid fa-credit-card fa-3x"></i><br />
+            </a>
+            <!-- Room for one more -->
+
+        </div>
     }
-    <div class="row justify-content-around">
-        <a class="dashboard-tile col-auto" asp-controller="Category" asp-action="Index">
-            <div class="text-truncate">Categories</div>
-            <i class="fa-solid fa-table-columns fa-3x"></i><br />
-        </a>
-        <a class="dashboard-tile col-auto" asp-controller="Organization" asp-action="Index">
-            <div class="text-truncate">Organizations</div>
-            <i class="fa-solid fa-building fa-3x"></i><br />
-        </a>
-        <a class="dashboard-tile col-auto" asp-controller="FAQ" asp-action="Manage">
-            <div class="text-truncate">FAQs</div>
-            <i class="fa-solid fa-question fa-3x"></i><br />
-        </a>
-    </div>
 </div>
 

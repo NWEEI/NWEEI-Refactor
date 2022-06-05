@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace NWEEI.TagHelpers
 {
-    public class FormButtonTagHelper: TagHelper
+    public class ButtonTagHelper: TagHelper
     {
-        public FormButtonTagHelper() { }
+        public ButtonTagHelper() { }
         public string ButtonIcon { get; set; } // a string for a font-awesome icon. Example: "paper-plane" for "<i class="fa fa-paper-plane fa-xl">"
         public string ButtonText { get; set; } // what the button text says. Example: "Send"
         public string RawPreContentElement { get; set; } //the HTML that always comes before this form button

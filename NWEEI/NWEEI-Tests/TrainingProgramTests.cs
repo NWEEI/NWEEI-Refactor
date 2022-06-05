@@ -12,7 +12,7 @@ namespace NWEEI_Tests
 {
     public class TrainingProgramTests
     {
-        TrainingProgramsController trainingProgramController;
+        TrainingProgramController trainingProgramController;
         TrainingProgramTestRepo trainingProgramTestRepo;
         List<TrainingProgram> trainingPrograms, resultTrainingPrograms;
         TrainingProgram ControlTrainingProgram, ResultTrainingProgram;

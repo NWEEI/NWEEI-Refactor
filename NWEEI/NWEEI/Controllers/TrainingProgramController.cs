@@ -8,17 +8,17 @@ using NWEEI.Repositories;
 
 namespace NWEEI.Controllers
 {
-    public class TrainingProgramsController : Controller
+    public class TrainingProgramController : Controller
     {
         private ITrainingProgramRepo repo;
 
-        public TrainingProgramsController(ITrainingProgramRepo r) => repo = r;
+        public TrainingProgramController(ITrainingProgramRepo r) => repo = r;
 
-        // GET: TrainingPrograms
+        // GET: TrainingProgram
         [Authorize(Roles = "Admin")]
         public IActionResult Index() => View(repo.GetAllTrainingPrograms());
 
-        // GET: TrainingPrograms/Details/5
+        // GET: TrainingProgram/Details/5
         [Authorize(Roles = "Admin")]
         public IActionResult Details(int? id)
         {
@@ -27,7 +27,7 @@ namespace NWEEI.Controllers
             return trainingProgram is null ? NotFound() : View(trainingProgram);
         }
 
-        // GET: TrainingPrograms/Create
+        // GET: TrainingProgram/Create
         [Authorize(Roles = "Admin")]
         public IActionResult Create() => View();
 
@@ -44,7 +44,7 @@ namespace NWEEI.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: TrainingPrograms/Edit/5
+        // GET: TrainingProgram/Edit/5
         [Authorize(Roles = "Admin")]
         public IActionResult Edit(int? id)
         {
@@ -53,7 +53,7 @@ namespace NWEEI.Controllers
             return trainingProgram is null ? NotFound() : View(trainingProgram);
         }
 
-        // POST: TrainingPrograms/Edit/5
+        // POST: TrainingProgram/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -77,7 +77,7 @@ namespace NWEEI.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: TrainingPrograms/Delete/5
+        // GET: TrainingProgram/Delete/5
         [Authorize(Roles = "Admin")]
         public IActionResult Delete(int? id)
         {
