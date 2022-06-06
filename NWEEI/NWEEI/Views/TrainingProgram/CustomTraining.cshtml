@@ -23,8 +23,8 @@
         facilities, remote locations and virtually online.
     </p>
 
-    <p class="text-center pt-2 font-weight-bold">
-        <a asp-controller="About" asp-for="Contact">
+    <p class="text-center pt-2 font-weight-bold mb-0">
+        <a asp-controller="About" asp-action="ContactUs">
             Contact NWEEI to build your custom training program.
         </a>
     </p>
@@ -61,10 +61,7 @@
     <!-- buttons -->
     <div class="container w-75">
         <div class="button-group row">
-            <a href="tel:5415567724" class="btn btn-primary">Call Now</a>
-
-            <!-- TODO: link to email -->
-            <a href="#" class="btn btn-primary">Email Us</a>
+            <a class="btn btn-primary" asp-controller="About" asp-action="ContactUs">Contact Us</a>
         </div>
     </div>
 </div>

@@ -93,10 +93,16 @@ body {
 }
 
 
+.sticky-dash-icon {
+    position: fixed;
+    font-size: 2.5em;
+    bottom: 0;
+    right: 0;
+    padding: 2%;
+}
 
 
 /* -------------------------------------------------- */
-
 /* HEADER */
 .header-content {
     position: relative;
@@ -223,7 +229,7 @@ hr.header-divider {
 /* navbar */
 
 .navigation {
-    background-color: #44A5F9; /* NWEEI Light Blue */
+    background-color: #6cb3ea; /* NWEEI Light Blue */
     color: white;
     text-align: center;
     display: flex;
@@ -379,13 +385,22 @@ hr.header-divider {
             color: mediumpurple;
         }
 
+    /* to be used sparingly for high-priority items */
+    .dark-block-link {
+        color: #FEB913 !important;
+    }
+
+        .dark-block-link:hover {
+            color: #ffca4b !important;
+        }
+
     .dark-block :is(h4, h6) {
         color: white;
     }
 
 .light-block {
     background-color: #fedd90; /* NWEEI Light Yellow */
-    color: #03529b; /* NWEEI Very-Dark Blue */
+    color: #2c4592;
     width: 100vw;
     position: relative;
     left: calc(-50vw + 50%);
@@ -834,4 +849,21 @@ ul.training-details {
 .search-preview > * {
     color: grey !important;
     font-size: 0.8em !important;
+}
+
+
+/* -------------------------------------------------- */
+
+
+/* GENERAL */
+
+.divider {
+    height: inherit;
+}
+
+div.divider > hr {
+    width: 1px;
+    height: 95%;
+    background-image: linear-gradient(to right, #03529b, #4984ba, #03529b);
+    margin: 0 auto;
 }
