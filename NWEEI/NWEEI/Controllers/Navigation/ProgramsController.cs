@@ -42,6 +42,13 @@ namespace NWEEI.Controllers.Navigation
             return View();
         }
 
+        // get professional development > building operator certification
+        public async Task<IActionResult> BOC()
+        {
+            ViewBag.Current = "Professional Development";
+            return View();
+        }
+
         /*
         // not a currently valid degree
         // get degrees > energy management technician

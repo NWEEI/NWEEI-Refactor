@@ -32,29 +32,29 @@ namespace NWEEI.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.Current = "Resources";
-            return View(repo.Articles.ToList());
+            return View(repo.GetPublishedArticles());
         }
 
-        // get all articles
+        // get all articles for admin management
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Manage()
         {
-            return View(repo.Articles.ToList());
+            return View(repo.GetAllArticles());
         }
 
-        // get all articles in a category
+        // get all articles in a category for admin management
+        [Authorize(Roles = "Admin")]
+        [HttpGet("Article/Manage/{categoryID}")]
+        public async Task<IActionResult> Manage(int categoryID)
+        {
+            return View(repo.GetArticlesByCategoryID(categoryID));
+        }
+
+        // get all published articles in a category to display to end-users
         // GET: Category/Articles/5
         public async Task<IActionResult> ByCategory(int categoryID)
         {
             ViewBag.Current = "Resources";
-
-            // if current user is admin return all articles
-            if (User.IsInRole("Admin"))
-            {
-                return View(repo.GetArticlesByCategoryID(categoryID));
-            }
-
-            // otherwise only return published articles
             return View(repo.GetPublishedArticlesByCategoryID(categoryID));
         }
 

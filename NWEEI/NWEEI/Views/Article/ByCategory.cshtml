@@ -12,89 +12,42 @@
     </a>
 </div>
 
-@if (User.IsInRole("Admin"))
-{
-    <div class="content-header">
-        <h1>@Model[0].Category.Name Articles</h1>
+<h1>@Model[0].Category.Name Articles</h1>
 
-        <span class="admin-action-button btn btn-primary">
-            <a asp-action="Create">Add Article</a>
-        </span>
-    </div>
+<div class="articles container">
+    @foreach (var article in Model)
+    {
+        <a asp-action="Details" asp-route-id="@article.ArticleID">
+            <div class="article-tile-container">
+                <div class="article-tile-content">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th class="title">Article Title</th>
-                <th class="text-center">Date Created</th>
-                <th class="text-center">Published</th>
-                <th class="text-center">Featured</th>
-                <th class="text-center">Views</th>
-                <th class="text-center">Manage</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td class="title">
-                        <a asp-action="Details" asp-route-id="@item.ArticleID">
-                            @Html.DisplayFor(modelItem => item.Title)
-                        </a>
-                    </td>
-                    <td class="text-center">@item.DateCreated.ToShortDateString()</td>
-                    <td class="text-center">@Html.DisplayFor(modelItem => item.IsPublished)</td>
-                    <td class="text-center">@Html.DisplayFor(modelItem => item.Featured)</td>
-                    <td class="text-center">@Html.DisplayFor(modelItem => item.Views)</td>
-                    <td class="text-center">
-                        <a asp-action="Edit" asp-route-id="@item.ArticleID">Edit</a>
-                        &nbsp;&nbsp;|&nbsp;&nbsp;
-                        <a asp-action="Delete" asp-route-id="@item.ArticleID">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <h1>@Model[0].Category.Name Articles</h1>
-
-    <div class="articles container">
-        @foreach (var article in Model)
-        {
-            <a asp-action="Details" asp-route-id="@article.ArticleID">
-                <div class="article-tile-container">
-                    <div class="article-tile-content">
-
-                        <div class="row">
-                            <div class="col-10">
-                                <!-- article title -->
-                                <div class="article-tile-title">@article.Title</div>
-                            </div>
-
-                            <div class="col-2">
-                                <!-- article date -->
-                                <div class="article-tile-date">@article.PublishDate.ToShortDateString()</div>
-                            </div>
+                    <div class="row">
+                        <div class="col-10">
+                            <!-- article title -->
+                            <div class="article-tile-title">@article.Title</div>
                         </div>
 
-                        <!-- article body preview -->
-                        <div class="article-tile-preview">
-                            @if (article.Body.Length < 150)
-                            {
-                                @Regex.Replace(article.Body, "<.*?>", string.Empty)
-                            }
-                            else
-                            {
-                                @Regex.Replace(article.Body.Substring(0, 150), "<.*?>", string.Empty)
-                                @Html.Raw("<span>...</span>")
-                            }
+                        <div class="col-2">
+                            <!-- article date -->
+                            <div class="article-tile-date">@article.PublishDate.ToShortDateString()</div>
                         </div>
-
                     </div>
+
+                    <!-- article body preview -->
+                    <div class="article-tile-preview">
+                        @if (article.Body.Length < 150)
+                        {
+                            @Regex.Replace(article.Body, "<.*?>", string.Empty)
+                        }
+                        else
+                        {
+                            @Regex.Replace(article.Body.Substring(0, 150), "<.*?>", string.Empty)
+                            @Html.Raw("<span>...</span>")
+                        }
+                    </div>
+
                 </div>
-            </a>
-        }
-    </div>
-}
+            </div>
+        </a>
+    }
+</div>

@@ -12,7 +12,7 @@
         <p>This category can't be deleted because there are @Model.Articles.Count articles associated with it. </p>
         <a asp-controller="Article" asp-action="ByCategory" asp-route-categoryID="@Model.CategoryID">View Articles</a>
         <hr />
-        <a asp-action="Index">Back to Categories</a>
+        <a asp-action="Manage">Back to Categories</a>
     </div>
 }
 
@@ -35,7 +35,7 @@ else
         <form asp-action="Delete">
             <input type="hidden" asp-for="CategoryID" />
             <input type="submit" value="Delete" class="btn btn-danger" /> |
-            <a asp-action="Index">Back to Categories</a>
+            <a asp-action="Manage">Back to Categories</a>
         </form>
     </div>
 }

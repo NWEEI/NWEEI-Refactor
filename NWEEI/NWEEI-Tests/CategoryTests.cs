@@ -62,7 +62,7 @@ namespace NWEEI_Tests
         }
 
         [Test]
-        // tests getting all categories
+        // tests getting all categories (end-user)
         public void TestIndex()
         {
             // add all categories to repo
@@ -73,6 +73,28 @@ namespace NWEEI_Tests
 
             // get list of categories from Index method
             var viewResult = (ViewResult)controller.Index().Result;
+            categories = (List<Category>)viewResult.ViewData.Model;
+
+            // check values
+            Assert.AreEqual(4, categories.Count);
+            Assert.AreEqual(categories[0].Name, c1.Name);
+            Assert.AreEqual(categories[1].Name, c2.Name);
+            Assert.AreEqual(categories[2].Name, c3.Name);
+            Assert.AreEqual(categories[3].Name, c4.Name);
+        }
+
+        [Test]
+        // tests getting all categories (admin)
+        public void TestManage()
+        {
+            // add all categories to repo
+            testRepo.AddCategory(c1);
+            testRepo.AddCategory(c2);
+            testRepo.AddCategory(c3);
+            testRepo.AddCategory(c4);
+
+            // get list of categories from Index method
+            var viewResult = (ViewResult)controller.Manage().Result;
             categories = (List<Category>)viewResult.ViewData.Model;
 
             // check values

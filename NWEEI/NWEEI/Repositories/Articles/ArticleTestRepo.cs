@@ -50,7 +50,7 @@ namespace NWEEI.Repositories
         {
             List<Article> articles = Articles
                 .Where(a => a.IsPublished == true)
-                .OrderBy(a => a.DateCreated)
+                .OrderByDescending(a => a.DateCreated)
                 .ToList();
 
             return articles;
@@ -71,7 +71,7 @@ namespace NWEEI.Repositories
         {
             List<Article> articles = Articles
                 .Where(a => a.IsPublished == true)
-                .OrderBy(a => a.DateCreated)
+                .OrderByDescending(a => a.DateCreated)
                 .Where(a => a.Category.CategoryID == categoryID)
                 .ToList();
 

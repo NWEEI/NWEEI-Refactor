@@ -18,7 +18,7 @@
                     <!-- search input and icon -->
                     <div class="search-bar-content">
                         <!-- search input -->
-                        <input asp-for="SearchQuery" class="form-control search-bar" />
+                        <input asp-for="SearchQuery" class="form-control search-bar" placeholder="Search NWEEI..." />
 
                         <!-- icon -->
                         <span class="search-submit">
@@ -37,7 +37,89 @@
 
 <!-- results -->
 <div class="container">
-    @if (Model.HasResults)
+    @if (!Model.HasResults)
+    {
+        <p class="mb-5">
+            Over the years, NWEEI staff has collected a variety of
+            informational resources to connect industry professionals with
+            organizations and provide support along their educational
+            journey. Explore our resources and
+            <a class="font-weight-bold" asp-controller="About" asp-action="ContactUs">
+                contact us
+            </a>
+            if you have any questions.
+        </p>
+
+
+        <!-- resource tiles -->
+        <div class="light-block">
+            <div class="container">
+                <div class="content-section">
+                    <h5 class="text-center mb-4">Explore NWEEI Resources</h5>
+
+                    <!-- tiles -->
+                    <div class="container tiles" style="width: 65%;">
+
+                        <!-- nweei news -->
+                        <a class="tile-link" asp-controller="Resources" asp-action="NWEEINews">
+                            <div class="tile-container">
+                                <span class="tile-content">
+                                    NWEEI News
+                                </span>
+                            </div>
+                        </a>
+
+                        <!-- industry news -->
+                        <a class="tile-link" asp-controller="Resources" asp-action="IndustryNews">
+                            <div class="tile-container">
+                                <span class="tile-content">
+                                    Industry News
+                                </span>
+                            </div>
+                        </a>
+
+                        <!-- career map -->
+                        <a class="tile-link" asp-controller="Resources" asp-action="CareerMap">
+                            <div class="tile-container">
+                                <span class="tile-content">
+                                    Green Buildings Career Map
+                                </span>
+                            </div>
+                        </a>
+
+                        <!-- industry associations -->
+                        <a class="tile-link" asp-controller="Resources" asp-action="IndustryAssociations">
+                            <div class="tile-container">
+                                <span class="tile-content">
+                                    Industry Associations
+                                </span>
+                            </div>
+                        </a>
+
+                        <!-- articles -->
+                        <a class="tile-link" asp-controller="Category" asp-action="Index">
+                            <div class="tile-container">
+                                <span class="tile-content">
+                                    Articles
+                                </span>
+                            </div>
+                        </a>
+
+                        <!-- FAQs -->
+                        <a class="tile-link" asp-controller="FAQ" asp-action="Index">
+                            <div class="tile-container">
+                                <span class="tile-content">
+                                    FAQs
+                                </span>
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
     {
         <div>
             <h6>

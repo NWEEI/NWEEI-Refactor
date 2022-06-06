@@ -10,7 +10,7 @@
 <div class="articles container">
     @foreach (var article in Model)
     {
-        <a controller="Article" asp-action="Details" asp-route-id="@article.ArticleID">
+        <a asp-controller="Article" asp-action="Details" asp-route-id="@article.ArticleID">
             <div class="article-tile-container">
                 <div class="article-tile-content">
 

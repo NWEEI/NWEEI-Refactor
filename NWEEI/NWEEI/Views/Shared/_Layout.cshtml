@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="~/css/org.css" />
     <link rel="stylesheet" href="~/css/article.css" />
     <link rel="stylesheet" href="~/css/accordion.css" />
+    <link rel="stylesheet" href="~/css/program.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> @*icons*@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> @*icons*@
 </head>
@@ -162,12 +163,12 @@
                 else if (ViewBag.Current == "Professional Development")
                 {
                     <span>
-                        <a class="text-dark" asp-controller="Programs" asp-action="Index">
-                            Building Operators Certification
+                        <a class="text-dark" asp-controller="Programs" asp-action="BOC">
+                            Building Operator Certification
                         </a>
                     </span>
                     <span>
-                        <a class="text-dark" asp-controller="Programs" asp-action="CustomTraining">
+                        <a class="text-dark" asp-controller="TrainingPrograms" asp-action="CustomTraining">
                             Custom Training
                         </a>
                     </span>
@@ -184,11 +185,16 @@
                             Industry News
                         </a>
                     </span>
+
+                    /*
+                    // not currently active
                     <span>
                         <a class="text-dark" asp-controller="Resources" asp-action="Index">
                             Jobs
                         </a>
                     </span>
+                    */
+
                     <span>
                         <a class="text-dark" asp-controller="Resources" asp-action="CareerMap">
                             Career Map
@@ -225,6 +231,17 @@
         </div>
     </div>
     <!-- END PAGE CONTENT CONTAINER -->
+
+    <!-- sticky dashboard button -->
+    <div class="sticky-dash-icon">
+        <a asp-controller="Home" asp-action="Dashboard" style="color: #6cb3ea;">
+            <i class="fa-solid fa-user-gear"></i>
+            @*<i class="fa-solid fa-user-pen"></i>*@
+            @*<i class="fa-regular fa-wrench"></i>*@
+            @*<i class="fa-solid fa-screwdriver-wrench"></i>*@
+        </a>
+    </div>
+
     <!-- FOOTER -->
     <footer class="border-top footer text-muted bg-dark fixed-bottom">
         <div class="container">
