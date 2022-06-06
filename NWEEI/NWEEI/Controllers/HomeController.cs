@@ -25,7 +25,7 @@ namespace NWEEI.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Editor")]
         public IActionResult Dashboard()
         {
             return View();

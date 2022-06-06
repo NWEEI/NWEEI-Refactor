@@ -4,33 +4,42 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
+<a asp-action="Dashboard" asp-controller="Home" data-btn-dashboard></a>
+<h1 class="text-center">Payment Options</h1>
+<p class="d-flex justify-content-center">
+    <a asp-action="Create" data-btn-create>Add New Payment Option</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Option)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Option)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.PaymentOptionID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PaymentOptionID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PaymentOptionID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="row justify-content-center">
+    <div class="col-auto"> 
+        <table data-index-table> 
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Option)
+                    </th>
+                    <th class="text-center">Details</th>
+                    <th class="text-center">Edit</th>
+                    <th class="text-center">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+        @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Option)
+                    </td>
+                    <td> 
+                        <a asp-action="Details" asp-route-id="@item.PaymentOptionID" data-btn-details></a>
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.PaymentOptionID" data-btn-edit></a>
+                    </td>
+                    <td> 
+                        <a asp-action="Delete" asp-route-id="@item.PaymentOptionID" data-btn-delete></a>
+                    </td>
+                </tr>
+        }
+            </tbody>
+        </table>
+    </div>
+</div>
