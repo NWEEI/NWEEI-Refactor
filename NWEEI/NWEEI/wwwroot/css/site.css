@@ -93,10 +93,16 @@ body {
 }
 
 
+.sticky-dash-icon {
+    position: fixed;
+    font-size: 2.5em;
+    bottom: 0;
+    right: 0;
+    padding: 2%;
+}
 
 
 /* -------------------------------------------------- */
-
 /* HEADER */
 .header-content {
     position: relative;
@@ -218,7 +224,7 @@ hr.header-divider {
 /* navbar */
 
 .navigation {
-    background-color: #44A5F9; /* NWEEI Light Blue */
+    background-color: #6cb3ea; /* NWEEI Light Blue */
     color: white;
     text-align: center;
     display: flex;
