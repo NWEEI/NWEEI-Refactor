@@ -78,7 +78,6 @@
 
                 </div>
             </div>
-            @*
             <!-- placeholder hero carousel -->
             @if (ViewBag.Current == "Degrees")
             { 
@@ -97,9 +96,10 @@
                 </div>
             }
             else
-            *@
-                <!-- placeholder hero image -->
+            {
                 <img class="hero" src="~/images/lightning_bolts_needles_1024.jpg" />
+            }
+                <!-- placeholder hero image -->
         </div>
 
         <!-- BEGIN NAVIGATION -->
@@ -193,7 +193,7 @@
                         </a>
                     </span>
                     <span>
-                        <a class="text-dark" asp-controller="TrainingPrograms" asp-action="CustomTraining">
+                        <a class="text-dark" asp-controller="TrainingProgram" asp-action="CustomTraining">
                             Custom Training
                         </a>
                     </span>
